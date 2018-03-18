@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D6C35A65-2CF0-4FF7-8A22-3E9E9C9D2549}</ProjectGuid>
+    <ProjectGuid>{F9342C74-81D4-4032-A71D-963D44BDF1C4}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>FinalYearProject.iOS</RootNamespace>
+    <RootNamespace>AgentVI.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>FinalYearProject.iOS</AssemblyName>
+    <AssemblyName>AgentVI.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -119,13 +119,13 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.121934" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\FinalYearProject\FinalYearProject.csproj">
-      <Project>{060E658E-1F65-4436-8787-BDDE0BCE0FEA}</Project>
-      <Name>FinalYearProject</Name>
+    <ProjectReference Include="..\AgentVI\AgentVI.csproj">
+      <Project>{68956F0A-2CAE-4660-82E9-3AB3933582CF}</Project>
+      <Name>AgentVI</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

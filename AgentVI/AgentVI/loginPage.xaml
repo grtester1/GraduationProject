@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AgentVI.loginPage"
+             BackgroundImage="images/background.png">
+    <Grid>
+        <Image Source="images/background.png" Aspect="AspectFill"/>
+        <StackLayout Margin="10,10,10,0" VerticalOptions="Center">
+            <Image Source="images/innovi_logo_update.png" WidthRequest="250" Margin="0,0,0,50"/>
+            <Entry Placeholder="Username" FontAttributes="Italic" Margin="30,0,30,0"/>
+            <Entry Placeholder="Password" FontAttributes="Italic" Margin="30,0,30,0"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10,0,10,0">
+                <Button WidthRequest="100" Margin="0,0,0,0" Text="Login" BackgroundColor="Bisque" 
+                Clicked="loginButton_clicked"/>
+                <Button WidthRequest="160" Margin="10,0,0,0" Text="Forgot Password" 
+                Clicked="forgotPasswordButton_clicked"/>
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</ContentPage>

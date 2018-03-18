@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace FinalYearProject.iOS
+namespace AgentVI.iOS
 {
     public class Application
     {

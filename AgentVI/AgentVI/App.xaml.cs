@@ -5,7 +5,7 @@ using System.Text;
 
 using Xamarin.Forms;
 
-namespace FinalYearProject
+namespace AgentVI
 {
 	public partial class App : Application
 	{
@@ -13,7 +13,9 @@ namespace FinalYearProject
 		{
 			InitializeComponent();
 
-			MainPage = new MainPage();
+            //MainPage = new AgentVI.MainPage();
+            //MainPage = new AgentVI.loginPage();
+            MainPage = new NavigationPage(new AgentVI.loginPage());
 		}
 
 		protected override void OnStart ()

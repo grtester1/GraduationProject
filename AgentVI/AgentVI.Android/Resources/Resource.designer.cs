@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("FinalYearProject.Droid.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("AgentVI.Droid.Resource", IsApplication=true)]
 
-namespace FinalYearProject.Droid
+namespace AgentVI.Droid
 {
 	
 	
@@ -26,7 +26,7 @@ namespace FinalYearProject.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::FinalYearProject.Droid.Resource.Attribute.actionBarSize;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::AgentVI.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation
@@ -3839,8 +3839,8 @@ namespace FinalYearProject.Droid
 			// aapt resource value: 0x7f0b0170
 			public const int Animation_Design_BottomSheetDialog = 2131427696;
 			
-			// aapt resource value: 0x7f0b018b
-			public const int AppCompatDialogStyle = 2131427723;
+			// aapt resource value: 0x7f0b018c
+			public const int AppCompatDialogStyle = 2131427724;
 			
 			// aapt resource value: 0x7f0b00b2
 			public const int Base_AlertDialog_AppCompat = 2131427506;
@@ -4319,8 +4319,8 @@ namespace FinalYearProject.Droid
 			// aapt resource value: 0x7f0b0189
 			public const int MainTheme = 2131427721;
 			
-			// aapt resource value: 0x7f0b018a
-			public const int MainTheme_Base = 2131427722;
+			// aapt resource value: 0x7f0b018b
+			public const int MainTheme_Base = 2131427723;
 			
 			// aapt resource value: 0x7f0b002d
 			public const int Platform_AppCompat = 2131427373;
@@ -5011,6 +5011,9 @@ namespace FinalYearProject.Droid
 			
 			// aapt resource value: 0x7f0b000a
 			public const int Widget_MediaRouter_MediaRouteButton = 2131427338;
+			
+			// aapt resource value: 0x7f0b018a
+			public const int mybutton_text = 2131427722;
 			
 			static Style()
 			{

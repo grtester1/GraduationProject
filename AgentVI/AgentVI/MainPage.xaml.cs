@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace FinalYearProject
+namespace AgentVI
 {
 	public partial class MainPage : ContentPage
 	{
@@ -13,10 +13,5 @@ namespace FinalYearProject
 		{
 			InitializeComponent();
 		}
-
-        private void Button_OnClicked(object sender, EventArgs e)
-        {
-            labelUnderButton.Text = "Hello " + EntryPoint.Text;
-        }
 	}
 }
