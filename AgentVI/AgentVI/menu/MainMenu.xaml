@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AgentVI.pages.MainMenu">
+    <MasterDetailPage.Master>
+        <ContentPage Title="Menu" BackgroundColor="#616161" Opacity="0.7">
+            
+
+            <StackLayout VerticalOptions="FillAndExpand">
+                <Label Text="Menu" TextColor="White" FontSize="22" VerticalOptions="Center" HorizontalOptions="Start" Margin="10, 20, 0, 8" />
+                <Grid RowSpacing="1" ColumnSpacing="1">
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListView Grid.Row="0" x:Name="MenuListView" ItemsSource="{Binding m_mainMenuItems}" ItemSelected="MainMenuItem_Selected" VerticalOptions="FillAndExpand" SeparatorVisibility="None" BackgroundColor="#f5f5f5">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ImageCell Text="{Binding m_Title}" ImageSource="{Binding m_Icon}" TextColor="Black"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <StackLayout Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" BackgroundColor="White" Padding="50" Margin="0,25,0,0">
+                        <Image Aspect="AspectFill" Source="images/innovi_logo_update.png" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+
+        </ContentPage>
+    </MasterDetailPage.Master>
+</MasterDetailPage>

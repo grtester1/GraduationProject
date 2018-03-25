@@ -2,10 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AgentVI.loginPage"
-             BackgroundImage="images/background.png">
+             Title="LoginPage">
     <Grid>
         <Image Source="images/background.png" Aspect="AspectFill"/>
-        <StackLayout Margin="10,10,10,0" VerticalOptions="Center">
+        <StackLayout VerticalOptions="Center" Spacing="0">
             <Image Source="images/innovi_logo_update.png" WidthRequest="250" Margin="0,0,0,50"/>
             <Entry Placeholder="Username" FontAttributes="Italic" Margin="30,0,30,0"/>
             <Entry Placeholder="Password" FontAttributes="Italic" Margin="30,0,30,0"/>
@@ -15,6 +15,10 @@
                 <Button WidthRequest="160" Margin="10,0,0,0" Text="Forgot Password" 
                 Clicked="forgotPasswordButton_clicked"/>
             </StackLayout>
+            <Label x:Name="bananaField" Text="Enter banana" HorizontalOptions="Center"/>
+            <Button Clicked="bananaButtonClicked" Text="Enter banana to field" HorizontalOptions="Center" Margin="0,0,0,10"/>
+            <Label x:Name="tapuahField" Text="Enter tapuah" HorizontalOptions="Center"/>
+            <Button Clicked="tapuahButtonClicked" Text="Enter tapuah to field" HorizontalOptions="Center"/>
         </StackLayout>
     </Grid>
 </ContentPage>

@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using AgentVI.menu;
+using AgentVI.pages;
 using Xamarin.Forms;
 
 namespace AgentVI
 {
 	public partial class App : Application
 	{
-		public App ()
+
+
+
+        public App ()
 		{
 			InitializeComponent();
-
-            //MainPage = new AgentVI.MainPage();
-            //MainPage = new AgentVI.loginPage();
-            MainPage = new NavigationPage(new AgentVI.loginPage());
+            MainPage = new MainMenu();
 		}
 
 		protected override void OnStart ()
