@@ -8,5 +8,10 @@ namespace AgentVIProxy
         {
             int a = 10;
         }
+
+        public static void goo()
+        {
+            int g = 9;
+        }
     }
 }
