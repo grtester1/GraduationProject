@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
-namespace AgentVI.menu
+namespace AgentVI.Models
 {
     public class MainMenuItem
     {

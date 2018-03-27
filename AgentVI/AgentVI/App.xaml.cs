@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AgentVI.menu;
-using AgentVI.pages;
+using AgentVI.Views;
 using Xamarin.Forms;
 
 namespace AgentVI
 {
 	public partial class App : Application
 	{
-
-
-
         public App ()
 		{
 			InitializeComponent();

@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using AgentVI.menu;
+using AgentVI.Models;
 using AgentVI.additionals;
+using AgentVI.ViewModels;
 
-namespace AgentVI.pages
+namespace AgentVI.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainMenu : MasterDetailPage
@@ -37,8 +38,6 @@ namespace AgentVI.pages
 
         public MainMenu()
         {
-            BindingContext = this;
-
             m_appPagesCollection = new Dictionary<eAppPagesNames, Page>();
             m_mainMenuItems = new List<MainMenuItem>();
             m_enumToNameDict = new Dictionary<eAppPagesNames, string>();
