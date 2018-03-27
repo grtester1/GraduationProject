@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentVI.iOS", "AgentVI\Agen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentVI", "AgentVI\AgentVI\AgentVI.csproj", "{D5A07878-3149-40F6-A9BE-BAD1763F5BFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentVIProxy", "AgentVIProxy\AgentVIProxy.csproj", "{6EDE3E15-1474-4B71-8FDC-6F8E03DF654D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentVIProxy", "AgentVIProxy\AgentVIProxy.csproj", "{6EDE3E15-1474-4B71-8FDC-6F8E03DF654D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
