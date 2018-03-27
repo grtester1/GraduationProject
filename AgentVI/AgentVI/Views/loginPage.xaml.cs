@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using AgentVI.ViewModels;
+using AgentVI.additionals;
 
 namespace AgentVI
 {
@@ -24,13 +25,6 @@ namespace AgentVI
             DisplayAlert("Login Message", "Login message text / Login error text", "OK");
         }
 
-/*
-        private void testerMethod(object sender, EventArgs e)
-        {
-            DisplayAlert("TEST", AgentVI.pages.MainMenu, "OK");
-        }
-*/
-
         private void forgotPasswordButton_clicked(object sender, EventArgs e)
         {
             DisplayAlert("Forgot Password", "Forgot password message text", "OK");
@@ -38,12 +32,12 @@ namespace AgentVI
 
         private void bananaButtonClicked(object sender, EventArgs e)
         {
-            //bananaField.Text = innoviApiProxy.Class1.banana();
+            bananaField.Text = AgentVIProxy.Class1.foo();
         }
 
         private void tapuahButtonClicked(object sender, EventArgs e)
         {
-            //tapuahField.Text = innoviApiProxy.Class1.tapuah();
+            tapuahField.Text = AgentVIProxy.Class1.goo();
         }
 
     }

@@ -2,7 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:AgentVI"
-             x:Class="AgentVI.MainPage">
+             x:Class="AgentVI.MainPage"
+             xmlns:ViewModels="clr-namespace:AgentVI.ViewModels"
+             xmlns:additionals="clr-namespace:AgentVI.additionals">
+    
     <StackLayout>
         <Label x:Name="stupidShit" Text="Welcome to Xamarin.Forms!" 
            VerticalOptions="Center" 

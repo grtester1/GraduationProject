@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using AgentVI.additionals;
+using AgentVI.ViewModels;
 
 namespace AgentVI
 {

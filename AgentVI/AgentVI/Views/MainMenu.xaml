@@ -3,38 +3,44 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:local="clr-namespace:AgentVI"
                   x:Class="AgentVI.Views.MainMenu"
-                  xmlns:ViewModels="clr-namespace:AgentVI.ViewModels;assembly=AgentVI">
+                  xmlns:additionals="clr-namespace:AgentVI.additionals;assembly=AgentVI"
+                  xmlns:ViewModels="clr-namespace:AgentVI.ViewModels;assembly=AgentVI"
+                  xmlns:Models="clr-namespace:AgentVI.Models;assembly=AgentVI">
 
     <MasterDetailPage.Master>
-        <ContentPage Title="Menu" BackgroundColor="#616161" Opacity="0.7">
-            
+        <ContentPage Title="Menu" BackgroundColor="{Binding Source={x:Static additionals:Constants.kr_menuNavBarColor}}" Opacity="0.7">
+            <ContentPage.Content>
+                <StackLayout VerticalOptions="FillAndExpand">
+                    <Label Text="Menu" TextColor="{Binding Source={x:Static additionals:Constants.kr_menuHeaderTextColor}}" FontSize="22" VerticalOptions="Center" HorizontalOptions="Start" Margin="10, 20, 0, 8"/>
 
-            <StackLayout VerticalOptions="FillAndExpand">
-                <Label Text="Menu" TextColor="White" FontSize="22" VerticalOptions="Center" HorizontalOptions="Start" Margin="10, 20, 0, 8" />
-                <Grid RowSpacing="1" ColumnSpacing="1">
-                    
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                    <Grid RowSpacing="1" ColumnSpacing="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <ListView Grid.Row="0" x:Name="MenuListView" ItemsSource="{Binding m_mainMenuItems}" ItemSelected="MainMenuItem_Selected" VerticalOptions="FillAndExpand" SeparatorVisibility="None" BackgroundColor="#f5f5f5">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ImageCell Text="{Binding m_Title}" ImageSource="{Binding m_Icon}" TextColor="Black"/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                        <ListView Grid.Row="0" x:Name="MenuListView" SeparatorVisibility="None" ItemsSource="{x:Static ViewModels:MenuItemsViewModel.m_mainMenuItems}"
+                          ItemSelected="MainMenuItem_Selected" VerticalOptions="FillAndExpand"
+                          BackgroundColor="{Binding Source={x:Static additionals:Constants.kr_menuBackgroundColor}}">
 
-                    <StackLayout Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" BackgroundColor="White" Padding="50" Margin="0,25,0,0">
-                        <Image Aspect="AspectFill" Source="images/innovi_logo_update.png" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </StackLayout>
-                </Grid>
-            </StackLayout>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ImageCell Text="{Binding m_Title}" ImageSource="{Binding m_Icon}" TextColor="Black"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
 
+                        </ListView>
+
+                        <StackLayout Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" BackgroundColor="White" Padding="50" Margin="0,25,0,0">
+                            <Image Aspect="AspectFill" Source="images/innovi_logo_update.png" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </StackLayout>
+
+                    </Grid>
+                </StackLayout>
+            </ContentPage.Content>
         </ContentPage>
     </MasterDetailPage.Master>
 </MasterDetailPage>

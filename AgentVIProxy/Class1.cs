@@ -4,14 +4,14 @@ namespace AgentVIProxy
 {
     public class Class1
     {
-        public static void foo()
+        public static string foo()
         {
-            int a = 10;
+            return "foo";
         }
 
-        public static void goo()
+        public static string goo()
         {
-            int g = 9;
+            return "goo";
         }
     }
 }
