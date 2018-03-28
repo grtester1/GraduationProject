@@ -85,6 +85,10 @@ namespace AgentVIProxy
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             HttpStatusCode status = response.StatusCode;
+            WebHeaderCollection collection = response.Headers;
+
+
+            string accessToken = response.Headers["x-access-token"];
 
             using (StreamReader streamReader = new StreamReader(response.GetResponseStream()))
             {
@@ -92,7 +96,9 @@ namespace AgentVIProxy
             }
 
             // change to fetch real data
-            return createDummyUser();
+            User user = createDummyUser();
+            user.AccessToken = accessToken;
+            return user;
         }
     }
 }
