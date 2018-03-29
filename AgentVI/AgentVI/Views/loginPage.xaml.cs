@@ -32,12 +32,13 @@ namespace AgentVI
 
         private void bananaButtonClicked(object sender, EventArgs e)
         {
-            bananaField.Text = AgentVIProxy.Class1.foo();
+            AgentVIProxy.User.Login("goldami1@gmail.com", "password");
+            //bananaField.Text = AgentVIProxy.Class1.foo();
         }
 
         private void tapuahButtonClicked(object sender, EventArgs e)
         {
-            tapuahField.Text = AgentVIProxy.Class1.goo();
+            //tapuahField.Text = AgentVIProxy.Class1.goo();
         }
 
     }
