@@ -31,16 +31,15 @@ namespace AgentVIProxy
             request.Accept = "application/json";
 
             // Must change this to accept only this domain without a certificate
-      //            System.Net.ServicePointManager.ServerCertificateValidationCallback =
-       //               ((sender, certificate, chain, sslPolicyErrors) => true);
-
-            System.Net.ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
+            //            System.Net.ServicePointManager.ServerCertificateValidationCallback =
+            //               ((sender, certificate, chain, sslPolicyErrors) => true);
 
 
-            Dictionary<string, JsonValue> jsonBuilder = new Dictionary<string, JsonValue>();
-            jsonBuilder.Add("email", i_Email);
-            jsonBuilder.Add("password", i_Password);
-            string json = new JsonObject(jsonBuilder).ToString();
+            //Dictionary<string, JsonValue> jsonBuilder = new Dictionary<string, JsonValue>();
+            //jsonBuilder.Add("email", i_Email);
+            //jsonBuilder.Add("password", i_Password);
+            //string json = new JsonObject(jsonBuilder).ToString();
+            string json = "{\"email\": \"goldami1\", \"password\": \"password\" }";
 
             using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
             {

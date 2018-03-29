@@ -7,10 +7,14 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using AgentVI.ViewModels;
 using AgentVI.additionals;
+using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
+using System.Net;
 
 namespace AgentVI
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class loginPage : ContentPage
 	{
         ImageSource image = ImageSource.FromResource("AgentVI.additional_resources.innovi_logo.png");
@@ -19,6 +23,7 @@ namespace AgentVI
 		{
 			InitializeComponent();
 		}
+
 
         private void loginButton_clicked(object sender, EventArgs e)
         {
@@ -32,6 +37,7 @@ namespace AgentVI
 
         private void bananaButtonClicked(object sender, EventArgs e)
         {
+
             AgentVIProxy.User.Login("goldami1@gmail.com", "password");
             //bananaField.Text = AgentVIProxy.Class1.foo();
         }
