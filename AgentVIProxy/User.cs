@@ -5,6 +5,8 @@ using System.IO;
 //using System.Net.Http;
 using System.Json;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
 
 
 namespace AgentVIProxy
@@ -15,7 +17,16 @@ namespace AgentVIProxy
         public string AccessToken { get; set; }
         public InnoviObjectCollection<Account> Accounts { get; set; }
 
-      
+        public static bool ValidateServerCertificate(
+      object sender,
+      X509Certificate certificate,
+      X509Chain chain,
+      SslPolicyErrors sslPolicyErrors)
+        {
+ 
+                return true;
+        }
+
         public static LoginResult Login(string i_Email, string i_Password)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.innovi.agentvi.com/api/user/login");
@@ -25,16 +36,12 @@ namespace AgentVIProxy
             request.Accept = "application/json";
 
             // Must change this to accept only this domain without a certificate
-      //      System.Net.ServicePointManager.ServerCertificateValidationCallback =
-      //             ((sender, certificate, chain, sslPolicyErrors) => true);
+            //      System.Net.ServicePointManager.ServerCertificateValidationCallback =
+            //             ((sender, certificate, chain, sslPolicyErrors) => true);
 
-            System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-          delegate (object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate,
-                        System.Security.Cryptography.X509Certificates.X509Chain chain,
-                        System.Net.Security.SslPolicyErrors sslPolicyErrors)
-          {
-              return true; // **** Always accept
-          };
+            System.Net.ServicePointManager.ServerCertificateValidationCallback =
+             ValidateServerCertificate;
+
 
             Dictionary<string, JsonValue> jsonBuilder = new Dictionary<string, JsonValue>();
             jsonBuilder.Add("email", i_Email);
