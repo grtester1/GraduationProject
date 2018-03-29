@@ -6,16 +6,13 @@ using System.IO;
 using System.Json;
 using System.Collections.Generic;
 
-
 namespace AgentVIProxy
 {
-    public class User
+    public static class InnoviApiService
     {
-        public string Username { get; set; }
-        public string AccessToken { get; set; }
-        public InnoviObjectCollection<Account> Accounts { get; set; }
+        public static string AccessToken { get; private set; }
+        public static string ApiKey { get; } = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJtb2JpbGUtYXBwLXhtciIsImlzcyI6IjAiLCJpYXQiOjE1MTY4ODIzOTF9.S4AuQKaXOYzm_gTFUu52YAaFuLij4JSESNHvy4KuaoE";
 
-      
         public static LoginResult Login(string i_Email, string i_Password)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.innovi.agentvi.com/api/user/login");
@@ -25,11 +22,8 @@ namespace AgentVIProxy
             request.Accept = "application/json";
 
             // Must change this to accept only this domain without a certificate
-      //      System.Net.ServicePointManager.ServerCertificateValidationCallback =
-      //             ((sender, certificate, chain, sslPolicyErrors) => true);
-
-            System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-           ((sender, certificate, chain, sslPolicyErrors) => true);
+            System.Net.ServicePointManager.ServerCertificateValidationCallback =
+                   ((sender, certificate, chain, sslPolicyErrors) => true);
 
             Dictionary<string, JsonValue> jsonBuilder = new Dictionary<string, JsonValue>();
             jsonBuilder.Add("email", i_Email);
@@ -67,19 +61,20 @@ namespace AgentVIProxy
             {
                 errorMessage = eErrorMessage.ServerError;
             }
-           
+
             LoginResult loginResult = new LoginResult();
             loginResult.ErrorMessage = errorMessage;
-            
+
 
             if (errorMessage == eErrorMessage.Empty)
             {
                 // change to fetch real data
                 User user = createDummyUser();
+                AccessToken = accessToken;
                 user.AccessToken = accessToken;
                 loginResult.User = user;
             }
-          
+
             return loginResult;
         }
 
