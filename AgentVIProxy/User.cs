@@ -29,7 +29,12 @@ namespace AgentVIProxy
       //             ((sender, certificate, chain, sslPolicyErrors) => true);
 
             System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-           ((sender, certificate, chain, sslPolicyErrors) => true);
+          delegate (object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                        System.Security.Cryptography.X509Certificates.X509Chain chain,
+                        System.Net.Security.SslPolicyErrors sslPolicyErrors)
+          {
+              return true; // **** Always accept
+          };
 
             Dictionary<string, JsonValue> jsonBuilder = new Dictionary<string, JsonValue>();
             jsonBuilder.Add("email", i_Email);
