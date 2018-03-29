@@ -59,7 +59,7 @@ namespace AgentVIProxy
 
             return dummyUser;
         }
-        public static User Login(string i_Email, string i_Password)
+        public static LoginResult Login(string i_Email, string i_Password)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.innovi.agentvi.com/api/user/login");
             request.Method = "POST";
@@ -90,15 +90,37 @@ namespace AgentVIProxy
 
             string accessToken = response.Headers["x-access-token"];
 
+            JsonValue responseBody = null;
+
             using (StreamReader streamReader = new StreamReader(response.GetResponseStream()))
             {
                 string responseStream = streamReader.ReadToEnd();
+                responseBody = JsonObject.Parse(responseStream);
             }
 
-            // change to fetch real data
-            User user = createDummyUser();
-            user.AccessToken = accessToken;
-            return user;
+            HttpStatusCode statusCode = response.StatusCode;    ///////////////////////////////////////
+            // throw exception if code is not OK
+
+            eErrorMessage errorMessage = eErrorMessage.Empty;
+
+            if (responseBody["error"] != null)
+            {
+                errorMessage = eErrorMessage.ServerError;
+            }
+           
+            LoginResult loginResult = new LoginResult();
+            loginResult.ErrorMessage = errorMessage;
+            
+
+            if (errorMessage == eErrorMessage.Empty)
+            {
+                // change to fetch real data
+                User user = createDummyUser();
+                user.AccessToken = accessToken;
+                loginResult.User = user;
+            }
+          
+            return loginResult;
         }
     }
 }
