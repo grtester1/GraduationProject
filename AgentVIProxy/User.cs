@@ -17,14 +17,9 @@ namespace AgentVIProxy
         public string AccessToken { get; set; }
         public InnoviObjectCollection<Account> Accounts { get; set; }
 
-        public static bool ValidateServerCertificate(
-      object sender,
-      X509Certificate certificate,
-      X509Chain chain,
-      SslPolicyErrors sslPolicyErrors)
+        private static bool AcceptAllCertifications(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certification, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
         {
- 
-                return true;
+            return true;
         }
 
         public static LoginResult Login(string i_Email, string i_Password)
@@ -36,11 +31,10 @@ namespace AgentVIProxy
             request.Accept = "application/json";
 
             // Must change this to accept only this domain without a certificate
-            //      System.Net.ServicePointManager.ServerCertificateValidationCallback =
-            //             ((sender, certificate, chain, sslPolicyErrors) => true);
+      //            System.Net.ServicePointManager.ServerCertificateValidationCallback =
+       //               ((sender, certificate, chain, sslPolicyErrors) => true);
 
-            System.Net.ServicePointManager.ServerCertificateValidationCallback =
-             ValidateServerCertificate;
+            System.Net.ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
 
 
             Dictionary<string, JsonValue> jsonBuilder = new Dictionary<string, JsonValue>();
