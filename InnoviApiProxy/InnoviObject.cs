@@ -1,4 +1,4 @@
-﻿namespace AgentVIProxy
+﻿namespace InnoviApiProxy
 {
     public abstract class InnoviObject
     {

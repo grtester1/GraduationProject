@@ -5,6 +5,8 @@ using System.IO;
 //using System.Net.Http;
 using System.Json;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
 
 
 namespace AgentVIProxy
@@ -14,6 +16,77 @@ namespace AgentVIProxy
         public string Username { get; set; }
         public string AccessToken { get; set; }
         public InnoviObjectCollection<Account> Accounts { get; set; }
+
+        private static bool AcceptAllCertifications(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certification, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
+
+        public static LoginResult Login(string i_Email, string i_Password)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.innovi.agentvi.com/api/user/login");
+            request.Method = "POST";
+            request.Headers.Add("X-API-KEY:" + Settings.ApiKey);
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+
+            // Must change this to accept only this domain without a certificate
+            //            System.Net.ServicePointManager.ServerCertificateValidationCallback =
+            //               ((sender, certificate, chain, sslPolicyErrors) => true);
+
+
+            //Dictionary<string, JsonValue> jsonBuilder = new Dictionary<string, JsonValue>();
+            //jsonBuilder.Add("email", i_Email);
+            //jsonBuilder.Add("password", i_Password);
+            //string json = new JsonObject(jsonBuilder).ToString();
+            string json = "{\"email\": \"goldami1\", \"password\": \"password\" }";
+
+            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(json);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            HttpStatusCode status = response.StatusCode;
+            WebHeaderCollection collection = response.Headers;
+
+
+            string accessToken = response.Headers["x-access-token"];
+
+            JsonValue responseBody = null;
+
+            using (StreamReader streamReader = new StreamReader(response.GetResponseStream()))
+            {
+                string responseStream = streamReader.ReadToEnd();
+                responseBody = JsonObject.Parse(responseStream);
+            }
+
+            HttpStatusCode statusCode = response.StatusCode;    ///////////////////////////////////////
+            // throw exception if code is not OK
+
+            eErrorMessage errorMessage = eErrorMessage.Empty;
+
+            if (responseBody["error"] != null)
+            {
+                errorMessage = eErrorMessage.ServerError;
+            }
+           
+            LoginResult loginResult = new LoginResult();
+            loginResult.ErrorMessage = errorMessage;
+            
+
+            if (errorMessage == eErrorMessage.Empty)
+            {
+                // change to fetch real data
+                User user = createDummyUser();
+                user.AccessToken = accessToken;
+                loginResult.User = user;
+            }
+          
+            return loginResult;
+        }
 
         private static User createDummyUser()
         {
@@ -58,47 +131,6 @@ namespace AgentVIProxy
             dummyUser.Accounts = new InnoviObjectCollection<Account>(dummyAccounts);
 
             return dummyUser;
-        }
-        public static User Login(string i_Email, string i_Password)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.innovi.agentvi.com/api/user/login");
-            request.Method = "POST";
-            request.Headers.Add("X-API-KEY:" + Settings.ApiKey);
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
-
-            // Must change this to accept only this domain without a certificate
-            System.Net.ServicePointManager.ServerCertificateValidationCallback =
-                   ((sender, certificate, chain, sslPolicyErrors) => true);
-
-            Dictionary<string, JsonValue> jsonBuilder = new Dictionary<string, JsonValue>();
-            jsonBuilder.Add("email", i_Email);
-            jsonBuilder.Add("password", i_Password);
-            string json = new JsonObject(jsonBuilder).ToString();
-
-            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                streamWriter.Write(json);
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            HttpStatusCode status = response.StatusCode;
-            WebHeaderCollection collection = response.Headers;
-
-
-            string accessToken = response.Headers["x-access-token"];
-
-            using (StreamReader streamReader = new StreamReader(response.GetResponseStream()))
-            {
-                string responseStream = streamReader.ReadToEnd();
-            }
-
-            // change to fetch real data
-            User user = createDummyUser();
-            user.AccessToken = accessToken;
-            return user;
         }
     }
 }

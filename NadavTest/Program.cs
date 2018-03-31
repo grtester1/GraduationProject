@@ -1,5 +1,5 @@
 ﻿using System;
-using AgentVIProxy;
+using InnoviApiProxy;
 
 namespace NadavTest
 {
@@ -7,7 +7,7 @@ namespace NadavTest
     {
         static void Main(string[] args)
         {
-            User dummy = User.Login("ramot.n@gmail.com", "password");
+            LoginResult loginResult = User.Login("ramot.n@gmail.com", "password");
         }
     }
 }

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AgentVIProxy\AgentVIProxy.csproj" />
+    <ProjectReference Include="..\InnoviApiProxy\InnoviApiProxy.csproj" />
   </ItemGroup>
 
 </Project>

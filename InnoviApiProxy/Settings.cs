@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AgentVIProxy
+namespace InnoviApiProxy
 {
     // consider making a singleton
     public static class Settings
