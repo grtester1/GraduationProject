@@ -32,7 +32,7 @@ namespace AgentVI
 
         private void bananaButtonClicked(object sender, EventArgs e)
         {
-            AgentVIProxy.User.Login("goldami1@gmail.com", "password");
+            InnoviApiProxy.User.Login("goldami1@gmail.com", "password");
             //bananaField.Text = AgentVIProxy.Class1.foo();
         }
 

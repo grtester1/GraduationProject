@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace AgentVIProxy
+namespace InnoviApiProxy
 {
     public class InnoviObjectCollection<InnoviObject> : IEnumerable
     {
