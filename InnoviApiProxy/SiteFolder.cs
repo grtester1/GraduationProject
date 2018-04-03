@@ -11,7 +11,17 @@ namespace InnoviApiProxy
 
         public void AddSensor(Sensor i_Sensor)
         {
+            throw new Exception("Not yet implemented");
+        }
 
+        public void ArmAllSensors()
+        {
+            throw new Exception("Not yet implemented");
+        }
+
+        public void DisarmAllSensors()
+        {
+            throw new Exception("Not yet implemented");
         }
     }
 }

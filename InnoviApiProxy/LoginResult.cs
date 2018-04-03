@@ -8,5 +8,16 @@ namespace InnoviApiProxy
     {
         public eErrorMessage ErrorMessage { get;  set; }
         public User User { get;  set; }
+
+        internal LoginResult() { }
+
+        public enum eErrorMessage
+        {
+            Empty,
+            WrongCredentials,
+            ServerError
+        }
     }
+
+
 }

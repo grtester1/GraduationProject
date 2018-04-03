@@ -16,6 +16,6 @@ namespace InnoviApiProxy
         public string Name { get; private set; }
         public string ImagePath { get; set; }
         public string ClipPath { get; set; }
-        public eSensorEventTag Tag { get; set; }
+        public Sensor.eSensorEventTag Tag { get; set; }
     }
 }

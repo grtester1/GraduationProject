@@ -13,7 +13,13 @@ namespace InnoviApiProxy
 
         public void AddCustomerFolder(CustomerFolder i_CustomerFolder)
         {
-            // Add new customer folder
+            throw new Exception("Not yet implemented");
+        }
+
+        public enum eAccountStatus
+        {
+            Active = 0,
+            Inactive = 1
         }
     }
 }

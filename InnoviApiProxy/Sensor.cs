@@ -10,7 +10,7 @@ namespace InnoviApiProxy
         private int m_AccountId;
         private int m_FolderId;
         public string Name { get; set; }
-        public eAccountStatus Status { get; set; }
+        public Account.eAccountStatus Status { get; set; }
         public eSensorType SensorType { get; set; }
         public eSensorStatus SensorStatus { get; set; }
         public eStreamType StreamType { get; set; }
@@ -27,5 +27,49 @@ namespace InnoviApiProxy
         public string StreamUrl { get; set; }
 
         public InnoviObjectCollection<SensorEvent> SensorEvents { get; set; }
+
+        public void Arm()
+        {
+            throw new Exception("Not yet implemented");
+        }
+
+        public void Disarm()
+        {
+            throw new Exception("Not yet implemented");
+        }
+
+        public enum eSensorEventTag
+        {
+            None,
+            False,
+            True
+        }
+
+        public enum eSensorStatus
+        {
+            Undefined,
+            Active,
+            Warning,
+            Error,
+            Inactive
+        }
+
+        public enum eSensorType
+        {
+            Undefined,
+            Ccd,
+            Thermal
+        }
+
+        public enum eStreamType
+        {
+            Undefined,
+            Rtsp,
+            Onvif,
+            Clip,
+            Rtp,
+            Multicast,
+            Kinesis
+        }
     }
 }

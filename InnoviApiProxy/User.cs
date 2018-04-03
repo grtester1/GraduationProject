@@ -8,12 +8,15 @@ using System.Text;
 
 namespace InnoviApiProxy
 {
+    // Consider making a singleton
     public class User
     {
         public string Username { get; set; }
         public string AccessToken { get; set; }
         public InnoviObjectCollection<Account> Accounts { get; set; }
 
+        internal User() { }
+        
         // gets http response
         // currently uses a dummy API due to ssl certificate issue in Innovi API
         private static  HttpResponseMessage Test()
@@ -45,7 +48,7 @@ namespace InnoviApiProxy
             
             LoginResult loginResult = new LoginResult();
 
-            eErrorMessage errorMessage = eErrorMessage.Empty;
+            LoginResult.eErrorMessage errorMessage = LoginResult.eErrorMessage.Empty;
             loginResult.ErrorMessage = errorMessage;
 
             // change to fetch real data
@@ -55,14 +58,19 @@ namespace InnoviApiProxy
             return loginResult;
         }
 
+        public void Logout()
+        {
+            throw new Exception("Not yet implemented");
+        }
+
         private static User createDummyUser()
         {
             User dummyUser = new User();
 
             Sensor dummySensor1 = new Sensor();
             dummySensor1.Name = "Dummy Camera 1";
-            dummySensor1.SensorStatus = eSensorStatus.Active;
-            dummySensor1.SensorType = eSensorType.CCD;
+            dummySensor1.SensorStatus = Sensor.eSensorStatus.Active;
+            dummySensor1.SensorType = Sensor.eSensorType.Ccd;
             dummySensor1.IsEnabledByUser = true;
             dummySensor1.IsRecording = true;
             Dictionary<string, Sensor> dummySensors = new Dictionary<string, Sensor>();
@@ -70,8 +78,8 @@ namespace InnoviApiProxy
 
             Sensor dummySensor2 = new Sensor();
             dummySensor2.Name = "Dummy Camera 2";
-            dummySensor2.SensorStatus = eSensorStatus.Inactive;
-            dummySensor2.SensorType = eSensorType.Thermal;
+            dummySensor2.SensorStatus = Sensor.eSensorStatus.Inactive;
+            dummySensor2.SensorType = Sensor.eSensorType.Thermal;
             dummySensors.Add(dummySensor2.Name, dummySensor2);
 
 
@@ -89,7 +97,7 @@ namespace InnoviApiProxy
 
             Account dummyAccount = new Account();
             dummyAccount.Name = "Dummy Account";
-            dummyAccount.Status = eAccountStatus.Active;
+            dummyAccount.Status = Account.eAccountStatus.Active;
             dummyAccount.CustomerFolders = new InnoviObjectCollection<CustomerFolder>(dummyCustomerFolders);
             Dictionary<string, Account> dummyAccounts = new Dictionary<string, Account>();
             dummyAccounts.Add(dummyAccount.Name, dummyAccount);

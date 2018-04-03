@@ -14,5 +14,20 @@ namespace InnoviApiProxy
         public InnoviObjectCollection<SiteFolder> SiteFolders { get; set; }
         public List<Coordinate> GeoArea;
         public string Name { get; set; }
+
+        public void ArmAllSites()
+        {
+
+        }
+
+        public void DisarmAllSites()
+        {
+
+        }
+
+        public void AddSiteFolder(SiteFolder i_SiteFolder)
+        {
+            // Add new customer folder
+        }
     }
 }
