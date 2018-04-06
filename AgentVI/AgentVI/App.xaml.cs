@@ -12,8 +12,9 @@ namespace AgentVI
         public App ()
 		{
 			InitializeComponent();
-            MainPage = new MainMenu();
-		}
+            //MainPage = new MainMenu();
+            MainPage = new NavigationPage(new loginPage());
+        }
 
 		protected override void OnStart ()
 		{

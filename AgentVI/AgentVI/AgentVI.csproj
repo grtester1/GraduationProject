@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\Assets\Images\background.png" />
+    <None Remove="Views\Assets\Images\innovi_logo_update.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Assets\Images\background.png" />
+    <EmbeddedResource Include="Views\Assets\Images\innovi_logo_update.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
   </ItemGroup>
 

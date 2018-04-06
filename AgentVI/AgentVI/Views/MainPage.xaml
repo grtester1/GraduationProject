@@ -5,12 +5,19 @@
              x:Class="AgentVI.MainPage"
              xmlns:ViewModels="clr-namespace:AgentVI.ViewModels"
              xmlns:additionals="clr-namespace:AgentVI.additionals">
-    
-    <StackLayout>
-        <Label x:Name="stupidShit" Text="Welcome to Xamarin.Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
-        <Button Clicked="bananaShitClicked" Text="clickShit" HorizontalOptions="Center"/>
+
+
+    <StackLayout VerticalOptions="Center" >
+        <Label x:Name="WelcomeLabel" 
+               Text="Welcome to innoni app!" 
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+        <Entry x:Name="nameEntry"
+               Placeholder="Write your name" />
+        <Button x:Name="nameButton"
+                Clicked="Button_Clicked"
+                Text="click here"
+                HorizontalOptions="Center" />
     </StackLayout>
 
 </ContentPage>

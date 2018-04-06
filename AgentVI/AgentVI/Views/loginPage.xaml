@@ -5,22 +5,42 @@
              Title="LoginPage"
              xmlns:ViewModels="clr-namespace:AgentVI.ViewModels;assembly=AgentVI"
              xmlns:additionals="clr-namespace:AgentVI.additionals;assembly=AgentVI">
+
     <Grid>
-        <Image Source="images/background.png" Aspect="AspectFill"/>
-        <StackLayout VerticalOptions="Center" Spacing="0">
-            <Image Source="images/innovi_logo_update.png" WidthRequest="250" Margin="0,0,0,50"/>
-            <Entry Placeholder="Username" FontAttributes="Italic" Margin="30,0,30,0"/>
-            <Entry Placeholder="Password" FontAttributes="Italic" Margin="30,0,30,0"/>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10,0,10,0">
-                <Button WidthRequest="100" Margin="0,0,0,0" Text="Login" BackgroundColor="{Binding Source={x:Static additionals:Constants.kr_buttonLoginColor}}" 
-                Clicked="loginButton_clicked"/>
-                <Button WidthRequest="160" Margin="10,0,0,0" Text="Forgot Password" 
-                Clicked="forgotPasswordButton_clicked"/>
+        <Image x:Name="backgroundImage" 
+               Aspect="AspectFill"/>
+
+        <StackLayout VerticalOptions="Center" 
+                     Spacing="0"
+                     Margin="20,100,20,0">
+            <Image x:Name="logoImage"
+                   WidthRequest="250" 
+                   Margin="0,0,0,50"/>
+            <Entry x:Name="UserNameEntry"
+                   Placeholder="Username"
+                   Keyboard="Email"
+                   FontAttributes="Italic" 
+                   Margin="30,0,30,20"/>
+            <Entry x:Name="PasswordEntry" 
+                   Placeholder="Password" 
+                   IsPassword="true"
+                   FontAttributes="Italic" 
+                   Margin="30,0,30,20"/>
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="Center" 
+                         Margin="10,30,10,0">
+                <Button x:Name="LoginButton" 
+                        WidthRequest="100" 
+                        Margin="0,0,0,0" 
+                        Text="Login" 
+                        BackgroundColor="{Binding Source={x:Static additionals:Constants.kr_buttonLoginColor}}" 
+                        Clicked="loginButton_clicked"/>
+                <Button x:Name="ForgotPasswordButton" 
+                        WidthRequest="160" 
+                        Margin="0,0,0,0" 
+                        Text="Forgot Password" 
+                        Clicked="forgotPasswordButton_clicked"/>
             </StackLayout>
-            <Label x:Name="bananaField" Text="Enter banana" HorizontalOptions="Center"/>
-            <Button Clicked="bananaButtonClicked" Text="Enter banana to field" HorizontalOptions="Center" Margin="0,0,0,10"/>
-            <Label x:Name="tapuahField" Text="Enter tapuah" HorizontalOptions="Center"/>
-            <Button Clicked="tapuahButtonClicked" Text="Enter tapuah to field" HorizontalOptions="Center"/>
         </StackLayout>
     </Grid>
 </ContentPage>

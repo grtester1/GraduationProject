@@ -9,24 +9,23 @@ using AgentVI.ViewModels;
 
 namespace AgentVI
 {
-	public partial class MainPage : ContentPage
-	{
-        string banana;
+    public partial class MainPage : ContentPage
+    {
+        string userId;
 
-		public MainPage()
-		{
-			InitializeComponent();
-		}
-
-        public MainPage(string i_banana) : this()
+        public MainPage()
         {
-            banana = i_banana;
+            InitializeComponent();
         }
 
-        public void bananaShitClicked(object sender, EventArgs e)
+        public MainPage(string i_userId) : this()
         {
-            stupidShit.Text = "SHITTTT "+banana;
+            userId = i_userId;
         }
 
+        public void Button_Clicked(object sender, EventArgs e)
+        {
+            WelcomeLabel.Text = "Welcome " + nameEntry.Text;
+        }
     }
 }

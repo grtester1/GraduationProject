@@ -11,8 +11,78 @@ using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Net;
 
+namespace AgentVI
+{
+
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class loginPage : ContentPage
+    {
+        //ImageSource image = ImageSource.FromResource("AgentVI.additional_resources.innovi_logo.png");
+
+        public loginPage()
+        {
+            InitializeComponent();
+
+            var assembly = typeof(loginPage);
+            backgroundImage.Source = ImageSource.FromResource("AgentVI.Views.Assets.Images.background.png", assembly);
+            logoImage.Source = ImageSource.FromResource("AgentVI.Views.Assets.Images.innovi_logo_update.png", assembly);
 
 
+        }
+
+        private void loginButton_clicked(object sender, EventArgs e)
+        {
+            string userName = UserNameEntry.Text;
+            string password = PasswordEntry.Text;
+            bool isUserNameEmpty = string.IsNullOrEmpty(userName);
+            bool isPasswordEmpty = string.IsNullOrEmpty(password);
+
+            if (isUserNameEmpty || isPasswordEmpty)
+            {
+                DisplayAlert("Login Error", "Please enter your user name and your password.", "OK");
+            }
+            else
+            {
+                bool isUserExistInDataBase = xxx(userName, password); ////// API FUNCTION
+
+                if (isUserExistInDataBase)
+                {
+                    string userId = yyy(userName, password); ////// API FUNCTION
+                    Navigation.PushAsync(new MainPage(userId));
+                }
+                else
+                {
+                    DisplayAlert("Login Error", "The User Name or Password entered is incorrect. Please try again.", "OK");
+                }
+            }
+
+
+        }
+
+        private bool xxx(string i_userName, string i_password) ///// for testing
+        {
+            return true;
+        }
+
+        private string yyy(string i_userName, string i_password) ///// for testing
+        {
+            return "1";
+        }
+
+
+        private void forgotPasswordButton_clicked(object sender, EventArgs e)
+        {
+            DisplayAlert("Forgot Password", "Forgot password message text", "OK");
+        }
+
+    }
+}
+
+
+
+
+
+/*
 namespace AgentVI
 {
 
@@ -26,7 +96,6 @@ namespace AgentVI
 			InitializeComponent();
 		}
 
-        //TEST/////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void loginButton_clicked(object sender, EventArgs e)
         {
@@ -55,4 +124,4 @@ namespace AgentVI
         }
 
     }
-}
+}*/
