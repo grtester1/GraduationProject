@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AgentVI.loginPage"
-             Title="LoginPage"
+             Title="Login"
              xmlns:ViewModels="clr-namespace:AgentVI.ViewModels;assembly=AgentVI"
              xmlns:additionals="clr-namespace:AgentVI.additionals;assembly=AgentVI">
 

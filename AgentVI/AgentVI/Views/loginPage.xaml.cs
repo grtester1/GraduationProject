@@ -26,8 +26,6 @@ namespace AgentVI
             var assembly = typeof(loginPage);
             backgroundImage.Source = ImageSource.FromResource("AgentVI.Views.Assets.Images.background.png", assembly);
             logoImage.Source = ImageSource.FromResource("AgentVI.Views.Assets.Images.innovi_logo_update.png", assembly);
-
-
         }
 
         private void loginButton_clicked(object sender, EventArgs e)
@@ -43,11 +41,11 @@ namespace AgentVI
             }
             else
             {
-                bool isUserExistInDataBase = xxx(userName, password); ////// API FUNCTION
+                bool isUserExistInDataBase = authenticateUser(userName, password);
 
                 if (isUserExistInDataBase)
                 {
-                    string userId = yyy(userName, password); ////// API FUNCTION
+                    string userId = getUserID(userName, password);
                     Navigation.PushAsync(new MainPage(userId));
                 }
                 else
@@ -55,73 +53,23 @@ namespace AgentVI
                     DisplayAlert("Login Error", "The User Name or Password entered is incorrect. Please try again.", "OK");
                 }
             }
-
-
         }
 
-        private bool xxx(string i_userName, string i_password) ///// for testing
+        private bool authenticateUser(string i_userName, string i_password) ///// for testing
         {
+            //InnoviApiProxy.LoginResult loginResult = InnoviApiProxy.User.Login(i_userName, i_password);
             return true;
         }
 
-        private string yyy(string i_userName, string i_password) ///// for testing
+        private string getUserID(string i_userName, string i_password) ///// for testing
         {
+            //InnoviApiProxy.LoginResult loginResult = InnoviApiProxy.User.Login(i_userName, i_password);
             return "1";
         }
 
-
         private void forgotPasswordButton_clicked(object sender, EventArgs e)
         {
-            DisplayAlert("Forgot Password", "Forgot password message text", "OK");
+            DisplayAlert("Forgot Password", "Please go to www.gentVI.com and contact us.", "OK");
         }
-
     }
 }
-
-
-
-
-
-/*
-namespace AgentVI
-{
-
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class loginPage : ContentPage
-	{
-        ImageSource image = ImageSource.FromResource("AgentVI.additional_resources.innovi_logo.png");
-        
-		public loginPage ()
-		{
-			InitializeComponent();
-		}
-
-
-        private void loginButton_clicked(object sender, EventArgs e)
-        {
-            DisplayAlert("Login Message", "Login message text / Login error text", "OK");
-        }
-
-        private void forgotPasswordButton_clicked(object sender, EventArgs e)
-        {
-            DisplayAlert("Forgot Password", "Forgot password message text", "OK");
-        }
-
-        private void bananaButtonClicked(object sender, EventArgs e)
-        {
-<<<<<<< HEAD
-            InnoviApiProxy.User.Login("goldami1@gmail.com", "password");
-=======
-
-            AgentVIProxy.User.Login("goldami1@gmail.com", "password");
->>>>>>> 414abed5b6abaf599de4786aba251066bd245ae6
-            //bananaField.Text = AgentVIProxy.Class1.foo();
-        }
-
-        private void tapuahButtonClicked(object sender, EventArgs e)
-        {
-            //tapuahField.Text = AgentVIProxy.Class1.goo();
-        }
-
-    }
-}*/
