@@ -116,6 +116,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\innovi_logoe.png" />
+    <BundleResource Include="Resources\innovi_logoe.png" />
   </ItemGroup>
 </Project>

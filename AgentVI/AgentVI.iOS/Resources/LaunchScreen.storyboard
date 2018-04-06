@@ -1,66 +1,67 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="X5k-f2-b5h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="X5k-f2-b5h">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="gAE-YM-kbH">
             <objects>
-                <viewController id="X5k-f2-b5h" sceneMemberID="viewController">
+                <viewController id="X5k-f2-b5h" sceneMemberID="viewController" title="innoviLogo">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Y8P-hJ-Z43"/>
                         <viewControllerLayoutGuide type="bottom" id="9ZL-r4-8FZ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="center" id="yd7-JS-zBw">
+                    <view key="view" contentMode="scaleToFill" id="yd7-JS-zBw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="266" verticalHuggingPriority="500" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" horizontalHuggingPriority="500">
-                                <rect key="frame" x="86" y="243" width="202" height="2"/>
-                                <color key="backgroundColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
-                                <color key="tintColor" colorSpace="calibratedRGB" red="0" green="0.52549019607843139" blue="1" alpha="1"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="245">
+                                <rect key="frame" x="100" y="366" width="176" height="2"/>
                                 <constraints>
-                                    <constraint id="593" firstAttribute="width" constant="202"/>
+                                    <constraint id="1066" firstAttribute="width" constant="176"/>
                                 </constraints>
                             </progressView>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="267" translatesAutoresizingMaskIntoConstraints="NO" preservesSuperviewLayoutMargins="YES" misplaced="YES">
-                                <rect key="frame" x="86" y="158" width="202" height="58"/>
-                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" left="8" bottom="8" right="8" leading="37"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="845" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES" image="innovi_logoe.png" highlightedImage="innovi_logoe.png">
+                                <rect key="frame" x="56" y="215" width="280" height="70"/>
                                 <constraints>
-                                    <constraint id="596" firstAttribute="width" constant="202"/>
-                                    <constraint id="597" firstAttribute="height" constant="58"/>
+                                    <constraint id="1069" firstAttribute="width" constant="240"/>
+                                    <constraint id="1070" firstAttribute="height" constant="80"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="270" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="86" y="263" width="202" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="846" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="68" y="389" width="233" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
-                                <rect key="contentStretch" x="0.0" y="0.0" width="1" height="1"/>
                                 <constraints>
-                                    <constraint id="600" firstAttribute="width" constant="202"/>
+                                    <constraint id="1073" firstAttribute="width" constant="233"/>
                                 </constraints>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" colorSpace="calibratedRGB" red="0.066666666666666666" green="0.596078431372549" blue="0.6470588235294118" alpha="1"/>
-                        <rect key="contentStretch" x="0" y="0" width="1" height="1"/>
-                        <edgeInsets key="layoutMargins" top="8" left="103" bottom="8" right="8"/>
+                        <color key="backgroundColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" colorSpace="calibratedWhite" white="0" alpha="1"/>
                         <constraints>
-                            <constraint id="356" firstItem="270" firstAttribute="width" secondItem="266" secondAttribute="width"/>
-                            <constraint id="357" firstItem="267" firstAttribute="width" secondItem="266" secondAttribute="width"/>
-                            <constraint id="591" firstItem="266" firstAttribute="leading" secondItem="yd7-JS-zBw" secondAttribute="leading" constant="86"/>
-                            <constraint id="592" firstItem="266" firstAttribute="top" secondItem="yd7-JS-zBw" secondAttribute="top" constant="243"/>
-                            <constraint id="594" firstItem="267" firstAttribute="leading" secondItem="yd7-JS-zBw" secondAttribute="leading" constant="86"/>
-                            <constraint id="595" firstItem="267" firstAttribute="top" secondItem="yd7-JS-zBw" secondAttribute="top" constant="157"/>
-                            <constraint id="598" firstItem="270" firstAttribute="leading" secondItem="yd7-JS-zBw" secondAttribute="leading" constant="86"/>
-                            <constraint id="599" firstItem="270" firstAttribute="top" secondItem="yd7-JS-zBw" secondAttribute="top" constant="263"/>
+                            <constraint id="1064" firstItem="yd7-JS-zBw" firstAttribute="trailing" secondItem="245" secondAttribute="trailing" constant="99"/>
+                            <constraint id="1065" firstItem="245" firstAttribute="top" secondItem="yd7-JS-zBw" secondAttribute="top" constant="366"/>
+                            <constraint id="1067" firstItem="845" firstAttribute="top" secondItem="yd7-JS-zBw" secondAttribute="top" constant="210"/>
+                            <constraint id="1068" firstItem="yd7-JS-zBw" firstAttribute="trailing" secondItem="845" secondAttribute="trailing" constant="59"/>
+                            <constraint id="1071" firstItem="846" firstAttribute="top" secondItem="yd7-JS-zBw" secondAttribute="top" constant="389"/>
+                            <constraint id="1072" firstItem="846" firstAttribute="leading" secondItem="yd7-JS-zBw" secondAttribute="leading" constant="68"/>
                         </constraints>
                     </view>
+                    <connections/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XAI-xm-WK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="349" y="339"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="innovi_logoe.png" width="1142" height="270"/>
+    </resources>
 </document>
