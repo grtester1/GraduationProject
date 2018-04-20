@@ -1,6 +1,6 @@
 # Final Year Project [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
-* Final project of B.S.c in Computer Science degree
+* Final project of B.S.c in Computer Science
 * Xamarin based client-applications (for mobile platform) intended to provide alternative GUI for an existing web (non-mobile supported) GUI.
 
 ## Participants
