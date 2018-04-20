@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +14,18 @@ namespace AgentVI.Views
 		public LoginPage ()
 		{
 			InitializeComponent ();
+            NavigationPage.SetHasNavigationBar(this, false);
 		}
-	}
+
+        void loginButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new MainPage());
+        }
+
+        void forgotPwdButton_Clicked(object sender, EventArgs e)
+        {
+            DisplayAlert("tapuah", "tapuah", "tapuah");
+        }
+
+    }
 }

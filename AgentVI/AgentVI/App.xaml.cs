@@ -13,7 +13,7 @@ namespace AgentVI
 		{
 			InitializeComponent();
 
-			MainPage = new AgentVI.Views.LoginPage();
+            MainPage = new NavigationPage(new Views.LoginPage());
 		}
 
 		protected override void OnStart ()

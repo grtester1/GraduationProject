@@ -48,8 +48,12 @@
                                                     Factor=0.15}">
             <Entry x:Name="usernameEntry" Placeholder="Username" FontAttributes="Italic"/>
             <Entry x:Name="passwordEntry" Placeholder="Password" FontAttributes="Italic" IsPassword="True"/>
-            <Button Text="Login" Margin="0,8"/>
-            <Label Text="Forgot Password?" HorizontalOptions="Center" FontAttributes="Italic" Margin="0,7"/>
+            <Button Clicked="loginButton_Clicked" Text="Login" Margin="0,8"/>
+            <Label Text="Forgot Password?" HorizontalOptions="Center" FontAttributes="Italic" Margin="0,7">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="forgotPwdButton_Clicked"/>
+                </Label.GestureRecognizers>
+            </Label>
         </StackLayout>
 
     </RelativeLayout>
