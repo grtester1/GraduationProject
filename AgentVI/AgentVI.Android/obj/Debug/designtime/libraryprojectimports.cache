@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Paths>
   <Jars>
-    <Jar>obj\Debug\lp\2\jl\formsviewgroup.jar</Jar>
-    <Jar>obj\Debug\lp\4\jl\support-annotations.jar</Jar>
+    <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\1\jl\formsviewgroup.jar</Jar>
     <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\10\jl\bin\classes.jar</Jar>
     <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\11\jl\bin\classes.jar</Jar>
     <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\12\jl\bin\classes.jar</Jar>
@@ -12,7 +11,9 @@
     <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\16\jl\bin\classes.jar</Jar>
     <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\17\jl\bin\classes.jar</Jar>
     <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\18\jl\bin\classes.jar</Jar>
-    <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\2\jl\formsviewgroup.jar</Jar>
+    <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\23\jl\arch-core-common.jar</Jar>
+    <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\24\jl\arch-lifecycle-common.jar</Jar>
+    <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\25\jl\bin\classes.jar</Jar>
     <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\3\jl\bin\classes.jar</Jar>
     <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\4\jl\support-annotations.jar</Jar>
     <Jar>C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI.Android\obj\Debug\lp\5\jl\bin\classes.jar</Jar>
