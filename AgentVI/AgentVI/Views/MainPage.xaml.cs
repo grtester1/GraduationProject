@@ -7,8 +7,8 @@ using Xamarin.Forms;
 
 namespace AgentVI.Views
 {
-	public partial class MainPage : ContentPage
-	{
+    public partial class MainPage : ContentPage
+    {
         void FooterBarEvents_Clicked(object sender, EventArgs e)
         {
             PlaceHolder.Content = (new Page1()).Content;
@@ -32,8 +32,8 @@ namespace AgentVI.Views
         }
 
         public MainPage()
-		{
-			InitializeComponent();
-		}
-	}
+        {
+            InitializeComponent();
+        }
+    }
 }

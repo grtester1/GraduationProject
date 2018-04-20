@@ -22,9 +22,10 @@ namespace AgentVI.Views
             Navigation.PushModalAsync(new MainPage());
         }
 
-        void forgotPwdButton_Clicked(object sender, EventArgs e)
+        async void forgotPwdButton_Clicked(object sender, EventArgs e)
         {
-            DisplayAlert("tapuah", "tapuah", "tapuah");
+            var response = await DisplayActionSheet("Title", "Cancel", "Delete", "Copy Link", "Duplicate Link");
+            await DisplayAlert("Response", response, "OK");
         }
 
     }

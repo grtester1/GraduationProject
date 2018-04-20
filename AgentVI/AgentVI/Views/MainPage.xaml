@@ -6,14 +6,28 @@
 
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition Height="9*"/>
             <RowDefinition Height="1"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
-        <ContentView x:Name="PlaceHolder" Grid.Row="0"/>
-        <BoxView BackgroundColor="#DCDCDC" Grid.Row="1"/>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Image HorizontalOptions="StartAndExpand" Source="imgs/common/innovi_logo.png" Grid.Column="0"/>
+            <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Grid.Column="2" Margin="0,0,5,0">
+                <Label FontSize="18" FontAttributes="Bold, Italic" Text="Hello, "/>
+                <Label x:Name="userNameHeader_Label" FontSize="18" FontAttributes="Bold, Italic" Text="User"/>
+                <Label FontSize="18" FontAttributes="Bold, Italic" Text="!"/>
+            </StackLayout>
+        </Grid>
+        <ContentView x:Name="PlaceHolder" Grid.Row="1"/>
+        <BoxView BackgroundColor="#DCDCDC" Grid.Row="2"/>
 
-        <Grid BackgroundColor="AliceBlue" Grid.Row="2">
+        <Grid BackgroundColor="AliceBlue" Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
