@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace AgentVI.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FilterPage : CarouselPage
+	public partial class FilterPage : ContentPage
 	{
 		public FilterPage ()
 		{
-			InitializeComponent ();
+            BindingContext = new ViewModels.FilterViewModel();
+            InitializeComponent ();
 		}
 	}
 }

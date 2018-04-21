@@ -19,7 +19,7 @@ namespace AgentVI.Views
         }
         void FooterBarHealth_Clicked(object sender, EventArgs e)
         {
-            PlaceHolder.Content = (new Page2()).Content;
+            Navigation.PushModalAsync(new FilterPage());
         }
         void FooterBarSettings_Clicked(object sender, EventArgs e)
         {
