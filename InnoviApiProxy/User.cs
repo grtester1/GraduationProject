@@ -22,7 +22,7 @@ namespace InnoviApiProxy
         
         // gets http response
         // currently uses a dummy API due to ssl certificate issue in Innovi API
-        private static  HttpResponseMessage getLoginResponse()
+        private static  HttpResponseMessage getLoginResponse(string i_Email, string i_Password)
         {
             HttpClient myClient = new HttpClient();
             myClient.BaseAddress = new Uri(Settings.InnoviApiEndpoint);
@@ -32,8 +32,8 @@ namespace InnoviApiProxy
             //     httpRequest.Headers.Add("X-API-KEY", Settings.ApiKey);
 
             Dictionary<string, string> jsonBuilder = new Dictionary<string, string>();
-            jsonBuilder.Add("email", "ramot.n@gmail.com");
-            jsonBuilder.Add("password", "password");
+            jsonBuilder.Add("email", i_Email);
+            jsonBuilder.Add("password", i_Password);
             HttpContent content = new FormUrlEncodedContent(jsonBuilder);
 
             string requestBody = JsonConvert.SerializeObject(jsonBuilder);
@@ -45,7 +45,7 @@ namespace InnoviApiProxy
     
         public static LoginResult Login(string i_Email, string i_Password)
         {
-            HttpResponseMessage response = getLoginResponse();
+            HttpResponseMessage response = getLoginResponse(i_Email, i_Password);
             Task<string> responseAsString = response.Content.ReadAsStringAsync();
             string str = responseAsString.Result;
             JObject responseJsonObject = JObject.Parse(str);
