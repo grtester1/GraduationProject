@@ -19,7 +19,8 @@ namespace InnoviApiProxy
         public enum eAccountStatus
         {
             Active = 0,
-            Inactive = 1
+            Undefined,
+            Suspended
         }
     }
 }

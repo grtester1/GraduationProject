@@ -5,8 +5,12 @@ namespace InnoviApiProxy
 {
     public class InnoviObjectCollection<InnoviObject> : IEnumerable
     {
-        private Dictionary<string, InnoviObject> m_InnoviObjectCollection = new Dictionary<string, InnoviObject>();
+        internal Dictionary<string, InnoviObject> m_InnoviObjectCollection;
 
+        public InnoviObjectCollection()
+        {
+            m_InnoviObjectCollection = new Dictionary<string, InnoviObject>();
+        }
         public InnoviObjectCollection(Dictionary<string, InnoviObject> i_Collection)
         {
             m_InnoviObjectCollection = i_Collection;
