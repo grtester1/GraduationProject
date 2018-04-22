@@ -1,12 +1,11 @@
 ﻿using System;
-
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using CarouselView.FormsPlugin.Android;
+using System.Reflection;
 
 namespace AgentVI.Droid
 {
@@ -21,7 +20,6 @@ namespace AgentVI.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            CarouselViewRenderer.Init();
             LoadApplication(new App());
         }
     }

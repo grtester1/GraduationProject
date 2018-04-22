@@ -15,6 +15,7 @@ namespace AgentVI.Views
 		public Page1 ()
 		{
 			InitializeComponent ();
+            BindingContext = ViewModels.TemporaryShit.getInstance();
 		}
 	}
 }

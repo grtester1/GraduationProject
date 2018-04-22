@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:AgentVI"
+             xmlns:ViewModels="clr-namespace:AgentVI.ViewModels"
              x:Class="AgentVI.Views.MainPage">
 
     <Grid ColumnSpacing="0" RowSpacing="0">
@@ -20,7 +21,7 @@
             <Image HorizontalOptions="StartAndExpand" Source="imgs/common/innovi_logo.png" Grid.Column="0"/>
             <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Grid.Column="2" Margin="0,0,5,0">
                 <Label FontSize="18" FontAttributes="Bold, Italic" Text="Hello, "/>
-                <Label x:Name="userNameHeader_Label" FontSize="18" FontAttributes="Bold, Italic" Text="User"/>
+                <Label x:Name="userNameHeader_Label" FontSize="18" FontAttributes="Bold, Italic" Text="{Binding Username}"/>
                 <Label FontSize="18" FontAttributes="Bold, Italic" Text="!"/>
             </StackLayout>
         </Grid>

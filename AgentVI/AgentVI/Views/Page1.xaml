@@ -2,11 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AgentVI.Views.Page1">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Page 1!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+    
+    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Username: "/>
+            <Label Text="{Binding Username}"/>
         </StackLayout>
-    </ContentPage.Content>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="User Email: "/>
+            <Label Text="{Binding UserEmail}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Accesstoken: "/>
+            <Label Text="{Binding AccessToken}"/>
+        </StackLayout>
+    </StackLayout>
+    
 </ContentPage>

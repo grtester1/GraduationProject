@@ -1,60 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:control="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
-             xmlns:local="clr-namespace:AgentVI.Views"
-             xmlns:ViewModels="clr-namespace:AgentVI.ViewModels;assembly=AgentVI"
-             x:Class="AgentVI.Views.FilterPage">
+<CarouselPage   xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:ViewModels="clr-namespace:AgentVI.ViewModels;assembly=AgentVI"
+                x:Class="AgentVI.Views.FilterPage"
+                ItemsSource="{Binding All}">
 
-    <ContentPage.BindingContext>
-        <ViewModels:FilterViewModel/>
-    </ContentPage.BindingContext>
+    <CarouselPage.ItemTemplate>
+        <DataTemplate>
+            <ContentPage>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="19*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-    <control:CarouselViewControl 
-        ItemsSource="{Binding MyItemsSource}" ShowArrows="True" ShowIndicators="True" Orientation="Horizontal">
-        <control:CarouselViewControl.ItemTemplate>
-            <DataTemplate>
-                <ContentPage>
-                    <StackLayout>
-                        <Image Source="{Binding MyImageURL}"/>
+                    <StackLayout Grid.Row="0">
+                        <SearchBar Placeholder="Search..." HeightRequest="30" x:Name="filterSearchBar"/>
+                        <BoxView Color="{Binding Color}" WidthRequest="200" HeightRequest="200" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
                     </StackLayout>
-                </ContentPage>
-            </DataTemplate>
-        </control:CarouselViewControl.ItemTemplate>
-    </control:CarouselViewControl>
-   
-<!--
-    <control:CarouselViewControl Orientation="Horizontal" InterPageSpacing="10" Position="{Binding myPosition}" ItemsSource="{Binding myItemsSource}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ShowIndicators="True">
-        <control:CarouselViewControl.ItemTemplate>
-            <DataTemplate>
-                <local:MyView />
-            </DataTemplate>
-        </control:CarouselViewControl.ItemTemplate>
-    </control:CarouselViewControl>
-    -->
-    <!--
-    <ContentPage>
-        <StackLayout>
-            <Label Text="Welcome to Page 1!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage>
+                    
+                    <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                        <Label HorizontalOptions="Center" Text="Filter "/>
+                        <Label HorizontalOptions="Start" Text="-1" x:Name="pageNumberLabel"/>
+                        <Label HorizontalOptions="Start" Text="| "/>
+                        <Label HorizontalOptions="Start" Text="-1" x:Name="totalPagesCountLabel"/>
+                    </StackLayout>
+                </Grid>
 
-    <ContentPage>
-        <StackLayout>
-            <Label Text="Welcome to Page 2!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage>
-
-    <ContentPage>
-        <StackLayout>
-            <Label Text="Welcome to Page 3!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage>
-    -->
-</ContentPage>
+            </ContentPage>
+        </DataTemplate>
+    </CarouselPage.ItemTemplate>
+</CarouselPage>

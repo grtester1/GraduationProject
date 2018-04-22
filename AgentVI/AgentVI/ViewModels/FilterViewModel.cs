@@ -13,31 +13,41 @@ namespace AgentVI.ViewModels
     public class FilterViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public Command MyCommand { get; protected set; }
-        private ObservableCollection<TabbedPageIconModel> _myItemsSource;
-        public ObservableCollection<TabbedPageIconModel> MyItemsSource
+
+        //<begin>temp
+        public IList<ColorModel> All { get; set; }
+        //<end>temp
+
+        private ObservableCollection<TabButtonModel> _tabButtons;
+        public ObservableCollection<TabButtonModel> TabButtons
         {
             get
             {
-                return _myItemsSource;
+                return _tabButtons;
             }
             set
             {
-                _myItemsSource = value;
-                OnPropertyChanged(nameof(MyItemsSource));
+                _tabButtons = value;
+                OnPropertyChanged(nameof(TabButtons));
             }
         }
 
         public FilterViewModel()
         {
-            MyItemsSource = new ObservableCollection<TabbedPageIconModel>()
+            TabButtons = new ObservableCollection<TabButtonModel>()
             {
-                new TabbedPageIconModel() { MyImageURL = "https://picsum.photos/201", MyImage = new Image(){Source = "https://picsum.photos/201" }, IconName="Banana1" },
-                new TabbedPageIconModel() { MyImageURL = "https://picsum.photos/202", MyImage = new Image(){Source = "https://picsum.photos/202" }, IconName="Banana2" },
-                new TabbedPageIconModel() { MyImageURL = "https://picsum.photos/203", MyImage = new Image(){Source = "https://picsum.photos/203" }, IconName="Banana3" }
+                new TabButtonModel() { MyImageURL = "https://picsum.photos/201", Image = new Image(){Source = "https://picsum.photos/201" }, IconName="Events" },
+                new TabButtonModel() { MyImageURL = "https://picsum.photos/202", Image = new Image(){Source = "https://picsum.photos/202" }, IconName="Cameras" },
+                new TabButtonModel() { MyImageURL = "https://picsum.photos/203", Image = new Image(){Source = "https://picsum.photos/203" }, IconName="Health" },
+                new TabButtonModel() { MyImageURL = "https://picsum.photos/204", Image = new Image(){Source = "https://picsum.photos/204" }, IconName="Settings" }
             };
-
-            MyCommand = new Command(() => { Debug.WriteLine("Position selected."); });
+            All = new ObservableCollection<ColorModel>
+            {
+                new ColorModel{Name="red", Color=Color.Red},
+                new ColorModel{Name="green", Color=Color.Green},
+                new ColorModel{Name="yellow", Color=Color.Yellow},
+                new ColorModel{Name="blue", Color=Color.Blue}
+            };
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

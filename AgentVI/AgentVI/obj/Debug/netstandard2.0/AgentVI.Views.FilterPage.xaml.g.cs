@@ -13,7 +13,7 @@ namespace AgentVI.Views {
     
     [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("C:\\Users\\7308521\\Documents\\GitHub\\FinalYearProject\\AgentVI\\AgentVI\\Views\\FilterPa" +
         "ge.xaml")]
-    public partial class FilterPage : global::Xamarin.Forms.ContentPage {
+    public partial class FilterPage : global::Xamarin.Forms.CarouselPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private void InitializeComponent() {

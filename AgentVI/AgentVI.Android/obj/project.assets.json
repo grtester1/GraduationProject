@@ -2,21 +2,13 @@
   "version": 3,
   "targets": {
     "MonoAndroid,Version=v8.1": {
-      "CarouselView.FormsPlugin/5.2.0": {
+      "Newtonsoft.Json/11.0.2": {
         "type": "package",
-        "dependencies": {
-          "Xamarin.Android.CirclePageIndicator": "1.0.2",
-          "Xamarin.Android.Support.v4": "25.4.0.2",
-          "Xamarin.Android.VerticalViewPager": "1.0.1",
-          "Xamarin.Forms": "2.5.0.121934"
-        },
         "compile": {
-          "lib/MonoAndroid/CarouselView.FormsPlugin.Abstractions.dll": {},
-          "lib/MonoAndroid/CarouselView.FormsPlugin.Android.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/MonoAndroid/CarouselView.FormsPlugin.Abstractions.dll": {},
-          "lib/MonoAndroid/CarouselView.FormsPlugin.Android.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
       "Xamarin.Android.Arch.Core.Common/1.0.0": {
@@ -64,18 +56,6 @@
         },
         "build": {
           "build/MonoAndroid80/Xamarin.Android.Arch.Lifecycle.Runtime.targets": {}
-        }
-      },
-      "Xamarin.Android.CirclePageIndicator/1.0.2": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Android.Support.v4": "23.3.0"
-        },
-        "compile": {
-          "lib/MonoAndroid/Com.ViewPagerIndicator.dll": {}
-        },
-        "runtime": {
-          "lib/MonoAndroid/Com.ViewPagerIndicator.dll": {}
         }
       },
       "Xamarin.Android.Support.Animated.Vector.Drawable/27.0.2": {
@@ -342,18 +322,6 @@
           "build/MonoAndroid81/Xamarin.Android.Support.Vector.Drawable.targets": {}
         }
       },
-      "Xamarin.Android.VerticalViewPager/1.0.1": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Android.Support.v4": "23.3.0"
-        },
-        "compile": {
-          "lib/MonoAndroid/Com.Android.DeskClock.dll": {}
-        },
-        "runtime": {
-          "lib/MonoAndroid/Com.Android.DeskClock.dll": {}
-        }
-      },
       "Xamarin.Forms/2.5.1.444934": {
         "type": "package",
         "dependencies": {
@@ -386,7 +354,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "CarouselView.FormsPlugin": "5.2.0",
+          "InnoviApiProxy": "1.0.0",
           "Xamarin.Forms": "2.5.1.444934"
         },
         "compile": {
@@ -395,28 +363,49 @@
         "runtime": {
           "bin/placeholder/AgentVI.dll": {}
         }
+      },
+      "InnoviApiProxy/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "compile": {
+          "bin/placeholder/InnoviApiProxy.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/InnoviApiProxy.dll": {}
+        }
       }
     }
   },
   "libraries": {
-    "CarouselView.FormsPlugin/5.2.0": {
-      "sha512": "h849lqz0wvmpyiXqCrN7EW+cCGqK5chcefCfS55CkoGMMQx238QWNknUTOl/CvIdZ4bgs0Oztb7kamYXDlQ5mQ==",
+    "Newtonsoft.Json/11.0.2": {
+      "sha512": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
       "type": "package",
-      "path": "carouselview.formsplugin/5.2.0",
+      "path": "newtonsoft.json/11.0.2",
       "files": [
-        "carouselview.formsplugin.5.2.0.nupkg.sha512",
-        "carouselview.formsplugin.nuspec",
-        "lib/MonoAndroid/CarouselView.FormsPlugin.Abstractions.dll",
-        "lib/MonoAndroid/CarouselView.FormsPlugin.Android.dll",
-        "lib/UAP10/CarouselView.FormsPlugin.Abstractions.dll",
-        "lib/UAP10/CarouselView.FormsPlugin.UWP.dll",
-        "lib/UAP10/CarouselView.FormsPlugin.UWP.pri",
-        "lib/UAP10/CarouselView.FormsPlugin.UWP/CarouselView.FormsPlugin.UWP.xr.xml",
-        "lib/UAP10/FlipViewControl.xbf",
-        "lib/Xamarin.iOS10/CarouselView.FormsPlugin.Abstractions.dll",
-        "lib/Xamarin.iOS10/CarouselView.FormsPlugin.iOS.dll",
-        "lib/netstandard2.0/CarouselView.FormsPlugin.Abstractions.dll",
-        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid10+Xamarin.iOS10/CarouselView.FormsPlugin.Abstractions.dll"
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.11.0.2.nupkg.sha512",
+        "newtonsoft.json.nuspec"
       ]
     },
     "Xamarin.Android.Arch.Core.Common/1.0.0": {
@@ -454,16 +443,6 @@
         "proguard/proguard.txt",
         "xamarin.android.arch.lifecycle.runtime.1.0.3.nupkg.sha512",
         "xamarin.android.arch.lifecycle.runtime.nuspec"
-      ]
-    },
-    "Xamarin.Android.CirclePageIndicator/1.0.2": {
-      "sha512": "KTebv8cI75vLIAAQcZWcMUc81L+0c/xAXVm45+FdLVgVihH6GlXkA049IN0A2OF7vMQ9ud/WxV7xBDkluuLUjg==",
-      "type": "package",
-      "path": "xamarin.android.circlepageindicator/1.0.2",
-      "files": [
-        "lib/MonoAndroid/Com.ViewPagerIndicator.dll",
-        "xamarin.android.circlepageindicator.1.0.2.nupkg.sha512",
-        "xamarin.android.circlepageindicator.nuspec"
       ]
     },
     "Xamarin.Android.Support.Animated.Vector.Drawable/27.0.2": {
@@ -665,16 +644,6 @@
         "xamarin.android.support.vector.drawable.nuspec"
       ]
     },
-    "Xamarin.Android.VerticalViewPager/1.0.1": {
-      "sha512": "90gy22k7dMBxkNw21W1Z4lm+a6TyUVSU/QxTNXxAXHp9DEKKG/G4tKQadKQs/BZmHvhSuTxX5LjVBJUUVCiNoQ==",
-      "type": "package",
-      "path": "xamarin.android.verticalviewpager/1.0.1",
-      "files": [
-        "lib/MonoAndroid/Com.Android.DeskClock.dll",
-        "xamarin.android.verticalviewpager.1.0.1.nupkg.sha512",
-        "xamarin.android.verticalviewpager.nuspec"
-      ]
-    },
     "Xamarin.Forms/2.5.1.444934": {
       "sha512": "zDbZeFhh62l6cMG9dXrQ/CSbk+NxKAykeL+JcVxLn//Rx678sCa961F+ib0gqzNHkTmT1K3TPLlJZp5WjvnKVA==",
       "type": "package",
@@ -861,12 +830,16 @@
       "type": "project",
       "path": "../AgentVI/AgentVI.csproj",
       "msbuildProject": "../AgentVI/AgentVI.csproj"
+    },
+    "InnoviApiProxy/1.0.0": {
+      "type": "project",
+      "path": "../../InnoviApiProxy/InnoviApiProxy.csproj",
+      "msbuildProject": "../../InnoviApiProxy/InnoviApiProxy.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "MonoAndroid,Version=v8.1": [
       "AgentVI >= 1.0.0",
-      "CarouselView.FormsPlugin >= 5.2.0",
       "Xamarin.Android.Support.Design >= 27.0.2",
       "Xamarin.Android.Support.v4 >= 27.0.2",
       "Xamarin.Android.Support.v7.AppCompat >= 27.0.2",
@@ -912,10 +885,6 @@
     "frameworks": {
       "monoandroid81": {
         "dependencies": {
-          "CarouselView.FormsPlugin": {
-            "target": "Package",
-            "version": "[5.2.0, )"
-          },
           "Xamarin.Android.Support.Design": {
             "target": "Package",
             "version": "[27.0.2, )"

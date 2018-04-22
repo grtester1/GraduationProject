@@ -1,6 +1,3 @@
-C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\bin\Debug\netstandard2.0\AgentVI.deps.json
-C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\bin\Debug\netstandard2.0\AgentVI.dll
-C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\obj\Debug\netstandard2.0\AgentVI.csprojResolveAssemblyReference.cache
 C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\obj\Debug\netstandard2.0\AgentVI.csproj.CoreCompileInputs.cache
 C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\obj\Debug\netstandard2.0\AgentVI.App.xaml.g.cs
 C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\obj\Debug\netstandard2.0\AgentVI.Views.FilterPage.xaml.g.cs
@@ -10,3 +7,12 @@ C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\obj\Debug\net
 C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\obj\Debug\netstandard2.0\AgentVI.Views.Page2.xaml.g.cs
 C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\obj\Debug\netstandard2.0\AgentVI.AssemblyInfoInputs.cache
 C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\obj\Debug\netstandard2.0\AgentVI.AssemblyInfo.cs
+C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\bin\Debug\netstandard2.0\AgentVI.deps.json
+C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\bin\Debug\netstandard2.0\AgentVI.dll
+C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\bin\Debug\netstandard2.0\AgentVI.pdb
+C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\obj\Debug\netstandard2.0\AgentVI.dll
+C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\obj\Debug\netstandard2.0\AgentVI.pdb
+C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\bin\Debug\netstandard2.0\InnoviApiProxy.dll
+C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\bin\Debug\netstandard2.0\InnoviApiProxy.pdb
+C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\obj\Debug\netstandard2.0\AgentVI.csprojResolveAssemblyReference.cache
+C:\Users\7308521\Documents\GitHub\FinalYearProject\AgentVI\AgentVI\obj\Debug\netstandard2.0\AgentVI.csproj.CopyComplete

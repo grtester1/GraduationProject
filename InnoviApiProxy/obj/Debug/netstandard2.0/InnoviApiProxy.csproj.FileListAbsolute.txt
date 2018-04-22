@@ -1,0 +1,9 @@
+C:\Users\7308521\Documents\GitHub\FinalYearProject\InnoviApiProxy\bin\Debug\netstandard2.0\InnoviApiProxy.deps.json
+C:\Users\7308521\Documents\GitHub\FinalYearProject\InnoviApiProxy\bin\Debug\netstandard2.0\InnoviApiProxy.dll
+C:\Users\7308521\Documents\GitHub\FinalYearProject\InnoviApiProxy\obj\Debug\netstandard2.0\InnoviApiProxy.csprojResolveAssemblyReference.cache
+C:\Users\7308521\Documents\GitHub\FinalYearProject\InnoviApiProxy\obj\Debug\netstandard2.0\InnoviApiProxy.csproj.CoreCompileInputs.cache
+C:\Users\7308521\Documents\GitHub\FinalYearProject\InnoviApiProxy\obj\Debug\netstandard2.0\InnoviApiProxy.AssemblyInfoInputs.cache
+C:\Users\7308521\Documents\GitHub\FinalYearProject\InnoviApiProxy\obj\Debug\netstandard2.0\InnoviApiProxy.AssemblyInfo.cs
+C:\Users\7308521\Documents\GitHub\FinalYearProject\InnoviApiProxy\bin\Debug\netstandard2.0\InnoviApiProxy.pdb
+C:\Users\7308521\Documents\GitHub\FinalYearProject\InnoviApiProxy\obj\Debug\netstandard2.0\InnoviApiProxy.dll
+C:\Users\7308521\Documents\GitHub\FinalYearProject\InnoviApiProxy\obj\Debug\netstandard2.0\InnoviApiProxy.pdb
