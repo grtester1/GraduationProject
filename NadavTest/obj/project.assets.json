@@ -720,23 +720,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\7308521\\.nuget\\packages\\": {},
+    "C:\\Users\\PC\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\7308521\\Documents\\GitHub\\underDevelopment\\NadavTest\\NadavTest.csproj",
+      "projectUniqueName": "C:\\Users\\PC\\Documents\\GitHub\\AgentProject\\FinalYearProject\\NadavTest\\NadavTest.csproj",
       "projectName": "NadavTest",
-      "projectPath": "C:\\Users\\7308521\\Documents\\GitHub\\underDevelopment\\NadavTest\\NadavTest.csproj",
-      "packagesPath": "C:\\Users\\7308521\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\7308521\\Documents\\GitHub\\underDevelopment\\NadavTest\\obj\\",
+      "projectPath": "C:\\Users\\PC\\Documents\\GitHub\\AgentProject\\FinalYearProject\\NadavTest\\NadavTest.csproj",
+      "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PC\\Documents\\GitHub\\AgentProject\\FinalYearProject\\NadavTest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\7308521\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -749,8 +749,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\7308521\\Documents\\GitHub\\underDevelopment\\InnoviApiProxy\\InnoviApiProxy.csproj": {
-              "projectPath": "C:\\Users\\7308521\\Documents\\GitHub\\underDevelopment\\InnoviApiProxy\\InnoviApiProxy.csproj"
+            "C:\\Users\\PC\\Documents\\GitHub\\AgentProject\\FinalYearProject\\InnoviApiProxy\\InnoviApiProxy.csproj": {
+              "projectPath": "C:\\Users\\PC\\Documents\\GitHub\\AgentProject\\FinalYearProject\\InnoviApiProxy\\InnoviApiProxy.csproj"
             }
           }
         }
