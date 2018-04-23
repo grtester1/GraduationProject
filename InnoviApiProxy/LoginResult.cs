@@ -15,6 +15,7 @@ namespace InnoviApiProxy
         {
             Empty,
             WrongCredentials,
+            AccessTokenExpired,
             ServerError
         }
 
@@ -38,5 +39,4 @@ namespace InnoviApiProxy
             return null;
         }
     }
-
 }

@@ -1,18 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace InnoviApiProxy
 {
     public class Folder
     {
-        public string Name { get; set; }
-        public int Id { get; set; }
-        public int ParentId { get; set; }
-        public int AccountId { get; set; }
-        public int Depth { get; set; }
+        [JsonPropertyAttribute]
+        public string Name { get; private set; }
+        [JsonPropertyAttribute]
+        public int Id { get; private set; }
+        [JsonPropertyAttribute]
+        public int ParentId { get; private set; }
+        [JsonPropertyAttribute]
+        public int AccountId { get; private set; }
+        [JsonPropertyAttribute]
+        public int Depth { get; private set; }
 
         public List<Coordinate> GeoArea;
+
+        internal Folder() { }
+
         public List<Sensor> Sensors
         {
             get

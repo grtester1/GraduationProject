@@ -38,12 +38,12 @@ namespace InnoviApiProxy
                 throw new Exception("Not logged in");
             }
 
-            HttpClient client = HttpUtils.BaseHttpClient();
+            HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, "api/folders/" + i_FolderId.ToString() + "/folders");
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
-            JObject responseJsonObject = HttpUtils.GetHttpResponseBody(response);
+            JObject responseJsonObject = GetHttpResponseBody(response);
 
             // if code == 0 => no errors
             List<Folder> folders = JsonConvert.DeserializeObject<List<Folder>>(responseJsonObject["list"].ToString());
@@ -63,12 +63,12 @@ namespace InnoviApiProxy
                 throw new Exception("Not logged in");
             }
 
-            HttpClient client = HttpUtils.BaseHttpClient();
+            HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, "api/sensors?folder=" + i_FolderId.ToString());
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
-            JObject responseJsonObject = HttpUtils.GetHttpResponseBody(response);
+            JObject responseJsonObject = GetHttpResponseBody(response);
 
             // if code == 0 => no errors
             List<Sensor> Sensors = JsonConvert.DeserializeObject<List<Sensor>>(responseJsonObject["list"].ToString());

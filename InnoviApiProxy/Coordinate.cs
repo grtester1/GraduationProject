@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace InnoviApiProxy
 {
     public class Coordinate
     {
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
-        public float Altitude { get; set; }
+        [JsonPropertyAttribute]
+        public float Latitude { get; private set; }
+        [JsonPropertyAttribute]
+        public float Longitude { get; private set; }
+        [JsonPropertyAttribute]
+        public float Altitude { get; private set; }
+
+        internal Coordinate() { }
     }
 }

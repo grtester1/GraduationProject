@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace InnoviApiProxy
 {
     public class Account : InnoviObject
     {
-        public string AccountId { get; set; }
-        public string Name { get; set; }
-        public eAccountStatus Status { get; set; }
- //       public InnoviObjectCollection<CustomerFolder> CustomerFolders { get; set; }
-        public List<Folder> Folders { get; set; }
+        [JsonPropertyAttribute]
+        public string AccountId { get;  private set; }
+        [JsonPropertyAttribute]
+        public string Name { get; private set; }
+        [JsonPropertyAttribute]
+        public eAccountStatus Status { get; private set; }
+        //       public InnoviObjectCollection<CustomerFolder> CustomerFolders { get; set; }
+        [JsonPropertyAttribute]
+        public List<Folder> Folders { get; private set; }
 
         public enum eAccountStatus
         {
@@ -18,5 +23,7 @@ namespace InnoviApiProxy
             Undefined,
             Suspended
         }
+
+        internal Account() { }
     }
 }

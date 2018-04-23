@@ -10,6 +10,7 @@ namespace NadavTest
         {
             LoginResult loginResult = User.Login("ramot.n@gmail.com", "password");
             User user = loginResult.User;
+    //        LoginResult loginResult1 = User.Connect(Settings.AccessToken);
             List<Folder> folders = user.GetDefaultAccountFolders();
             foreach(var folder in folders)
             {
