@@ -6,15 +6,11 @@ namespace InnoviApiProxy
 {
     public class Account : InnoviObject
     {
-        private int m_AccountId = 0;
+        public string AccountId { get; set; }
         public string Name { get; set; }
         public eAccountStatus Status { get; set; }
-        public InnoviObjectCollection<CustomerFolder> CustomerFolders { get; set; }
-
-        public void AddCustomerFolder(CustomerFolder i_CustomerFolder)
-        {
-            throw new Exception("Not yet implemented");
-        }
+ //       public InnoviObjectCollection<CustomerFolder> CustomerFolders { get; set; }
+        public List<Folder> Folders { get; set; }
 
         public enum eAccountStatus
         {

@@ -1,0 +1,14 @@
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\bin\Debug\netcoreapp2.0\NadavTest.deps.json
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\bin\Debug\netcoreapp2.0\NadavTest.runtimeconfig.json
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\bin\Debug\netcoreapp2.0\NadavTest.runtimeconfig.dev.json
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\bin\Debug\netcoreapp2.0\NadavTest.dll
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\bin\Debug\netcoreapp2.0\NadavTest.pdb
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\bin\Debug\netcoreapp2.0\InnoviApiProxy.dll
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\bin\Debug\netcoreapp2.0\InnoviApiProxy.pdb
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\obj\Debug\netcoreapp2.0\NadavTest.csprojResolveAssemblyReference.cache
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\obj\Debug\netcoreapp2.0\NadavTest.csproj.CoreCompileInputs.cache
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\obj\Debug\netcoreapp2.0\NadavTest.AssemblyInfoInputs.cache
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\obj\Debug\netcoreapp2.0\NadavTest.AssemblyInfo.cs
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\obj\Debug\netcoreapp2.0\NadavTest.csproj.CopyComplete
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\obj\Debug\netcoreapp2.0\NadavTest.dll
+C:\Users\PC\Documents\GitHub\AgentProject\FinalYearProject\NadavTest\obj\Debug\netcoreapp2.0\NadavTest.pdb

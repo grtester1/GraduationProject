@@ -849,20 +849,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\7308521\\.nuget\\packages\\": {}
+    "C:\\Users\\PC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\7308521\\Documents\\GitHub\\FinalYearProject\\AgentVI\\AgentVI.Android\\AgentVI.Android.csproj",
+      "projectUniqueName": "C:\\Users\\PC\\Documents\\GitHub\\AgentProject\\FinalYearProject\\AgentVI\\AgentVI.Android\\AgentVI.Android.csproj",
       "projectName": "AgentVI.Android",
-      "projectPath": "C:\\Users\\7308521\\Documents\\GitHub\\FinalYearProject\\AgentVI\\AgentVI.Android\\AgentVI.Android.csproj",
-      "packagesPath": "C:\\Users\\7308521\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\7308521\\Documents\\GitHub\\FinalYearProject\\AgentVI\\AgentVI.Android\\obj\\",
+      "projectPath": "C:\\Users\\PC\\Documents\\GitHub\\AgentProject\\FinalYearProject\\AgentVI\\AgentVI.Android\\AgentVI.Android.csproj",
+      "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PC\\Documents\\GitHub\\AgentProject\\FinalYearProject\\AgentVI\\AgentVI.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "C:\\Users\\7308521\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -875,8 +875,8 @@
       "frameworks": {
         "monoandroid81": {
           "projectReferences": {
-            "C:\\Users\\7308521\\Documents\\GitHub\\FinalYearProject\\AgentVI\\AgentVI\\AgentVI.csproj": {
-              "projectPath": "C:\\Users\\7308521\\Documents\\GitHub\\FinalYearProject\\AgentVI\\AgentVI\\AgentVI.csproj"
+            "C:\\Users\\PC\\Documents\\GitHub\\AgentProject\\FinalYearProject\\AgentVI\\AgentVI\\AgentVI.csproj": {
+              "projectPath": "C:\\Users\\PC\\Documents\\GitHub\\AgentProject\\FinalYearProject\\AgentVI\\AgentVI\\AgentVI.csproj"
             }
           }
         }
