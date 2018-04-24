@@ -5,47 +5,46 @@ using Newtonsoft.Json;
 
 namespace InnoviApiProxy
 {
-    [JsonObjectAttribute]
     public class Sensor : InnoviObject
     {
-        [JsonPropertyAttribute]
-        public int Id { get; private set; }
-        [JsonPropertyAttribute]
-        public int AccountId { get; private set; }
-        [JsonPropertyAttribute]
-        public int FolderId { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty("id")]
+        private int sensorId { get; set; }
+        [JsonProperty]
+        private int accountId { get; set; }
+        [JsonProperty]
+        private int folderId { get; set; }
+        [JsonProperty]
         public string Name { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public eSensorType SensorType { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public eSensorStatus Status { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public eStreamType StreamType { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public Coordinate GeoLocation { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public List<Coordinate> GeoArea { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public List<KeyValuePair<string, string>> Tags { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public string LoginKey { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty("recording")]
         public bool IsRecording { get; private set; }
-        [JsonPropertyAttribute]
-        public bool CreateEventImage { get; private set; }
-        [JsonPropertyAttribute]
-        public bool CreateEventClip { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty("createEventImage")]
+        public bool IsEventImageCreationRequired { get; private set; }
+        [JsonProperty("createEventClip")]
+        public bool IsEventClipCreationRequired { get; private set; }
+        [JsonProperty("enabledByUser")]
         public bool IsEnabledByUser { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty("optimizationEnabled")]
         public bool IsOptimizationEnabled { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public uint AlarmInterval { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public string StreamUrl { get; private set; }
 
-        public List<SensorEvent> SensorEvents { get; set; }
+        public List<SensorEvent> SensorEvents { get; private set; }
 
         public void Arm()
         {

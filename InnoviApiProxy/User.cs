@@ -12,13 +12,13 @@ namespace InnoviApiProxy
     public class User
     {
         private static User m_Instance;
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public string Username { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public string UserEmail { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public string AccessToken { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public List<Account> Accounts { get; private set; }
         //  public InnoviObjectCollection<Account> Accounts { get; set; }
 

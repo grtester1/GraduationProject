@@ -6,8 +6,8 @@ namespace InnoviApiProxy
 {
     public class LoginResult
     {
-        public eErrorMessage ErrorMessage { get; set; }
-        public User User { get; set; }
+        public eErrorMessage ErrorMessage { get; internal set; }
+        public User User { get; internal set; }
 
         internal LoginResult() { }
 
@@ -18,8 +18,6 @@ namespace InnoviApiProxy
             AccessTokenExpired,
             ServerError
         }
-
-
     }
 
     public static class LoginResultExtensionMethods

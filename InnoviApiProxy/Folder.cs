@@ -7,15 +7,15 @@ namespace InnoviApiProxy
 {
     public class Folder
     {
-        [JsonPropertyAttribute]
+        [JsonProperty]
+        private int parentId { get; set; }
+        [JsonProperty]
+        private int accountId { get; set; }
+        [JsonProperty("id")]
+        private int folderId { get; set; }
+        [JsonProperty]
         public string Name { get; private set; }
-        [JsonPropertyAttribute]
-        public int Id { get; private set; }
-        [JsonPropertyAttribute]
-        public int ParentId { get; private set; }
-        [JsonPropertyAttribute]
-        public int AccountId { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public int Depth { get; private set; }
 
         public List<Coordinate> GeoArea;
@@ -26,7 +26,7 @@ namespace InnoviApiProxy
         {
             get
             {
-                return HttpUtils.GetSensors(Id);
+                return HttpUtils.GetSensors(folderId);
             }
             set
             {
@@ -38,7 +38,7 @@ namespace InnoviApiProxy
         {
             get
             {
-                return HttpUtils.GetFolders(Id);
+                return HttpUtils.GetFolders(folderId);
             }
             private set
             {

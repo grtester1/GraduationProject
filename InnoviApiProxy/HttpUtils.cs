@@ -71,13 +71,13 @@ namespace InnoviApiProxy
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             // if code == 0 => no errors
-            List<Sensor> Sensors = JsonConvert.DeserializeObject<List<Sensor>>(responseJsonObject["list"].ToString());
-            if (Sensors.Count == 0)
+            List<Sensor> sensors = JsonConvert.DeserializeObject<List<Sensor>>(responseJsonObject["list"].ToString());
+            if (sensors.Count == 0)
             {
-                Sensors = null;
+                sensors = null;
             }
 
-            return Sensors;
+            return sensors;
         }
     }
 }

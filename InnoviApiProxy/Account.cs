@@ -7,15 +7,15 @@ namespace InnoviApiProxy
 {
     public class Account : InnoviObject
     {
-        [JsonPropertyAttribute]
-        public string AccountId { get;  private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty("id")]
+        private string accountId { get;  set; }
+        [JsonProperty]
         public string Name { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public eAccountStatus Status { get; private set; }
         //       public InnoviObjectCollection<CustomerFolder> CustomerFolders { get; set; }
-        [JsonPropertyAttribute]
-        public List<Folder> Folders { get; private set; }
+//        [JsonProperty]
+ //       public List<Folder> Folders { get; private set; }
 
         public enum eAccountStatus
         {

@@ -7,25 +7,25 @@ namespace InnoviApiProxy
 {
     public class SensorEvent : InnoviObject
     {
-        [JsonPropertyAttribute]
-        public int EventId { get; private set; }
-        [JsonPropertyAttribute]
-        public int SensorId { get; private set; }
-        [JsonPropertyAttribute]
-        public int AccountId { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty("id")]
+        private int eventId { get; set; }
+        [JsonProperty]
+        private int sensorId { get; set; }
+        [JsonProperty]
+        private int accountId { get; set; }
+        [JsonProperty]
         public ulong StartTime { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public int ObjectType { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public int RuleId { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public string Name { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public string ImagePath { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public string ClipPath { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public Sensor.eSensorEventTag Tag { get; private set; }
 
         internal SensorEvent() { }

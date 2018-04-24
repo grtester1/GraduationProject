@@ -7,11 +7,11 @@ namespace InnoviApiProxy
 {
     public class Coordinate
     {
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public float Latitude { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public float Longitude { get; private set; }
-        [JsonPropertyAttribute]
+        [JsonProperty]
         public float Altitude { get; private set; }
 
         internal Coordinate() { }
