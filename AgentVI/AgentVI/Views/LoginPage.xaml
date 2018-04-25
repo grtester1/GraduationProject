@@ -12,7 +12,7 @@
                                                                                                     Type=RelativeToParent,
                                                                                                     Property=Height}"/>
         -->
-        <Image x:Name="backgroundPicture" Source="imgs/common/background.png" Aspect="AspectFill"
+        <Image x:Name="backgroundPicture" Source="background.png" Aspect="AspectFill"
                                                                 RelativeLayout.WidthConstraint="{ConstraintExpression
                                                                                                     Type=RelativeToParent,
                                                                                                     Property=Width}"

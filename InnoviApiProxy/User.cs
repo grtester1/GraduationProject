@@ -28,7 +28,7 @@ namespace InnoviApiProxy
         {
             if (m_Instance != null)
             {
-                throw new Exception("There is already a logged in user");
+                throw new Exception("There is already a logged in user. At first you should try to connect w/ AccessToken!");
             }
 
             HttpClient client = HttpUtils.BaseHttpClient();

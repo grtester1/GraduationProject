@@ -6,7 +6,7 @@
         <StackLayout>
             <Label Text="Welcome to Page 2!"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand"/>
             <Label Text="Welcome to Page 2!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />

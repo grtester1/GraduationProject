@@ -26,10 +26,12 @@ namespace AgentVI.Views
             PlaceHolder.Content = (new Page2()).Content;
         }
 
+
         protected override bool OnBackButtonPressed()
         {
             return true;
         }
+
 
         public MainPage()
         {
