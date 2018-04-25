@@ -111,6 +111,9 @@
     <BundleResource Include="Resources\Icon-Small%402x.png" />
     <BundleResource Include="Resources\Icon-Small%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="Resources\icons\common\icon.png" />
+    <BundleResource Include="Resources\imgs\common\background.png" />
+    <BundleResource Include="Resources\imgs\common\innovi_logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -124,7 +127,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\AgentVI\AgentVI.csproj">
-      <Project>{288062C0-8D36-4677-9B28-FEBCD61EDC54}</Project>
+      <Project>{EC8A889C-D8AC-49DA-8EB5-F1D5A7BBBE5C}</Project>
       <Name>AgentVI</Name>
     </ProjectReference>
   </ItemGroup>
