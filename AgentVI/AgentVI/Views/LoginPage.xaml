@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AgentVI.Views.LoginPage">
@@ -12,7 +12,7 @@
                                                                                                     Type=RelativeToParent,
                                                                                                     Property=Height}"/>
         -->
-        <Image x:Name="backgroundPicture" Source="background.png" Aspect="AspectFill"
+        <Image x:Name="backgroundPicture" Source="imgs/common/background.png" Aspect="AspectFill"
                                                                 RelativeLayout.WidthConstraint="{ConstraintExpression
                                                                                                     Type=RelativeToParent,
                                                                                                     Property=Width}"
@@ -46,7 +46,7 @@
                                                     Type=RelativeToParent,
                                                     Property=Width,
                                                     Factor=0.15}">
-            <Entry x:Name="usernameEntry" Placeholder="Username" FontAttributes="Italic"/>
+            <Entry x:Name="usernameEntry" Placeholder="Username" FontAttributes="Italic" Keyboard="Email"/>
             <Entry x:Name="passwordEntry" Placeholder="Password" FontAttributes="Italic" IsPassword="True"/>
             <Button Clicked="loginButton_Clicked" Text="Login" Margin="0,8"/>
             <Label Text="Forgot Password?" HorizontalOptions="Center" FontAttributes="Italic" Margin="0,7">
