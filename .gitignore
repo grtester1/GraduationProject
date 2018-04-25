@@ -3,3 +3,9 @@
 _ReSharper.*
 bin
 obj
+/NadavTest/obj/*
+/NadavTest/bin/*
+/AgentVI/AgentVI/bin/*
+/AgentVI/AgentVI/obj/*
+/AgentVI/AgentVI.Android/bin/*
+/AgentVI/AgentVI.Android/obj/*
