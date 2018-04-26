@@ -45,8 +45,7 @@ namespace AgentVI.Views
                     }
 
                 }
-
-                if (m_loginResult != null)
+                else
                 {
                     if (m_loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                     {

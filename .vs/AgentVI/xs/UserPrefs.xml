@@ -2,8 +2,8 @@
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/LoginPage.xaml.cs">
     <Files>
-      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml" Line="50" Column="86" />
-      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml.cs" Line="35" Column="38" />
+      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml" Line="60" Column="15" />
+      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml.cs" Line="19" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
