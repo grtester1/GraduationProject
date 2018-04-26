@@ -46,7 +46,7 @@
                                                     Type=RelativeToParent,
                                                     Property=Width,
                                                     Factor=0.15}">
-            <Entry x:Name="usernameEntry" Placeholder="Username" FontAttributes="Italic"/>
+            <Entry x:Name="usernameEntry" Placeholder="Username" FontAttributes="Italic" Keyboard="Email"/>
             <Entry x:Name="passwordEntry" Placeholder="Password" FontAttributes="Italic" IsPassword="True"/>
             <Button Clicked="loginButton_Clicked" Text="Login" Margin="0,8"/>
             <Label Text="Forgot Password?" HorizontalOptions="Center" FontAttributes="Italic" Margin="0,7">

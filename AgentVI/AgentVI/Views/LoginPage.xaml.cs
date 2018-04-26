@@ -13,6 +13,8 @@ namespace AgentVI.Views
 	public partial class LoginPage : ContentPage
 	{
         LoginResult m_loginResult = null;
+
+
         public LoginPage ()
 		{
             InitializeComponent ();
@@ -20,35 +22,45 @@ namespace AgentVI.Views
         }
 
         void loginButton_Clicked(object sender, EventArgs e)
-        {   
-            if(m_loginResult == null)
+        {
+            string username = usernameEntry.Text;
+            string password = passwordEntry.Text;
+            bool isUsernameEmpty = string.IsNullOrEmpty(username)||string.IsNullOrWhiteSpace(username);
+            bool isPasswordEmpty = string.IsNullOrEmpty(password) || string.IsNullOrWhiteSpace(password);
+
+            if(isUsernameEmpty || isPasswordEmpty)
             {
-                try
-                {
-                    m_loginResult = User.Login(usernameEntry.Text, passwordEntry.Text);
-                }
-                catch (Exception ex)
-                {
-                    DisplayAlert("Exception", ex.Message, "Close");
-                }
+                DisplayAlert("Login Error", "Please enter your username and password.", "Retry");
             }
-            if(m_loginResult != null)
+            else
             {
-                if (m_loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
+                if (m_loginResult == null)
                 {
-                    ViewModels.TemporaryShit.getInstance().Username = m_loginResult.User.Username;
-                    ViewModels.TemporaryShit.getInstance().LoggedInUser = m_loginResult.User;
-                    ViewModels.TemporaryShit.getInstance().InitializeFields();
-                    Navigation.PushModalAsync(new MainPage());
+                    try
+                    {
+                        m_loginResult = User.Login(usernameEntry.Text, passwordEntry.Text);
+                    }
+                    catch (Exception ex)
+                    {
+                        DisplayAlert("Exception", ex.Message, "Close");
+                    }
                 }
                 else
                 {
-                    DisplayAlert("Error Message", m_loginResult.ErrorMessage.toString(), "Retry");
-                    m_loginResult = null;
+                    if (m_loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
+                    {
+                        ViewModels.TemporaryShit.getInstance().Username = m_loginResult.User.Username;
+                        ViewModels.TemporaryShit.getInstance().LoggedInUser = m_loginResult.User;
+                        ViewModels.TemporaryShit.getInstance().InitializeFields();
+                        Navigation.PushModalAsync(new MainPage());
+                    }
+                    else
+                    {
+                        DisplayAlert("Error Message", m_loginResult.ErrorMessage.toString(), "Retry");
+                        m_loginResult = null;
+                    }
                 }
-            }
-
-            
+            }            
         }
 
         async void forgotPwdButton_Clicked(object sender, EventArgs e)
