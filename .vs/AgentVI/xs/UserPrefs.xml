@@ -1,17 +1,11 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/Page2.xaml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/LoginPage.xaml">
     <Files>
-      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml" Line="16" Column="83" />
-      <File FileName="AgentVI/AgentVI/Views/LoadingPage.xaml" Line="36" Column="37" />
-      <File FileName="AgentVI/AgentVI/Views/LoadingPage.xaml.cs" Line="19" Column="72" />
-      <File FileName="AgentVI/AgentVI/App.xaml.cs" Line="16" Column="68" />
-      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml.cs" Line="55" Column="25" />
-      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml.cs" Line="14" Column="9" />
-      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml" Line="103" Column="1" />
-      <File FileName="AgentVI/AgentVI/Views/FilterPage.xaml" Line="9" Column="29" />
-      <File FileName="AgentVI/AgentVI/Views/Page1.xaml" Line="7" Column="29" />
-      <File FileName="AgentVI/AgentVI/Views/Page2.xaml" Line="7" Column="29" />
+      <File FileName="AgentVI/AgentVI/Views/LoadingPage.xaml" Line="40" Column="66" />
+      <File FileName="AgentVI/AgentVI/Views/LoadingPage.xaml.cs" Line="17" Column="32" />
+      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml.cs" Line="1" Column="14" />
+      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />

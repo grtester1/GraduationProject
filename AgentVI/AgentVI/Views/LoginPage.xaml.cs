@@ -39,14 +39,14 @@ namespace AgentVI.Views
                 {
                     try
                     {
-                        m_loginResult = User.Login(usernameEntry.Text, passwordEntry.Text);
+                        m_loginResult = User.Login(username, password);
                     }
                     catch (Exception ex)
                     {
                         DisplayAlert("Exception", ex.Message, "Close");
                     }
                 }
-                if( m_loginResult != null)
+                else
                 {
                     if (m_loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                     {
@@ -65,7 +65,7 @@ namespace AgentVI.Views
 
         async void forgotPwdButton_Clicked(object sender, EventArgs e)
         {
-            var response = await DisplayActionSheet("Title", "Cancel", "Delete", "Copy Link", "Duplicate Link");
+            var response = await DisplayActionSheet("forgot your password?", "Cancel", "Delete", "Copy Link", "Duplicate Link");
             await DisplayAlert("Response", response, "OK");
         }
     }
