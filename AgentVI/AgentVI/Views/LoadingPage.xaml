@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AgentVI.Views.LoginPage">
+             x:Class="AgentVI.Views.LoadingPage">
     <RelativeLayout>
         <!-- XamarinLiveBug
                      xmlns:local="clr-namespace:AgentVI.MarkupExtensions"
@@ -33,7 +33,7 @@
                                                                                 Property=Width,
                                                                                 Factor=0.11}"/>
 
-        <StackLayout x:Name="loginStack"
+        <StackLayout x:Name="progressStack"
                     RelativeLayout.WidthConstraint="{ConstraintExpression
                                                     Type=RelativeToParent,
                                                     Property=Width,
@@ -41,19 +41,14 @@
                     RelativeLayout.YConstraint="{ConstraintExpression
                                                     Type=RelativeToParent,
                                                     Property=Height,
-                                                    Factor=0.47}"
+                                                    Factor=0.4}"
                     RelativeLayout.XConstraint="{ConstraintExpression
                                                     Type=RelativeToParent,
                                                     Property=Width,
                                                     Factor=0.15}">
-            <Entry x:Name="usernameEntry" Placeholder="Username" FontAttributes="Italic" Keyboard="Email"/>
-            <Entry x:Name="passwordEntry" Placeholder="Password" FontAttributes="Italic" IsPassword="True"/>
-            <Button Clicked="loginButton_Clicked" Text="Login" Margin="0,8"/>
-            <Label Text="Forgot Password?" HorizontalOptions="Center" FontAttributes="Italic" Margin="0,7">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="forgotPwdButton_Clicked"/>
-                </Label.GestureRecognizers>
-            </Label>
+            <ProgressBar x:Name="ProgressBarLine" Progress="0.0" 
+                WidthRequest="300"
+                HeightRequest="20" />
         </StackLayout>
 
     </RelativeLayout>

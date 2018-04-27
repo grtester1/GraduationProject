@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <CarouselPage   xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:ViewModels="clr-namespace:AgentVI.ViewModels;assembly=AgentVI"
@@ -6,7 +6,7 @@
                 ItemsSource="{Binding AccountFolders}">
     <CarouselPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
-                    iOS="0,20,0,0">
+                    iOS="0,30,0,0">
 
         </OnPlatform>
     </CarouselPage.Padding>
