@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using InnoviApiProxy;
+using AgentVI.ViewModels;
 
 namespace AgentVI.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class LoginPage : ContentPage
 	{
-        LoginResult m_loginResult = null;
-
+        private LoginResult m_loginResult = null;
+        private LoginPageViewModel m_ViewModel = null;
 
         public LoginPage ()
 		{
@@ -45,13 +46,12 @@ namespace AgentVI.Views
                         DisplayAlert("Exception", ex.Message, "Close");
                     }
                 }
-                else
+                if( m_loginResult != null)
                 {
                     if (m_loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                     {
-                        ViewModels.TemporaryShit.getInstance().Username = m_loginResult.User.Username;
-                        ViewModels.TemporaryShit.getInstance().LoggedInUser = m_loginResult.User;
-                        ViewModels.TemporaryShit.getInstance().InitializeFields();
+                        m_ViewModel = new LoginPageViewModel();
+                        m_ViewModel.InitializeFields(m_loginResult.User);
                         Navigation.PushModalAsync(new MainPage());
                     }
                     else
@@ -68,6 +68,5 @@ namespace AgentVI.Views
             var response = await DisplayActionSheet("Title", "Cancel", "Delete", "Copy Link", "Duplicate Link");
             await DisplayAlert("Response", response, "OK");
         }
-
     }
 }

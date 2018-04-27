@@ -4,7 +4,11 @@
              xmlns:local="clr-namespace:AgentVI"
              xmlns:ViewModels="clr-namespace:AgentVI.ViewModels"
              x:Class="AgentVI.Views.MainPage">
-
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,20,0,0">
+        </OnPlatform>
+    </ContentPage.Padding>
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>

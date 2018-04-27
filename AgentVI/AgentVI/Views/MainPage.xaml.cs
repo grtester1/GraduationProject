@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgentVI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace AgentVI.Views
 {
     public partial class MainPage : ContentPage
     {
+        private LoginPageViewModel m_VM = null;
+
         void FooterBarEvents_Clicked(object sender, EventArgs e)
         {
             PlaceHolder.Content = (new Page1()).Content;
@@ -36,7 +39,9 @@ namespace AgentVI.Views
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = ViewModels.TemporaryShit.getInstance();
+            m_VM = new LoginPageViewModel();
+            m_VM.InitializeFields(Services.LoginService.Instance.LoggedInUser);
+            BindingContext = m_VM;
         }
     }
 }

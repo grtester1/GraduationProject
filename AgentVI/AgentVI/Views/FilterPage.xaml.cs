@@ -19,7 +19,6 @@ namespace AgentVI.Views
         public FilterPage()
         {
             InitializeComponent ();
-            //ItemsSource = ColorsViewModel.All;
             BindingContext = new FilterViewModel();
         }
     }

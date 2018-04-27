@@ -7,15 +7,19 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
+using InnoviApiProxy;
+using AgentVI.Services;
 
 namespace AgentVI.ViewModels
 {
     public class FilterViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private FilterService m_filterService;
 
         //<begin>temp
         public IList<ColorModel> All { get; set; }
+        public List<Folder> AccountFolders { get; set; }
         //<end>temp
 
         private ObservableCollection<TabButtonModel> _tabButtons;
@@ -41,6 +45,9 @@ namespace AgentVI.ViewModels
                 new TabButtonModel() { MyImageURL = "https://picsum.photos/203", Image = new Image(){Source = "https://picsum.photos/203" }, IconName="Health" },
                 new TabButtonModel() { MyImageURL = "https://picsum.photos/204", Image = new Image(){Source = "https://picsum.photos/204" }, IconName="Settings" }
             };
+            m_filterService = new FilterService();
+            AccountFolders = m_filterService.getAccountFolders(LoginService.Instance.LoggedInUser);
+            /*
             All = new ObservableCollection<ColorModel>
             {
                 new ColorModel{Name="red", Color=Color.Red},
@@ -48,6 +55,7 @@ namespace AgentVI.ViewModels
                 new ColorModel{Name="yellow", Color=Color.Yellow},
                 new ColorModel{Name="blue", Color=Color.Blue}
             };
+            */
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
