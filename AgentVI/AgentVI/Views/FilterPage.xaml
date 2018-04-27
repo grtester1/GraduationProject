@@ -2,38 +2,14 @@
 <CarouselPage   xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:ViewModels="clr-namespace:AgentVI.ViewModels;assembly=AgentVI"
-                x:Class="AgentVI.Views.FilterPage"
-                ItemsSource="{Binding AccountFolders}">
+                xmlns:local="clr-namespace:AgentVI.Views;assembly=AgentVI"
+                x:Class="AgentVI.Views.FilterPage">
     <CarouselPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
                     iOS="0,20,0,0">
-
         </OnPlatform>
     </CarouselPage.Padding>
-    <CarouselPage.ItemTemplate>
-        <DataTemplate>
-            <ContentPage>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="19*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+    
+    <local:FilterPageTemplate/>
 
-                    <StackLayout Grid.Row="0">
-                        <SearchBar Placeholder="Search..." HeightRequest="30" x:Name="filterSearchBar"/>
-                        <!--<BoxView Color="{Binding Color}" WidthRequest="200" HeightRequest="200" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>-->
-                        <Label Text="{Binding Name}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </StackLayout>
-                    
-                    <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                        <Label HorizontalOptions="Center" Text="Filter "/>
-                        <Label HorizontalOptions="Start" Text="-1" x:Name="pageNumberLabel"/>
-                        <Label HorizontalOptions="Start" Text="| "/>
-                        <Label HorizontalOptions="Start" Text="-1" x:Name="totalPagesCountLabel"/>
-                    </StackLayout>
-                </Grid>
-
-            </ContentPage>
-        </DataTemplate>
-    </CarouselPage.ItemTemplate>
 </CarouselPage>
