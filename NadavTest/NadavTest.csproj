@@ -9,4 +9,7 @@
     <ProjectReference Include="..\InnoviApiProxy\InnoviApiProxy.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+  </ItemGroup>
 </Project>

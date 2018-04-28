@@ -9,6 +9,7 @@ using System.Text;
 using Xamarin.Forms;
 using InnoviApiProxy;
 using AgentVI.Services;
+using AgentVI.Helpers;
 
 namespace AgentVI.ViewModels
 {
@@ -37,7 +38,7 @@ namespace AgentVI.ViewModels
 
         public LoginPageViewModel()
         {
-
+            
         }
 
 
