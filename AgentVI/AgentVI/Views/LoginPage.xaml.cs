@@ -20,6 +20,8 @@ namespace AgentVI.Views
 		{
             InitializeComponent ();
             loadingData.IsRunning = false;
+            usernameEntry.Completed += (s, e) => passwordEntry.Focus();
+            passwordEntry.Completed += (s, e) => loginButton_Clicked(s, e);
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
