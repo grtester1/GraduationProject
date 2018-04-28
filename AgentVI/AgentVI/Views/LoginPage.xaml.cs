@@ -19,16 +19,17 @@ namespace AgentVI.Views
         public LoginPage ()
 		{
             InitializeComponent ();
+            loadingData.IsRunning = false;
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
         void loginButton_Clicked(object sender, EventArgs e)
         {
+            loadingData.IsRunning = true;
             string username = usernameEntry.Text;
             string password = passwordEntry.Text;
             bool isUsernameEmpty = string.IsNullOrEmpty(username)||string.IsNullOrWhiteSpace(username);
             bool isPasswordEmpty = string.IsNullOrEmpty(password) || string.IsNullOrWhiteSpace(password);
-
             if(isUsernameEmpty || isPasswordEmpty)
             {
                 DisplayAlert("Login Error", "Please enter your username and password.", "Retry");
@@ -46,7 +47,7 @@ namespace AgentVI.Views
                         DisplayAlert("Exception", ex.Message, "Close");
                     }
                 }
-                else
+                if (m_loginResult != null)
                 {
                     if (m_loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                     {
@@ -60,7 +61,8 @@ namespace AgentVI.Views
                         m_loginResult = null;
                     }
                 }
-            }            
+            }
+            loadingData.IsRunning = false;
         }
 
         async void forgotPwdButton_Clicked(object sender, EventArgs e)
