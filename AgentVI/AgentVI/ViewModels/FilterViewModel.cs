@@ -18,7 +18,7 @@ namespace AgentVI.ViewModels
         private FilterService m_filterService;
 
         //<begin>temp
-        public IList<ColorModel> All { get; set; }
+        //public List<List<Folder>> AccountFolders { get; set; }
         public List<Folder> AccountFolders { get; set; }
         //<end>temp
 
@@ -38,14 +38,17 @@ namespace AgentVI.ViewModels
 
         public FilterViewModel()
         {
+            /*
             TabButtons = new ObservableCollection<TabButtonModel>()
             {
                 new TabButtonModel() { MyImageURL = "https://picsum.photos/201", Image = new Image(){Source = "https://picsum.photos/201" }, IconName="Events" },
                 new TabButtonModel() { MyImageURL = "https://picsum.photos/202", Image = new Image(){Source = "https://picsum.photos/202" }, IconName="Cameras" },
                 new TabButtonModel() { MyImageURL = "https://picsum.photos/203", Image = new Image(){Source = "https://picsum.photos/203" }, IconName="Health" },
                 new TabButtonModel() { MyImageURL = "https://picsum.photos/204", Image = new Image(){Source = "https://picsum.photos/204" }, IconName="Settings" }
-            };
+            };*/
+            //AccountFolders = new List<List<Folder>>();
             m_filterService = new FilterService();
+            //AccountFolders.Add(m_filterService.getAccountFolders(LoginService.Instance.LoggedInUser));
             AccountFolders = m_filterService.getAccountFolders(LoginService.Instance.LoggedInUser);
             /*
             All = new ObservableCollection<ColorModel>

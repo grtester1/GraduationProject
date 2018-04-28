@@ -24,7 +24,7 @@ namespace InnoviApiProxy
     {
         public static String toString(this LoginResult.eErrorMessage i_ErrorMessage)
         {
-            switch(i_ErrorMessage)
+            switch (i_ErrorMessage)
             {
                 case LoginResult.eErrorMessage.Empty:
                     return "Empty";

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -17,10 +16,7 @@ namespace InnoviApiProxy
         [JsonProperty]
         public string UserEmail { get; private set; }
         [JsonProperty]
-        public string AccessToken { get; private set; }
-        [JsonProperty]
         public List<Account> Accounts { get; private set; }
-        //  public InnoviObjectCollection<Account> Accounts { get; set; }
 
         private User() { }
 
@@ -28,11 +24,11 @@ namespace InnoviApiProxy
         {
             if (m_Instance != null)
             {
-                throw new Exception("There is already a logged in user. At first you should try to connect w/ AccessToken!");
+                throw new Exception("There is already a logged in user");
             }
 
             HttpClient client = HttpUtils.BaseHttpClient();
-            var httpRequest = new HttpRequestMessage(HttpMethod.Post, "api/user/login");
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, "v1/user/login");
 
             Dictionary<string, string> jsonBuilder = new Dictionary<string, string>();
             jsonBuilder.Add("email", i_Email);
@@ -83,11 +79,12 @@ namespace InnoviApiProxy
                 m_Instance = JsonConvert.DeserializeObject<User>(responseJsonObject["entity"].ToString());
                 loginResult.User = m_Instance;
                 loginResult.ErrorMessage = LoginResult.eErrorMessage.Empty;
-                Settings.AccessToken = m_Instance.AccessToken;
+                //       Settings.AccessToken = m_Instance.AccessToken;
+                Settings.AccessToken = responseJsonObject["entity"]["accessToken"].ToString();
             }
             else
             {
-                if (i_HttpRequestMessage.RequestUri.ToString() == Settings.InnoviApiEndpoint + "api/user/refresh-token")
+                if (i_HttpRequestMessage.RequestUri.ToString() == Settings.InnoviApiEndpoint + "v1/user/refresh-token")
                 {
                     loginResult.ErrorMessage = LoginResult.eErrorMessage.AccessTokenExpired;
                 }

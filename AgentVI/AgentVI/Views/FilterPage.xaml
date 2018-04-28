@@ -11,5 +11,7 @@
     </CarouselPage.Padding>
     
     <local:FilterPageTemplate/>
+    <local:FilterPageTemplate/>
+    <local:FilterPageTemplate/>
 
 </CarouselPage>

@@ -40,12 +40,13 @@ namespace InnoviApiProxy
 
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "api/folders/" + i_FolderId.ToString() + "/folders");
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/folders/" + i_FolderId.ToString() + "/folders");
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             // if code == 0 => no errors
+            Settings.RefreshAccessToken(response);
             List<Folder> folders = JsonConvert.DeserializeObject<List<Folder>>(responseJsonObject["list"].ToString());
             if (folders.Count == 0)
             {
@@ -65,12 +66,13 @@ namespace InnoviApiProxy
 
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "api/sensors?folder=" + i_FolderId.ToString());
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/sensors?folder=" + i_FolderId.ToString());
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             // if code == 0 => no errors
+            Settings.RefreshAccessToken(response);
             List<Sensor> sensors = JsonConvert.DeserializeObject<List<Sensor>>(responseJsonObject["list"].ToString());
             if (sensors.Count == 0)
             {
