@@ -3,24 +3,21 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="InnoviApiProxy/HttpUtils.cs">
     <Files>
       <File FileName="AgentVI/AgentVI/ViewModels/LoginPageViewModel.cs" Line="26" Column="24" />
-      <File FileName="AgentVI/AgentVI/Views/Page1.xaml.cs" Line="15" Column="48" />
-      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml.cs" Line="22" Column="1" />
-      <File FileName="AgentVI/AgentVI/ViewModels/CamerasListViewModel.cs" Line="18" Column="1" />
-      <File FileName="InnoviApiProxy/HttpUtils.cs" Line="176" Column="1" />
-      <File FileName="AgentVI/AgentVI/Services/LoginService.cs" Line="22" Column="1" />
-      <File FileName="InnoviApiProxy/User.cs" Line="74" Column="1" />
-      <File FileName="InnoviApiProxy/Settings.cs" Line="17" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml" Line="27" Column="15" />
+      <File FileName="AgentVI/AgentVI/Views/FilterPage.xaml" Line="7" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/FilterPageTemplate.xaml" Line="5" Column="5" />
+      <File FileName="AgentVI/AgentVI/Views/LoadingPage.xaml" Line="45" Column="15" />
+      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml" Line="61" Column="15" />
+      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml" Line="9" Column="29" />
+      <File FileName="AgentVI/AgentVI/Views/Page1.xaml" Line="7" Column="29" />
+      <File FileName="AgentVI/AgentVI/Views/Page2.xaml" Line="5" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/SettingsPage.xaml" Line="10" Column="26" />
+      <File FileName="InnoviApiProxy/HttpUtils.cs" Line="193" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/admin/Documents/GitHub/FinalYearProject/AgentVI/AgentVI/Views/CamerasPage.xaml.cs" relfile="AgentVI/AgentVI/Views/CamerasPage.xaml.cs" line="17" column="1" />
-      <Breakpoint file="/Users/admin/Documents/GitHub/FinalYearProject/AgentVI/AgentVI/Views/CamerasPage.xaml.cs" relfile="AgentVI/AgentVI/Views/CamerasPage.xaml.cs" line="20" column="1" />
-      <Breakpoint file="/Users/admin/Documents/GitHub/FinalYearProject/AgentVI/AgentVI/Views/CamerasPage.xaml.cs" relfile="AgentVI/AgentVI/Views/CamerasPage.xaml.cs" line="21" column="1" />
-      <Breakpoint file="/Users/admin/Documents/GitHub/FinalYearProject/AgentVI/AgentVI/Views/CamerasPage.xaml.cs" relfile="AgentVI/AgentVI/Views/CamerasPage.xaml.cs" line="22" column="1" />
-      <Breakpoint file="/Users/admin/Documents/GitHub/FinalYearProject/AgentVI/AgentVI/Views/CamerasPage.xaml.cs" relfile="AgentVI/AgentVI/Views/CamerasPage.xaml.cs" line="34" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="F567A96B-62B3-4FBE-A3DB-53552ACFDDC7" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

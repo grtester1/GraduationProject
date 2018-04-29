@@ -2,6 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="AgentVI.Views.SettingsPage">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,30,0,0">
+        </OnPlatform>
+    </ContentPage.Padding>
     <ContentPage.Content>
             <ScrollView>
       <StackLayout Spacing="70" Margin="40, 200">
