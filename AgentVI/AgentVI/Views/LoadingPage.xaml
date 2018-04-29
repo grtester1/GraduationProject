@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AgentVI.Views.LoginPage">
+             x:Class="AgentVI.Views.LoadingPage">
     <RelativeLayout>
-        <!-- XamarinLiveBug
-                     xmlns:local="clr-namespace:AgentVI.MarkupExtensions"
-        <Image Source="{local:EmbeddedImage ResourceId=AgentVI_New.Resources.Images.background.png}" Aspect="AspectFill" RelativeLayout.WidthConstraint="{ConstraintExpression
-                                                                                                    Type=RelativeToParent,
-                                                                                                    Property=Width}"
-                                                                RelativeLayout.HeightConstraint="{ConstraintExpression
-                                                                                                    Type=RelativeToParent,
-                                                                                                    Property=Height}"/>
-        -->
         <Image x:Name="backgroundPicture" Source="imgs/common/background.png" Aspect="AspectFill"
                                                                 RelativeLayout.WidthConstraint="{ConstraintExpression
                                                                                                     Type=RelativeToParent,
@@ -33,29 +24,22 @@
                                                                                 Property=Width,
                                                                                 Factor=0.11}"/>
 
-        <StackLayout x:Name="loginStack"
-                    RelativeLayout.WidthConstraint="{ConstraintExpression
+
+        <ProgressBar x:Name="ProgressBarLine" Progress="0.0" 
+                     RelativeLayout.WidthConstraint="{ConstraintExpression
                                                     Type=RelativeToParent,
                                                     Property=Width,
                                                     Factor=0.7}"
-                    RelativeLayout.YConstraint="{ConstraintExpression
+                     RelativeLayout.YConstraint="{ConstraintExpression
                                                     Type=RelativeToParent,
                                                     Property=Height,
-                                                    Factor=0.47}"
-                    RelativeLayout.XConstraint="{ConstraintExpression
+                                                    Factor=0.4}"
+                     RelativeLayout.XConstraint="{ConstraintExpression
                                                     Type=RelativeToParent,
                                                     Property=Width,
-                                                    Factor=0.15}">
-            <ActivityIndicator x:Name="loadingData" IsRunning="true" VerticalOptions="CenterAndExpand" />
-            <Entry x:Name="usernameEntry" Placeholder="Username" FontAttributes="Italic" Keyboard="Email"/>
-            <Entry x:Name="passwordEntry" Placeholder="Password" FontAttributes="Italic" IsPassword="True"/>
-            <Button Clicked="loginButton_Clicked" Text="Login" Margin="0,8"/>
-            <Label Text="Forgot Password?" HorizontalOptions="Center" FontAttributes="Italic" Margin="0,7">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="forgotPwdButton_Clicked"/>
-                </Label.GestureRecognizers>
-            </Label>
-        </StackLayout>
+                                                    Factor=0.15}"
+                WidthRequest="300"
+                HeightRequest="20" />
 
     </RelativeLayout>
 </ContentPage>

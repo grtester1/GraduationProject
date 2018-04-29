@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="AgentVI.Views.CamerasPage">
+        <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,30,0,0">
+        </OnPlatform>
+    </ContentPage.Padding>
+    <ContentPage.Content>
+        <ListView x:Name="cameraListView" RowHeight="200" ItemTapped="OnTap" IsPullToRefreshEnabled="true" Refreshing="OnRefresh">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" BackgroundColor="White">
+                            <StackLayout Orientation="Vertical">
+                                <Label Text = "{Binding CamName}" HorizontalOptions="Center" TextColor="Navy" FontSize="24" AbsoluteLayout.LayoutBounds="0.25, 0.25, 400, 40"/>
+                                <Label Text = "{Binding CamStatus}" HorizontalOptions="Center" TextColor="Navy" AbsoluteLayout.LayoutBounds="50, 35, 200, 25"/>
+                            </StackLayout>
+                            <Image Source="{Binding CamImage}" HorizontalOptions="End" AbsoluteLayout.LayoutBounds="250.25, 0.25, 50, 50 "/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>
