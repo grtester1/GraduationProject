@@ -44,7 +44,17 @@ namespace InnoviApiProxy
         [JsonProperty]
         public string StreamUrl { get; private set; }
 
-        public List<SensorEvent> SensorEvents { get; private set; }
+        public List<SensorEvent> SensorEvents
+        {
+            get
+            {
+                return HttpUtils.GetEvents(sensorId);
+            }
+            private set
+            {
+                SensorEvents = value;
+            }
+        }
 
         public void Arm()
         {

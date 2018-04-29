@@ -8,7 +8,7 @@ namespace InnoviApiProxy
     public class SensorEvent : InnoviObject
     {
         [JsonProperty("id")]
-        private int eventId { get; set; }
+        private string eventId { get; set; }
         [JsonProperty]
         private int sensorId { get; set; }
         [JsonProperty]
@@ -16,7 +16,7 @@ namespace InnoviApiProxy
         [JsonProperty]
         public ulong StartTime { get; private set; }
         [JsonProperty]
-        public int ObjectType { get; private set; }
+        public string ObjectType { get; private set; }
         [JsonProperty]
         public int RuleId { get; private set; }
         [JsonProperty]

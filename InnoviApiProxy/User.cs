@@ -42,9 +42,8 @@ namespace InnoviApiProxy
         // response should include login data
         public static LoginResult Connect(string i_AccessToken)
         {
-            throw new Exception("Not yet implemented");
             HttpClient client = HttpUtils.BaseHttpClient();
-            var httpRequest = new HttpRequestMessage(HttpMethod.Post, "api/user/refresh-token");
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, "v1/user/refresh-token");
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", i_AccessToken);
 
             Dictionary<string, string> jsonBuilder = new Dictionary<string, string>();
@@ -64,6 +63,12 @@ namespace InnoviApiProxy
         {
             return HttpUtils.GetFolders(0);
         }
+
+        public List<SensorEvent> GetDefaultAccountEvents()
+        {
+            return HttpUtils.GetFolderEvents(0);
+        }
+
 
         private static LoginResult getLoginResult(HttpClient i_Client, HttpRequestMessage i_HttpRequestMessage)
         {

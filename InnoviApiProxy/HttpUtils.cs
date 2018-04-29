@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
+using System.Linq;
 
 namespace InnoviApiProxy
 {
@@ -80,6 +81,88 @@ namespace InnoviApiProxy
             }
 
             return sensors;
+        }
+
+        internal static List<SensorEvent> GetEvents(int i_SensorId)
+        {
+            // change
+            if (Settings.AccessToken == null)
+            {
+                throw new Exception("Not logged in");
+            }
+
+            HttpClient client = BaseHttpClient();
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/events?sensorId=" + i_SensorId.ToString());
+            Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
+            HttpResponseMessage response = result.Result;
+            JObject responseJsonObject = GetHttpResponseBody(response);
+
+            // if code == 0 => no errors
+            Settings.RefreshAccessToken(response);
+            List<SensorEvent> sensors = JsonConvert.DeserializeObject<List<SensorEvent>>(responseJsonObject["list"].ToString());
+            if (sensors.Count == 0)
+            {
+                sensors = null;
+            }
+
+            return sensors;
+        }
+
+        internal static List<SensorEvent> GetFolderEvents(int i_FolderId)
+        {
+            // change
+            if (Settings.AccessToken == null)
+            {
+                throw new Exception("Not logged in");
+            }
+
+            HttpClient client = BaseHttpClient();
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
+            
+
+            return getFolderEventsHepler(client, 0);
+        }
+
+        private static List<SensorEvent> getFolderEventsHepler(HttpClient i_Client, int i_FolderId)
+        {
+         
+
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/events?page=1");
+            Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
+            HttpResponseMessage response = result.Result;
+            JObject responseJsonObject = GetHttpResponseBody(response);
+
+            int currentPage = int.Parse(responseJsonObject["page"].ToString());
+            int totalPages = int.Parse(responseJsonObject["pages"].ToString());
+
+            List<SensorEvent> events = JsonConvert.DeserializeObject<List<SensorEvent>>(responseJsonObject["list"].ToString());
+
+            while (currentPage < totalPages)
+            {
+                currentPage++;
+
+                var newHttpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/events?page=" + currentPage.ToString());
+                Task<HttpResponseMessage> newResult = i_Client.SendAsync(newHttpRequest);
+                HttpResponseMessage newResponse = newResult.Result;
+                JObject newResponseJsonObject = GetHttpResponseBody(newResponse);
+                List<SensorEvent> currentEvents = JsonConvert.DeserializeObject<List<SensorEvent>>(newResponseJsonObject["list"].ToString());
+                Settings.RefreshAccessToken(newResponse);
+                events.AddRange(currentEvents);
+
+            }
+            // if code == 0 => no errors
+
+            List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
+            sortedEvents.Reverse();
+
+
+            if (events.Count == 0)
+            {
+                events = null;
+            }
+
+            return sortedEvents;
         }
     }
 }
