@@ -209,6 +209,7 @@ namespace InnoviApiProxy
             // if code == 0 => no errors
 
             List<Sensor> sortedEvents = sensors.OrderByDescending(x => x.Name).ToList();
+            sortedEvents.Reverse();
 
             if (sensors.Count == 0)
             {
