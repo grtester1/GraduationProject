@@ -14,11 +14,11 @@ namespace InnoviApiProxy
         [JsonProperty]
         private int folderId { get; set; }
         [JsonProperty]
-        public string Name { get; private set; }
+        public string Name { get; private set; } //*****************************************************************
         [JsonProperty]
         public eSensorType SensorType { get; private set; }
         [JsonProperty]
-        public eSensorStatus Status { get; private set; }
+        public eSensorStatus Status { get; private set; } //*****************************************************************
         [JsonProperty]
         public eStreamType StreamType { get; private set; }
         [JsonProperty]
@@ -42,7 +42,7 @@ namespace InnoviApiProxy
         [JsonProperty]
         public uint AlarmInterval { get; private set; }
         [JsonProperty]
-        public string StreamUrl { get; private set; }
+        public string StreamUrl { get; private set; } //*****************************************************************
 
         public List<SensorEvent> SensorEvents { get; private set; }
 

@@ -10,26 +10,29 @@ using AgentVI.ViewModels;
 
 namespace AgentVI.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LoginPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class LoginPage : ContentPage
+    {
         private LoginResult m_loginResult = null;
         private LoginPageViewModel m_ViewModel = null;
 
-        public LoginPage ()
-		{
-            InitializeComponent ();
+        public LoginPage()
+        {
+            InitializeComponent();
+            loadingData.IsRunning = false;
+            usernameEntry.Completed += (s, e) => passwordEntry.Focus();
+            passwordEntry.Completed += (s, e) => loginButton_Clicked(s, e);
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
         void loginButton_Clicked(object sender, EventArgs e)
         {
+            loadingData.IsRunning = true;
             string username = usernameEntry.Text;
             string password = passwordEntry.Text;
-            bool isUsernameEmpty = string.IsNullOrEmpty(username)||string.IsNullOrWhiteSpace(username);
+            bool isUsernameEmpty = string.IsNullOrEmpty(username) || string.IsNullOrWhiteSpace(username);
             bool isPasswordEmpty = string.IsNullOrEmpty(password) || string.IsNullOrWhiteSpace(password);
-
-            if(isUsernameEmpty || isPasswordEmpty)
+            if (isUsernameEmpty || isPasswordEmpty)
             {
                 DisplayAlert("Login Error", "Please enter your username and password.", "Retry");
             }
@@ -39,14 +42,14 @@ namespace AgentVI.Views
                 {
                     try
                     {
-                        m_loginResult = User.Login(usernameEntry.Text, passwordEntry.Text);
+                        m_loginResult = User.Login(username, password);
                     }
                     catch (Exception ex)
                     {
                         DisplayAlert("Exception", ex.Message, "Close");
                     }
                 }
-                if( m_loginResult != null)
+                if (m_loginResult != null)
                 {
                     if (m_loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                     {
@@ -60,12 +63,13 @@ namespace AgentVI.Views
                         m_loginResult = null;
                     }
                 }
-            }            
+            }
+            loadingData.IsRunning = false;
         }
 
         async void forgotPwdButton_Clicked(object sender, EventArgs e)
         {
-            var response = await DisplayActionSheet("Title", "Cancel", "Delete", "Copy Link", "Duplicate Link");
+            var response = await DisplayActionSheet("forgot your password?", "Cancel", "Delete", "Copy Link", "Duplicate Link");
             await DisplayAlert("Response", response, "OK");
         }
     }
