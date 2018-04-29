@@ -56,5 +56,27 @@ namespace InnoviApiProxy
             throw new Exception("Not yet implemented");
         }
 
+        public List<Sensor> GetAllSensors()
+        {
+            List<Folder> subFolders = Folders;
+            List<Sensor> sensors = new List<Sensor>();
+
+            if (subFolders == null)
+            {
+                sensors = HttpUtils.GetFolderSensors(folderId);
+
+            }
+            else
+            {
+                foreach (Folder folder in subFolders)
+                {
+                    List<Sensor> currentSensors = folder.GetAllSensors();
+                    sensors.AddRange(currentSensors);
+                }
+            }
+
+            return sensors;
+        }
+
     }
 }

@@ -164,5 +164,58 @@ namespace InnoviApiProxy
 
             return sortedEvents;
         }
+
+        internal static List<Sensor> GetFolderSensors(int i_FolderId)
+        {
+            if (Settings.AccessToken == null)
+            {
+                throw new Exception("Not logged in");
+            }
+
+      //      List<Folder> subFolders = 
+            HttpClient client = BaseHttpClient();
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
+
+
+            return getFolderSensorsHelper(client, i_FolderId);
+        }
+
+        private static List<Sensor> getFolderSensorsHelper(HttpClient i_Client, int i_FolderId)
+        {
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/sensors?page=1&folder=" + i_FolderId.ToString());
+            Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
+            HttpResponseMessage response = result.Result;
+            JObject responseJsonObject = GetHttpResponseBody(response);
+
+            int currentPage = int.Parse(responseJsonObject["page"].ToString());
+            int totalPages = int.Parse(responseJsonObject["pages"].ToString());
+
+            List<Sensor> sensors = JsonConvert.DeserializeObject<List<Sensor>>(responseJsonObject["list"].ToString());
+
+            while (currentPage < totalPages)
+            {
+                currentPage++;
+
+                var newHttpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/events?page=" + currentPage.ToString()
+                        + "&folder=" + i_FolderId.ToString());
+                Task<HttpResponseMessage> newResult = i_Client.SendAsync(newHttpRequest);
+                HttpResponseMessage newResponse = newResult.Result;
+                JObject newResponseJsonObject = GetHttpResponseBody(newResponse);
+                List<Sensor> currentSensors = JsonConvert.DeserializeObject<List<Sensor>>(newResponseJsonObject["list"].ToString());
+                Settings.RefreshAccessToken(newResponse);
+                sensors.AddRange(currentSensors);
+
+            }
+            // if code == 0 => no errors
+
+            List<Sensor> sortedEvents = sensors.OrderByDescending(x => x.Name).ToList();
+
+            if (sensors.Count == 0)
+            {
+                sensors = null;
+            }
+
+            return sortedEvents;
+        }
     }
 }

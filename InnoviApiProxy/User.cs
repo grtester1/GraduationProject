@@ -69,6 +69,11 @@ namespace InnoviApiProxy
             return HttpUtils.GetFolderEvents(0);
         }
 
+        public List<Sensor> GetDefaultAccountSensors()
+        {
+            return HttpUtils.GetFolderSensors(-1);
+        }
+
 
         private static LoginResult getLoginResult(HttpClient i_Client, HttpRequestMessage i_HttpRequestMessage)
         {
