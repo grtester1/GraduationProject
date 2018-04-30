@@ -20,20 +20,22 @@ namespace AgentVI.Views
             User user = Services.LoginService.Instance.LoggedInUser;
             allCameras = new CamerasListViewModel();
             allCameras.InitializeList(user);
+
+            /*
             //copy all the cameras to allCameras list with nadav's fuction:
             //allCameras = getAllCamerasToList();
             //meantime:
-            /*
-            allCameras.Add(new CameraViewModel { CamName = "Tomato", CamStatus = "Fruit", CamImage = "tomato.png" });
-            allCameras.Add(new CameraViewModel { CamName = "Romaine Lettuce", CamStatus = "Vegetable", CamImage = "lettuce.png" });
-            allCameras.Add(new CameraViewModel { CamName = "Zucchini", CamStatus = "Vegetable", CamImage = "zucchini.png" });
-            allCameras.Add(new CameraViewModel { CamName = "Zucchini", CamStatus = "Vegetable", CamImage = "zucchini.png" });
-            allCameras.Add(new CameraViewModel { CamName = "Zucchini", CamStatus = "Vegetable", CamImage = "zucchini.png" });
-            allCameras.Add(new CameraViewModel { CamName = "Zucchini", CamStatus = "Vegetable", CamImage = "zucchini.png" });
+            allCameras = new CamerasListViewModel();
+            allCameras.CamerasList.Add(new CameraViewModel { CamName = "Tomato", CamStatus = "Fruit", CamImage = "https://picsum.photos/201" });
+            allCameras.CamerasList.Add(new CameraViewModel { CamName = "Romaine Lettuce", CamStatus = "Vegetable", CamImage = "https://picsum.photos/201" });
+            allCameras.CamerasList.Add(new CameraViewModel { CamName = "Zucchini", CamStatus = "Vegetable", CamImage = "https://picsum.photos/201" });
+            allCameras.CamerasList.Add(new CameraViewModel { CamName = "Zucchini", CamStatus = "Vegetable", CamImage = "https://picsum.photos/201" });
+            allCameras.CamerasList.Add(new CameraViewModel { CamName = "Zucchini", CamStatus = "Vegetable", CamImage = "https://picsum.photos/201" });
+            allCameras.CamerasList.Add(new CameraViewModel { CamName = "Zucchini", CamStatus = "Vegetable", CamImage = "https://picsum.photos/201" });
             */
             if (allCameras == null)
             {
-                allCameras.CamerasList.Add(new CameraViewModel { CamName = "There is currently no camera in the selected folder.", CamStatus = "", CamImage = "noPhoto.png" });
+                allCameras.CamerasList.Add(new CameraViewModel { CamName = "There is currently no camera in the selected folder.", CamStatus = "", CamImage = "https://picsum.photos/201" });
             }
 
             cameraListView.ItemsSource = allCameras.CamerasList;

@@ -1,25 +1,19 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="InnoviApiProxy/HttpUtils.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/CamerasPage.xaml.cs">
     <Files>
-      <File FileName="AgentVI/AgentVI/ViewModels/LoginPageViewModel.cs" Line="26" Column="24" />
-      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml" Line="27" Column="15" />
-      <File FileName="AgentVI/AgentVI/Views/FilterPage.xaml" Line="7" Column="1" />
-      <File FileName="AgentVI/AgentVI/Views/FilterPageTemplate.xaml" Line="5" Column="5" />
-      <File FileName="AgentVI/AgentVI/Views/LoadingPage.xaml" Line="45" Column="15" />
-      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml" Line="61" Column="15" />
-      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml" Line="9" Column="29" />
-      <File FileName="AgentVI/AgentVI/Views/Page1.xaml" Line="7" Column="29" />
-      <File FileName="AgentVI/AgentVI/Views/Page2.xaml" Line="5" Column="1" />
-      <File FileName="AgentVI/AgentVI/Views/SettingsPage.xaml" Line="10" Column="26" />
+      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml.cs" Line="23" Column="13" />
+      <File FileName="AgentVI/AgentVI.iOS/Main.cs" Line="17" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml.cs" Line="1" Column="1" />
       <File FileName="InnoviApiProxy/HttpUtils.cs" Line="193" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.ItemProperties.AgentVI.Android AndroidDesignerPreferredTheme="Theme.DeviceDefault.NoActionBar.Fullscreen" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="F567A96B-62B3-4FBE-A3DB-53552ACFDDC7" />
+  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.3C88A4C2-54B4-4B4F-BB09-B20671DA4CDA" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
 </Properties>
