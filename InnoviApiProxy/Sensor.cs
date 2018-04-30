@@ -15,11 +15,11 @@ namespace InnoviApiProxy
         private int folderId { get; set; }
         [JsonProperty]
         public string Name { get; private set; }
-        [JsonProperty]
+        [JsonProperty("type")]
         public eSensorType SensorType { get; private set; }
-        [JsonProperty]
+        [JsonProperty("status")]
         public eSensorStatus Status { get; private set; }
-        [JsonProperty]
+        [JsonProperty("streamType")]
         public eStreamType StreamType { get; private set; }
         [JsonProperty]
         public Coordinate GeoLocation { get; private set; }
