@@ -12,12 +12,10 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" BackgroundColor="White">
-                            <StackLayout Orientation="Vertical">
-                                <Label Text = "{Binding CamName}" HorizontalOptions="Center" TextColor="Navy" FontSize="24" AbsoluteLayout.LayoutBounds="0.25, 0.25, 400, 40"/>
-                                <Label Text = "{Binding CamStatus}" HorizontalOptions="Center" TextColor="Navy" AbsoluteLayout.LayoutBounds="50, 35, 200, 25"/>
-                            </StackLayout>
-                            <Image Source="{Binding CamImage}" HorizontalOptions="End" AbsoluteLayout.LayoutBounds="250.25, 0.25, 50, 50 "/>
+                        <StackLayout Margin="20" BackgroundColor= "{Binding CamColorStatus}">
+                            <Label Text= "{Binding CamName}" TextColor="Navy" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Image Source="{Binding CamImage}" />
+                            <Label Text = "{Binding CamStatus}" TextColor="Navy" HorizontalOptions="Center" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

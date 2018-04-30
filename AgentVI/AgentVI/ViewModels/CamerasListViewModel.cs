@@ -27,6 +27,29 @@ namespace AgentVI.ViewModels
                     CameraViewModel camViewModel = new CameraViewModel();
                     camViewModel.CamName = camera.Name;
                     camViewModel.CamStatus = camera.Status.ToString();
+
+                    switch (camera.Status)
+                    {
+                        case Sensor.eSensorStatus.Undefined:
+                            camViewModel.CamColorStatus = "White";
+                            break;
+                        case Sensor.eSensorStatus.Active:
+                            camViewModel.CamColorStatus = "Green";
+                            break;
+                        case Sensor.eSensorStatus.Warning:
+                            camViewModel.CamColorStatus = "Yellow";
+                            break;
+                        case Sensor.eSensorStatus.Error:
+                            camViewModel.CamColorStatus = "Red";
+                            break;
+                        case Sensor.eSensorStatus.Inactive:
+                            camViewModel.CamColorStatus = "Silver";
+                            break;
+                        default:
+                            camViewModel.CamColorStatus = "Transparent";
+                            break;
+                    }
+
                     camViewModel.CamImage = camera.StreamUrl;
                     if(camViewModel.CamImage == null)
                     {
@@ -42,4 +65,9 @@ namespace AgentVI.ViewModels
         }
     }
 }
-
+/*
+Undefined,
+            Active,
+            Warning,
+            Error,
+            Inactive*/

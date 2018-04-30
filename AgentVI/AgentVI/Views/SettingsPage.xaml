@@ -17,7 +17,7 @@
                         <Label FontSize="20" Text="Arm / Disarm" TextColor="Navy"
                                HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="200"/>
                         <Switch Toggled="arm_Toggled" x:Name="ArmDisarmSwitch" 
-                                IsToggled="false" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
+                               HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
                     </StackLayout>
                     
                     <StackLayout Orientation="Horizontal">
@@ -33,7 +33,7 @@
                         <Label FontSize="20" Text="Notifications" TextColor="Navy"
                                HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="200"/>
                         <Switch Toggled="Notifications_Toggled" x:Name="NotificationsSwitch" 
-                                IsToggled="false" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
+                               HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
                     </StackLayout>
                     
                     <StackLayout Orientation="Horizontal">

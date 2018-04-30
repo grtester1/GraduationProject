@@ -22,8 +22,6 @@ namespace AgentVI.Views
             allCameras.InitializeList(user);
 
             /*
-            //copy all the cameras to allCameras list with nadav's fuction:
-            //allCameras = getAllCamerasToList();
             //meantime:
             allCameras = new CamerasListViewModel();
             allCameras.CamerasList.Add(new CameraViewModel { CamName = "Tomato", CamStatus = "Fruit", CamImage = "https://picsum.photos/201" });
@@ -33,7 +31,7 @@ namespace AgentVI.Views
             allCameras.CamerasList.Add(new CameraViewModel { CamName = "Zucchini", CamStatus = "Vegetable", CamImage = "https://picsum.photos/201" });
             allCameras.CamerasList.Add(new CameraViewModel { CamName = "Zucchini", CamStatus = "Vegetable", CamImage = "https://picsum.photos/201" });
             */
-            if (allCameras == null)
+            if (allCameras.CamerasList == null)
             {
                 allCameras.CamerasList.Add(new CameraViewModel { CamName = "There is currently no camera in the selected folder.", CamStatus = "", CamImage = "https://picsum.photos/201" });
             }
