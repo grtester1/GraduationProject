@@ -13,8 +13,8 @@ namespace AgentVI.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        private LoginPageViewModel m_VM = null;
         private LoginResult m_loginResult = null;
-        private LoginPageViewModel m_ViewModel = null;
 
         public LoginPage()
         {
@@ -53,8 +53,8 @@ namespace AgentVI.Views
                 {
                     if (m_loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                     {
-                        m_ViewModel = new LoginPageViewModel();
-                        m_ViewModel.InitializeFields(m_loginResult.User);
+                        m_VM = new LoginPageViewModel();
+                        m_VM.InitializeFields(m_loginResult.User);
                         Navigation.PushModalAsync(new MainPage());
                     }
                     else
