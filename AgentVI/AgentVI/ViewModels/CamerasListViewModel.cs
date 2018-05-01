@@ -21,41 +21,47 @@ namespace AgentVI.ViewModels
             if (i_loggedInUser != null)
             {
                 List<Sensor> userProxyList= i_loggedInUser.GetDefaultAccountSensors();
-
-                foreach(Sensor camera in userProxyList)
+                if (userProxyList.Count > 0)
                 {
-                    CameraViewModel camViewModel = new CameraViewModel();
-                    camViewModel.CamName = camera.Name;
-                    camViewModel.CamStatus = camera.Status.ToString();
-
-                    switch (camera.Status)
+                    foreach (Sensor camera in userProxyList)
                     {
-                        case Sensor.eSensorStatus.Undefined:
-                            camViewModel.CamColorStatus = "White";
-                            break;
-                        case Sensor.eSensorStatus.Active:
-                            camViewModel.CamColorStatus = "Green";
-                            break;
-                        case Sensor.eSensorStatus.Warning:
-                            camViewModel.CamColorStatus = "Yellow";
-                            break;
-                        case Sensor.eSensorStatus.Error:
-                            camViewModel.CamColorStatus = "Red";
-                            break;
-                        case Sensor.eSensorStatus.Inactive:
-                            camViewModel.CamColorStatus = "Silver";
-                            break;
-                        default:
-                            camViewModel.CamColorStatus = "Transparent";
-                            break;
-                    }
+                        CameraViewModel camViewModel = new CameraViewModel();
+                        camViewModel.CamName = camera.Name;
+                        camViewModel.CamStatus = camera.Status.ToString();
 
-                    camViewModel.CamImage = camera.StreamUrl;
-                    if(camViewModel.CamImage == null)
-                    {
-                        camViewModel.CamImage = "https://picsum.photos/201";
+                        switch (camera.Status)
+                        {
+                            case Sensor.eSensorStatus.Undefined:
+                                camViewModel.CamColorStatus = "White";
+                                break;
+                            case Sensor.eSensorStatus.Active:
+                                camViewModel.CamColorStatus = "Green";
+                                break;
+                            case Sensor.eSensorStatus.Warning:
+                                camViewModel.CamColorStatus = "Yellow";
+                                break;
+                            case Sensor.eSensorStatus.Error:
+                                camViewModel.CamColorStatus = "Red";
+                                break;
+                            case Sensor.eSensorStatus.Inactive:
+                                camViewModel.CamColorStatus = "Silver";
+                                break;
+                            default:
+                                camViewModel.CamColorStatus = "Transparent";
+                                break;
+                        }
+
+                        camViewModel.CamImage = camera.StreamUrl;
+                        if (camViewModel.CamImage == null)
+                        {
+                            camViewModel.CamImage = "https://picsum.photos/201";
+                        }
+                        CamerasList.Add(camViewModel);
                     }
-                    CamerasList.Add(camViewModel);
+                }
+                else
+                {
+                    CamerasList.Add(new CameraViewModel { CamName = "There is currently no camera in the selected folder.", CamStatus = "", CamColorStatus = "Transparent", CamImage = "https://picsum.photos/201" });
                 }
             }
             else
@@ -65,9 +71,3 @@ namespace AgentVI.ViewModels
         }
     }
 }
-/*
-Undefined,
-            Active,
-            Warning,
-            Error,
-            Inactive*/
