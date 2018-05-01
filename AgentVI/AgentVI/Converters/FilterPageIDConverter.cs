@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace AgentVI.Converters
 {
-    public class FilterPageIDConverter : IValueConverter
+    public class FilterPageIDConverter : IValueConverter, IDisposable
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -20,7 +20,14 @@ namespace AgentVI.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if(value == null)
+            {
+                return -1;
+            }
+
+            return (int)value - 1;
         }
+
+        public void Dispose(){}
     }
 }

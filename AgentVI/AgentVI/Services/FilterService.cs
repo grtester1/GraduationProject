@@ -69,6 +69,7 @@ namespace AgentVI.Services
             {
                 AccountFolders_Depth0 = i_user.GetDefaultAccountFolders();
                 if (AccountFolders_Depth0 == null) { throw new Exception("No folders for current user."); }
+                FilteringLevelsCache.Add(AccountFolders_Depth0);
             }
             return AccountFolders_Depth0;
         }

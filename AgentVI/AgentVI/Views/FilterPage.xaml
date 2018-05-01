@@ -5,7 +5,8 @@
                 xmlns:local="clr-namespace:AgentVI.Views;assembly=AgentVI"
                 xmlns:converters="clr-namespace:AgentVI.Converters;assembly=AgentVI"
                 x:Class="AgentVI.Views.FilterPage"
-                ItemsSource="{Binding FilteringPagesContent}">
+                ItemsSource="{Binding FilteringPagesContent}"
+                x:Name="MyFilterPage">
     
     <CarouselPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
@@ -18,7 +19,7 @@
             <converters:FilterPageIDConverter x:Key="FilterPageIDConverter"/>
         </ResourceDictionary>
     </CarouselPage.Resources>
-    
+
     <CarouselPage.ItemTemplate>
         <DataTemplate>
             <ContentPage>
@@ -29,7 +30,7 @@
                     </Grid.RowDefinitions>
                     <StackLayout Grid.Row="0" HorizontalOptions="CenterAndExpand">
                         <SearchBar Placeholder="Search..." HeightRequest="30" x:Name="filterSearchBar"/>
-                        <ListView ItemsSource="{Binding FoldersList}" BackgroundColor="Transparent" SeparatorColor="Transparent">
+                        <ListView ItemSelected="Handle_FilterListItemSelected" ItemsSource="{Binding FoldersList}" BackgroundColor="Transparent" SeparatorColor="Transparent">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <TextCell Text="{Binding Name}"/>
@@ -39,7 +40,7 @@
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Grid.Row="1" HorizontalOptions="CenterAndExpand">
                         <Label Text="Filter Num. "/>
-                        <Label Text="{Binding FilterID, Converter={StaticResource FilterPageIDConverter}}"/>
+                        <Label x:Name="filterNumLabel" Text="{Binding FilterID, Converter={StaticResource FilterPageIDConverter}}"/>
                     </StackLayout>
                 </Grid>
             </ContentPage>

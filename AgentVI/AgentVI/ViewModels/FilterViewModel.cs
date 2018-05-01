@@ -15,7 +15,6 @@ namespace AgentVI.ViewModels
     public class FilterViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
         private FilterService m_filterService;
 
         private ObservableCollection<FilteringPageViewModel> _FilteringPagesContent;
@@ -44,9 +43,13 @@ namespace AgentVI.ViewModels
         }
 
 
-        public void addPage()
+        public void fetchNextFilteringDepth(Folder i_selectedFolder, int i_nextDepthValue)
         {
-
+            for(int i=FilteringPagesContent.Count-1;i>=i_nextDepthValue;i--)
+            {
+                FilteringPagesContent.RemoveAt(i);
+            }
+            FilteringPagesContent.Add(new FilteringPageViewModel(m_filterService.selectFolder(i_selectedFolder), i_nextDepthValue));
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
