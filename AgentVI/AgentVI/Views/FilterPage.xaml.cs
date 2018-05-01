@@ -21,5 +21,11 @@ namespace AgentVI.Views
             InitializeComponent ();
             BindingContext = new FilterViewModel();
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            //TODO implement the update of filters state to MainPage and FilterService members
+            return base.OnBackButtonPressed();
+        }
     }
 }
