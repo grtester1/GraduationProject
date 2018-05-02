@@ -1,10 +1,9 @@
 ﻿using System;
-
 using Xamarin.Forms;
 
-namespace AgentVI.ViewModels
+namespace AgentVI.Models
 {
-    public class CameraViewModel
+    public class CameraModel
     {
         public string CamName { get; set; }
         public string CamStatus { get; set; }

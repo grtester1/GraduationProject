@@ -4,64 +4,65 @@ using AgentVI.Services;
 using Xamarin.Forms;
 using InnoviApiProxy;
 using System.Collections.ObjectModel;
+using AgentVI.Models;
 
 namespace AgentVI.ViewModels
 {
     public class CamerasListViewModel
     {
-        public ObservableCollection<CameraViewModel> CamerasList { get; set; }
+        public ObservableCollection<CameraModel> CamerasList { get; set; }
 
         public CamerasListViewModel()
         {
-            CamerasList = new ObservableCollection<CameraViewModel>();
+            CamerasList = new ObservableCollection<CameraModel>();
         }
 
         public void InitializeList(User i_loggedInUser)
         {
             if (i_loggedInUser != null)
             {
-                List<Sensor> userProxyList= i_loggedInUser.GetDefaultAccountSensors();
+                List<Sensor> userProxyList = i_loggedInUser.GetDefaultAccountSensors();
                 if (userProxyList.Count > 0)
                 {
                     foreach (Sensor camera in userProxyList)
                     {
-                        CameraViewModel camViewModel = new CameraViewModel();
-                        camViewModel.CamName = camera.Name;
-                        camViewModel.CamStatus = camera.Status.ToString();
+                        CameraModel camModel = new CameraModel();
+                        camModel.CamName = camera.Name;
+                        camModel.CamStatus = camera.Status.ToString();
 
                         switch (camera.Status)
                         {
                             case Sensor.eSensorStatus.Undefined:
-                                camViewModel.CamColorStatus = "White";
+                                camModel.CamColorStatus = "White";
                                 break;
                             case Sensor.eSensorStatus.Active:
-                                camViewModel.CamColorStatus = "Green";
+                                camModel.CamColorStatus = "Green";
                                 break;
                             case Sensor.eSensorStatus.Warning:
-                                camViewModel.CamColorStatus = "Yellow";
+                                camModel.CamColorStatus = "Yellow";
                                 break;
                             case Sensor.eSensorStatus.Error:
-                                camViewModel.CamColorStatus = "Red";
+                                camModel.CamColorStatus = "Red";
                                 break;
                             case Sensor.eSensorStatus.Inactive:
-                                camViewModel.CamColorStatus = "Silver";
+                                camModel.CamColorStatus = "Silver";
                                 break;
                             default:
-                                camViewModel.CamColorStatus = "Transparent";
+                                camModel.CamColorStatus = "Transparent";
                                 break;
                         }
 
-                        camViewModel.CamImage = camera.StreamUrl;
-                        if (camViewModel.CamImage == null)
+                        camModel.CamImage = camera.StreamUrl;
+                        if (camModel.CamImage == null)
                         {
-                            camViewModel.CamImage = "https://picsum.photos/201";
+                            camModel.CamImage = "https://picsum.photos/201";
                         }
-                        CamerasList.Add(camViewModel);
+                        CamerasList.Add(camModel);
                     }
                 }
                 else
                 {
-                    CamerasList.Add(new CameraViewModel { CamName = "There is currently no camera in the selected folder.", CamStatus = "", CamColorStatus = "Transparent", CamImage = "https://picsum.photos/201" });
+                    CamerasList.Add(new CameraModel { CamName = "There is currently no camera in the selected folder.", CamStatus = "", CamColorStatus = "Transparent", CamImage = "https://picsum.photos/201" });
                 }
             }
             else
