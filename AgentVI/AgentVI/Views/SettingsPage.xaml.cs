@@ -10,6 +10,27 @@ namespace AgentVI.Views
         public SettingsPage()
         {
             InitializeComponent();
+
+            ArmDisarmSwitch.IsToggled = false;
+            NotificationsSwitch.IsToggled = false;
+
+            if (ArmDisarmSwitch.IsToggled)
+            {
+                DescriptionArmDisarm.Text = "<nums> cameras of <Network Datacom Solutions>, <Site name> are Armed.";
+            }
+            else
+            {
+                DescriptionArmDisarm.Text = "Disarmed.";
+            }
+
+            if (NotificationsSwitch.IsToggled)
+            {
+                DescriptionNotifications.Text = "You will receive push notifications for <Network Datacom Solutions>, <Site name>.";
+            }
+            else
+            {
+                DescriptionNotifications.Text = "Push notifications is off.";
+            }
         }
 
         void logout_Clicked(object sender, EventArgs e)
@@ -19,12 +40,26 @@ namespace AgentVI.Views
 
         void arm_Toggled(object sender, EventArgs e)
         {
-            DescriptionArmDisarm.Text = "<nums> cameras of <Network Datacom Solutions>, <Site name> are Armed.";
+            if(ArmDisarmSwitch.IsToggled)
+            {
+                DescriptionArmDisarm.Text = "<nums> cameras of <Network Datacom Solutions>, <Site name> are Armed.";
+            }
+            else
+            {
+                DescriptionArmDisarm.Text = "Disarmed.";
+            }
         }
 
         void Notifications_Toggled(object sender, EventArgs e)
         {
-            DescriptionNotifications.Text = "You will receive push notifications for <Network Datacom Solutions>, <Site name>.";
+            if(NotificationsSwitch.IsToggled)
+            {
+                DescriptionNotifications.Text = "You will receive push notifications for <Network Datacom Solutions>, <Site name>.";
+            }
+            else
+            {
+                DescriptionNotifications.Text = "Push notifications is off.";
+            }
         }
     }
 }

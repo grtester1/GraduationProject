@@ -4,35 +4,65 @@ using AgentVI.Services;
 using Xamarin.Forms;
 using InnoviApiProxy;
 using System.Collections.ObjectModel;
+using AgentVI.Models;
 
 namespace AgentVI.ViewModels
 {
     public class CamerasListViewModel
     {
-        public ObservableCollection<CameraViewModel> CamerasList { get; set; }
+        public ObservableCollection<CameraModel> CamerasList { get; set; }
 
         public CamerasListViewModel()
         {
-            CamerasList = new ObservableCollection<CameraViewModel>();
+            CamerasList = new ObservableCollection<CameraModel>();
         }
 
         public void InitializeList(User i_loggedInUser)
         {
             if (i_loggedInUser != null)
             {
-                List<Sensor> userProxyList= i_loggedInUser.GetDefaultAccountSensors();
-
-                foreach(Sensor camera in userProxyList)
+                List<Sensor> userProxyList = i_loggedInUser.GetDefaultAccountSensors();
+                if (userProxyList.Count > 0)
                 {
-                    CameraViewModel camViewModel = new CameraViewModel();
-                    camViewModel.CamName = camera.Name;
-                    camViewModel.CamStatus = camera.Status.ToString();
-                    camViewModel.CamImage = camera.StreamUrl;
-                    if(camViewModel.CamImage == null)
+                    foreach (Sensor camera in userProxyList)
                     {
-                        camViewModel.CamImage = "https://picsum.photos/201";
+                        CameraModel camModel = new CameraModel();
+                        camModel.CamName = camera.Name;
+                        camModel.CamStatus = camera.Status.ToString();
+
+                        switch (camera.Status)
+                        {
+                            case Sensor.eSensorStatus.Undefined:
+                                camModel.CamColorStatus = "White";
+                                break;
+                            case Sensor.eSensorStatus.Active:
+                                camModel.CamColorStatus = "Green";
+                                break;
+                            case Sensor.eSensorStatus.Warning:
+                                camModel.CamColorStatus = "Yellow";
+                                break;
+                            case Sensor.eSensorStatus.Error:
+                                camModel.CamColorStatus = "Red";
+                                break;
+                            case Sensor.eSensorStatus.Inactive:
+                                camModel.CamColorStatus = "Silver";
+                                break;
+                            default:
+                                camModel.CamColorStatus = "Transparent";
+                                break;
+                        }
+
+                        camModel.CamImage = camera.StreamUrl;
+                        if (camModel.CamImage == null)
+                        {
+                            camModel.CamImage = "https://picsum.photos/201";
+                        }
+                        CamerasList.Add(camModel);
                     }
-                    CamerasList.Add(camViewModel);
+                }
+                else
+                {
+                    CamerasList.Add(new CameraModel { CamName = "There is currently no camera in the selected folder.", CamStatus = "", CamColorStatus = "Transparent", CamImage = "https://picsum.photos/201" });
                 }
             }
             else
@@ -42,4 +72,3 @@ namespace AgentVI.ViewModels
         }
     }
 }
-

@@ -17,48 +17,39 @@ namespace AgentVI.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private FilterService m_filterService;
 
-        //<begin>temp
-        //public List<List<Folder>> AccountFolders { get; set; }
-        public List<Folder> AccountFolders { get; set; }
-        //<end>temp
-
-        private ObservableCollection<TabButtonModel> _tabButtons;
-        public ObservableCollection<TabButtonModel> TabButtons
+        private ObservableCollection<FilteringPageViewModel> _FilteringPagesContent;
+        public ObservableCollection<FilteringPageViewModel> FilteringPagesContent
         {
             get
             {
-                return _tabButtons;
+                return _FilteringPagesContent;
             }
-            set
+            private set
             {
-                _tabButtons = value;
-                OnPropertyChanged(nameof(TabButtons));
+                _FilteringPagesContent = value;
+                OnPropertyChanged();
             }
         }
+        public List<Folder> AccountFolders { get; private set; }
+
 
         public FilterViewModel()
         {
-            /*
-            TabButtons = new ObservableCollection<TabButtonModel>()
-            {
-                new TabButtonModel() { MyImageURL = "https://picsum.photos/201", Image = new Image(){Source = "https://picsum.photos/201" }, IconName="Events" },
-                new TabButtonModel() { MyImageURL = "https://picsum.photos/202", Image = new Image(){Source = "https://picsum.photos/202" }, IconName="Cameras" },
-                new TabButtonModel() { MyImageURL = "https://picsum.photos/203", Image = new Image(){Source = "https://picsum.photos/203" }, IconName="Health" },
-                new TabButtonModel() { MyImageURL = "https://picsum.photos/204", Image = new Image(){Source = "https://picsum.photos/204" }, IconName="Settings" }
-            };*/
-            //AccountFolders = new List<List<Folder>>();
+            FilteringPagesContent = new ObservableCollection<FilteringPageViewModel>();
             m_filterService = new FilterService();
-            //AccountFolders.Add(m_filterService.getAccountFolders(LoginService.Instance.LoggedInUser));
             AccountFolders = m_filterService.getAccountFolders(LoginService.Instance.LoggedInUser);
-            /*
-            All = new ObservableCollection<ColorModel>
+
+            FilteringPagesContent.Add(new FilteringPageViewModel(m_filterService.getAccountFolders(LoginService.Instance.LoggedInUser), 0));
+        }
+
+
+        public void fetchNextFilteringDepth(Folder i_selectedFolder, int i_nextDepthValue)
+        {
+            for(int i=FilteringPagesContent.Count-1;i>=i_nextDepthValue;i--)
             {
-                new ColorModel{Name="red", Color=Color.Red},
-                new ColorModel{Name="green", Color=Color.Green},
-                new ColorModel{Name="yellow", Color=Color.Yellow},
-                new ColorModel{Name="blue", Color=Color.Blue}
-            };
-            */
+                FilteringPagesContent.RemoveAt(i);
+            }
+            FilteringPagesContent.Add(new FilteringPageViewModel(m_filterService.selectFolder(i_selectedFolder), i_nextDepthValue));
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
