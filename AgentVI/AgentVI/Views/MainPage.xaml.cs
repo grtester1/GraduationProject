@@ -18,7 +18,7 @@ namespace AgentVI.Views
             {"Page2", new Page2()},
             {"CamerasPage", new CamerasPage()},
             {"SettingsPage", new SettingsPage()},
-            {"EventsPage", new EventPage()}
+            {"EventsPage", new EventsPage()}
         };
         private FilterIndicatorViewModel filterIndicatorViewModel = null;
         private Page FilterPage = null;
