@@ -10,17 +10,16 @@ namespace InnoviApiProxy
         [JsonProperty("id")]
         private string eventId { get; set; }
         [JsonProperty]
-        private int sensorId { get; set; }
+        internal int sensorId { get; private set; }
         [JsonProperty]
         private int accountId { get; set; }
+        public string SensorName { get; internal set; }
         [JsonProperty]
         public ulong StartTime { get; private set; }
         [JsonProperty("objectType")]
         public eObjectType ObjectType { get; private set; }
         [JsonProperty]
         public int RuleId { get; private set; }
-        [JsonProperty]
-        public string Name { get; private set; }
         [JsonProperty]
         public string ImagePath { get; private set; }
         [JsonProperty]

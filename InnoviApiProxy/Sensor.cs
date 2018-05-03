@@ -8,7 +8,7 @@ namespace InnoviApiProxy
     public class Sensor : InnoviObject
     {
         [JsonProperty("id")]
-        private int sensorId { get; set; }
+        internal int sensorId { get; private set; }
         [JsonProperty]
         private int accountId { get; set; }
         [JsonProperty]

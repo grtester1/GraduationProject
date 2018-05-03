@@ -14,7 +14,8 @@ namespace NadavTest
             List<Sensor> mySensors = user.GetDefaultAccountSensors();
 
             List<SensorEvent> myEvents = user.GetDefaultAccountEvents();
-            List<Folder> folders = user.GetDefaultAccountFolders();
+            int i = 1;
+     /*       List<Folder> folders = user.GetDefaultAccountFolders();
             foreach(var folder in folders)
             {
                 List<Sensor> sensors = folder.GetAllSensors();
@@ -37,6 +38,7 @@ namespace NadavTest
                     }
                 }
             }
+            */
         }
     }
 }

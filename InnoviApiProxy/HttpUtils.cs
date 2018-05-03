@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Linq;
+using System.Text;
 
 namespace InnoviApiProxy
 {
@@ -100,13 +101,17 @@ namespace InnoviApiProxy
 
             // if code == 0 => no errors
             Settings.RefreshAccessToken(response);
-            List<SensorEvent> sensors = JsonConvert.DeserializeObject<List<SensorEvent>>(responseJsonObject["list"].ToString());
-            if (sensors.Count == 0)
+            List<SensorEvent> sensorEvents = JsonConvert.DeserializeObject<List<SensorEvent>>(responseJsonObject["list"].ToString());
+            if (sensorEvents.Count == 0)
             {
-                sensors = null;
+                sensorEvents = null;
+            }
+            else
+            {
+                AddSensorNamesToEventsList(sensorEvents);
             }
 
-            return sensors;
+            return sensorEvents;
         }
 
         internal static List<SensorEvent> GetFolderEvents(int i_FolderId)
@@ -157,12 +162,31 @@ namespace InnoviApiProxy
             sortedEvents.Reverse();
 
 
-            if (events.Count == 0)
+            if (sortedEvents.Count == 0)
             {
-                events = null;
+                sortedEvents = null;
+            }
+            else
+            {
+                AddSensorNamesToEventsList(sortedEvents);
             }
 
             return sortedEvents;
+        }
+
+        private static void AddSensorNameToEvent(SensorEvent i_SensorEvent)
+        {
+            Cache sensorNameCache = Cache.Fetch();
+
+            i_SensorEvent.SensorName = sensorNameCache.GetSensorName(i_SensorEvent.sensorId);
+        }
+
+        private static void AddSensorNamesToEventsList(List<SensorEvent> i_SensorEvents)
+        {
+            foreach (SensorEvent sensorEvent in i_SensorEvents)
+            {
+                AddSensorNameToEvent(sensorEvent);
+            }
         }
 
         internal static List<Sensor> GetFolderSensors(int i_FolderId)
@@ -217,6 +241,84 @@ namespace InnoviApiProxy
             }
 
             return sortedEvents;
+        }
+
+        internal static string GetSensorNameById(int i_SensorId)
+        {
+            if (Settings.AccessToken == null)
+            {
+                throw new Exception("Not logged in");
+            }
+
+            HttpClient client = BaseHttpClient();
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/sensors/" + i_SensorId.ToString());
+            Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
+            HttpResponseMessage response = result.Result;
+            JObject responseJsonObject = GetHttpResponseBody(response);
+
+            // if code == 0 => no errors
+            Settings.RefreshAccessToken(response);
+            Sensor sensor = JsonConvert.DeserializeObject<Sensor>(responseJsonObject["entity"].ToString());
+
+            string sensorName = "Unavailable";
+            
+            if(sensor != null)
+            {
+                sensorName = sensor.Name;
+            }
+
+            return sensorName;
+        }
+
+        internal static void UpdateSensorNamesCache(List<int> i_SensorIds)
+        {
+            if (Settings.AccessToken == null)
+            {
+                throw new Exception("Not logged in");
+            }
+
+            if (i_SensorIds.Count < 1)
+            {
+                throw new Exception("List must contain at least one value");
+            }
+
+            HttpClient client = BaseHttpClient();
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
+            string baseUri = "v1/sensors/list?";
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, baseUri);
+            StringBuilder requestUriBuilder = new StringBuilder();
+            requestUriBuilder.Append(baseUri);
+            int sensorCount = 0;
+
+            foreach (int SensorId in i_SensorIds)
+            {
+                if (sensorCount > 0)
+                {
+                    requestUriBuilder.Append("&");
+                }
+
+                requestUriBuilder.Append("id=" + SensorId.ToString());
+            }
+
+            httpRequest.RequestUri = new Uri(requestUriBuilder.ToString());
+
+            Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
+            HttpResponseMessage response = result.Result;
+            JObject responseJsonObject = GetHttpResponseBody(response);
+
+            // if code == 0 => no errors
+            Settings.RefreshAccessToken(response);
+            List<Sensor> sensors = JsonConvert.DeserializeObject<List<Sensor>>(responseJsonObject["list"].ToString());
+
+            Cache cache = Cache.Fetch();
+
+            List<string> sensorNames = new List<string>();
+
+            foreach (Sensor sensor in sensors)
+            {
+                cache.AddToSensorCache(sensor.sensorId, sensor.Name);
+            }
         }
     }
 }
