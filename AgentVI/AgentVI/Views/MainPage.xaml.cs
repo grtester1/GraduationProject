@@ -1,4 +1,5 @@
-﻿using AgentVI.ViewModels;
+﻿using AgentVI.Services;
+using AgentVI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,38 +11,58 @@ namespace AgentVI.Views
 {
     public partial class MainPage : ContentPage
     {
-        private LoginPageViewModel m_VM = null;
+        private LoginPageViewModel LoginPageViewModel = null;
+        private Dictionary<String, ContentPage> pageCollection = new Dictionary<String, ContentPage>()
+        {
+            {"Page1", new Page1()},
+            {"Page2", new Page2()},
+            {"CamerasPage", new CamerasPage()},
+            {"SettingsPage", new SettingsPage()},
+            {"EventsPage", new EventPage()}
+        };
+        private FilterIndicatorViewModel filterIndicatorViewModel = null;
+        private Page FilterPage = null;
+
+
+        public MainPage()
+        {
+            filterIndicatorViewModel = new FilterIndicatorViewModel();
+            FilterPage = new FilterPage(filterIndicatorViewModel);
+            InitializeComponent();
+            FilterStateIndicatorListView.BindingContext = filterIndicatorViewModel;//ServiceManager.Instance.FilterService.getSelectedFoldersHirearchy();
+            LoginPageViewModel = new LoginPageViewModel();
+            LoginPageViewModel.InitializeFields(ServiceManager.Instance.LoginService.LoggedInUser);
+            BindingContext = LoginPageViewModel;
+        }
+
+
+        void FilterStateIndicator_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(FilterPage);
+        }
 
         void FooterBarEvents_Clicked(object sender, EventArgs e)
         {
-            PlaceHolder.Content = (new EventsPage()).Content;
+            PlaceHolder.Content = pageCollection["EventsPage"].Content;
         }
         void FooterBarCameras_Clicked(object sender, EventArgs e)
         {
-            PlaceHolder.Content = (new CamerasPage()).Content;
+            PlaceHolder.Content = pageCollection["CamerasPage"].Content;
         }
         void FooterBarHealth_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new FilterPage());
+            
         }
         void FooterBarSettings_Clicked(object sender, EventArgs e)
         {
-            PlaceHolder.Content = (new SettingsPage()).Content;
+            PlaceHolder.Content = pageCollection["SettingsPage"].Content;
         }
 
 
         protected override bool OnBackButtonPressed()
         {
+            //Handle back button pressed in MainPage
             return true;
-        }
-
-
-        public MainPage()
-        {
-            InitializeComponent();
-            m_VM = new LoginPageViewModel();
-            m_VM.InitializeFields(Services.LoginService.Instance.LoggedInUser);
-            BindingContext = m_VM;
         }
     }
 }

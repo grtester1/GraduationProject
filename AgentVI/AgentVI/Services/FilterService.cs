@@ -2,18 +2,26 @@
 using System.Collections.Generic;
 using System.Text;
 using InnoviApiProxy;
+using Xamarin.Forms;
 
 namespace AgentVI.Services
 {
-    public class FilterService
+    public class FilterService : IFilterService
     {
         private List<Folder> AccountFolders_Depth0 { get; set; }
         private List<List<Folder>> FilteringLevelsCache { get; set; }
+        private List<String> SelectedFoldersNames { get; set; }
 
         public FilterService()
         {
             AccountFolders_Depth0 = null;
             FilteringLevelsCache = new List<List<Folder>>();
+            SelectedFoldersNames = new List<string>();
+        }
+        
+        public List<String> getSelectedFoldersHirearchy()
+        {
+            return SelectedFoldersNames;
         }
 
         /// <summary>
@@ -55,10 +63,16 @@ namespace AgentVI.Services
             if(i_selectedFolder.Depth!=FilteringLevelsCache.Count-1)
             {
                 FilteringLevelsCache.RemoveRange(i_selectedFolder.Depth + 1, FilteringLevelsCache.Count - 1);
+                SelectedFoldersNames.RemoveRange(i_selectedFolder.Depth + 1, SelectedFoldersNames.Count - 1);
             }
-            if(i_selectedFolder!=null && i_selectedFolder.Folders!=null)
+            if(i_selectedFolder!=null)
             {
-                FilteringLevelsCache.Add(i_selectedFolder.Folders);
+                if (i_selectedFolder.Folders != null)
+                {
+                    FilteringLevelsCache.Add(i_selectedFolder.Folders);
+                }
+                SelectedFoldersNames.Add(i_selectedFolder.Name);
+
             }
             return FilteringLevelsCache[FilteringLevelsCache.Count-1];
         }

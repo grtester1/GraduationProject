@@ -10,7 +10,9 @@
         </OnPlatform>
     </ContentPage.Padding>
     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <!--
         <vidplayer:VideoPlayer x:Name="vidPlayer" Source="https://vjs.zencdn.net/v/oceans.mp4" AutoPlay="True" />
+        -->
         <StackLayout Orientation="Horizontal">
             <Label Text="Username: "/>
             <Label Text="{Binding Username}"/>

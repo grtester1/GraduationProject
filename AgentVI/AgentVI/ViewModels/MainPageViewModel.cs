@@ -6,7 +6,6 @@ namespace AgentVI.ViewModels
 {
     public class MainPageViewModel
     {
-        private Services.FilterService m_filterService;
         //private List<Page> allPages; //TODO
     }
 }

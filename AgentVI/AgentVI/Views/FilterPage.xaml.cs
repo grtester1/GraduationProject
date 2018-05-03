@@ -1,5 +1,7 @@
 ﻿using AgentVI.Models;
+using AgentVI.Services;
 using AgentVI.ViewModels;
+using CommonServiceLocator;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,7 +9,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,17 +17,20 @@ namespace AgentVI.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class FilterPage : CarouselPage
 	{
-        FilterViewModel m_VM = new FilterViewModel();
+        private FilterViewModel FilterViewModel;
+        private FilterIndicatorViewModel filterIndicatorViewModel;
 
-        public FilterPage()
+        public FilterPage(FilterIndicatorViewModel i_filterIndicatorViewModel)
         {
             InitializeComponent ();
-            BindingContext = m_VM;
+            filterIndicatorViewModel = i_filterIndicatorViewModel;
+            FilterViewModel = new FilterViewModel(ServiceManager.Instance.FilterService);
+            BindingContext = FilterViewModel;
         }
 
         protected override bool OnBackButtonPressed()
         {
-            //TODO implement the update of filters state to MainPage and FilterService members
+            filterIndicatorViewModel.SelectedFoldersNamesCache = ServiceManager.Instance.FilterService.getSelectedFoldersHirearchy();
             return base.OnBackButtonPressed();
         }
 
@@ -43,7 +47,7 @@ namespace AgentVI.Views
                 }
             }
 
-            m_VM.fetchNextFilteringDepth(selectedFolder, ++filterDepthLabelValue);
+            FilterViewModel.fetchNextFilteringDepth(selectedFolder, ++filterDepthLabelValue);
         }
     }
 }

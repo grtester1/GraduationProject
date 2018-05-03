@@ -12,6 +12,7 @@
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1.5*"/>
             <RowDefinition Height="9*"/>
             <RowDefinition Height="1"/>
             <RowDefinition Height="1.5*"/>
@@ -29,10 +30,18 @@
                 <Label FontSize="18" FontAttributes="Bold, Italic" Text="!"/>
             </StackLayout>
         </Grid>
-        <ContentView x:Name="PlaceHolder" Grid.Row="1"/>
-        <BoxView BackgroundColor="#DCDCDC" Grid.Row="2"/>
 
-        <Grid BackgroundColor="AliceBlue" Grid.Row="3">
+        <StackLayout Grid.Row="1">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="FilterStateIndicator_Tapped" />
+            </StackLayout.GestureRecognizers>
+            <ListView x:Name="FilterStateIndicatorListView" ItemsSource="{Binding SelectedFoldersNamesCache}" ItemTapped="FilterStateIndicator_Tapped"/>
+        </StackLayout>
+        
+        <ContentView x:Name="PlaceHolder" Grid.Row="2"/>
+        <BoxView BackgroundColor="#DCDCDC" Grid.Row="3"/>
+
+        <Grid BackgroundColor="AliceBlue" Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
