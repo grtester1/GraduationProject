@@ -15,7 +15,21 @@ namespace AgentVI.ViewModels
     public class FilterViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private FilterService m_filterService;
+        private readonly IFilterService _filterService;
+
+        private List<String> _SelectedFoldersNames;
+        public List<String> SelectedFoldersCache
+        {
+            get
+            {
+                return _SelectedFoldersNames;
+            }
+            set
+            {
+                _SelectedFoldersNames = value;
+                OnPropertyChanged();
+            }
+        }
 
         private ObservableCollection<FilteringPageViewModel> _FilteringPagesContent;
         public ObservableCollection<FilteringPageViewModel> FilteringPagesContent
@@ -33,13 +47,13 @@ namespace AgentVI.ViewModels
         public List<Folder> AccountFolders { get; private set; }
 
 
-        public FilterViewModel()
+        public FilterViewModel(IFilterService i_filterService)
         {
             FilteringPagesContent = new ObservableCollection<FilteringPageViewModel>();
-            m_filterService = new FilterService();
-            AccountFolders = m_filterService.getAccountFolders(LoginService.Instance.LoggedInUser);
+            _filterService = i_filterService;
+            AccountFolders = _filterService.getAccountFolders(ServiceManager.Instance.LoginService.LoggedInUser);
 
-            FilteringPagesContent.Add(new FilteringPageViewModel(m_filterService.getAccountFolders(LoginService.Instance.LoggedInUser), 0));
+            FilteringPagesContent.Add(new FilteringPageViewModel(_filterService.getAccountFolders(ServiceManager.Instance.LoginService.LoggedInUser), 0));
         }
 
 
@@ -49,7 +63,8 @@ namespace AgentVI.ViewModels
             {
                 FilteringPagesContent.RemoveAt(i);
             }
-            FilteringPagesContent.Add(new FilteringPageViewModel(m_filterService.selectFolder(i_selectedFolder), i_nextDepthValue));
+            FilteringPagesContent.Add(new FilteringPageViewModel(_filterService.selectFolder(i_selectedFolder), i_nextDepthValue));
+            SelectedFoldersCache = ServiceManager.Instance.FilterService.getSelectedFoldersHirearchy();
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

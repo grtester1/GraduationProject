@@ -1,8 +1,11 @@
-﻿using System;
+﻿using AgentVI.Services;
+using CommonServiceLocator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Unity;
+using Unity.ServiceLocation;
 using Xamarin.Forms;
 
 namespace AgentVI
@@ -12,6 +15,10 @@ namespace AgentVI
 		public App ()
 		{
 			InitializeComponent();
+            UnityContainer unityContainer = new UnityContainer();
+            unityContainer.RegisterType<IFilterService, FilterService>();
+
+            ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(unityContainer));
 
             MainPage = new NavigationPage(new Views.LoadingPage());
         }

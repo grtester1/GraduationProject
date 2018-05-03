@@ -5,22 +5,9 @@ using InnoviApiProxy;
 
 namespace AgentVI.Services
 {
-    public class LoginService
+    public class LoginService : ILoginService
     {
-        private static LoginService _Instance = null;
-        public static LoginService Instance
-        {
-            get
-            {
-                if (_Instance == null)
-                {
-                    _Instance = new LoginService();
-                }
-                return _Instance;
-            }
-        }
         public User LoggedInUser { get; private set; }
-
 
         public void setLoggedInUser(User i_loggedInUser)
         {
@@ -28,6 +15,6 @@ namespace AgentVI.Services
         }
 
 
-        private LoginService() { }
+        public LoginService() { }
     }
 }

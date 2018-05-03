@@ -6,6 +6,7 @@ using InnoviApiProxy;
 using AgentVI.ViewModels;
 using Xamarin.Forms;
 using System.Linq;
+using AgentVI.Services;
 
 namespace AgentVI.Views
 {
@@ -17,7 +18,7 @@ namespace AgentVI.Views
         {
             InitializeComponent();
 
-            User user = Services.LoginService.Instance.LoggedInUser;
+            User user = ServiceManager.Instance.LoginService.LoggedInUser;
             allCameras = new CamerasListViewModel();
             allCameras.InitializeList(user);
             cameraListView.ItemsSource = allCameras.CamerasList;
