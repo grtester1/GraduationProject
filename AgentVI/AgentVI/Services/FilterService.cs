@@ -71,10 +71,8 @@ namespace AgentVI.Services
                 {
                     FilteringLevelsCache.Add(i_selectedFolder.Folders);
                 }
-                else
-                {
-                    SelectedFoldersNames.Add(i_selectedFolder.Name);
-                }
+                SelectedFoldersNames.Add(i_selectedFolder.Name);
+
             }
             return FilteringLevelsCache[FilteringLevelsCache.Count-1];
         }
