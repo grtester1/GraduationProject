@@ -1,5 +1,8 @@
 *.suo
 *.user
+*.ide
+*.lock
+.suo
 _ReSharper.*
 bin
 obj

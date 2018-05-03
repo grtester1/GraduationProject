@@ -43,7 +43,9 @@ namespace AgentVI.Views
 
         void FooterBarEvents_Clicked(object sender, EventArgs e)
         {
-            PlaceHolder.Content = pageCollection["EventsPage"].Content;
+            //PlaceHolder.Content = pageCollection["EventsPage"].Content;
+            PlaceHolder.Content = (new Page1()).Content;
+
         }
         void FooterBarCameras_Clicked(object sender, EventArgs e)
         {
