@@ -49,7 +49,7 @@
             <ActivityIndicator x:Name="loadingData" IsRunning="true" VerticalOptions="CenterAndExpand" />
             <Entry x:Name="usernameEntry" Placeholder="Username" FontAttributes="Italic" Keyboard="Email"/>
             <Entry x:Name="passwordEntry" Placeholder="Password" FontAttributes="Italic" IsPassword="True"/>
-            <Button Clicked="loginButton_Clicked" Text="Login" Margin="0,8"/>
+            <Button Clicked="loginButton_Clicked" Text="Login" Margin="0,8" TextColor="Navy"/>
             <Label Text="Forgot Password?" HorizontalOptions="Center" FontAttributes="Italic" Margin="0,7">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Tapped="forgotPwdButton_Clicked"/>

@@ -1,12 +1,10 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/ViewModels/MainPageViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/ViewModels/EventsListViewModel.cs">
     <Files>
-      <File FileName="AgentVI/AgentVI/Models/CameraModel.cs" Line="11" Column="45" />
-      <File FileName="AgentVI/AgentVI/ViewModels/CamerasListViewModel.cs" Line="7" Column="22" />
-      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml" Line="25" Column="15" />
-      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml.cs" Line="41" Column="10" />
-      <File FileName="AgentVI/AgentVI/ViewModels/MainPageViewModel.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/Models/EventModel.cs" Line="11" Column="29" />
+      <File FileName="AgentVI/AgentVI/ViewModels/EventsListViewModel.cs" Line="36" Column="48" />
+      <File FileName="InnoviApiProxy/SensorEvent.cs" Line="35" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
@@ -14,7 +12,7 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.538e301684d91edcec33c0ca6ed04035d6e4abdb" />
+  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
 </Properties>

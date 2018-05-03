@@ -17,7 +17,8 @@ namespace AgentVI.Views
             {"Page1", new Page1()},
             {"Page2", new Page2()},
             {"CamerasPage", new CamerasPage()},
-            {"SettingsPage", new SettingsPage()}
+            {"SettingsPage", new SettingsPage()},
+            {"EventsPage", new EventPage()}
         };
         private FilterIndicatorViewModel filterIndicatorViewModel = null;
         private Page FilterPage = null;
@@ -42,7 +43,7 @@ namespace AgentVI.Views
 
         void FooterBarEvents_Clicked(object sender, EventArgs e)
         {
-            PlaceHolder.Content = pageCollection["Page1"].Content;
+            PlaceHolder.Content = pageCollection["EventsPage"].Content;
         }
         void FooterBarCameras_Clicked(object sender, EventArgs e)
         {

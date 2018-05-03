@@ -45,7 +45,7 @@ namespace AgentVI.ViewModels
                                 camModel.CamColorStatus = "Red";
                                 break;
                             case Sensor.eSensorStatus.Inactive:
-                                camModel.CamColorStatus = "Silver";
+                                camModel.CamColorStatus = "Gray";
                                 break;
                             default:
                                 camModel.CamColorStatus = "Transparent";
@@ -55,7 +55,7 @@ namespace AgentVI.ViewModels
                         camModel.CamImage = camera.StreamUrl;
                         if (camModel.CamImage == null)
                         {
-                            camModel.CamImage = "https://picsum.photos/201";
+                            camModel.CamImage = "http://3.bp.blogspot.com/-FYjlw5lYV_Q/VCaXoNp-PTI/AAAAAAAAHmk/cLuCv4Ruq_U/s1600/37.jpg";
                         }
                         CamerasList.Add(camModel);
                     }
