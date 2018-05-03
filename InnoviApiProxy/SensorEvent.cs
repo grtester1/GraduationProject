@@ -15,8 +15,8 @@ namespace InnoviApiProxy
         private int accountId { get; set; }
         [JsonProperty]
         public ulong StartTime { get; private set; }
-        [JsonProperty]
-        public string ObjectType { get; private set; }
+        [JsonProperty("objectType")]
+        public eObjectType ObjectType { get; private set; }
         [JsonProperty]
         public int RuleId { get; private set; }
         [JsonProperty]
@@ -27,7 +27,34 @@ namespace InnoviApiProxy
         public string ClipPath { get; private set; }
         [JsonProperty]
         public Sensor.eSensorEventTag Tag { get; private set; }
+        [JsonProperty("behaviorType")]
+        public eBehaviorType RuleName { get; private set; }
 
         internal SensorEvent() { }
+
+        public enum eBehaviorType
+        {
+            Undefined,
+            Moving,
+            Crossing,
+            Occupancy,
+            Stopped,
+            Mask,
+            Vqm,
+            Mrd,
+            Grouping,
+            Anomaly
+        }
+
+        public enum eObjectType
+        {
+            Undefined,
+            Unknown,
+            Person,
+            Vehicle,
+            Object,
+            Bicycle,
+            Motorcycle
+        }
     }
 }
