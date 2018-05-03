@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="AgentVI.Views.CamerasPage">
+             x:Class="AgentVI.Views.EventsPage">
         <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
                     iOS="0,30,0,0">
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-        <ListView x:Name="cameraListView" RowHeight="300" ItemTapped="OnTap" IsPullToRefreshEnabled="true" Refreshing="OnRefresh">
+        <ListView x:Name="eventListView" RowHeight="300" IsPullToRefreshEnabled="true" Refreshing="OnRefresh">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Margin="20">
-                            <Label Text= "{Binding CamName}" TextColor="Navy" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
                             <Image Source="{Binding CamImage}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                            <StackLayout Spacing="5" Orientation="Horizontal" HorizontalOptions="Start">
-                                <Button BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding CamColorStatus}" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                                <Label Text = "{Binding CamStatus}" TextColor="Navy" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                            <Label Text= "{Binding CamName}" TextColor="Navy" HorizontalOptions="Start" >
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="cameraButton_Clicked"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding RuleName}" HorizontalOptions="Start" VerticalOptions="Center"  />
+                                <Label Text = "{Binding dateTime}" TextColor="Navy" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>

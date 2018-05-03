@@ -14,7 +14,7 @@ namespace AgentVI.Views
 
         void FooterBarEvents_Clicked(object sender, EventArgs e)
         {
-            PlaceHolder.Content = (new Page1()).Content;
+            PlaceHolder.Content = (new EventsPage()).Content;
         }
         void FooterBarCameras_Clicked(object sender, EventArgs e)
         {
