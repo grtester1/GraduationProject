@@ -59,20 +59,22 @@ namespace InnoviApiProxy
             throw new Exception("Not yet implemented");
         }
 
-        public List<Folder> GetDefaultAccountFolders()
+        public InnoviObjectCollection<Folder> GetDefaultAccountFolders()
         {
-            return HttpUtils.GetFolders(0);
+            return new InnoviObjectCollection<Folder>(HttpUtils.GetFolders, 0);
         }
 
-        public List<SensorEvent> GetDefaultAccountEvents()
+
+        public InnoviObjectCollection<SensorEvent> GetDefaultAccountEvents()
         {
-            return HttpUtils.GetFolderEvents(0);
+            return new InnoviObjectCollection<SensorEvent>(HttpUtils.GetFolderEvents, 0);
         }
 
-        public List<Sensor> GetDefaultAccountSensors()
+        public InnoviObjectCollection<Sensor> GetDefaultAccountSensors()
         {
-            return HttpUtils.GetFolderSensors(-1);
+            return new InnoviObjectCollection<Sensor>(HttpUtils.GetFolderSensors, -1);
         }
+
 
 
         private static LoginResult getLoginResult(HttpClient i_Client, HttpRequestMessage i_HttpRequestMessage)

@@ -44,11 +44,11 @@ namespace InnoviApiProxy
         [JsonProperty]
         public string StreamUrl { get; private set; }
 
-        public List<SensorEvent> SensorEvents
+        public InnoviObjectCollection<SensorEvent> SensorEvents
         {
             get
             {
-                return HttpUtils.GetEvents(sensorId);
+                return new InnoviObjectCollection<SensorEvent>(HttpUtils.GetSensorEvents, sensorId);
             }
             private set
             {

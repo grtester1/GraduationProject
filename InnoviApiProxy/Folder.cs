@@ -22,11 +22,11 @@ namespace InnoviApiProxy
 
         internal Folder() { }
 
-        public List<Sensor> Sensors
+        public InnoviObjectCollection<Sensor> Sensors
         {
             get
             {
-                return HttpUtils.GetSensors(folderId);
+                return new InnoviObjectCollection<Sensor>(HttpUtils.GetFolderSensors, folderId);
             }
             set
             {
@@ -34,11 +34,11 @@ namespace InnoviApiProxy
             }
         }
 
-        public List<Folder> Folders
+        public InnoviObjectCollection<Folder> Folders
         {
             get
             {
-                return HttpUtils.GetFolders(folderId);
+                return new InnoviObjectCollection<Folder>(HttpUtils.GetFolders, folderId);
             }
             private set
             {
@@ -56,6 +56,7 @@ namespace InnoviApiProxy
             throw new Exception("Not yet implemented");
         }
 
+        /*
         public List<Sensor> GetAllSensors()
         {
             List<Folder> subFolders = Folders;
@@ -77,6 +78,6 @@ namespace InnoviApiProxy
 
             return sensors;
         }
-
+        */
     }
 }
