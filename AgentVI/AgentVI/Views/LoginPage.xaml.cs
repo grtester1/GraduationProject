@@ -8,6 +8,7 @@ using Xamarin.Forms.Xaml;
 using InnoviApiProxy;
 using AgentVI.Utils;
 using AgentVI.ViewModels;
+using AgentVI.Services;
 
 namespace AgentVI.Views
 {
@@ -26,7 +27,7 @@ namespace AgentVI.Views
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
-        void loginButton_Clicked(object sender, EventArgs e)
+        async void loginButton_Clicked(object sender, EventArgs e)
         {
             loadingData.IsRunning = true;
             string username = usernameEntry.Text;
@@ -35,7 +36,7 @@ namespace AgentVI.Views
             bool isPasswordEmpty = string.IsNullOrEmpty(password) || string.IsNullOrWhiteSpace(password);
             if (isUsernameEmpty || isPasswordEmpty)
             {
-                DisplayAlert("Login Error", "Please enter your username and password.", "Retry");
+                await DisplayAlert("Login Error", "Please enter your username and password.", "Retry");
             }
             else
             {
@@ -47,20 +48,29 @@ namespace AgentVI.Views
                     }
                     catch (Exception ex)
                     {
-                        DisplayAlert("Exception", ex.Message, "Close");
+                        await DisplayAlert("Exception", ex.Message, "Close");
                     }
                 }
                 if (m_loginResult != null)
                 {
                     if (m_loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                     {
+                        bool doCredentialsExist = LoadingPage.CredentialsService.DoCredentialsExist();
+
+                        if (!doCredentialsExist)
+                        {
+                            LoadingPage.CredentialsService.SaveCredentials(username, password); //<---------------------------------
+                            //LoadingPage.CredentialsService.SaveCredentials(accessToken);
+                        }
+
                         LoginPageViewModel = new LoginPageViewModel();
                         LoginPageViewModel.InitializeFields(m_loginResult.User);
-                        Navigation.PushModalAsync(new MainPage());
+                        Navigation.InsertPageBefore(new MainPage(), this);
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        DisplayAlert("Error Message", m_loginResult.ErrorMessage.convertEnumToString(), "retry");
+                        await DisplayAlert("Error Message", m_loginResult.ErrorMessage.convertEnumToString(), "retry");
                         m_loginResult = null;
                     }
                 }

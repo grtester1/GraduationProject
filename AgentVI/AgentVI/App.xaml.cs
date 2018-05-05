@@ -12,6 +12,8 @@ namespace AgentVI
 {
 	public partial class App : Application
 	{
+        public static string AppName { get { return "AgentVI"; } }
+
 		public App ()
 		{
 			InitializeComponent();

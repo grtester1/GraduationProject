@@ -45,7 +45,7 @@
                 
         <StackLayout Orientation="Horizontal" HeightRequest="50">
           <Button FontSize="20" Text="Logout" TextColor="Navy" HorizontalOptions="Start" 
-                 VerticalOptions="Center" Clicked="logout_Clicked" />
+                 VerticalOptions="Center" Clicked="OnLogoutButtonClicked" />
         </StackLayout>
                 
       </StackLayout>

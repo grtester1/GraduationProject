@@ -33,9 +33,11 @@ namespace AgentVI.Views
             }
         }
 
-        void logout_Clicked(object sender, EventArgs e)
+        async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
-
+            LoadingPage.CredentialsService.DeleteCredentials();
+            //Navigation.InsertPageBefore(new LoginPage(), this);
+            //await Navigation.PopAsync();
         }
 
         void arm_Toggled(object sender, EventArgs e)
