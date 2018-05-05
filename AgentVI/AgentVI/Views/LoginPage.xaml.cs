@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using InnoviApiProxy;
+using AgentVI.Utils;
 using AgentVI.ViewModels;
 
 namespace AgentVI.Views
@@ -59,7 +60,7 @@ namespace AgentVI.Views
                     }
                     else
                     {
-                        DisplayAlert("Error Message", m_loginResult.ErrorMessage.toString(), "Retry");
+                        DisplayAlert("Error Message", StringUtils.convertEnumToString(m_loginResult.ErrorMessage), "retry");
                         m_loginResult = null;
                     }
                 }

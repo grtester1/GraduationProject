@@ -4,7 +4,7 @@ using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace AgentVI.MarkupExtensions
+namespace AgentVI.Utils
 {
     public class EmbeddedImage : IMarkupExtension
     {
