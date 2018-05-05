@@ -22,7 +22,6 @@ namespace InnoviApiProxy
             return myClient;
         }
 
-
         internal static JObject GetHttpResponseBody(HttpResponseMessage i_HttpResponseMessage)
         {
             Task<string> responseAsString = i_HttpResponseMessage.Content.ReadAsStringAsync();
@@ -136,14 +135,11 @@ namespace InnoviApiProxy
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
 
-
             return getFolderEventsHepler(client, 0,  i_PageId, out i_PagesCount);
         }
 
         private static List<SensorEvent> getFolderEventsHepler(HttpClient i_Client, int i_FolderId, int i_PageId, out int i_PagesCount)
         {
-
-
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/events?page=" + i_PageId.ToString());
             Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
@@ -157,7 +153,6 @@ namespace InnoviApiProxy
 
             List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
             sortedEvents.Reverse();
-
 
             if (sortedEvents.Count == 0)
             {
@@ -182,7 +177,6 @@ namespace InnoviApiProxy
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
 
-
             return getFolderSensorsHelper(client, i_FolderId, i_PageId, out i_PagesCount);
         }
 
@@ -198,8 +192,6 @@ namespace InnoviApiProxy
             i_PagesCount = int.Parse(responseJsonObject["pages"].ToString());
 
             List<Sensor> sensors = JsonConvert.DeserializeObject<List<Sensor>>(responseJsonObject["list"].ToString());
-
-        
             // if code == 0 => no errors
 
             List<Sensor> SortedSensors = sensors.OrderByDescending(x => x.Name).ToList();
@@ -285,7 +277,6 @@ namespace InnoviApiProxy
 
 
             // if code == 0 => no errors
-
             List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
             sortedEvents.Reverse();
 

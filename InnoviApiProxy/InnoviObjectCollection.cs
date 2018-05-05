@@ -7,36 +7,37 @@ namespace InnoviApiProxy
 {
     public class InnoviObjectCollection<InnoviObject> : IEnumerable
     {
-        private List<InnoviObject> m_Collection;
         private InnoviObjectDelegate<InnoviObject> m_Delegate;
         private int m_FilterItemId;
-        public InnoviObjectCollection()
-        {
-            m_Collection = new List<InnoviObject>();
-        }
-        public InnoviObjectCollection(List<InnoviObject> i_Collection)
-        {
-            m_Collection = i_Collection;
-        }
 
-        public InnoviObjectCollection(InnoviObjectDelegate<InnoviObject> i_Delegate)
+        internal InnoviObjectCollection(InnoviObjectDelegate<InnoviObject> i_Delegate)
         {
             m_Delegate = i_Delegate;
         }
 
-        public InnoviObjectCollection(InnoviObjectDelegate<InnoviObject> i_Delegate, int i_FilterItemId)
+        internal InnoviObjectCollection(InnoviObjectDelegate<InnoviObject> i_Delegate, int i_FilterItemId)
         {
             m_Delegate = i_Delegate;
             m_FilterItemId = i_FilterItemId;
         }
-
-
 
         public IEnumerator GetEnumerator()
         {
             return new InnoviObjectCollectionEnumerator(m_Delegate, m_FilterItemId);
         }
 
+
+        public List<InnoviObject> ToList()
+        {
+            List<InnoviObject> list = new List<InnoviObject>();
+
+            foreach (InnoviObject innoviObject in this)
+            {
+                list.Add(innoviObject);
+            }
+
+            return list;
+        }
         internal class InnoviObjectCollectionEnumerator : IEnumerator
         {
             private int m_CurrentIndex = -1;
@@ -66,8 +67,6 @@ namespace InnoviApiProxy
             {
                 m_CurrentIndex++;
                
-                
-
                 if (m_Collection == null || m_CurrentIndex == m_Collection.Count)
                 {
                     if (m_Collection == null)
@@ -82,9 +81,7 @@ namespace InnoviApiProxy
                     if (currentSection != null)
                     {
                         m_Collection.AddRange(currentSection);
-                    }
-                   
-                    // GET DATA
+                    }  
                 }
 
                 return m_CurrentPage <= m_TotalPages;
@@ -98,7 +95,6 @@ namespace InnoviApiProxy
             }
         }
     }
-
 }
 
         
