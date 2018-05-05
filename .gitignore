@@ -12,4 +12,4 @@ obj
 /AgentVI/AgentVI/obj/*
 /AgentVI/AgentVI.Android/bin/*
 /AgentVI/AgentVI.Android/obj/*
-.vs/AgentVI/v15/Server/sqlite3/*
+/.vs/AgentVI/v15/*
