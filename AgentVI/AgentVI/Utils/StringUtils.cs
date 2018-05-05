@@ -7,7 +7,7 @@ namespace AgentVI.Utils
 {
     public static class StringUtils
     {
-        public static String convertEnumToString(Enum i_Enum)
+        public static String convertEnumToString(this Enum i_Enum)
         {
             String enumToString = Enum.GetName(i_Enum.GetType(), i_Enum);
             Regex enumToStringRegex = new Regex (@"

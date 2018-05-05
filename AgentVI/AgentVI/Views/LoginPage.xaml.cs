@@ -60,7 +60,7 @@ namespace AgentVI.Views
                     }
                     else
                     {
-                        DisplayAlert("Error Message", StringUtils.convertEnumToString(m_loginResult.ErrorMessage), "retry");
+                        DisplayAlert("Error Message", m_loginResult.ErrorMessage.convertEnumToString(), "retry");
                         m_loginResult = null;
                     }
                 }

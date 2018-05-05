@@ -40,12 +40,12 @@ namespace AgentVI.Services
                 if (currentFolder == null) { throw new Exception(errorCode); }
                 if (result == null)
                 {
-                    result = currentFolder.Folders;
+                    result = currentFolder.Folders.toList();
                     if (result == null) { throw new Exception(errorCode); }
                 }
                 else
                 {
-                    List<Folder> appendedList = currentFolder.Folders;
+                    List<Folder> appendedList = currentFolder.Folders.toList();
                     if(appendedList == null) { throw new Exception(errorCode); }
                     result.AddRange(appendedList);
                 }
@@ -69,7 +69,7 @@ namespace AgentVI.Services
             {
                 if (i_selectedFolder.Folders != null)
                 {
-                    FilteringLevelsCache.Add(i_selectedFolder.Folders);
+                    FilteringLevelsCache.Add(i_selectedFolder.Folders.toList());
                 }
                 SelectedFoldersNames.Add(i_selectedFolder.Name);
 
@@ -81,7 +81,7 @@ namespace AgentVI.Services
         {
             if(AccountFolders_Depth0 == null)
             {
-                AccountFolders_Depth0 = i_user.GetDefaultAccountFolders();
+                AccountFolders_Depth0 = i_user.GetDefaultAccountFolders().toList();
                 if (AccountFolders_Depth0 == null) { throw new Exception("No folders for current user."); }
                 FilteringLevelsCache.Add(AccountFolders_Depth0);
             }
