@@ -98,7 +98,7 @@ namespace InnoviApiProxy
             }
 
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken);
             string baseUri = Settings.ApiVersionEndpoint + "sensors/list?";
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, baseUri);
             StringBuilder requestUriBuilder = new StringBuilder();
@@ -141,7 +141,7 @@ namespace InnoviApiProxy
 
             verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); 
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint +"user/switch-account");
 
             Dictionary<string, string> jsonBuilder = new Dictionary<string, string>();
@@ -163,7 +163,7 @@ namespace InnoviApiProxy
         {
             verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); 
 
             return getFolderEventsHepler(client, 0,  i_PageId, out i_PagesCount);
         }
@@ -202,7 +202,7 @@ namespace InnoviApiProxy
         {
             verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); 
 
             return getFolderSensorsHelper(client, i_FolderId, i_PageId, out i_PagesCount);
         }
@@ -237,7 +237,7 @@ namespace InnoviApiProxy
         {
             verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); 
           
 
             return GetFoldersHelper(client, i_FolderId, i_PageId, out i_PagesCount);
@@ -275,7 +275,7 @@ namespace InnoviApiProxy
         {
             verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); 
           
             return GetSensorEventsHelper(client, i_SensorId, i_PageId, out i_PagesCount);
         }

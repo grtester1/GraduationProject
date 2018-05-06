@@ -79,5 +79,34 @@ namespace InnoviApiProxy
             return sensors;
         }
         */
+    /*
+        public List<Sensor> GetAllFolderSensors(Folder i_Folder)
+        {
+            List<Folder> subFolders = i_Folder.Folders.ToList();
+            InnoviObjectCollection<Sensor> currentSensors = null;
+            List<Sensor> allSensors = new List<Sensor>();
+
+            if (subFolders == null)
+            {
+                currentSensors = i_Folder.Sensors;
+
+                foreach (Sensor sensor in currentSensors)
+                {
+                    allSensors.Add(sensor);
+                    // Do something with the sensor i.e present its data and insert it into some kind of collection
+                }
+            }
+            else
+            {
+                foreach (Folder subfolder in subFolders)
+                {
+                    List<Sensor>  subfolderSensors = GetAllFolderSensors(subfolder);
+                    allSensors.AddRange(subfolderSensors);
+                }
+            }
+
+            return allSensors;
+        }
+        */
     }
 }
