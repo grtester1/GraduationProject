@@ -28,7 +28,7 @@ namespace InnoviApiProxy
             }
 
             HttpClient client = HttpUtils.BaseHttpClient();
-            var httpRequest = new HttpRequestMessage(HttpMethod.Post, "v1/user/login");
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, Settings.ApiVersionEndpoint + "user/login");
 
             Dictionary<string, string> jsonBuilder = new Dictionary<string, string>();
             jsonBuilder.Add("email", i_Email);
@@ -43,7 +43,7 @@ namespace InnoviApiProxy
         public static LoginResult Connect(string i_AccessToken)
         {
             HttpClient client = HttpUtils.BaseHttpClient();
-            var httpRequest = new HttpRequestMessage(HttpMethod.Post, "v1/user/refresh-token");
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, Settings.ApiVersionEndpoint +"user/refresh-token");
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", i_AccessToken);
 
             Dictionary<string, string> jsonBuilder = new Dictionary<string, string>();
@@ -56,7 +56,8 @@ namespace InnoviApiProxy
 
         public void Logout()
         {
-            throw new Exception("Not yet implemented");
+            Settings.AccessToken = null;
+            m_Instance = null;
         }
 
         public InnoviObjectCollection<Folder> GetDefaultAccountFolders()
@@ -96,7 +97,8 @@ namespace InnoviApiProxy
             }
             else
             {
-                if (i_HttpRequestMessage.RequestUri.ToString() == Settings.InnoviApiEndpoint + "v1/user/refresh-token")
+                if (i_HttpRequestMessage.RequestUri.ToString() == Settings.InnoviApiEndpoint + Settings.ApiVersionEndpoint +
+                    "user/refresh-token")
                 {
                     loginResult.ErrorMessage = LoginResult.eErrorMessage.AccessTokenExpired;
                 }

@@ -55,7 +55,8 @@ namespace InnoviApiProxy
 
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/sensors/" + i_SensorId.ToString());
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
+                "sensors/" + i_SensorId.ToString());
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
             JObject responseJsonObject = GetHttpResponseBody(response);
@@ -88,7 +89,7 @@ namespace InnoviApiProxy
 
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
-            string baseUri = "v1/sensors/list?";
+            string baseUri = Settings.ApiVersionEndpoint + "sensors/list?";
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, baseUri);
             StringBuilder requestUriBuilder = new StringBuilder();
             requestUriBuilder.Append(baseUri);
@@ -135,7 +136,7 @@ namespace InnoviApiProxy
 
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/user/switch-account");
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint +"user/switch-account");
 
             Dictionary<string, string> jsonBuilder = new Dictionary<string, string>();
             jsonBuilder.Add("accountId", i_AccountId.ToString());
@@ -166,7 +167,8 @@ namespace InnoviApiProxy
 
         private static List<SensorEvent> getFolderEventsHepler(HttpClient i_Client, int i_FolderId, int i_PageId, out int i_PagesCount)
         {
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/events?page=" + i_PageId.ToString());
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
+                "events?page=" + i_PageId.ToString());
             Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
             JObject responseJsonObject = GetHttpResponseBody(response);
@@ -208,8 +210,8 @@ namespace InnoviApiProxy
 
         private static List<Sensor> getFolderSensorsHelper(HttpClient i_Client, int i_FolderId, int i_PageId, out int i_PagesCount)
         {
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/sensors?page=" + i_PageId.ToString()
-                        + "&folder=" + i_FolderId.ToString());
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
+                "sensors?page=" + i_PageId.ToString() + "&folder=" + i_FolderId.ToString());
 
             Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
@@ -248,8 +250,9 @@ namespace InnoviApiProxy
 
         private static List<Folder> GetFoldersHelper(HttpClient i_Client, int i_FolderId, int i_PageId, out int i_PagesCount)
         {
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/folders/" + i_FolderId.ToString() 
-                + "/folders" + "?page=" + i_PageId.ToString());
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
+                "folders/" + i_FolderId.ToString() + "/folders" + "?page=" + i_PageId.ToString());
+
 
             Task <HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
@@ -290,8 +293,9 @@ namespace InnoviApiProxy
 
         private static List<SensorEvent> GetSensorEventsHelper(HttpClient i_Client, int i_SensorId, int i_PageId, out int i_PagesCount)
         {
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/events?sensorId=" + i_SensorId.ToString()
-                 + "&page=" + i_PageId.ToString());
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
+                "events?sensorId=" + i_SensorId.ToString() + "&page=" + i_PageId.ToString());
+
 
             Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
