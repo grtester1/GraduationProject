@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using AgentVI.Services;
 using Xamarin.Forms;
 
 namespace AgentVI.Views
@@ -35,7 +35,9 @@ namespace AgentVI.Views
 
         async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
-            LoadingPage.CredentialsService.DeleteCredentials();
+            //LoadingPage.CredentialsService.DeleteCredentials();
+            ServiceManager.Instance.LoginService.DeleteCredentials();
+
             //Navigation.InsertPageBefore(new LoginPage(), this);
             //await Navigation.PopAsync();
         }

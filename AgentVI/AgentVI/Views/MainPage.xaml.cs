@@ -33,7 +33,7 @@ namespace AgentVI.Views
             LoginPageViewModel = new LoginPageViewModel();
             LoginPageViewModel.InitializeFields(ServiceManager.Instance.LoginService.LoggedInUser);
             BindingContext = LoginPageViewModel;
-            NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasNavigationBar(this, false);//-----------------------------------------------------------
         }
 
 

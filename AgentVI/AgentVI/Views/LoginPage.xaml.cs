@@ -55,16 +55,19 @@ namespace AgentVI.Views
                 {
                     if (m_loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                     {
-                        bool doCredentialsExist = LoadingPage.CredentialsService.DoCredentialsExist();
+                        //bool doCredentialsExist = LoadingPage.CredentialsService.DoCredentialsExist();
 
-                        if (!doCredentialsExist)
-                        {
-                            LoadingPage.CredentialsService.SaveCredentials(username, password); //<---------------------------------
-                            //LoadingPage.CredentialsService.SaveCredentials(accessToken);
-                        }
+                        //if (!doCredentialsExist)
+                        //{
+                        //LoadingPage.CredentialsService.SaveCredentials(username, password); //<---------------------------------
+                        //ServiceManager.Instance.LoginService.SaveCredentials(ServiceManager.Instance.LoginService.AccessToken);
+
+                        //LoadingPage.CredentialsService.SaveCredentials(accessToken);
+                        //}
 
                         LoginPageViewModel = new LoginPageViewModel();
                         LoginPageViewModel.InitializeFields(m_loginResult.User);
+                        ServiceManager.Instance.LoginService.SaveCredentials(LoginPageViewModel.AccessToken);
                         Navigation.InsertPageBefore(new MainPage(), this);
                         await Navigation.PopAsync();
                     }

@@ -8,7 +8,7 @@ namespace AgentVI.Views
 {
     public partial class LoadingPage : ContentPage
     {
-        public static ICredentialsService CredentialsService { get; private set; }
+        //public static ICredentialsService CredentialsService { get; private set; }
 
         public LoadingPage()
         {
@@ -20,21 +20,23 @@ namespace AgentVI.Views
         {
             base.OnAppearing();
 
-            CredentialsService = new CredentialsService();
-
             await ProgressBarLine.ProgressTo(1, 3000, Easing.CubicInOut);
 
-            if (CredentialsService.DoCredentialsExist())
+            if (ServiceManager.Instance.LoginService.DoCredentialsExist())
             {
-                string username = CredentialsService.UserName;
-                string password = CredentialsService.Password;
-                LoginResult loginResult = User.Login(username, password);
+                //ServiceManager.Instance.LoginService.------------------------------------------------------------------------------
+                LoginResult loginResult = User.Connect(ServiceManager.Instance.LoginService.AccessToken);
 
-                LoginPageViewModel loginPageViewModel = new LoginPageViewModel();
-                loginPageViewModel.InitializeFields(loginResult.User);
-                Navigation.InsertPageBefore(new MainPage(), this);
-                await Navigation.PopAsync();
-                //await Navigation.PushAsync(new MainPage());
+                if (loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
+                {
+                    //LoginPageViewModel loginPageViewModel = new LoginPageViewModel();
+                    //loginPageViewModel.InitializeFields(loginResult.User);
+
+                    ServiceManager.Instance.LoginService.setLoggedInUser(loginResult.User);
+                    Navigation.InsertPageBefore(new MainPage(), this);
+                    await Navigation.PopAsync();
+                    //await Navigation.PushAsync(new MainPage());
+                }
             }
             else
             {
