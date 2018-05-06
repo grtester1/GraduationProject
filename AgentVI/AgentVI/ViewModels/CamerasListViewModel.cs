@@ -21,7 +21,7 @@ namespace AgentVI.ViewModels
         {
             if (i_loggedInUser != null)
             {
-                List<Sensor> userProxyList = i_loggedInUser.GetDefaultAccountSensors().toList();
+                List<Sensor> userProxyList = i_loggedInUser.GetDefaultAccountSensors().ToList();
                 if (userProxyList.Count > 0)
                 {
                     foreach (Sensor camera in userProxyList)

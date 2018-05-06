@@ -124,32 +124,6 @@ namespace InnoviApiProxy
             }
         }
 
-        internal static bool SwitchAccount(int i_AccountId)
-        {
-            bool isSuccessful = false;
-
-            if (Settings.AccessToken == null)
-            {
-                throw new Exception("Not logged in");
-            }
-
-            HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "v1/user/switch-account");
-
-            Dictionary<string, string> jsonBuilder = new Dictionary<string, string>();
-            jsonBuilder.Add("accountId", i_AccountId.ToString());
-            string requestBody = JsonConvert.SerializeObject(jsonBuilder);
-            httpRequest.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
-            HttpResponseMessage response = result.Result;
-            JObject responseJsonObject = GetHttpResponseBody(response);
-
-            isSuccessful = responseJsonObject["code"].ToString() == "0";
-
-            return isSuccessful;
-        }
-
         internal static List<SensorEvent> GetFolderEvents(int i_FolderId, int i_PageId, out int i_PagesCount)
         {
             // change
