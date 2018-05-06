@@ -79,18 +79,9 @@ namespace InnoviApiProxy
             Task<HttpResponseMessage> result = i_Client.SendAsync(i_HttpRequestMessage);
             HttpResponseMessage response = result.Result;
             JObject responseJsonObject = HttpUtils.GetHttpResponseBody(response);
-
             LoginResult loginResult = new LoginResult();
-            string error = responseJsonObject["error"].ToString();
 
-            if (error == String.Empty)
-            {
-                m_Instance = JsonConvert.DeserializeObject<User>(responseJsonObject["entity"].ToString());
-                loginResult.User = m_Instance;
-                loginResult.ErrorMessage = LoginResult.eErrorMessage.Empty;
-                Settings.AccessToken = responseJsonObject["entity"]["accessToken"].ToString();
-            }
-            else
+            if (responseJsonObject == null)
             {
                 if (i_HttpRequestMessage.RequestUri.ToString() == Settings.InnoviApiEndpoint + Settings.ApiVersionEndpoint +
                     "user/refresh-token")
@@ -99,11 +90,26 @@ namespace InnoviApiProxy
                 }
                 else
                 {
-                    // change according to error string - find out what strings are possible
+                    throw new Exception("internal server error");
+                }
+            }
+            else
+            {
+                string error = responseJsonObject["error"].ToString();
+
+                if (error == String.Empty)
+                {
+                    m_Instance = JsonConvert.DeserializeObject<User>(responseJsonObject["entity"].ToString());
+                    loginResult.User = m_Instance;
+                    loginResult.ErrorMessage = LoginResult.eErrorMessage.Empty;
+                    Settings.AccessToken = responseJsonObject["entity"]["accessToken"].ToString();
+                }
+                else
+                {
                     loginResult.ErrorMessage = LoginResult.eErrorMessage.WrongCredentials;
                 }
             }
-
+            
             return loginResult;
         }
     }

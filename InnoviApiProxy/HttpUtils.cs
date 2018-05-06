@@ -26,7 +26,16 @@ namespace InnoviApiProxy
         {
             Task<string> responseAsString = i_HttpResponseMessage.Content.ReadAsStringAsync();
             string str = responseAsString.Result;
-            JObject responseJsonObject = JObject.Parse(str);
+            JObject responseJsonObject = null;
+
+            try
+            {
+                responseJsonObject = JObject.Parse(str);
+            }
+            catch(JsonReaderException ex)
+            {
+                responseJsonObject = null;
+            }
 
             return responseJsonObject;
         }
