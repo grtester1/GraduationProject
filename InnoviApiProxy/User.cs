@@ -42,6 +42,7 @@ namespace InnoviApiProxy
         // response should include login data
         public static LoginResult Connect(string i_AccessToken)
         {
+            
             HttpClient client = HttpUtils.BaseHttpClient();
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, "v1/user/refresh-token");
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", i_AccessToken);
@@ -52,6 +53,7 @@ namespace InnoviApiProxy
             httpRequest.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
             return getLoginResult(client, httpRequest);
+
         }
 
         public void Logout()
@@ -81,6 +83,7 @@ namespace InnoviApiProxy
         {
             Task<HttpResponseMessage> result = i_Client.SendAsync(i_HttpRequestMessage);
             HttpResponseMessage response = result.Result;
+
             JObject responseJsonObject = HttpUtils.GetHttpResponseBody(response);
 
             LoginResult loginResult = new LoginResult();

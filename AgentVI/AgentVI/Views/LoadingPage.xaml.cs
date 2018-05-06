@@ -24,8 +24,10 @@ namespace AgentVI.Views
 
             if (ServiceManager.Instance.LoginService.DoCredentialsExist())
             {
+                string accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50SWQiOiI2Iiwicm9sZSI6IkFETUlOIiwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJUeXBlIjoiVVNFUiIsImV4cCI6MTUyNjQ5NjE0OSwidXNlcklkIjoiNTU1In0._Z8l175eiAEPYHIvOMTRDL16cUq48s8Xws5zmUlwyFc";
                 //ServiceManager.Instance.LoginService.------------------------------------------------------------------------------
-                LoginResult loginResult = User.Connect(ServiceManager.Instance.LoginService.AccessToken);
+                LoginResult loginResult = User.Connect(accessToken);
+                //LoginResult loginResult = User.Login("gilgilronen@gmail.com", "password");
 
                 if (loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                 {
