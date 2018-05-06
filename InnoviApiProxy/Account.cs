@@ -26,7 +26,6 @@ namespace InnoviApiProxy
             HttpUtils.SwitchAccount(accountId);
         }
 
-
         internal Account() { }
     }
 }

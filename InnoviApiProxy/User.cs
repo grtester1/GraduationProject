@@ -39,7 +39,6 @@ namespace InnoviApiProxy
             return getLoginResult(client, httpRequest);
         }
 
-        // response should include login data
         public static LoginResult Connect(string i_AccessToken)
         {
             HttpClient client = HttpUtils.BaseHttpClient();
@@ -65,7 +64,6 @@ namespace InnoviApiProxy
             return new InnoviObjectCollection<Folder>(HttpUtils.GetFolders, 0);
         }
 
-
         public InnoviObjectCollection<SensorEvent> GetDefaultAccountEvents()
         {
             return new InnoviObjectCollection<SensorEvent>(HttpUtils.GetFolderEvents, 0);
@@ -75,8 +73,6 @@ namespace InnoviApiProxy
         {
             return new InnoviObjectCollection<Sensor>(HttpUtils.GetFolderSensors, -1);
         }
-
-
 
         private static LoginResult getLoginResult(HttpClient i_Client, HttpRequestMessage i_HttpRequestMessage)
         {
@@ -92,7 +88,6 @@ namespace InnoviApiProxy
                 m_Instance = JsonConvert.DeserializeObject<User>(responseJsonObject["entity"].ToString());
                 loginResult.User = m_Instance;
                 loginResult.ErrorMessage = LoginResult.eErrorMessage.Empty;
-                //       Settings.AccessToken = m_Instance.AccessToken;
                 Settings.AccessToken = responseJsonObject["entity"]["accessToken"].ToString();
             }
             else

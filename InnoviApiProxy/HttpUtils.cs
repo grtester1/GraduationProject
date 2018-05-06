@@ -90,10 +90,7 @@ namespace InnoviApiProxy
 
         internal static void UpdateSensorNamesCache(List<int> i_SensorIds)
         {
-            if (Settings.AccessToken == null)
-            {
-                throw new Exception("Not logged in");
-            }
+            verifyLoggedInStatus();
 
             if (i_SensorIds.Count < 1)
             {
@@ -142,11 +139,7 @@ namespace InnoviApiProxy
         {
             bool isSuccessful = false;
 
-            if (Settings.AccessToken == null)
-            {
-                throw new Exception("Not logged in");
-            }
-
+            verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint +"user/switch-account");
@@ -168,12 +161,7 @@ namespace InnoviApiProxy
 
         internal static List<SensorEvent> GetFolderEvents(int i_FolderId, int i_PageId, out int i_PagesCount)
         {
-            // change
-            if (Settings.AccessToken == null)
-            {
-                throw new Exception("Not logged in");
-            }
-
+            verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
 
@@ -212,11 +200,7 @@ namespace InnoviApiProxy
 
         internal static List<Sensor> GetFolderSensors(int i_FolderId, int i_PageId, out int i_PagesCount)
         {
-            if (Settings.AccessToken == null)
-            {
-                throw new Exception("Not logged in");
-            }
-
+            verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
 
@@ -251,12 +235,7 @@ namespace InnoviApiProxy
 
         internal static List<Folder> GetFolders(int i_FolderId, int i_PageId, out int i_PagesCount)
         {
-            // change
-            if (Settings.AccessToken == null)
-            {
-                throw new Exception("Not logged in");
-            }
-
+            verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
           
@@ -294,13 +273,7 @@ namespace InnoviApiProxy
 
         internal static List<SensorEvent> GetSensorEvents(int i_SensorId, int i_PageId, out int i_PagesCount)
         {
-            
-            // change
-            if (Settings.AccessToken == null)
-            {
-                throw new Exception("Not logged in");
-            }
-
+            verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
           
