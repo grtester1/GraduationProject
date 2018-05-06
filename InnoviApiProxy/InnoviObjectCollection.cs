@@ -92,6 +92,7 @@ namespace InnoviApiProxy
                 m_CurrentIndex = -1;
                 m_CurrentPage = 0;
                 m_TotalPages = 0;
+                m_Collection = null;
             }
         }
     }

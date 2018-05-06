@@ -8,7 +8,7 @@ namespace InnoviApiProxy
     public class Account : InnoviObject
     {
         [JsonProperty("id")]
-        private string accountId { get; set; }
+        private int accountId { get; set; }
         [JsonProperty]
         public string Name { get; private set; }
         [JsonProperty]
@@ -19,6 +19,11 @@ namespace InnoviApiProxy
             Active = 0,
             Undefined,
             Suspended
+        }
+
+        public void SetAsDefaultAccount()
+        {
+            HttpUtils.SwitchAccount(accountId);
         }
 
         internal Account() { }
