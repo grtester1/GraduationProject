@@ -46,22 +46,35 @@ namespace InnoviApiProxy
             }
         }
 
-        internal static string GetSensorNameById(int i_SensorId)
+        private static void verifyLoggedInStatus()
         {
             if (Settings.AccessToken == null)
             {
                 throw new Exception("Not logged in");
             }
+        }
+
+        private static void verifyCodeZero(JObject i_HttpResponseBody)
+        {
+            if (i_HttpResponseBody["code"].ToString() != "0")
+            {
+                throw new Exception("Error during http request");
+            }
+        }
+
+        internal static string GetSensorNameById(int i_SensorId)
+        {
+            verifyLoggedInStatus();
 
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); 
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
                 "sensors/" + i_SensorId.ToString());
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
             JObject responseJsonObject = GetHttpResponseBody(response);
 
-            // if code == 0 => no errors
+            verifyCodeZero(responseJsonObject);
             Settings.RefreshAccessToken(response);
             Sensor sensor = JsonConvert.DeserializeObject<Sensor>(responseJsonObject["entity"].ToString());
 
@@ -111,7 +124,7 @@ namespace InnoviApiProxy
             HttpResponseMessage response = result.Result;
             JObject responseJsonObject = GetHttpResponseBody(response);
 
-            // if code == 0 => no errors
+            verifyCodeZero(responseJsonObject);
             Settings.RefreshAccessToken(response);
             List<Sensor> sensors = JsonConvert.DeserializeObject<List<Sensor>>(responseJsonObject["list"].ToString());
 
@@ -146,6 +159,8 @@ namespace InnoviApiProxy
             HttpResponseMessage response = result.Result;
             JObject responseJsonObject = GetHttpResponseBody(response);
 
+            verifyCodeZero(responseJsonObject);
+            Settings.RefreshAccessToken(response);
             isSuccessful = responseJsonObject["code"].ToString() == "0";
 
             return isSuccessful;
@@ -177,7 +192,8 @@ namespace InnoviApiProxy
 
             List<SensorEvent> events = JsonConvert.DeserializeObject<List<SensorEvent>>(responseJsonObject["list"].ToString());
 
-            // if code == 0 => no errors
+            verifyCodeZero(responseJsonObject);
+            Settings.RefreshAccessToken(response);
 
             List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
             sortedEvents.Reverse();
@@ -201,7 +217,6 @@ namespace InnoviApiProxy
                 throw new Exception("Not logged in");
             }
 
-            //      List<Folder> subFolders = 
             HttpClient client = BaseHttpClient();
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); // CHANGE THIS
 
@@ -220,8 +235,9 @@ namespace InnoviApiProxy
             i_PagesCount = int.Parse(responseJsonObject["pages"].ToString());
 
             List<Sensor> sensors = JsonConvert.DeserializeObject<List<Sensor>>(responseJsonObject["list"].ToString());
-            // if code == 0 => no errors
 
+            verifyCodeZero(responseJsonObject);
+            Settings.RefreshAccessToken(response);
             List<Sensor> SortedSensors = sensors.OrderByDescending(x => x.Name).ToList();
             SortedSensors.Reverse();
 
@@ -262,8 +278,8 @@ namespace InnoviApiProxy
 
             List<Folder> folders = JsonConvert.DeserializeObject<List<Folder>>(responseJsonObject["list"].ToString());
 
-
-            // if code == 0 => no errors
+            verifyCodeZero(responseJsonObject);
+            Settings.RefreshAccessToken(response);
 
             List<Folder> sortedFolders = folders.OrderByDescending(x => x.Name).ToList();
             sortedFolders.Reverse();
@@ -305,8 +321,8 @@ namespace InnoviApiProxy
             Settings.RefreshAccessToken(response);
             List<SensorEvent> events = JsonConvert.DeserializeObject<List<SensorEvent>>(responseJsonObject["list"].ToString());
 
-
-            // if code == 0 => no errors
+            verifyCodeZero(responseJsonObject);
+            Settings.RefreshAccessToken(response);
             List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
             sortedEvents.Reverse();
 
