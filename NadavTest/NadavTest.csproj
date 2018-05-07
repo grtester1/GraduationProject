@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="4.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\InnoviApiProxy\InnoviApiProxy.csproj" />
   </ItemGroup>
 
