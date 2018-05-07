@@ -18,8 +18,16 @@ namespace InnoviApiProxy
             myClient.BaseAddress = new Uri(Settings.InnoviApiEndpoint);
             myClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             myClient.DefaultRequestHeaders.TryAddWithoutValidation("X-API-KEY", Settings.ApiKey);
-
+       //     myClient.Timeout = new TimeSpan(0, 0, 5);
             return myClient;
+        }
+
+        private static void checkForTimeout(HttpResponseMessage i_HttpResponse)
+        {
+            if (i_HttpResponse.StatusCode == System.Net.HttpStatusCode.GatewayTimeout)
+            {
+                throw new HttpRequestException("Could not get a response from the server");
+            }
         }
 
         internal static JObject GetHttpResponseBody(HttpResponseMessage i_HttpResponseMessage)
@@ -81,6 +89,7 @@ namespace InnoviApiProxy
                 "sensors/" + i_SensorId.ToString());
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
+            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             verifyCodeZero(responseJsonObject);
@@ -128,6 +137,7 @@ namespace InnoviApiProxy
 
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
+            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             verifyCodeZero(responseJsonObject);
@@ -159,6 +169,7 @@ namespace InnoviApiProxy
             httpRequest.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
+            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             verifyCodeZero(responseJsonObject);
@@ -183,8 +194,9 @@ namespace InnoviApiProxy
                 "events?page=" + i_PageId.ToString());
             Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
-            JObject responseJsonObject = GetHttpResponseBody(response);
 
+            checkForTimeout(response);
+            JObject responseJsonObject = GetHttpResponseBody(response);
             i_PagesCount = int.Parse(responseJsonObject["pages"].ToString());
 
             List<SensorEvent> events = JsonConvert.DeserializeObject<List<SensorEvent>>(responseJsonObject["list"].ToString());
@@ -223,6 +235,7 @@ namespace InnoviApiProxy
 
             Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
+            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             i_PagesCount = int.Parse(responseJsonObject["pages"].ToString());
@@ -260,6 +273,7 @@ namespace InnoviApiProxy
 
             Task <HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
+            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             i_PagesCount = int.Parse(responseJsonObject["pages"].ToString());
@@ -297,6 +311,7 @@ namespace InnoviApiProxy
 
             Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
+            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             i_PagesCount = int.Parse(responseJsonObject["pages"].ToString());
