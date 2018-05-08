@@ -43,17 +43,7 @@ namespace AgentVI.Views
                 {
                     try
                     {
-                        //m_loginResult = User.Login(username, password);
-                        //
-                        //
-                        //
-                        //
-                        //
-                        string accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50SWQiOiI2Iiwicm9sZSI6IkFETUlOIiwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJUeXBlIjoiVVNFUiIsImV4cCI6MTUyNjQ5NjE0OSwidXNlcklkIjoiNTU1In0._Z8l175eiAEPYHIvOMTRDL16cUq48s8Xws5zmUlwyFc";
-
-                        m_loginResult = User.Connect(accessToken);
-
-
+                        m_loginResult = User.Login(username, password);
                     }
                     catch (Exception ex)
                     {

@@ -37,8 +37,12 @@ namespace AgentVI.Views
         {
             ServiceManager.Instance.LoginService.DeleteCredentials();
 
+            //await Navigation.PushAsync(new LoginPage());
             //Navigation.InsertPageBefore(new LoginPage(), this);
             //await Navigation.PopAsync();
+            //await Navigation.PopToRootAsync();
+            //await Navigation.PushAsync(new LoginPage());
+            await Navigation.PushModalAsync(new LoginPage());
         }
 
         void arm_Toggled(object sender, EventArgs e)
