@@ -86,7 +86,7 @@ namespace InnoviApiProxy
                 if (i_HttpRequestMessage.RequestUri.ToString() == Settings.InnoviApiEndpoint + Settings.ApiVersionEndpoint +
                     "user/refresh-token")
                 {
-                    loginResult.ErrorMessage = LoginResult.eErrorMessage.AccessTokenExpired;
+                    loginResult.ErrorMessage = LoginResult.eErrorMessage.InvalidAccessToken;
                 }
                 else
                 {

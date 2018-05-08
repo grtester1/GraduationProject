@@ -32,6 +32,7 @@ namespace InnoviApiProxy
 
         internal static JObject GetHttpResponseBody(HttpResponseMessage i_HttpResponseMessage)
         {
+            checkForTimeout(i_HttpResponseMessage);
             Task<string> responseAsString = i_HttpResponseMessage.Content.ReadAsStringAsync();
             string str = responseAsString.Result;
             JObject responseJsonObject = null;
@@ -89,7 +90,6 @@ namespace InnoviApiProxy
                 "sensors/" + i_SensorId.ToString());
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
-            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             verifyCodeZero(responseJsonObject);
@@ -137,7 +137,6 @@ namespace InnoviApiProxy
 
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
-            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             verifyCodeZero(responseJsonObject);
@@ -169,7 +168,6 @@ namespace InnoviApiProxy
             httpRequest.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
-            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             verifyCodeZero(responseJsonObject);
@@ -195,7 +193,6 @@ namespace InnoviApiProxy
             Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
 
-            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
             i_PagesCount = int.Parse(responseJsonObject["pages"].ToString());
 
@@ -235,7 +232,6 @@ namespace InnoviApiProxy
 
             Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
-            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             i_PagesCount = int.Parse(responseJsonObject["pages"].ToString());
@@ -273,7 +269,6 @@ namespace InnoviApiProxy
 
             Task <HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
-            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             i_PagesCount = int.Parse(responseJsonObject["pages"].ToString());
@@ -311,7 +306,6 @@ namespace InnoviApiProxy
 
             Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
-            checkForTimeout(response);
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             i_PagesCount = int.Parse(responseJsonObject["pages"].ToString());
