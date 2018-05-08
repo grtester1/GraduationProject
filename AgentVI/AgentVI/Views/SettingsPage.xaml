@@ -8,8 +8,7 @@
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-            <ScrollView>
-      <StackLayout Spacing="70" Margin="40, 200">
+      <StackLayout Spacing="70" Margin="40, 100">
                 
                 <StackLayout HeightRequest="50" >
                     
@@ -49,6 +48,5 @@
         </StackLayout>
                 
       </StackLayout>
-    </ScrollView>
     </ContentPage.Content>
 </ContentPage>

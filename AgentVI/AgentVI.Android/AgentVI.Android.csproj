@@ -59,6 +59,9 @@
     <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2" />
     <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2" />
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2" />
+    <PackageReference Include="Xam.Plugins.Settings">
+      <Version>4.0.0.7</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -89,7 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AgentVI\AgentVI.csproj">
-      <Project>{288062C0-8D36-4677-9B28-FEBCD61EDC54}</Project>
+      <Project>{EC8A889C-D8AC-49DA-8EB5-F1D5A7BBBE5C}</Project>
       <Name>AgentVI</Name>
     </ProjectReference>
   </ItemGroup>

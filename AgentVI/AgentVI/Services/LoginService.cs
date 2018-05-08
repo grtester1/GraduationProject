@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using InnoviApiProxy;
 using System.Linq;
-using Xamarin.Auth;
+using Plugin.Settings;
+using Plugin.Settings.Abstractions;
 
 namespace AgentVI.Services
 {
@@ -16,49 +17,66 @@ namespace AgentVI.Services
             LoggedInUser = i_loggedInUser;
         }
 
-        /*public string UserName
+        private ISettings AppSettings
         {
             get
             {
-                var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-                return (account != null) ? account.Username : null;
+                return CrossSettings.Current;
             }
-        }*/
+        }
+
+        public bool ArmCamersSettings
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("ArmCamersSettings", false);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("ArmCamersSettings", value);
+            }
+        }
+
+        public bool PushNotificationsSettings
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("PushNotificationsSettings", false);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("PushNotificationsSettings", value);
+            }
+        }
 
         public string AccessToken
         {
             get
             {
-                var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-                return (account != null) ? account.Username : null;
+                return AppSettings.GetValueOrDefault("AccessToken", "");
+            }
+            private set
+            {
+                AppSettings.AddOrUpdateValue("AccessToken", value);
             }
         }
 
-        public void SaveCredentials(string accessToken)
+        public void SaveCredentials(string i_accessToken)
         {
-            if (!string.IsNullOrWhiteSpace(accessToken))
+            if (!string.IsNullOrWhiteSpace(i_accessToken))
             {
-                Xamarin.Auth.Account account = new Xamarin.Auth.Account
-                {
-                    Username = accessToken
-                };
-                AccountStore.Create().Save(account, App.AppName);
+                AccessToken = i_accessToken;
             }
-
         }
 
         public void DeleteCredentials()
         {
-            var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-            if (account != null)
-            {
-                AccountStore.Create().Delete(account, App.AppName);
-            }
+            AppSettings.Remove("AccessToken");
         }
 
         public bool DoCredentialsExist()
         {
-            return AccountStore.Create().FindAccountsForService(App.AppName).Any() ? true : false;
+            return string.IsNullOrWhiteSpace(AccessToken) ? false : true;
         }
     }
 }

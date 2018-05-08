@@ -21,7 +21,6 @@ namespace AgentVI.Views
         public LoginPage()
         {
             InitializeComponent();
-            loadingData.IsRunning = false;
             usernameEntry.Completed += (s, e) => passwordEntry.Focus();
             passwordEntry.Completed += (s, e) => loginButton_Clicked(s, e);
             NavigationPage.SetHasNavigationBar(this, false);
@@ -44,7 +43,17 @@ namespace AgentVI.Views
                 {
                     try
                     {
-                        m_loginResult = User.Login(username, password);
+                        //m_loginResult = User.Login(username, password);
+                        //
+                        //
+                        //
+                        //
+                        //
+                        string accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50SWQiOiI2Iiwicm9sZSI6IkFETUlOIiwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJUeXBlIjoiVVNFUiIsImV4cCI6MTUyNjQ5NjE0OSwidXNlcklkIjoiNTU1In0._Z8l175eiAEPYHIvOMTRDL16cUq48s8Xws5zmUlwyFc";
+
+                        m_loginResult = User.Connect(accessToken);
+
+
                     }
                     catch (Exception ex)
                     {
@@ -55,16 +64,6 @@ namespace AgentVI.Views
                 {
                     if (m_loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                     {
-                        //bool doCredentialsExist = LoadingPage.CredentialsService.DoCredentialsExist();
-
-                        //if (!doCredentialsExist)
-                        //{
-                        //LoadingPage.CredentialsService.SaveCredentials(username, password); //<---------------------------------
-                        //ServiceManager.Instance.LoginService.SaveCredentials(ServiceManager.Instance.LoginService.AccessToken);
-
-                        //LoadingPage.CredentialsService.SaveCredentials(accessToken);
-                        //}
-
                         LoginPageViewModel = new LoginPageViewModel();
                         LoginPageViewModel.InitializeFields(m_loginResult.User);
                         ServiceManager.Instance.LoginService.SaveCredentials(LoginPageViewModel.AccessToken);

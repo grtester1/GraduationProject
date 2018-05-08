@@ -11,8 +11,8 @@ namespace AgentVI.Views
         {
             InitializeComponent();
 
-            ArmDisarmSwitch.IsToggled = false;
-            NotificationsSwitch.IsToggled = false;
+            ArmDisarmSwitch.IsToggled = ServiceManager.Instance.LoginService.ArmCamersSettings;
+            NotificationsSwitch.IsToggled = ServiceManager.Instance.LoginService.PushNotificationsSettings;
 
             if (ArmDisarmSwitch.IsToggled)
             {
@@ -35,7 +35,6 @@ namespace AgentVI.Views
 
         async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
-            //LoadingPage.CredentialsService.DeleteCredentials();
             ServiceManager.Instance.LoginService.DeleteCredentials();
 
             //Navigation.InsertPageBefore(new LoginPage(), this);
@@ -44,6 +43,7 @@ namespace AgentVI.Views
 
         void arm_Toggled(object sender, EventArgs e)
         {
+            ServiceManager.Instance.LoginService.ArmCamersSettings = ArmDisarmSwitch.IsToggled;
             if(ArmDisarmSwitch.IsToggled)
             {
                 DescriptionArmDisarm.Text = "<nums> cameras of <Network Datacom Solutions>, <Site name> are Armed.";
@@ -56,6 +56,7 @@ namespace AgentVI.Views
 
         void Notifications_Toggled(object sender, EventArgs e)
         {
+            ServiceManager.Instance.LoginService.PushNotificationsSettings = NotificationsSwitch.IsToggled;
             if(NotificationsSwitch.IsToggled)
             {
                 DescriptionNotifications.Text = "You will receive push notifications for <Network Datacom Solutions>, <Site name>.";
