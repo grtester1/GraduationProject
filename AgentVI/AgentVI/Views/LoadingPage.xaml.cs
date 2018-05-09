@@ -14,11 +14,15 @@ namespace AgentVI.Views
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
-            base.OnAppearing();
+			base.OnAppearing();
+			setNextPage();
+        }
 
-            await ProgressBarLine.ProgressTo(0.1, 1000, Easing.SinIn);
+		private async void setNextPage()
+		{
+			await ProgressBarLine.ProgressTo(0.1, 1000, Easing.SinIn);
 
             if (ServiceManager.Instance.LoginService.DoCredentialsExist()) //if the user is saved
             {
@@ -49,6 +53,6 @@ namespace AgentVI.Views
                 await Navigation.PopAsync();
                 //await Navigation.PushAsync(new LoginPage());
             }
-        }
+		}
     }
 }
