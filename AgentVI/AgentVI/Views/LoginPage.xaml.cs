@@ -8,6 +8,7 @@ using Xamarin.Forms.Xaml;
 using InnoviApiProxy;
 using AgentVI.Utils;
 using AgentVI.ViewModels;
+using AgentVI.Services;
 
 namespace AgentVI.Views
 {
@@ -20,7 +21,6 @@ namespace AgentVI.Views
         public LoginPage()
         {
             InitializeComponent();
-            loadingData.IsRunning = false;
             usernameEntry.Completed += (s, e) => passwordEntry.Focus();
             passwordEntry.Completed += (s, e) => loginButton_Clicked(s, e);
             NavigationPage.SetHasNavigationBar(this, false);
@@ -56,7 +56,9 @@ namespace AgentVI.Views
                     {
                         LoginPageViewModel = new LoginPageViewModel();
                         LoginPageViewModel.InitializeFields(m_loginResult.User);
-                        Navigation.PushModalAsync(new MainPage());
+						ServiceManager.Instance.LoginService.SaveCredentials(LoginPageViewModel.AccessToken);
+						Navigation.InsertPageBefore(new MainPage(), this);
+                        Navigation.PopAsync();
                     }
                     else
                     {
