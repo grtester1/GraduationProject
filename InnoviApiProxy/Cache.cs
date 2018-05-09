@@ -41,11 +41,6 @@ namespace InnoviApiProxy
             return sensorName;
         }
 
-        internal void UpdateSensorCache(List<int> i_SensorIds)
-        {
-            HttpUtils.UpdateSensorNamesCache(i_SensorIds);
-        }
-
         internal void AddToSensorCache(int i_SensorId, string i_SensorName)
         {
             if (!m_SensorCache.ContainsKey(i_SensorId))

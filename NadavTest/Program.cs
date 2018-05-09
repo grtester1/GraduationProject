@@ -8,6 +8,8 @@ namespace NadavTest
     {
         static void Main(string[] args)
         {
+
+
             string accessToken = "bannana";
             LoginResult check = User.Connect(accessToken);
             User checkUser = check.User;

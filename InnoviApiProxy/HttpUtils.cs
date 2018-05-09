@@ -58,10 +58,15 @@ namespace InnoviApiProxy
 
         private static void AddSensorNamesToEventsList(List<SensorEvent> i_SensorEvents)
         {
+            List<int> sensorIds = new List<int>();
+
             foreach (SensorEvent sensorEvent in i_SensorEvents)
             {
-                AddSensorNameToEvent(sensorEvent);
+                sensorIds.Add(sensorEvent.sensorId);
+             //   AddSensorNameToEvent(sensorEvent);
             }
+
+            UpdateSensorNamesCache(sensorIds);
         }
 
         private static void verifyLoggedInStatus()
