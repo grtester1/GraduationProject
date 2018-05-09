@@ -56,6 +56,19 @@ namespace DummyProxy
             Folder folder11 = new Folder();
             Folder folder12 = new Folder();
 
+            folder1.Name = "Dummy Folder 1";
+             folder2.Name = "Dummy Folder 2";
+            folder3.Name = "Dummy Folder 3";
+            folder4.Name = "Dummy Folder 4";
+            folder5.Name = "Dummy Folder 5";
+            folder6.Name= "Dummy Folder 6";
+            folder7.Name = "Dummy Folder 7";
+            folder8.Name = "Dummy Folder 8";
+            folder9.Name = "Dummy Folder 9";
+            folder10.Name = "Dummy Folder 10";
+            folder11.Name = "Dummy Folder 11";
+            folder12.Name = "Dummy Folder 12";
+
             listHelper.Add(folder5);
             listHelper.Add(folder6);
             listHelper.Add(folder7);
