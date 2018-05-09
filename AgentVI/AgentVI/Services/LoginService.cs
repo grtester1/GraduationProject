@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using InnoviApiProxy;
+//using InnoviApiProxy;
+using DummyProxy;
 using System.Linq;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
@@ -63,10 +64,11 @@ namespace AgentVI.Services
 
 		public void SaveCredentials(string i_accessToken)
 		{
-			if (!string.IsNullOrWhiteSpace(i_accessToken))
+			if(!string.IsNullOrWhiteSpace(i_accessToken))
 			{
 				AccessToken = i_accessToken;
 			}
+			AccessToken = "1"; // if the real proxy is used, put this line in comment
 		}
 
 		public void DeleteCredentials()

@@ -1,13 +1,11 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/LoginPage.xaml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/SettingsPage.xaml.cs">
     <Files>
-      <File FileName="AgentVI/AgentVI/Services/ILoginService.cs" Line="11" Column="1" />
-      <File FileName="AgentVI/AgentVI/Services/LoginService.cs" Line="7" Column="36" />
-      <File FileName="AgentVI/AgentVI/Views/LoadingPage.xaml.cs" Line="41" Column="21" />
-      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml.cs" Line="24" Column="54" />
-      <File FileName="AgentVI/AgentVI/Views/SettingsPage.xaml.cs" Line="36" Column="28" />
-      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml" Line="49" Column="60" />
+      <File FileName="AgentVI/AgentVI/Services/LoginService.cs" Line="72" Column="4" />
+      <File FileName="AgentVI/AgentVI/Views/LoadingPage.xaml.cs" Line="51" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml.cs" Line="72" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/SettingsPage.xaml.cs" Line="19" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
@@ -15,7 +13,7 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
+  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.538e301684d91edcec33c0ca6ed04035d6e4abdb" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
 </Properties>

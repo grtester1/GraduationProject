@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using DummyProxy;
+//using InnoviApiProxy;
 
 namespace AgentVI.Views
 {
@@ -37,7 +39,7 @@ namespace AgentVI.Views
         private void Handle_FilterListItemSelected(object i_sender, SelectedItemChangedEventArgs i_itemEventArgs)
         {
             int filterDepthLabelValue = -1;
-            InnoviApiProxy.Folder selectedFolder = i_itemEventArgs.SelectedItem as InnoviApiProxy.Folder;
+            Folder selectedFolder = i_itemEventArgs.SelectedItem as Folder;
             Label filterDepthLabel = ((ListView)i_sender).Parent.FindByName<Label>("filterNumLabel");
             if(Int32.TryParse(filterDepthLabel.Text, out filterDepthLabelValue))
             {

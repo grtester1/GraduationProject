@@ -7,16 +7,24 @@ namespace AgentVI.Views
 {
     public partial class SettingsPage : ContentPage
     {
+		string numOfCameras = "<nums>";
+		string siteName = "<Site name>";
+		string networkDatacomSolutions = "<Network Datacom Solutions>";
+		                                                                                                           
         public SettingsPage()
         {
             InitializeComponent();
+            
+			numOfCameras = "<123>";
+            siteName = "<xyz>";
+            networkDatacomSolutions = "<abc>";
 
             ArmDisarmSwitch.IsToggled = ServiceManager.Instance.LoginService.ArmCamersSettings;
             NotificationsSwitch.IsToggled = ServiceManager.Instance.LoginService.PushNotificationsSettings;
 
             if (ArmDisarmSwitch.IsToggled)
             {
-                DescriptionArmDisarm.Text = "<nums> cameras of <Network Datacom Solutions>, <Site name> are Armed.";
+				DescriptionArmDisarm.Text = numOfCameras + " cameras of " + networkDatacomSolutions + ", " + siteName + " are Armed.";
             }
             else
             {
@@ -25,7 +33,7 @@ namespace AgentVI.Views
 
             if (NotificationsSwitch.IsToggled)
             {
-                DescriptionNotifications.Text = "You will receive push notifications for <Network Datacom Solutions>, <Site name>.";
+				DescriptionNotifications.Text = "You will receive push notifications for " + networkDatacomSolutions + ", " + siteName + ".";
             }
             else
             {
@@ -50,7 +58,7 @@ namespace AgentVI.Views
             ServiceManager.Instance.LoginService.ArmCamersSettings = ArmDisarmSwitch.IsToggled;
             if (ArmDisarmSwitch.IsToggled)
             {
-                DescriptionArmDisarm.Text = "<nums> cameras of <Network Datacom Solutions>, <Site name> are Armed.";
+				DescriptionArmDisarm.Text = numOfCameras + " cameras of " + networkDatacomSolutions + ", " + siteName + " are Armed.";
             }
             else
             {
@@ -63,7 +71,7 @@ namespace AgentVI.Views
             ServiceManager.Instance.LoginService.PushNotificationsSettings = NotificationsSwitch.IsToggled;
             if (NotificationsSwitch.IsToggled)
             {
-                DescriptionNotifications.Text = "You will receive push notifications for <Network Datacom Solutions>, <Site name>.";
+				DescriptionNotifications.Text = "You will receive push notifications for " + networkDatacomSolutions + ", " + siteName + ".";
             }
             else
             {

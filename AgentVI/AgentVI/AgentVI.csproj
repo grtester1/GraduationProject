@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\InnoviApiProxy\InnoviApiProxy.csproj" />
+    <ProjectReference Include="..\..\DummyProxy\DummyProxy.csproj" />
   </ItemGroup>
 
   <ItemGroup>
