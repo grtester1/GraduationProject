@@ -1,10 +1,14 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/ViewModels/EventsListViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Services/ServiceManager.cs">
     <Files>
-      <File FileName="AgentVI/AgentVI/Models/EventModel.cs" Line="11" Column="29" />
-      <File FileName="AgentVI/AgentVI/ViewModels/EventsListViewModel.cs" Line="36" Column="48" />
-      <File FileName="InnoviApiProxy/SensorEvent.cs" Line="35" Column="26" />
+      <File FileName="AgentVI/AgentVI/Services/ILoginService.cs" Line="11" Column="1" />
+      <File FileName="AgentVI/AgentVI/Services/LoginService.cs" Line="7" Column="36" />
+      <File FileName="AgentVI/AgentVI/Views/LoadingPage.xaml.cs" Line="8" Column="2" />
+      <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml.cs" Line="54" Column="43" />
+      <File FileName="AgentVI/AgentVI/Views/SettingsPage.xaml" Line="50" Column="21" />
+      <File FileName="AgentVI/AgentVI/Views/SettingsPage.xaml.cs" Line="27" Column="14" />
+      <File FileName="AgentVI/AgentVI/Services/ServiceManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />

@@ -46,7 +46,7 @@
                                                     Type=RelativeToParent,
                                                     Property=Width,
                                                     Factor=0.15}">
-            <ActivityIndicator x:Name="loadingData" IsRunning="true" VerticalOptions="CenterAndExpand" />
+            <ActivityIndicator x:Name="loadingData" IsRunning="false" VerticalOptions="CenterAndExpand" />
             <Entry x:Name="usernameEntry" Placeholder="Username" FontAttributes="Italic" Keyboard="Email"/>
             <Entry x:Name="passwordEntry" Placeholder="Password" FontAttributes="Italic" IsPassword="True"/>
             <Button Clicked="loginButton_Clicked" Text="Login" Margin="0,8" TextColor="Navy"/>
