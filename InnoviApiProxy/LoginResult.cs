@@ -16,6 +16,7 @@ namespace InnoviApiProxy
             Empty,
             WrongCredentials,
             InvalidAccessToken,
+            LoggedInUserAlreadyExists,
             ServerError
         }
     }

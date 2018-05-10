@@ -18,7 +18,6 @@ namespace InnoviApiProxy
             myClient.BaseAddress = new Uri(Settings.InnoviApiEndpoint);
             myClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             myClient.DefaultRequestHeaders.TryAddWithoutValidation("X-API-KEY", Settings.ApiKey);
-       //     myClient.Timeout = new TimeSpan(0, 0, 5);
             return myClient;
         }
 
@@ -41,7 +40,7 @@ namespace InnoviApiProxy
             {
                 responseJsonObject = JObject.Parse(str);
             }
-            catch(JsonReaderException ex)
+            catch(JsonReaderException)
             {
                 responseJsonObject = null;
             }
@@ -53,7 +52,7 @@ namespace InnoviApiProxy
         {
             Cache sensorNameCache = Cache.Fetch();
 
-            i_SensorEvent.SensorName = sensorNameCache.GetSensorName(i_SensorEvent.sensorId);
+            i_SensorEvent.SensorName = sensorNameCache.GetSensorName(i_SensorEvent.SensorId);
         }
 
         private static void AddSensorNamesToEventsList(List<SensorEvent> i_SensorEvents)
@@ -62,18 +61,24 @@ namespace InnoviApiProxy
 
             foreach (SensorEvent sensorEvent in i_SensorEvents)
             {
-                sensorIds.Add(sensorEvent.sensorId);
-             //   AddSensorNameToEvent(sensorEvent);
+                sensorIds.Add(sensorEvent.SensorId);
             }
 
             UpdateSensorNamesCache(sensorIds);
+
+            Cache sensorCache = Cache.Fetch();
+
+            foreach (SensorEvent sensorEvent in i_SensorEvents)
+            {
+                sensorEvent.SensorName = sensorCache.GetSensorName(sensorEvent.SensorId);
+            }
         }
 
         private static void verifyLoggedInStatus()
         {
-            if (Settings.AccessToken == null)
+            if (InnoviApiService.AccessToken == null)
             {
-                throw new Exception("Not logged in");
+                throw new InvalidOperationException("Not logged in");
             }
         }
 
@@ -81,7 +86,7 @@ namespace InnoviApiProxy
         {
             if (i_HttpResponseBody["code"].ToString() != "0")
             {
-                throw new Exception("Error during http request");
+                throw new HttpRequestException("server error - " + i_HttpResponseBody["code"].ToString());
             }
         }
 
@@ -90,7 +95,7 @@ namespace InnoviApiProxy
             verifyLoggedInStatus();
 
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); 
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken); 
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
                 "sensors/" + i_SensorId.ToString());
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
@@ -98,7 +103,7 @@ namespace InnoviApiProxy
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             verifyCodeZero(responseJsonObject);
-            Settings.RefreshAccessToken(response);
+            InnoviApiService.RefreshAccessToken(response);
             Sensor sensor = JsonConvert.DeserializeObject<Sensor>(responseJsonObject["entity"].ToString());
 
             string sensorName = "Unavailable";
@@ -117,11 +122,11 @@ namespace InnoviApiProxy
 
             if (i_SensorIds.Count < 1)
             {
-                throw new Exception("List must contain at least one value");
+                throw new ArgumentException("List must contain at least one value");
             }
 
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken);
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken);
             string baseUri = Settings.ApiVersionEndpoint + "sensors/list?";
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, baseUri);
             StringBuilder requestUriBuilder = new StringBuilder();
@@ -145,7 +150,7 @@ namespace InnoviApiProxy
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             verifyCodeZero(responseJsonObject);
-            Settings.RefreshAccessToken(response);
+            InnoviApiService.RefreshAccessToken(response);
             List<Sensor> sensors = JsonConvert.DeserializeObject<List<Sensor>>(responseJsonObject["list"].ToString());
 
             Cache cache = Cache.Fetch();
@@ -164,7 +169,7 @@ namespace InnoviApiProxy
 
             verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); 
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken); 
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint +"user/switch-account");
 
             Dictionary<string, string> jsonBuilder = new Dictionary<string, string>();
@@ -176,7 +181,7 @@ namespace InnoviApiProxy
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             verifyCodeZero(responseJsonObject);
-            Settings.RefreshAccessToken(response);
+            InnoviApiService.RefreshAccessToken(response);
             isSuccessful = responseJsonObject["code"].ToString() == "0";
 
             return isSuccessful;
@@ -186,7 +191,7 @@ namespace InnoviApiProxy
         {
             verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); 
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken); 
 
             return getFolderEventsHepler(client, 0,  i_PageId, out i_PagesCount);
         }
@@ -204,7 +209,7 @@ namespace InnoviApiProxy
             List<SensorEvent> events = JsonConvert.DeserializeObject<List<SensorEvent>>(responseJsonObject["list"].ToString());
 
             verifyCodeZero(responseJsonObject);
-            Settings.RefreshAccessToken(response);
+            InnoviApiService.RefreshAccessToken(response);
 
             List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
             sortedEvents.Reverse();
@@ -225,7 +230,7 @@ namespace InnoviApiProxy
         {
             verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); 
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken); 
 
             return getFolderSensorsHelper(client, i_FolderId, i_PageId, out i_PagesCount);
         }
@@ -244,7 +249,7 @@ namespace InnoviApiProxy
             List<Sensor> sensors = JsonConvert.DeserializeObject<List<Sensor>>(responseJsonObject["list"].ToString());
 
             verifyCodeZero(responseJsonObject);
-            Settings.RefreshAccessToken(response);
+            InnoviApiService.RefreshAccessToken(response);
             List<Sensor> SortedSensors = sensors.OrderByDescending(x => x.Name).ToList();
             SortedSensors.Reverse();
 
@@ -260,7 +265,7 @@ namespace InnoviApiProxy
         {
             verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); 
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken); 
           
 
             return GetFoldersHelper(client, i_FolderId, i_PageId, out i_PagesCount);
@@ -281,7 +286,7 @@ namespace InnoviApiProxy
             List<Folder> folders = JsonConvert.DeserializeObject<List<Folder>>(responseJsonObject["list"].ToString());
 
             verifyCodeZero(responseJsonObject);
-            Settings.RefreshAccessToken(response);
+            InnoviApiService.RefreshAccessToken(response);
 
             List<Folder> sortedFolders = folders.OrderByDescending(x => x.Name).ToList();
             sortedFolders.Reverse();
@@ -298,7 +303,7 @@ namespace InnoviApiProxy
         {
             verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", Settings.AccessToken); 
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken); 
           
             return GetSensorEventsHelper(client, i_SensorId, i_PageId, out i_PagesCount);
         }
@@ -314,11 +319,11 @@ namespace InnoviApiProxy
             JObject responseJsonObject = GetHttpResponseBody(response);
 
             i_PagesCount = int.Parse(responseJsonObject["pages"].ToString());
-            Settings.RefreshAccessToken(response);
+            InnoviApiService.RefreshAccessToken(response);
             List<SensorEvent> events = JsonConvert.DeserializeObject<List<SensorEvent>>(responseJsonObject["list"].ToString());
 
             verifyCodeZero(responseJsonObject);
-            Settings.RefreshAccessToken(response);
+            InnoviApiService.RefreshAccessToken(response);
             List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
             sortedEvents.Reverse();
 

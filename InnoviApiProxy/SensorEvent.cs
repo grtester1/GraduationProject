@@ -10,7 +10,7 @@ namespace InnoviApiProxy
         [JsonProperty("id")]
         private string eventId { get; set; }
         [JsonProperty]
-        internal int sensorId { get; private set; }
+        internal int SensorId { get; private set; }
         [JsonProperty]
         private int accountId { get; set; }
         public string SensorName { get; internal set; }

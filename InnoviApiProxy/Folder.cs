@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace InnoviApiProxy
 {
-    public class Folder
+    public class Folder : InnoviObject
     {
         [JsonProperty]
         private int parentId { get; set; }

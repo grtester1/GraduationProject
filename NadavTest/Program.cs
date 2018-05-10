@@ -8,13 +8,9 @@ namespace NadavTest
     {
         static void Main(string[] args)
         {
-
-
-            string accessToken = "bannana";
-            LoginResult check = User.Connect(accessToken);
-            User checkUser = check.User;
-            LoginResult loginResult = User.Login("ramot.n@gmail.com", "password");
+            LoginResult loginResult = InnoviApiService.Login("ramot.n@gmail.com", "password");
             User user = loginResult.User;
+            
             //         LoginResult loginResult1 = User.Connect("eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50SWQiOiI2Iiwicm9sZSI6IkFETUlOIiwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJUeXBlIjoiVVNFUiIsImV4cCI6MTUyNTg4NTU4MywidXNlcklkIjoiNTU1In0.jt - SDvzroj1 - dtjpU6O1zpklP_hZREb6RC8rSdCCP7g");
             InnoviObjectCollection<Sensor> lazySensors = user.GetDefaultAccountSensors();
 

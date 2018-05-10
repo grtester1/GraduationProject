@@ -20,13 +20,17 @@ namespace InnoviApiProxy
 
         private User() { }
 
-        public static LoginResult Login(string i_Email, string i_Password)
+        private static void checkLoggedInStatus()
         {
             if (m_Instance != null)
             {
-                throw new Exception("There is already a logged in user");
+                throw new InvalidOperationException("There is already a logged in user");
             }
+        }
 
+        internal static LoginResult Login(string i_Email, string i_Password)
+        {
+            checkLoggedInStatus();
             HttpClient client = HttpUtils.BaseHttpClient();
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, Settings.ApiVersionEndpoint + "user/login");
 
@@ -39,8 +43,9 @@ namespace InnoviApiProxy
             return getLoginResult(client, httpRequest);
         }
 
-        public static LoginResult Connect(string i_AccessToken)
+        internal static LoginResult Connect(string i_AccessToken)
         {
+            checkLoggedInStatus();
             HttpClient client = HttpUtils.BaseHttpClient();
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, Settings.ApiVersionEndpoint +"user/refresh-token");
             client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", i_AccessToken);
@@ -53,10 +58,19 @@ namespace InnoviApiProxy
             return getLoginResult(client, httpRequest);
         }
 
-        public void Logout()
+        internal static User Fetch()
         {
-            Settings.AccessToken = null;
+            return m_Instance;
+        }
+
+        internal void Logout()
+        {
+            InnoviApiService.AccessToken = null;
             m_Instance = null;
+            Accounts.Clear();
+            Accounts = null;
+            Username = null;
+            UserEmail = null;
         }
 
         public InnoviObjectCollection<Folder> GetDefaultAccountFolders()
@@ -90,7 +104,7 @@ namespace InnoviApiProxy
                 }
                 else
                 {
-                    throw new Exception("internal server error");
+                    loginResult.ErrorMessage = LoginResult.eErrorMessage.ServerError;
                 }
             }
             else
@@ -102,7 +116,7 @@ namespace InnoviApiProxy
                     m_Instance = JsonConvert.DeserializeObject<User>(responseJsonObject["entity"].ToString());
                     loginResult.User = m_Instance;
                     loginResult.ErrorMessage = LoginResult.eErrorMessage.Empty;
-                    Settings.AccessToken = responseJsonObject["entity"]["accessToken"].ToString();
+                    InnoviApiService.AccessToken = responseJsonObject["entity"]["accessToken"].ToString();
                 }
                 else
                 {
@@ -112,7 +126,5 @@ namespace InnoviApiProxy
             
             return loginResult;
         }
-
-        
     }
 }
