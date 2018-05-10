@@ -7,7 +7,7 @@
 ## Participants
   - [Team:](#final-year-project)
     - [Amikam Goldfarb (Team leader & Android development leader)](#final-year-project)
-    - [Nadav Ramot     (Server-side development leader)](#final-year-project)
+    - [Nadav Ramot     (Client-side backend development leader)](#final-year-project)
     - [Gil Ronen       (iOS development leader)](#final-year-project)
   - [Mentors:](#final-year-project)
     - [Guy Ronen](#final-year-project)
