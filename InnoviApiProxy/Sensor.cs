@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 
+
 namespace InnoviApiProxy
 {
     public class Sensor : InnoviObject
@@ -43,6 +44,9 @@ namespace InnoviApiProxy
         public uint AlarmInterval { get; private set; }
         [JsonProperty]
         public string StreamUrl { get; private set; }
+        public string ReferenceImage { get; internal set; } = string.Empty;
+        public string LiveViewStream { get; internal set; } = string.Empty;
+        public int Health { get; internal set; } = 100;
 
         public InnoviObjectCollection<SensorEvent> SensorEvents
         {
