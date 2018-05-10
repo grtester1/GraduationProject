@@ -25,7 +25,7 @@ namespace AgentVI.ViewModels
             if (i_loggedInUser != null)
             {
                 ServiceManager.Instance.LoginService.setLoggedInUser(i_loggedInUser);
-                AccessToken = InnoviApiProxy.Settings.AccessToken;
+                AccessToken = Settings.AccessToken;
                 UserEmail = i_loggedInUser.UserEmail;
                 Username = i_loggedInUser.Username;
             }

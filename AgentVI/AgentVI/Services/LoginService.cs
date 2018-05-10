@@ -68,7 +68,6 @@ namespace AgentVI.Services
 			{
 				AccessToken = i_accessToken;
 			}
-			AccessToken = "1"; // if the real proxy is used, put this line in comment
 		}
 
 		public void DeleteCredentials()

@@ -1,11 +1,12 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/SettingsPage.xaml.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/ViewModels/LoginPageViewModel.cs">
     <Files>
-      <File FileName="AgentVI/AgentVI/Services/LoginService.cs" Line="72" Column="4" />
-      <File FileName="AgentVI/AgentVI/Views/LoadingPage.xaml.cs" Line="51" Column="1" />
+      <File FileName="AgentVI/AgentVI/Services/LoginService.cs" Line="60" Column="5" />
+      <File FileName="AgentVI/AgentVI/Views/LoadingPage.xaml.cs" Line="30" Column="99" />
       <File FileName="AgentVI/AgentVI/Views/LoginPage.xaml.cs" Line="72" Column="1" />
-      <File FileName="AgentVI/AgentVI/Views/SettingsPage.xaml.cs" Line="19" Column="35" />
+      <File FileName="AgentVI/AgentVI/Views/SettingsPage.xaml.cs" Line="19" Column="32" />
+      <File FileName="AgentVI/AgentVI/ViewModels/LoginPageViewModel.cs" Line="28" Column="52" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
