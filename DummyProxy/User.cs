@@ -13,7 +13,11 @@ namespace DummyProxy
 
         private User() { }
 
-        public static LoginResult Login(string i_Email, string i_Password)
+        internal User Fetch()
+        {
+            return m_Instance;
+        }
+        internal static LoginResult Login(string i_Email, string i_Password)
         {
             LoginResult result = new LoginResult();
             result.ErrorMessage = LoginResult.eErrorMessage.Empty;
@@ -22,7 +26,7 @@ namespace DummyProxy
             return result;
         }
 
-        public static LoginResult Connect(string i_AccessToken)
+        internal static LoginResult Connect(string i_AccessToken)
         {
             LoginResult result = new LoginResult();
             result.ErrorMessage = LoginResult.eErrorMessage.Empty;
@@ -32,7 +36,7 @@ namespace DummyProxy
             return result;
         }
 
-        public void Logout()
+        internal void Logout()
         {
             Settings.AccessToken = null;
             m_Instance = null;
