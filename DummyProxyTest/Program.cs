@@ -8,6 +8,7 @@ namespace DummyProxyTest
         static void Main(string[] args)
         {
             LoginResult loginResult = User.Login("ramot.n@gmail.com", "assword");
+            string accessToken = Settings.AccessToken;
             User user = loginResult.User;
             InnoviObjectCollection<Folder> folders = user.GetDefaultAccountFolders();
             InnoviObjectCollection<Sensor> sensors = user.GetDefaultAccountSensors();

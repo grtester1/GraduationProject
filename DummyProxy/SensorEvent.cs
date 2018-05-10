@@ -27,8 +27,8 @@ namespace DummyProxy
             StartTime = 0;
             ObjectType = eObjectType.Motorcycle;
             RuleId = 0;
-            ImagePath = "";
-            ClipPath = "";
+            ImagePath = "https://upload.wikimedia.org/wikipedia/commons/1/1b/Thailand_-_Koh_Phangan_%2825074614996%29.jpg";
+            ClipPath = "http://dominatorfireworks.com/video/ALA-D2011.mp4";
             Tag = Sensor.eSensorEventTag.None;
             RuleName = eBehaviorType.Crossing;
 

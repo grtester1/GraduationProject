@@ -29,8 +29,10 @@ namespace DummyProxy
 
         public List<InnoviObject> ToList()
         {
+            List<InnoviObject> list = new List<InnoviObject>();
+            list.AddRange(m_Collection);
 
-            return m_Collection;
+            return list;
         }
     }
 }
