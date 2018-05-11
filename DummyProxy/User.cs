@@ -13,10 +13,11 @@ namespace DummyProxy
 
         private User() { }
 
-        internal User Fetch()
+        internal static User Fetch()
         {
             return m_Instance;
         }
+
         internal static LoginResult Login(string i_Email, string i_Password)
         {
             LoginResult result = new LoginResult();
@@ -38,7 +39,7 @@ namespace DummyProxy
 
         internal void Logout()
         {
-            Settings.AccessToken = null;
+            InnoviApiService.AccessToken = null;
             m_Instance = null;
         }
 
@@ -184,7 +185,7 @@ namespace DummyProxy
             account.Status = Account.eAccountStatus.Active;
             accoutnList.Add(account);
             user.Accounts = accoutnList;
-            Settings.AccessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50SWQiOiI2Iiwicm9sZSI6IkFETUlOIiwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJUeXBlIjoiVVNFUiIsImV4cCI6MTUyNjYzMTIxMSwidXNlcklkIjoiNTU1In0.1qAdfjH_DUiJcEqYkAQ_UIlLaXb-P8CTlOxo9EFKEh8";
+            InnoviApiService.AccessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50SWQiOiI2Iiwicm9sZSI6IkFETUlOIiwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJUeXBlIjoiVVNFUiIsImV4cCI6MTUyNjYzMTIxMSwidXNlcklkIjoiNTU1In0.1qAdfjH_DUiJcEqYkAQ_UIlLaXb-P8CTlOxo9EFKEh8";
             return user;
         }
     }

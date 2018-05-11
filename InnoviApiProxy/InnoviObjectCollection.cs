@@ -89,7 +89,7 @@ namespace InnoviApiProxy
                     }  
                 }
 
-                return m_CurrentPage <= m_TotalPages;
+                return m_CurrentPage <= m_TotalPages && m_CurrentPage < 10;
             }
 
             public void Reset()

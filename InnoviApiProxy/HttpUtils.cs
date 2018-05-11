@@ -132,18 +132,26 @@ namespace InnoviApiProxy
             StringBuilder requestUriBuilder = new StringBuilder();
             requestUriBuilder.Append(baseUri);
             int sensorCount = 0;
+            Dictionary<int, int> addedSensors = new Dictionary<int, int>();
+
+            Cache cache = Cache.Fetch();
 
             foreach (int SensorId in i_SensorIds)
             {
-                if (sensorCount > 0)
+                if (!addedSensors.ContainsKey(SensorId))
                 {
-                    requestUriBuilder.Append("&");
-                }
+                    addedSensors.Add(SensorId, 0);
 
-                requestUriBuilder.Append("id=" + SensorId.ToString());
+                    if (sensorCount++ > 0)
+                    {
+                        requestUriBuilder.Append("&");
+                    }
+
+                    requestUriBuilder.Append("id=" + SensorId.ToString());
+                }
             }
 
-            httpRequest.RequestUri = new Uri(requestUriBuilder.ToString());
+            httpRequest.RequestUri = new Uri(requestUriBuilder.ToString(), UriKind.Relative);
 
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
@@ -153,7 +161,7 @@ namespace InnoviApiProxy
             InnoviApiService.RefreshAccessToken(response);
             List<Sensor> sensors = JsonConvert.DeserializeObject<List<Sensor>>(responseJsonObject["list"].ToString());
 
-            Cache cache = Cache.Fetch();
+          
 
             List<string> sensorNames = new List<string>();
 

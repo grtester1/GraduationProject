@@ -15,6 +15,21 @@ namespace NadavTest
             InnoviObjectCollection<Sensor> lazySensors = user.GetDefaultAccountSensors();
 
             List<Sensor> sesnsorList = lazySensors.ToList();
+
+            foreach (Sensor sensor in sesnsorList)
+            {
+                if (sensor.Name != "Main camera")
+                {
+         //           continue;
+                }
+
+                InnoviObjectCollection<SensorEvent> events = sensor.SensorEvents;
+
+                foreach (SensorEvent myEvent in events)
+                {
+                    Console.WriteLine(myEvent.SensorName);
+                }
+            }
             InnoviObjectCollection<SensorEvent> lazyEvents = user.GetDefaultAccountEvents();
 
             List<SensorEvent> testList = new List<SensorEvent>();
