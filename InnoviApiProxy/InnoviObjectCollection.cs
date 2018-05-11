@@ -5,17 +5,17 @@ using System;
 
 namespace InnoviApiProxy
 {
-    public class InnoviObjectCollection<InnoviObject> : IEnumerable
+    public class InnoviObjectCollection<InnoviElement> : IEnumerable where InnoviElement : InnoviObject
     {
-        private InnoviObjectDelegate<InnoviObject> m_Delegate;
+        private InnoviObjectDelegate<InnoviElement> m_Delegate;
         private int m_FilterItemId;
 
-        internal InnoviObjectCollection(InnoviObjectDelegate<InnoviObject> i_Delegate)
+        internal InnoviObjectCollection(InnoviObjectDelegate<InnoviElement> i_Delegate)
         {
             m_Delegate = i_Delegate;
         }
 
-        internal InnoviObjectCollection(InnoviObjectDelegate<InnoviObject> i_Delegate, int i_FilterItemId)
+        internal InnoviObjectCollection(InnoviObjectDelegate<InnoviElement> i_Delegate, int i_FilterItemId)
         {
             m_Delegate = i_Delegate;
             m_FilterItemId = i_FilterItemId;
@@ -27,11 +27,11 @@ namespace InnoviApiProxy
         }
 
 
-        public List<InnoviObject> ToList()
+        public List<InnoviElement> ToList()
         {
-            List<InnoviObject> list = new List<InnoviObject>();
+            List<InnoviElement> list = new List<InnoviElement>();
 
-            foreach (InnoviObject innoviObject in this)
+            foreach (InnoviElement innoviObject in this)
             {
                 list.Add(innoviObject);
             }
@@ -43,18 +43,19 @@ namespace InnoviApiProxy
 
             return list;
         }
+
         internal class InnoviObjectCollectionEnumerator : IEnumerator
         {
             private int m_CurrentIndex = -1;
             private int m_CurrentPage = 0;
             private int m_TotalPages = 0;
 
-            private List<InnoviObject> m_Collection;
-            private InnoviObjectDelegate<InnoviObject> m_Delegate;
+            private List<InnoviElement> m_Collection;
+            private InnoviObjectDelegate<InnoviElement> m_Delegate;
 
             private int m_FilterItemId;
 
-            internal InnoviObjectCollectionEnumerator(InnoviObjectDelegate<InnoviObject> i_Delegate, int i_FilterItemId)
+            internal InnoviObjectCollectionEnumerator(InnoviObjectDelegate<InnoviElement> i_Delegate, int i_FilterItemId)
             {
                 m_Delegate = i_Delegate;
                 m_FilterItemId = i_FilterItemId;
@@ -76,12 +77,12 @@ namespace InnoviApiProxy
                 {
                     if (m_Collection == null)
                     {
-                        m_Collection = new List<InnoviObject>();
+                        m_Collection = new List<InnoviElement>();
                     }
 
                     m_CurrentPage++;
 
-                    List<InnoviObject> currentSection = m_Delegate(m_FilterItemId, m_CurrentPage, out m_TotalPages);
+                    List<InnoviElement> currentSection = m_Delegate(m_FilterItemId, m_CurrentPage, out m_TotalPages);
 
                     if (currentSection != null)
                     {

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace InnoviApiProxy
 {
-    public class User
+    public sealed class User
     {
         private static User m_Instance;
         [JsonProperty]

@@ -82,7 +82,7 @@ namespace InnoviApiProxy
             }
             else
             {
-                throw new HttpRequestException("Failed to fetch access token from server");
+                throw new HttpRequestException("Failed to fetch access token from the server");
             }
         }
     }
