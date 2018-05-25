@@ -22,8 +22,9 @@ namespace AgentVI.ViewModels
         {
             if (i_loggedInUser != null)
             {
-                List<Sensor> userProxyList = i_loggedInUser.GetDefaultAccountSensors().ToList();
-                if (userProxyList.Count > 0)
+                //List<Sensor> userProxyList = i_loggedInUser.GetDefaultAccountSensors().ToList();
+				InnoviObjectCollection<Sensor> userProxyList = i_loggedInUser.GetDefaultAccountSensors();
+				if (userProxyList != null)
                 {
                     foreach (Sensor camera in userProxyList)
                     {
@@ -73,14 +74,9 @@ namespace AgentVI.ViewModels
 						{
 							
 						}
-
-					
-                       
-
+                                          
 						camModel.CamImage = camera.StreamUrl;
-						//camModel.CamImage = camera.LiveViewStream;
-						//camModel.CamImage = camera.ReferenceImage;
-                        if (camModel.CamImage == null)
+						if (camModel.CamImage == null || camModel.CamImage == "")
                         {
 							camModel.CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg";
                         }

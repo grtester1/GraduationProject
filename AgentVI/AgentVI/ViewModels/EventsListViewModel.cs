@@ -18,43 +18,44 @@ namespace AgentVI.ViewModels
             EventsList = new ObservableCollection<EventModel>();
         }
 
-        public void InitializeList(User i_loggedInUser)
+		public void InitializeList(User i_loggedInUser)
         {
-            if (i_loggedInUser != null)
+			if (i_loggedInUser != null)
             {
-                //List<SensorEvent> userProxyList = i_loggedInUser.GetDefaultAccountEvents();
-                //if (userProxyList.Count > 0)
-                //{
-                   
-                //foreach (SensorEvent camEvent in userProxyList)
-                for (int i = 0; i < 10;i++)
+                //List<SensorEvent> userProxyList = i_loggedInUser.GetDefaultAccountEvents().ToList();
+				/*InnoviObjectCollection<SensorEvent> userProxyList = i_loggedInUser.GetDefaultAccountEvents();
+                if (userProxyList != null)
+                {
+
+                    foreach (SensorEvent camEvent in userProxyList)
                     {
-                        //if(i > 10)
-                        //{
-                        //    break;
-                        //}
+
                         EventModel eventModel = new EventModel();
-                        eventModel.CamName = "Camera Name" ; //camEvent.Name;
-                        eventModel.dateTime = "6/2/2018 4:57:58 PM"; //camEvent.StartTime.ToString();
-                        eventModel.RuleName = "Rule name"; //camEvent.RuleId.ToString();
-					    eventModel.CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg"; //camEvent.ImagePath;
-                        if (eventModel.CamImage == null)
+						eventModel.CamName = camEvent.SensorName;
+						//eventModel.dateTime = "6/2/2018 4:57:58 PM"; //camEvent.StartTime.ToString();
+						DateTime dateTime = new DateTime((long)camEvent.StartTime);
+						eventModel.dateTime = dateTime.ToString();
+						eventModel.RuleName = camEvent.RuleName.ToString();
+						eventModel.CamImage = camEvent.ImagePath;
+						if (eventModel.CamImage == null || eventModel.CamImage == "")
                         {
-						    eventModel.CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg";
+                            eventModel.CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg";
                         }
                         EventsList.Add(eventModel);
-                        //i++;
+
+
                     }
-                //}
-                //else
-                //{
-				//   EventsList.Add(new EventModel { CamName = "There is currently no event in the selected folder.", RuleName = "", dateTime="" , CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg"; });
-                //}
+                }
+                else*/
+                {
+					EventsList.Add(new EventModel { CamName = "There is currently no event in the selected folder.", RuleName = "", dateTime = "", CamImage = "https://nondualityamerica.files.wordpress.com/2010/10/nothing-here-neon-300x200.jpg?w=375&h=175" });
+                }
             }
             else
             {
-                throw new Exception("Method InitializeFields/EventsListVM was called with null param");
+                throw new Exception("Method InitializeFields/CamerasListVM was called with null param");
             }
         }
+
     }
 }

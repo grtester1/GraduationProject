@@ -1,12 +1,14 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/ViewModels/CamerasListViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="InnoviApiProxy/InnoviObjectCollection.cs">
     <Files>
       <File FileName="AgentVI/AgentVI/Views/MainPage.xaml.cs" Line="46" Column="69" />
-      <File FileName="AgentVI/AgentVI/ViewModels/EventsListViewModel.cs" Line="37" Column="78" />
-      <File FileName="AgentVI/AgentVI/ViewModels/CamerasListViewModel.cs" Line="58" Column="8" />
-      <File FileName="AgentVI/AgentVI/Models/CameraModel.cs" Line="10" Column="26" />
-      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml" Line="18" Column="89" />
+      <File FileName="AgentVI/AgentVI/ViewModels/EventsListViewModel.cs" Line="50" Column="202" />
+      <File FileName="AgentVI/AgentVI/ViewModels/CamerasListViewModel.cs" Line="26" Column="27" />
+      <File FileName="AgentVI/AgentVI.iOS/Main.cs" Line="17" Column="1" />
+      <File FileName="InnoviApiProxy/HttpUtils.cs" Line="28" Column="1" />
+      <File FileName="InnoviApiProxy/InnoviObjectCollection.cs" Line="8" Column="54" />
+      <File FileName="InnoviApiProxy/InnoviObject.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
