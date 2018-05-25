@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using AgentVI.Services;
 using Xamarin.Forms;
-//using InnoviApiProxy;
-using DummyProxy;
+using InnoviApiProxy;
+//using DummyProxy;
 using System.Collections.ObjectModel;
 using AgentVI.Models;
 
@@ -37,10 +37,10 @@ namespace AgentVI.ViewModels
                         eventModel.CamName = "Camera Name" ; //camEvent.Name;
                         eventModel.dateTime = "6/2/2018 4:57:58 PM"; //camEvent.StartTime.ToString();
                         eventModel.RuleName = "Rule name"; //camEvent.RuleId.ToString();
-                        eventModel.CamImage = "http://3.bp.blogspot.com/-FYjlw5lYV_Q/VCaXoNp-PTI/AAAAAAAAHmk/cLuCv4Ruq_U/s1600/37.jpg"; //camEvent.ImagePath;
+					    eventModel.CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg"; //camEvent.ImagePath;
                         if (eventModel.CamImage == null)
                         {
-                            eventModel.CamImage = "https://picsum.photos/201";
+						    eventModel.CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg";
                         }
                         EventsList.Add(eventModel);
                         //i++;
@@ -48,7 +48,7 @@ namespace AgentVI.ViewModels
                 //}
                 //else
                 //{
-                //   EventsList.Add(new EventModel { CamName = "There is currently no event in the selected folder.", RuleName = "", dateTime="" , CamImage = "https://picsum.photos/201" });
+				//   EventsList.Add(new EventModel { CamName = "There is currently no event in the selected folder.", RuleName = "", dateTime="" , CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg"; });
                 //}
             }
             else

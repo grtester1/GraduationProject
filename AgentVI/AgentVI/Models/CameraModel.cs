@@ -7,6 +7,7 @@ namespace AgentVI.Models
     {
         public string CamName { get; set; }
         public string CamStatus { get; set; }
+		public int CamHealth { get; set; }
         public string CamColorStatus { get; set; }
         public string CamImage { get; set; }
     }

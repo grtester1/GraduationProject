@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-//using InnoviApiProxy;
-using DummyProxy;
+using InnoviApiProxy;
+//using DummyProxy;
 using AgentVI.Utils;
 using AgentVI.ViewModels;
 using AgentVI.Services;
@@ -44,7 +44,7 @@ namespace AgentVI.Views
                 {
                     try
                     {
-                        m_loginResult = User.Login(username, password);
+						m_loginResult = InnoviApiService.Login(username, password);
                     }
                     catch (Exception ex)
                     {

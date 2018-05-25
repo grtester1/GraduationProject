@@ -7,8 +7,8 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
-//using InnoviApiProxy;
-using DummyProxy;
+using InnoviApiProxy;
+//using DummyProxy;
 using AgentVI.Services;
 
 namespace AgentVI.ViewModels
@@ -25,7 +25,8 @@ namespace AgentVI.ViewModels
             if (i_loggedInUser != null)
             {
                 ServiceManager.Instance.LoginService.setLoggedInUser(i_loggedInUser);
-                AccessToken = Settings.AccessToken;
+				//AccessToken = Settings.AccessToken;
+				AccessToken = InnoviApiService.AccessToken;
                 UserEmail = i_loggedInUser.UserEmail;
                 Username = i_loggedInUser.Username;
             }

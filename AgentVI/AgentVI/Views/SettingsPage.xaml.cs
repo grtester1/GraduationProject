@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using AgentVI.Services;
 using Xamarin.Forms;
-
+using InnoviApiProxy;
 namespace AgentVI.Views
 {
     public partial class SettingsPage : ContentPage
@@ -44,13 +44,13 @@ namespace AgentVI.Views
         async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
             ServiceManager.Instance.LoginService.DeleteCredentials();
-
+			InnoviApiService.Logout();
             //await Navigation.PushAsync(new LoginPage());
             //Navigation.InsertPageBefore(new LoginPage(), this);
             //await Navigation.PopAsync();
             //await Navigation.PopToRootAsync();
             //await Navigation.PushAsync(new LoginPage());
-            await Navigation.PushModalAsync(new LoginPage());
+            //await Navigation.PushModalAsync(new LoginPage());
         }
 
         void arm_Toggled(object sender, EventArgs e)

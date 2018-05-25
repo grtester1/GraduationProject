@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using AgentVI.Services;
 using Xamarin.Forms;
-//using InnoviApiProxy;
-using DummyProxy;
+using InnoviApiProxy;
+//using DummyProxy;
 using System.Collections.ObjectModel;
 using AgentVI.Models;
 
@@ -30,7 +30,7 @@ namespace AgentVI.ViewModels
                         CameraModel camModel = new CameraModel();
                         camModel.CamName = camera.Name;
                         camModel.CamStatus = camera.Status.ToString();
-
+						camModel.CamHealth = camera.Health;
                         switch (camera.Status)
                         {
                             case Sensor.eSensorStatus.Undefined:
@@ -53,17 +53,43 @@ namespace AgentVI.ViewModels
                                 break;
                         }
 
-                        camModel.CamImage = camera.StreamUrl;
+						if(camera.Health > 80)
+						{
+							
+						}
+						else if (camera.Health > 60)
+                        {
+
+                        }
+						else if (camera.Health > 40)
+                        {
+
+                        }
+						else if (camera.Health > 20)
+                        {
+
+                        }
+						else
+						{
+							
+						}
+
+					
+                       
+
+						camModel.CamImage = camera.StreamUrl;
+						//camModel.CamImage = camera.LiveViewStream;
+						//camModel.CamImage = camera.ReferenceImage;
                         if (camModel.CamImage == null)
                         {
-                            camModel.CamImage = "http://3.bp.blogspot.com/-FYjlw5lYV_Q/VCaXoNp-PTI/AAAAAAAAHmk/cLuCv4Ruq_U/s1600/37.jpg";
+							camModel.CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg";
                         }
                         CamerasList.Add(camModel);
                     }
                 }
                 else
                 {
-                    CamerasList.Add(new CameraModel { CamName = "There is currently no camera in the selected folder.", CamStatus = "", CamColorStatus = "Transparent", CamImage = "https://picsum.photos/201" });
+					CamerasList.Add(new CameraModel { CamName = "There is currently no camera in the selected folder.", CamStatus = "", CamColorStatus = "Transparent", CamImage = "https://nondualityamerica.files.wordpress.com/2010/10/nothing-here-neon-300x200.jpg?w=375&h=175" });
                 }
             }
             else

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using AgentVI.Services;
 using Xamarin.Forms;
-//using InnoviApiProxy;
-using DummyProxy;
+using InnoviApiProxy;
+//using DummyProxy;
 using AgentVI.ViewModels;
 namespace AgentVI.Views
 {
@@ -27,7 +27,7 @@ namespace AgentVI.Views
 
             if (ServiceManager.Instance.LoginService.DoCredentialsExist()) //if the user is saved
             {
-                LoginResult loginResult = User.Connect(ServiceManager.Instance.LoginService.AccessToken);
+				LoginResult loginResult = InnoviApiService.Connect(ServiceManager.Instance.LoginService.AccessToken);
                 //LoginResult loginResult = User.Login("gilgilronen@gmail.com", "password");
 
                 await ProgressBarLine.ProgressTo(0.7, 2000, Easing.CubicIn);
