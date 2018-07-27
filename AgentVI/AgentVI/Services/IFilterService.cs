@@ -8,12 +8,14 @@ namespace AgentVI.Services
 {
     public interface IFilterService
     {
-        List<Folder> getAllFoldersBeneath(List<Folder> i_folders);
+        List<Folder>    getAllFoldersBeneath(List<Folder> i_folders);
 
-        List<Folder> selectFolder(Folder i_selectedFolder);
+        List<Folder>    selectFolder(Folder i_selectedFolder);
 
-        List<Folder> getAccountFolders(User i_user);
+        bool            isEmptyFolder(Folder i_SelectedFolder);
 
-        List<String> getSelectedFoldersHirearchy();
+        List<Folder>    getAccountFolders(User i_user);
+
+        List<String>    getSelectedFoldersHirearchy();
     }
 }

@@ -88,5 +88,10 @@ namespace AgentVI.Services
             }
             return AccountFolders_Depth0;
         }
+
+        public bool isEmptyFolder(Folder i_SelectedFolder)
+        {
+            return i_SelectedFolder.Folders.IsEmpty();
+        }
     }
 }

@@ -11,7 +11,9 @@ namespace AgentVI.Views
 {
     public partial class MainPage : ContentPage
     {
-        private LoginPageViewModel LoginPageViewModel = null;
+        private LoginPageViewModel m_LoginPageViewModel = null;
+        private FilterIndicatorViewModel m_FilterIndicatorViewModel = null;
+        private Page m_FilterPage = null;
         private Dictionary<String, ContentPage> pageCollection = new Dictionary<String, ContentPage>()
         {
             {"Page1", new Page1()},
@@ -20,46 +22,44 @@ namespace AgentVI.Views
             {"SettingsPage", new SettingsPage()},
             {"EventsPage", new EventsPage()}
         };
-        private FilterIndicatorViewModel filterIndicatorViewModel = null;
-        private Page FilterPage = null;
-
 
         public MainPage()
         {
-            filterIndicatorViewModel = new FilterIndicatorViewModel();
-            FilterPage = new FilterPage(filterIndicatorViewModel);
+            m_FilterIndicatorViewModel = new FilterIndicatorViewModel();
+            m_FilterPage = new FilterPage(m_FilterIndicatorViewModel);
             InitializeComponent();
-            FilterStateIndicatorListView.BindingContext = filterIndicatorViewModel;//ServiceManager.Instance.FilterService.getSelectedFoldersHirearchy();
-            LoginPageViewModel = new LoginPageViewModel();
-            LoginPageViewModel.InitializeFields(ServiceManager.Instance.LoginService.LoggedInUser);
-            BindingContext = LoginPageViewModel;
+            FilterStateIndicatorListView.BindingContext = m_FilterIndicatorViewModel;//ServiceManager.Instance.FilterService.getSelectedFoldersHirearchy();
+            m_LoginPageViewModel = new LoginPageViewModel();
+            m_LoginPageViewModel.InitializeFields(ServiceManager.Instance.LoginService.LoggedInUser);
+            BindingContext = m_LoginPageViewModel;
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
 
-        void FilterStateIndicator_Tapped(object sender, EventArgs e)
+        void FilterStateIndicator_Tapped(object i_Sender, EventArgs i_EventArgs)
         {
-            Navigation.PushModalAsync(FilterPage);
+            Navigation.PushModalAsync(m_FilterPage);
         }
 
-        void FooterBarEvents_Clicked(object sender, EventArgs e)
+        void FooterBarEvents_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             PlaceHolder.Content = pageCollection["EventsPage"].Content;
-            //PlaceHolder.Content = (new Page1()).Content;
-
         }
-        void FooterBarCameras_Clicked(object sender, EventArgs e)
+        
+        void FooterBarCameras_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             PlaceHolder.Content = pageCollection["CamerasPage"].Content;
         }
-        void FooterBarHealth_Clicked(object sender, EventArgs e)
+
+        void FooterBarHealth_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             
         }
-        void FooterBarSettings_Clicked(object sender, EventArgs e)
+
+        void FooterBarSettings_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             PlaceHolder.Content = pageCollection["SettingsPage"].Content;
         }
-
 
         protected override bool OnBackButtonPressed()
         {
