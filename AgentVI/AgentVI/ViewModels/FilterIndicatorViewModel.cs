@@ -20,7 +20,7 @@ namespace AgentVI.ViewModels
             }
             set
             {
-                _SelectedFoldersNamesCache = value;
+                _SelectedFoldersNamesCache = new List<String>(value);
                 OnPropertyChanged();
             }
         }

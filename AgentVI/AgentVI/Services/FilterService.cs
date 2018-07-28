@@ -57,18 +57,24 @@ namespace AgentVI.Services
 
         public List<Folder> selectFolder(Folder i_selectedFolder)
         {
+            bool isLastFiltrationLevelSelection = false;
             if (i_selectedFolder == null)
             {
                 throw new Exception("Selected item isn't a folder.");
             }
-            if(i_selectedFolder.Depth!=FilteringLevelsCache.Count-1)
+            if (i_selectedFolder.Depth == FilteringLevelsCache.Count - 2)
             {
-                FilteringLevelsCache.RemoveRange(i_selectedFolder.Depth + 1, FilteringLevelsCache.Count - 1);
-                SelectedFoldersNames.RemoveRange(i_selectedFolder.Depth + 1, SelectedFoldersNames.Count - 1);
+                SelectedFoldersNames.RemoveRange(i_selectedFolder.Depth     , SelectedFoldersNames.Count - 1);
+                isLastFiltrationLevelSelection = true;
+            }
+            else if (i_selectedFolder.Depth<FilteringLevelsCache.Count-1)
+            {
+                FilteringLevelsCache.RemoveRange(i_selectedFolder.Depth + 1 , FilteringLevelsCache.Count - 1);
+                SelectedFoldersNames.RemoveRange(i_selectedFolder.Depth     , SelectedFoldersNames.Count    );
             }
             if(i_selectedFolder!=null)
             {
-                if (i_selectedFolder.Folders != null)
+                if (i_selectedFolder.Folders != null && !isLastFiltrationLevelSelection)
                 {
                     FilteringLevelsCache.Add(i_selectedFolder.Folders.ToList());
                 }

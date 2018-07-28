@@ -22,12 +22,34 @@ namespace AgentVI.Views
         private FilterViewModel m_FilterViewModel;
         private FilterIndicatorViewModel m_FilterIndicatorViewModel;
 
+        private ListView currentListView;
+        private SearchBar currentSearchBar;
+        private System.Collections.IEnumerable unfilteredFoldersList;
+
         public FilterPage(FilterIndicatorViewModel i_FilterIndicatorViewModel)
         {
             InitializeComponent ();
             m_FilterIndicatorViewModel = i_FilterIndicatorViewModel;
             m_FilterViewModel = new FilterViewModel(ServiceManager.Instance.FilterService);
             BindingContext = m_FilterViewModel;
+            CurrentPageChanged += FilterPage_CurrentPageChanged;
+        }
+
+        private void FilterPage_CurrentPageChanged(object sender, EventArgs e)
+        {
+            if (unfilteredFoldersList != null)
+            {
+                var selectedItem = currentListView.SelectedItem;
+                currentListView.ItemsSource = unfilteredFoldersList;
+                currentListView.SelectedItem = selectedItem;
+                
+                currentListView.Focus();
+                currentSearchBar.TextChanged -= filterSearchBar_TextChanged;
+                currentSearchBar.Text = String.Empty;
+                currentSearchBar.TextChanged += filterSearchBar_TextChanged;
+                unfilteredFoldersList = null;
+                currentSearchBar = null;
+            }
         }
 
         protected override bool OnBackButtonPressed()
@@ -50,6 +72,20 @@ namespace AgentVI.Views
             }
 
             m_FilterViewModel.fetchNextFilteringDepth(selectedFolder, ++filterDepthLabelValue);
+        }
+
+        private void filterSearchBar_TextChanged(object i_Sender, TextChangedEventArgs i_TextChangeEventArgs)
+        {
+            if (unfilteredFoldersList == null)
+            {
+                currentSearchBar = i_Sender as SearchBar;
+                currentListView = currentSearchBar.Parent.FindByName<ListView>("filteredItemsListView");
+                unfilteredFoldersList = currentListView.ItemsSource;
+            }
+            if (String.IsNullOrWhiteSpace(i_TextChangeEventArgs.NewTextValue))
+                currentListView.ItemsSource = unfilteredFoldersList;
+            else
+                currentListView.ItemsSource = unfilteredFoldersList.Cast<Folder>().Where(item => item.Name.StartsWith(i_TextChangeEventArgs.NewTextValue));
         }
     }
 }
