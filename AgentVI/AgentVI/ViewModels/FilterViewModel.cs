@@ -64,7 +64,10 @@ namespace AgentVI.ViewModels
             {
                 FilteringPagesContent.RemoveAt(i);
             }
-            FilteringPagesContent.Add(new FilteringPageViewModel(_filterService.selectFolder(i_selectedFolder), i_nextDepthValue));
+            if (!i_selectedFolder.Folders.IsEmpty())
+                FilteringPagesContent.Add(new FilteringPageViewModel(_filterService.selectFolder(i_selectedFolder), i_nextDepthValue));
+            else
+                _filterService.selectFolder(i_selectedFolder);//empty folder scenario
             SelectedFoldersCache = ServiceManager.Instance.FilterService.getSelectedFoldersHirearchy();
         }
 

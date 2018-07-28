@@ -16,8 +16,8 @@ namespace AgentVI.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        private LoginPageViewModel LoginPageViewModel = null;
-        private LoginResult m_loginResult = null;
+        private LoginPageViewModel m_LoginPageViewModel = null;
+        private LoginResult m_LoginResult = null;
 
         public LoginPage()
         {
@@ -27,7 +27,7 @@ namespace AgentVI.Views
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
-        void loginButton_Clicked(object sender, EventArgs e)
+        void loginButton_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             loadingData.IsRunning = true;
             string username = usernameEntry.Text;
@@ -40,38 +40,38 @@ namespace AgentVI.Views
             }
             else
             {
-                if (m_loginResult == null)
+                if (m_LoginResult == null)
                 {
                     try
                     {
-						m_loginResult = InnoviApiService.Login(username, password);
+						m_LoginResult = InnoviApiService.Login(username, password);
                     }
                     catch (Exception ex)
                     {
                         DisplayAlert("Exception", ex.Message, "Close");
                     }
                 }
-                if (m_loginResult != null)
+                if (m_LoginResult != null)
                 {
-                    if (m_loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
+                    if (m_LoginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                     {
-                        LoginPageViewModel = new LoginPageViewModel();
-                        LoginPageViewModel.InitializeFields(m_loginResult.User);
-						ServiceManager.Instance.LoginService.SaveCredentials(LoginPageViewModel.AccessToken);
+                        m_LoginPageViewModel = new LoginPageViewModel();
+                        m_LoginPageViewModel.InitializeFields(m_LoginResult.User);
+						ServiceManager.Instance.LoginService.SaveCredentials(m_LoginPageViewModel.AccessToken);
 						Navigation.InsertPageBefore(new MainPage(), this);
                         Navigation.PopAsync();
                     }
                     else
                     {
-                        DisplayAlert("Error Message", m_loginResult.ErrorMessage.convertEnumToString(), "retry");
-                        m_loginResult = null;
+                        DisplayAlert("Error Message", m_LoginResult.ErrorMessage.convertEnumToString(), "retry");
+                        m_LoginResult = null;
                     }
                 }
             }
             loadingData.IsRunning = false;
         }
 
-        async void forgotPwdButton_Clicked(object sender, EventArgs e)
+        async void forgotPwdButton_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             var response = await DisplayActionSheet("forgot your password?", "Cancel", "Delete", "Copy Link", "Duplicate Link");
             await DisplayAlert("Response", response, "OK");

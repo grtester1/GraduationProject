@@ -28,7 +28,6 @@ namespace AgentVI.Views
             if (ServiceManager.Instance.LoginService.DoCredentialsExist()) //if the user is saved
             {
 				LoginResult loginResult = InnoviApiService.Connect(ServiceManager.Instance.LoginService.AccessToken);
-                //LoginResult loginResult = User.Login("gilgilronen@gmail.com", "password");
 
                 await ProgressBarLine.ProgressTo(0.7, 2000, Easing.CubicIn);
 
@@ -44,7 +43,6 @@ namespace AgentVI.Views
                     await ProgressBarLine.ProgressTo(1, 1000, Easing.Linear);
                     Navigation.InsertPageBefore(new LoginPage(), this);
                     await Navigation.PopAsync();
-                    //await Navigation.PushAsync(new LoginPage());
                 }
             }
             else
@@ -52,7 +50,6 @@ namespace AgentVI.Views
                 await ProgressBarLine.ProgressTo(1, 1000, Easing.Linear);
                 Navigation.InsertPageBefore(new LoginPage(), this);
                 await Navigation.PopAsync();
-                //await Navigation.PushAsync(new LoginPage());
             }
 		}
     }

@@ -44,6 +44,19 @@ namespace InnoviApiProxy
             return list;
         }
 
+        public bool IsEmpty()
+        {
+            bool res = true;
+
+            foreach (InnoviElement innoviObject in this)
+            {
+                res = false;
+                break;
+            }
+
+            return res;
+        }
+
         internal class InnoviObjectCollectionEnumerator : IEnumerator
         {
             private int m_CurrentIndex = -1;
