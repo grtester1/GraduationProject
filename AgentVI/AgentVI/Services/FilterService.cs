@@ -43,43 +43,50 @@ namespace AgentVI.Services
             List<Sensor> res = null;
             List<Folder> bufListOfFolders = null;
 
-            if (isFilterUpdated || FilteringLevelsCache.Count == 0 || FilteringLevelsCache[0] == null)   //Filter is not set
+            if(FilteringLevelsCache.Count==0 || SelectedFoldersNames.Count == 0)
             {
                 res = FilteredSensorsCollection;
             }
             else
             {
-                if (FilteringLevelsCache[FilteringLevelsCache.Count - 1] == null)                       //Filter is set till the last level
+                if (isFilterUpdated)                                                                        //Filter is set
                 {
-                    bufListOfFolders = FilteringLevelsCache[FilteringLevelsCache.Count - 2];
-                    Folder foundFolder = null;
-                    foreach (Folder f in bufListOfFolders)
-                    {
-                        if (f.Name == SelectedFoldersNames[SelectedFoldersNames.Count - 1])
-                        {
-                            foundFolder = f;
-                            break;
-                        }
-                    }
-                    FilteredSensorsCollection = res = foundFolder.Sensors.ToList();
-                }
-                else                                                                                    //Filter is set but not till the last level (case "Filter1->Filter2" out of Filter1,Filter2,Filter3 is not considered!)
-                {
-                    FilteredSensorsCollection = null;
-                    foreach(Folder f in FilteringLevelsCache[FilteringLevelsCache.Count-1])
-                    {
-                        if (FilteredSensorsCollection == null)
-                            FilteredSensorsCollection = f.Sensors.ToList();
-                        else
-                        {
-                            FilteredSensorsCollection.AddRange(f.Sensors.ToList());
-                        }
-                    }
                     res = FilteredSensorsCollection;
                 }
+                else
+                {
+                    if (FilteringLevelsCache[FilteringLevelsCache.Count - 1] == null)                       //Filter is set till the last level
+                    {
+                        bufListOfFolders = FilteringLevelsCache[FilteringLevelsCache.Count - 2];
+                        Folder foundFolder = null;
+                        foreach (Folder f in bufListOfFolders)
+                        {
+                            if (f.Name == SelectedFoldersNames[SelectedFoldersNames.Count - 1])
+                            {
+                                foundFolder = f;
+                                break;
+                            }
+                        }
+                        FilteredSensorsCollection = res = foundFolder.Sensors.ToList();
+                    }
+                    else                                                                                    //Filter is set but not till the last level (case "Filter1->Filter2" out of Filter1,Filter2,Filter3 is not considered!)
+                    {
+                        FilteredSensorsCollection = null;
+                        foreach (Folder f in FilteringLevelsCache[FilteringLevelsCache.Count - 1])
+                        {
+                            if (FilteredSensorsCollection == null)
+                                FilteredSensorsCollection = f.Sensors.ToList();
+                            else
+                            {
+                                FilteredSensorsCollection.AddRange(f.Sensors.ToList());
+                            }
+                        }
+                        res = FilteredSensorsCollection;
+                    }
+                    isFilterUpdated = true;
+                }
             }
-
-            isFilterUpdated = true;
+            
             return res;
         }
 
