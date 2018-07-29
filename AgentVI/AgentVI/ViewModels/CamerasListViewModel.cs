@@ -23,8 +23,9 @@ namespace AgentVI.ViewModels
             if (i_loggedInUser != null)
             {
                 //List<Sensor> userProxyList = i_loggedInUser.GetDefaultAccountSensors().ToList();
-				InnoviObjectCollection<Sensor> userProxyList = i_loggedInUser.GetDefaultAccountSensors();
-				if (userProxyList != null)
+                //InnoviObjectCollection<Sensor> userProxyList = i_loggedInUser.GetDefaultAccountSensors();
+                List<Sensor> userProxyList = ServiceManager.Instance.FilterService.GetFilteredSensorCollection();
+                if (userProxyList != null)
                 {
                     foreach (Sensor camera in userProxyList)
                     {
@@ -75,10 +76,10 @@ namespace AgentVI.ViewModels
 							camModel.CamColorHealth = "Black";
 						}
                                           
-						camModel.CamImage = camera.StreamUrl;
-						if (camModel.CamImage == null || camModel.CamImage == "")
+						camModel.CamImage = camera.ReferenceImage;
+						if (String.IsNullOrWhiteSpace(camModel.CamImage))           // Gil - please use C# Functionality. Changed it from "(camModel.CamImage==null || camModel.CamImage=="")"
                         {
-							camModel.CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg";
+                            camModel.CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg";
                         }
                         CamerasList.Add(camModel);
                     }

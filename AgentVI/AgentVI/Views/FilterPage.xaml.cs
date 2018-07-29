@@ -54,7 +54,7 @@ namespace AgentVI.Views
 
         protected override bool OnBackButtonPressed()
         {
-            m_FilterIndicatorViewModel.SelectedFoldersNamesCache = ServiceManager.Instance.FilterService.getSelectedFoldersHirearchy();
+            m_FilterIndicatorViewModel.SelectedFoldersNamesCache = ServiceManager.Instance.FilterService.GetSelectedFoldersHirearchy();
             return base.OnBackButtonPressed();
         }
 

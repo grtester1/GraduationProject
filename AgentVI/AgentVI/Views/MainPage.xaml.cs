@@ -48,6 +48,7 @@ namespace AgentVI.Views
         
         void FooterBarCameras_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
+            //Gil - you should take care of updating the content of camera's list. Updated content by current filtration could be achieved through -> ServiceManager.Instance.FilterService.GetFilteredSensorCollection()
             PlaceHolder.Content = pageCollection["CamerasPage"].Content;
         }
 
