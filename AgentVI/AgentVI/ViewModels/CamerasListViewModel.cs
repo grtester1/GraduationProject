@@ -54,25 +54,25 @@ namespace AgentVI.ViewModels
                                 break;
                         }
 
-						if(camera.Health > 80)
+						if(camModel.CamHealth > 80)
 						{
-							
+							camModel.CamColorHealth = "Green";
 						}
-						else if (camera.Health > 60)
+						else if (camModel.CamHealth > 60)
                         {
-
+							camModel.CamColorHealth = "Yellow";
                         }
-						else if (camera.Health > 40)
+						else if (camModel.CamHealth > 40)
                         {
-
+							camModel.CamColorHealth = "Red";
                         }
-						else if (camera.Health > 20)
+						else if (camModel.CamHealth > 20)
                         {
-
-                        }
+							camModel.CamColorHealth = "Gray";
+                        } 
 						else
 						{
-							
+							camModel.CamColorHealth = "Black";
 						}
                                           
 						camModel.CamImage = camera.StreamUrl;
@@ -85,7 +85,7 @@ namespace AgentVI.ViewModels
                 }
                 else
                 {
-					CamerasList.Add(new CameraModel { CamName = "There is currently no camera in the selected folder.", CamStatus = "", CamColorStatus = "Transparent", CamImage = "https://nondualityamerica.files.wordpress.com/2010/10/nothing-here-neon-300x200.jpg?w=375&h=175" });
+					CamerasList.Add(new CameraModel { CamName = "There is currently no camera in the selected folder.", CamHealth = 0, CamStatus = "", CamColorHealth= "Transparent", CamColorStatus = "Transparent", CamImage = "https://nondualityamerica.files.wordpress.com/2010/10/nothing-here-neon-300x200.jpg?w=375&h=175" });
                 }
             }
             else
