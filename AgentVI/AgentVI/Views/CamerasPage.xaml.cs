@@ -29,6 +29,7 @@ namespace AgentVI.Views
         {
             var list = (ListView)sender;
             //put the refreshing logic here
+            var bananaSHIT = ServiceManager.Instance.FilterService.GetFilteredSensorCollection();           //Gil - see this example of using FilterService.GetFilteredSensorCollection()
             var itemList = allCameras.CamerasList.Reverse().ToList();
             allCameras.CamerasList.Clear();
             foreach (var s in itemList)
