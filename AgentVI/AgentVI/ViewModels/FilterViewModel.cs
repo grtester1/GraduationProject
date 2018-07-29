@@ -52,9 +52,9 @@ namespace AgentVI.ViewModels
         {
             FilteringPagesContent = new ObservableCollection<FilteringPageViewModel>();
             _filterService = i_filterService;
-            AccountFolders = _filterService.getAccountFolders(ServiceManager.Instance.LoginService.LoggedInUser);
+            AccountFolders = _filterService.GetAccountFolders(ServiceManager.Instance.LoginService.LoggedInUser);
 
-            FilteringPagesContent.Add(new FilteringPageViewModel(_filterService.getAccountFolders(ServiceManager.Instance.LoginService.LoggedInUser), 0));
+            FilteringPagesContent.Add(new FilteringPageViewModel(_filterService.GetAccountFolders(ServiceManager.Instance.LoginService.LoggedInUser), 0));
         }
 
 
@@ -65,10 +65,10 @@ namespace AgentVI.ViewModels
                 FilteringPagesContent.RemoveAt(i);
             }
             if (!i_selectedFolder.Folders.IsEmpty())
-                FilteringPagesContent.Add(new FilteringPageViewModel(_filterService.selectFolder(i_selectedFolder), i_nextDepthValue));
+                FilteringPagesContent.Add(new FilteringPageViewModel(_filterService.SelectFolder(i_selectedFolder), i_nextDepthValue));
             else
-                _filterService.selectFolder(i_selectedFolder);//empty folder scenario
-            SelectedFoldersCache = ServiceManager.Instance.FilterService.getSelectedFoldersHirearchy();
+                _filterService.SelectFolder(i_selectedFolder);//empty folder scenario
+            SelectedFoldersCache = ServiceManager.Instance.FilterService.GetSelectedFoldersHirearchy();
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

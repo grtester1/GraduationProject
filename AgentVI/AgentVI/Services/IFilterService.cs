@@ -8,14 +8,12 @@ namespace AgentVI.Services
 {
     public interface IFilterService
     {
-        List<Folder>    getAllFoldersBeneath(List<Folder> i_folders);
-
-        List<Folder>    selectFolder(Folder i_selectedFolder);
-
-        bool            isEmptyFolder(Folder i_SelectedFolder);
-
-        List<Folder>    getAccountFolders(User i_user);
-
-        List<String>    getSelectedFoldersHirearchy();
+        List<Folder>        GetAllFoldersBeneath(List<Folder> i_folders);
+        void                InitCollections(InnoviObjectCollection<Folder> i_FolderCollection, InnoviObjectCollection<Sensor> i_SensorCollection);
+        List<Sensor>        GetFilteredSensorCollection();
+        List<Folder>        SelectFolder(Folder i_selectedFolder);
+        bool                IsEmptyFolder(Folder i_SelectedFolder);
+        List<Folder>        GetAccountFolders(User i_user);
+        List<String>        GetSelectedFoldersHirearchy();
     }
 }
