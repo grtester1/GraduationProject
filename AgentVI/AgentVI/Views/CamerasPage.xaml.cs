@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using InnoviApiProxy;
-//<debugAmi>using DummyProxy;
+//<debugWithDummyProxy>using DummyProxy;
 using AgentVI.ViewModels;
 using Xamarin.Forms;
 using System.Linq;
@@ -55,6 +55,15 @@ namespace AgentVI.Views
         void OnTap(object sender, ItemTappedEventArgs e)
         {
             DisplayAlert("Camera Tapped", e.Item.ToString(), "Ok");
+        }
+
+        private void onCameraNameTapped(object sender, EventArgs e)
+        {            
+            (App.Current.MainPage as NavigationPage).PushAsync(
+                                                new CameraEventsPage(
+                                                    allCameras.CamerasList.Where(cam => cam.CamName == (sender as Label).Text).First().Sensor
+                                                                    )
+                                                                );
         }
     }
 }

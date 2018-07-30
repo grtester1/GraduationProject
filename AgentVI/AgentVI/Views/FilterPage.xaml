@@ -7,12 +7,6 @@
                 x:Class="AgentVI.Views.FilterPage"
                 ItemsSource="{Binding FilteringPagesContent}"
                 x:Name="MyFilterPage">
-    
-    <CarouselPage.Padding>
-        <OnPlatform x:TypeArguments="Thickness"
-                    iOS="0,30,0,0">
-        </OnPlatform>
-    </CarouselPage.Padding>
 
     <CarouselPage.Resources>
         <ResourceDictionary>
@@ -23,6 +17,11 @@
     <CarouselPage.ItemTemplate>
         <DataTemplate>
             <ContentPage>
+                <ContentPage.Padding>
+                    <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0,30,0,0">
+                    </OnPlatform>
+                </ContentPage.Padding>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="19*"/>

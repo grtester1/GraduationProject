@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-//<debugAmi>using DummyProxy;
+//<debugWithDummyProxy>using DummyProxy;
 using InnoviApiProxy;
 
 namespace AgentVI.Views

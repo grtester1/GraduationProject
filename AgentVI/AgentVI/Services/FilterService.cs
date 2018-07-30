@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using InnoviApiProxy;
-//<debugAmi>using DummyProxy;
+//<debugWithDummyProxy>using DummyProxy;
 using Xamarin.Forms;
 
 namespace AgentVI.Services
