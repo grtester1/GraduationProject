@@ -30,6 +30,7 @@ namespace AgentVI.ViewModels
                     foreach (Sensor camera in userProxyList)
                     {
                         CameraModel camModel = new CameraModel();
+						camModel.Sensor = camera;
                         camModel.CamName = camera.Name;
                         camModel.CamStatus = camera.Status.ToString();
 						camModel.CamHealth = camera.Health;
