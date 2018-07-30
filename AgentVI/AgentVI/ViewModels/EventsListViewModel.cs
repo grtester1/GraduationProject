@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using AgentVI.Services;
 using Xamarin.Forms;
-using InnoviApiProxy;
-//<debugWithDummyProxy>using DummyProxy;
+//<debugWithMainProxy>using InnoviApiProxy;
+using DummyProxy;
 using System.Collections.ObjectModel;
 using AgentVI.Models;
 

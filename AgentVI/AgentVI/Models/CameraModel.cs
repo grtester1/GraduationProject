@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
-using InnoviApiProxy;
+using DummyProxy;
+//<debugWithMainProxy>using InnoviApiProxy;
 
 namespace AgentVI.Models
 {
