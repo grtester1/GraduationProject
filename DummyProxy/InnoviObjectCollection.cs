@@ -34,5 +34,10 @@ namespace DummyProxy
 
             return list;
         }
+
+        public bool IsEmpty()
+        {
+            return m_Collection.Count == 0;
+        }
     }
 }

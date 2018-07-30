@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using AgentVI.Services;
 using Xamarin.Forms;
 using InnoviApiProxy;
-//using DummyProxy;
+//<debugAmi>using DummyProxy;
 using System.Collections.ObjectModel;
 using AgentVI.Models;
 
@@ -32,7 +32,7 @@ namespace AgentVI.ViewModels
                         CameraModel camModel = new CameraModel();
                         camModel.CamName = camera.Name;
                         camModel.CamStatus = camera.Status.ToString();
-						camModel.CamHealth = camera.Health;
+						//<debugAmi>camModel.CamHealth = camera.Health;
                         switch (camera.Status)
                         {
                             case Sensor.eSensorStatus.Undefined:
@@ -75,9 +75,9 @@ namespace AgentVI.ViewModels
 						{
 							camModel.CamColorHealth = "Black";
 						}
-                                          
-						camModel.CamImage = camera.ReferenceImage;
-						if (String.IsNullOrWhiteSpace(camModel.CamImage))           // Gil - please use C# Functionality. Changed it from "(camModel.CamImage==null || camModel.CamImage=="")"
+
+                        //<debugAmi>camModel.CamImage = camera.ReferenceImage;
+                        if (String.IsNullOrWhiteSpace(camModel.CamImage))           // Gil - please use C# Functionality. Changed it from "(camModel.CamImage==null || camModel.CamImage=="")"
                         {
                             camModel.CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg";
                         }
