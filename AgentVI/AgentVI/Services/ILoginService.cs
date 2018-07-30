@@ -1,5 +1,5 @@
-﻿using InnoviApiProxy;
-//<debugWithDummyProxy>using DummyProxy;
+﻿//<debugWithMainProxy>using InnoviApiProxy;
+using DummyProxy;
 using System;
 using System.Collections.Generic;
 using System.Text;

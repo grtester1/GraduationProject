@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using AgentVI.Services;
 using Xamarin.Forms;
-//<debugWithDummyProxy>using DummyProxy;
-using InnoviApiProxy;
+using DummyProxy;
+//<debugWithMainProxy>using InnoviApiProxy;
 namespace AgentVI.Views
 {
     public partial class SettingsPage : ContentPage

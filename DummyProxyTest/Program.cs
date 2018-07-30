@@ -1,5 +1,5 @@
 ﻿using System;
-using DummyProxy;
+//<debugWithDummyProxy>using DummyProxy;
 
 namespace DummyProxyTest
 {

@@ -7,8 +7,8 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
-using InnoviApiProxy;
-//<debugWithDummyProxy>using DummyProxy;
+//<debugWithMainProxy>using InnoviApiProxy;
+using DummyProxy;
 using AgentVI.Services;
 
 namespace AgentVI.ViewModels

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InnoviApiProxy;
+using DummyProxy;
+//<debugWithMainProxy>using InnoviApiProxy;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -26,7 +27,7 @@ namespace AgentVI.Views
             SensorImage.Source = i_InputSensor.StreamUrl;
             SensorImageAddress.Text = "Image address: " + i_InputSensor.StreamUrl;
             SensorDateLabel.Text = i_InputSensor.StreamUrl;
-            SensorRuleNameLabel.Text = i_InputSensor.LiveViewStream;
+            //SensorRuleNameLabel.Text = i_InputSensor.LiveViewStream;
         }
 	}
 }

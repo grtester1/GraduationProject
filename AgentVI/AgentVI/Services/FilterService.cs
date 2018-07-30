@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using InnoviApiProxy;
-//<debugWithDummyProxy>using DummyProxy;
+//<debugWithMainProxy>using InnoviApiProxy;
+using DummyProxy;
 using Xamarin.Forms;
 
 namespace AgentVI.Services
