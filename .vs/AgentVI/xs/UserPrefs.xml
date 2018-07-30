@@ -1,0 +1,19 @@
+﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
+  <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/CamerasPage.xaml.cs">
+    <Files>
+      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml" Line="26" Column="20" />
+      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml.cs" Line="27" Column="3" />
+      <File FileName="AgentVI/AgentVI/Models/CameraModel.cs" Line="13" Column="30" />
+      <File FileName="AgentVI/AgentVI/ViewModels/CamerasListViewModel.cs" Line="65" Column="31" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.ItemProperties.AgentVI.Android PreferredExecutionTarget="Android.Android_Accelerated_Nougat" AndroidDesignerPreferredTheme="Theme.DeviceDefault.NoActionBar.Fullscreen" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.538e301684d91edcec33c0ca6ed04035d6e4abdb" automaticSigning="False" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

@@ -7,8 +7,8 @@
                 x:Class="AgentVI.Views.FilterPage"
                 ItemsSource="{Binding FilteringPagesContent}"
                 x:Name="MyFilterPage">
-
-    <CarouselPage.Resources>
+    
+   <CarouselPage.Resources>
         <ResourceDictionary>
             <converters:FilterPageIDConverter x:Key="FilterPageIDConverter"/>
         </ResourceDictionary>

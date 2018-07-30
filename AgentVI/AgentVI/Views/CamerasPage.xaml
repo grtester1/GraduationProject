@@ -20,8 +20,8 @@
                             </Label>
                             <Image Source="{Binding CamImage}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                             <StackLayout Spacing="5" Orientation="Horizontal" HorizontalOptions="Start">
-                                <Button BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding CamColorStatus}" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                                <Label Text = "{Binding CamStatus}" TextColor="Navy" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                                <Button BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding CamColorHealth}" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>

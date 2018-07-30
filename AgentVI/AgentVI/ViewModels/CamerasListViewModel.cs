@@ -30,11 +30,13 @@ namespace AgentVI.ViewModels
                     foreach (Sensor camera in userProxyList)
                     {
                         CameraModel camModel = new CameraModel();
+						camModel.Sensor = camera;
                         camModel.CamName = camera.Name;
-                        camModel.CamStatus = camera.Status.ToString();
+                        //camModel.CamStatus = camera.Status.ToString();
 						camModel.CamHealth = camera.Health;
                         camModel.Sensor = camera;
-                        switch (camera.Status)
+                        
+                        /*switch (camera.Status)
                         {
                             case Sensor.eSensorStatus.Undefined:
                                 camModel.CamColorStatus = "White";
@@ -54,7 +56,7 @@ namespace AgentVI.ViewModels
                             default:
                                 camModel.CamColorStatus = "Transparent";
                                 break;
-                        }
+                        }*/
 
 						if(camModel.CamHealth > 80)
 						{
@@ -87,7 +89,7 @@ namespace AgentVI.ViewModels
                 }
                 else
                 {
-					CamerasList.Add(new CameraModel { CamName = "There is currently no camera in the selected folder.", CamHealth = 0, CamStatus = "", CamColorHealth= "Transparent", CamColorStatus = "Transparent", CamImage = "https://nondualityamerica.files.wordpress.com/2010/10/nothing-here-neon-300x200.jpg?w=375&h=175" });
+					CamerasList.Add(new CameraModel { CamName = "There is currently no camera in the selected folder.", CamHealth = 0, CamColorHealth= "Transparent", CamImage = "https://nondualityamerica.files.wordpress.com/2010/10/nothing-here-neon-300x200.jpg?w=375&h=175" });
                 }
             }
             else
