@@ -13,7 +13,11 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Margin="20">
-                            <Label Text= "{Binding CamName}" TextColor="Navy" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Label Text= "{Binding CamName}" TextColor="Navy" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="onCameraNameTapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
                             <Image Source="{Binding CamImage}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                             <StackLayout Spacing="5" Orientation="Horizontal" HorizontalOptions="Start">
                                 <Button BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding CamColorHealth}" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using InnoviApiProxy;
-//using DummyProxy;
+//<debugWithDummyProxy>using DummyProxy;
 using AgentVI.ViewModels;
 using Xamarin.Forms;
 using System.Linq;
@@ -30,6 +30,18 @@ namespace AgentVI.Views
             var list = (ListView)sender;
             //put the refreshing logic here
             var bananaSHIT = ServiceManager.Instance.FilterService.GetFilteredSensorCollection();           //Gil - see this example of using FilterService.GetFilteredSensorCollection()
+            StringBuilder helloWorld;
+            String helloWorld2;
+            foreach (Sensor s in bananaSHIT)
+            {
+                foreach (SensorEvent se in s.SensorEvents)
+                {
+                    helloWorld = new StringBuilder();
+                    helloWorld.Append(se.ClipPath).Append(" ").Append(se.ImagePath).Append(" ").Append(se.ObjectType).Append(" ").Append(se.RuleId).Append(" ").Append(se.RuleName).Append(" ").Append(se.SensorName);
+                    helloWorld2 = helloWorld.ToString();
+                }
+            }
+
             var itemList = allCameras.CamerasList.Reverse().ToList();
             allCameras.CamerasList.Clear();
             foreach (var s in itemList)
@@ -43,6 +55,15 @@ namespace AgentVI.Views
         void OnTap(object sender, ItemTappedEventArgs e)
         {
             DisplayAlert("Camera Tapped", e.Item.ToString(), "Ok");
+        }
+
+        private void onCameraNameTapped(object sender, EventArgs e)
+        {            
+            (App.Current.MainPage as NavigationPage).PushAsync(
+                                                new CameraEventsPage(
+                                                    allCameras.CamerasList.Where(cam => cam.CamName == (sender as Label).Text).First().Sensor
+                                                                    )
+                                                                );
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using InnoviApiProxy;
-//using DummyProxy;
+//<debugWithDummyProxy>using DummyProxy;
 using AgentVI.Utils;
 using AgentVI.ViewModels;
 using AgentVI.Services;

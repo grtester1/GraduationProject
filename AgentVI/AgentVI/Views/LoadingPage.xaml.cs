@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using AgentVI.Services;
 using Xamarin.Forms;
 using InnoviApiProxy;
-//using DummyProxy;
+//<debugWithDummyProxy>using DummyProxy;
 using AgentVI.ViewModels;
 namespace AgentVI.Views
 {

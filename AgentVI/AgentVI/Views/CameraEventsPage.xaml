@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AgentVI.Views.CameraEventsPage"
+             xmlns:vidplayer="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer">
+    
+    <StackLayout x:Name="SensorLayout" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <Image x:Name="SensorImage"/>
+        <vidplayer:VideoPlayer x:Name="vidPlayer" Source="https://vjs.zencdn.net/v/oceans.mp4" AutoPlay="True" />
+        <Label x:Name="SensorImageAddress"/>
+        <Label x:Name="SensorNameLabel"/>
+        <Label x:Name="SensorDateLabel"/>
+        <Label Text="Rule Name:"/>
+        <Label x:Name="SensorRuleNameLabel"/>
+    </StackLayout>
+</ContentPage>

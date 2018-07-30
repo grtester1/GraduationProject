@@ -12,11 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\InnoviApiProxy\InnoviApiProxy.csproj" />
+    <Compile Remove="ViewModels\CameraViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="ViewModels\CameraViewModel.cs" />
+    <ProjectReference Include="..\..\InnoviApiProxy\InnoviApiProxy.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
@@ -37,6 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Views\CameraEventsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\LoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
