@@ -60,19 +60,40 @@ namespace DummyProxy
             Folder folder10 = new Folder();
             Folder folder11 = new Folder();
             Folder folder12 = new Folder();
+            Folder folder13 = new Folder();
+            Folder folder14 = new Folder();
+            Folder folder15 = new Folder();
 
             folder1.Name = "Dummy Folder 1";
-             folder2.Name = "Dummy Folder 2";
+            folder1.Depth = 0;
+            folder2.Name = "Dummy Folder 2";
+            folder2.Depth = 0;
             folder3.Name = "Dummy Folder 3";
+            folder3.Depth = 0;
             folder4.Name = "Dummy Folder 4";
+            folder4.Depth = 0;
             folder5.Name = "Dummy Folder 5";
+            folder5.Depth = 1;
             folder6.Name= "Dummy Folder 6";
+            folder6.Depth = 1;
             folder7.Name = "Dummy Folder 7";
+            folder7.Depth = 1;
             folder8.Name = "Dummy Folder 8";
+            folder8.Depth = 1;
             folder9.Name = "Dummy Folder 9";
+            folder9.Depth = 1;
             folder10.Name = "Dummy Folder 10";
+            folder10.Depth = 1;
             folder11.Name = "Dummy Folder 11";
+            folder11.Depth = 1;
             folder12.Name = "Dummy Folder 12";
+            folder12.Depth = 1;
+            folder13.Name = "Dummy Folder 13";
+            folder13.Depth = 2;
+            folder14.Name = "Dummy Folder 14";
+            folder14.Depth = 2;
+            folder15.Name = "Dummy Folder 15";
+            folder15.Depth = 2;
 
             listHelper.Add(folder5);
             listHelper.Add(folder6);
@@ -82,6 +103,9 @@ namespace DummyProxy
             listHelper.Add(folder10);
             listHelper.Add(folder11);
             listHelper.Add(folder12);
+            listHelper.Add(folder13);
+            listHelper.Add(folder14);
+            listHelper.Add(folder15);
 
             foreach (Folder folder in listHelper)
             {
@@ -114,6 +138,12 @@ namespace DummyProxy
             folder4SubFolders.Add(folder11);
             folder4SubFolders.Add(folder12);
 
+            List<Folder> folder5SubFolders = new List<Folder>();
+            folder5SubFolders.Add(folder13);
+            folder5SubFolders.Add(folder14);
+            folder5SubFolders.Add(folder15);
+
+            folder5.Folders = new InnoviObjectCollection<Folder>(folder5SubFolders);
             folder1.Folders = new InnoviObjectCollection<Folder>(folder1SubFolders);
             folder2.Folders = new InnoviObjectCollection<Folder>(folder2SubFolders);
             folder3.Folders = new InnoviObjectCollection<Folder>(folder3SubFolders);

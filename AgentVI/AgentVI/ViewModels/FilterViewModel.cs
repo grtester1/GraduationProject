@@ -64,7 +64,7 @@ namespace AgentVI.ViewModels
             {
                 FilteringPagesContent.RemoveAt(i);
             }
-            if (!i_selectedFolder.Folders.IsEmpty())
+            if (i_selectedFolder.Folders != null && !i_selectedFolder.Folders.IsEmpty())
                 FilteringPagesContent.Add(new FilteringPageViewModel(_filterService.SelectFolder(i_selectedFolder), i_nextDepthValue));
             else
                 _filterService.SelectFolder(i_selectedFolder);//empty folder scenario

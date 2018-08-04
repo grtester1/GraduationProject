@@ -4,11 +4,13 @@
              xmlns:local="clr-namespace:AgentVI"
              xmlns:ViewModels="clr-namespace:AgentVI.ViewModels"
              x:Class="AgentVI.Views.MainPage">
+
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
                     iOS="0,30,0,0">
         </OnPlatform>
     </ContentPage.Padding>
+
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
@@ -37,11 +39,12 @@
             </StackLayout.GestureRecognizers>
             <ListView x:Name="FilterStateIndicatorListView" ItemsSource="{Binding SelectedFoldersNamesCache}" ItemTapped="FilterStateIndicator_Tapped"/>
         </StackLayout>
-        
+
         <ContentView x:Name="PlaceHolder" Grid.Row="2"/>
         <BoxView BackgroundColor="#DCDCDC" Grid.Row="3"/>
 
         <Grid BackgroundColor="AliceBlue" Grid.Row="4">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -51,59 +54,87 @@
 
 
             <RelativeLayout Grid.Column="0" BackgroundColor="AliceBlue">
-                <Image Source="https://picsum.photos/200"   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
+                <Image                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
-                                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
-                <Button BackgroundColor="Transparent"       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
+                                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                                                            x:Name="FooterBarEventsImage"
+                                                            Source="https://picsum.photos/200"/>
+                <Button                                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.15}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
-                        Clicked="FooterBarEvents_Clicked"/>
-                <Label Text="Events" FontSize="10"          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}"
-                                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.32}"/>
+                                                            x:Name="FooterBarEventsButton"
+                                                            BackgroundColor="Transparent"
+                                                            Clicked="FooterBarEvents_Clicked"/>
+                <Label                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}"
+                                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.32}"
+                                                            x:Name="FooterBarEventsLabel"
+                                                            Text="Events"
+                                                            FontSize="10"/>
             </RelativeLayout>
 
             <RelativeLayout Grid.Column="1" BackgroundColor="AliceBlue">
-                <Image Source="https://picsum.photos/201"   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
+                <Image                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
-                                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
-                <Button BackgroundColor="Transparent"       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
+                                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                                                            x:Name="FooterBarCamerasImage"
+                                                            Source="https://picsum.photos/201"/>
+                <Button                                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.15}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
-                        Clicked="FooterBarCameras_Clicked"/>
-                <Label Text="Cameras" FontSize="10"         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}"
-                                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.27}"/>
+                                                            x:Name="FooterBarCamerasButton"
+                                                            BackgroundColor="Transparent"
+                                                            Clicked="FooterBarCameras_Clicked"/>
+                <Label                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}"
+                                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.27}"
+                                                            x:Name="FooterBarCamerasLabel"
+                                                            Text="Cameras"
+                                                            FontSize="10"/>
             </RelativeLayout>
 
             <RelativeLayout Grid.Column="2" BackgroundColor="AliceBlue">
-                <Image Source="https://picsum.photos/202"   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
+                <Image                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
-                                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
-                <Button BackgroundColor="Transparent"       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
+                                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                                                            x:Name="FooterBarHealthImage"
+                                                            Source="https://picsum.photos/202"/>
+                <Button                                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.15}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
-                        Clicked="FooterBarHealth_Clicked"/>
-                <Label Text="Health" FontSize="10"          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}"
-                                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.32}"/>
+                                                            x:Name="FooterBarHealthButton"
+                                                            Clicked="FooterBarHealth_Clicked"
+                                                            BackgroundColor="Transparent"/>
+                <Label                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}"
+                                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.32}"
+                                                            x:Name="FooterBarHealthLabel"
+                                                            Text="Health"
+                                                            FontSize="10"/>
             </RelativeLayout>
 
             <RelativeLayout Grid.Column="3" BackgroundColor="AliceBlue">
-                <Image Source="https://picsum.photos/203"   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
+                <Image                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
-                                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
-                <Button BackgroundColor="Transparent"       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
+                                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                                                            x:Name="FooterBarSettingsImage"
+                                                            Source="https://picsum.photos/203"/>
+                <Button                                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.15}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
-                        Clicked="FooterBarSettings_Clicked"/>
-                <Label Text="Settings" FontSize="10"        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}"
-                                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.29}"/>
+                                                            x:Name="FooterBarSettingsButton"
+                                                            BackgroundColor="Transparent"
+                                                            Clicked="FooterBarSettings_Clicked"/>
+                <Label                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}"
+                                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.29}"
+                                                            x:Name="FooterBarSettingsLabel"
+                                                            Text="Settings"
+                                                            FontSize="10"/>
             </RelativeLayout>
         </Grid>
     </Grid>
