@@ -30,6 +30,7 @@ namespace AgentVI.Views
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
+
         void loginButton_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             loadingData.IsRunning = true;
