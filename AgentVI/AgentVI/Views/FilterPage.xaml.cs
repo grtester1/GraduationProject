@@ -1,4 +1,9 @@
-﻿using AgentVI.Models;
+﻿#if DPROXY
+using DummyProxy;
+#else
+using InnoviApiProxy;
+#endif
+using AgentVI.Models;
 using AgentVI.Services;
 using AgentVI.ViewModels;
 using CommonServiceLocator;
@@ -11,8 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using DummyProxy;
-//<debugWithMainProxy>using InnoviApiProxy;
+
 
 namespace AgentVI.Views
 {
@@ -71,7 +75,7 @@ namespace AgentVI.Views
                 }
             }
 
-            m_FilterViewModel.fetchNextFilteringDepth(selectedFolder, ++filterDepthLabelValue);
+            m_FilterViewModel.FetchNextFilteringDepth(selectedFolder, ++filterDepthLabelValue);
         }
 
         private void filterSearchBar_TextChanged(object i_Sender, TextChangedEventArgs i_TextChangeEventArgs)
