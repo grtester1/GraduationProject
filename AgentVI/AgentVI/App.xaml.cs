@@ -1,4 +1,5 @@
-﻿using AgentVI.Services;
+﻿#define DEBUG
+using AgentVI.Services;
 using CommonServiceLocator;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,6 @@ namespace AgentVI
 		{
 			InitializeComponent();
             UnityContainer unityContainer = new UnityContainer();
-            unityContainer.RegisterType<IFilterService, FilterService>();
 
             ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(unityContainer));
 

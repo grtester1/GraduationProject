@@ -1,7 +1,11 @@
-﻿using System;
-using Xamarin.Forms;
+﻿#if DPROXY
 using DummyProxy;
-//<debugWithMainProxy>using InnoviApiProxy;
+#else
+using InnoviApiProxy;
+#endif
+using System;
+using Xamarin.Forms;
+
 
 namespace AgentVI.Models
 {

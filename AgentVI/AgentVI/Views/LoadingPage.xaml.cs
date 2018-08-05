@@ -1,10 +1,14 @@
-﻿using System;
+﻿#if DPROXY
+using DummyProxy;
+#else
+using InnoviApiProxy;
+#endif
+using System;
 using System.Collections.Generic;
 using AgentVI.Services;
 using Xamarin.Forms;
-//<debugWithMainProxy>using InnoviApiProxy;
-using DummyProxy;
 using AgentVI.ViewModels;
+
 namespace AgentVI.Views
 {
     public partial class LoadingPage : ContentPage
@@ -35,21 +39,24 @@ namespace AgentVI.Views
                 {
                     ServiceManager.Instance.LoginService.setLoggedInUser(loginResult.User);
                     await ProgressBarLine.ProgressTo(1, 2000, Easing.Linear);
-                    Navigation.InsertPageBefore(new MainPage(), this);
-                    await Navigation.PopAsync();
+                    //Navigation.InsertPageBefore(new MainPage(), this);
+                    await Navigation.PushAsync(new MainPage());
+                    //await Navigation.PopAsync();
                 }
                 else
                 {
                     await ProgressBarLine.ProgressTo(1, 1000, Easing.Linear);
-                    Navigation.InsertPageBefore(new LoginPage(), this);
-                    await Navigation.PopAsync();
+                    //Navigation.InsertPageBefore(new LoginPage(), this);
+                    await Navigation.PushAsync(new LoginPage());
+                    //await Navigation.PopAsync();
                 }
             }
             else
             {
                 await ProgressBarLine.ProgressTo(1, 1000, Easing.Linear);
-                Navigation.InsertPageBefore(new LoginPage(), this);
-                await Navigation.PopAsync();
+                //Navigation.InsertPageBefore(new LoginPage(), this);
+                await Navigation.PushAsync(new LoginPage());
+                //await Navigation.PopAsync();
             }
 		}
     }

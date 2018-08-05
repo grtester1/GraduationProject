@@ -33,12 +33,14 @@ namespace AgentVI.Views
 
         private void initPagesCollection()
         {
-            pageCollection = new Dictionary<String, Tuple<ContentPage, Button, Image, Label>>();
-            pageCollection.Add("Page1",             new Tuple<ContentPage, Button, Image, Label>(new Page1(), null, null, null));
-            pageCollection.Add("Page2",             new Tuple<ContentPage, Button, Image, Label>(new Page2(), null, null, null));
-            pageCollection.Add("CamerasPage",       new Tuple<ContentPage, Button, Image, Label>(new CamerasPage(), FooterBarCamerasButton, FooterBarCamerasImage, FooterBarCamerasLabel));
-            pageCollection.Add("SettingsPage",      new Tuple<ContentPage, Button, Image, Label>(new SettingsPage(), FooterBarSettingsButton, FooterBarSettingsImage, FooterBarSettingsLabel));
-            pageCollection.Add("EventsPage",        new Tuple<ContentPage, Button, Image, Label>(new EventsPage(), FooterBarEventsButton, FooterBarEventsImage, FooterBarEventsLabel));
+            pageCollection = new Dictionary<String, Tuple<ContentPage, Button, Image, Label>>()
+            {
+                { "Page1",             new Tuple<ContentPage, Button, Image, Label>(new Page1(), null, null, null) },
+                { "Page2",             new Tuple<ContentPage, Button, Image, Label>(new Page2(), null, null, null) },
+                { "CamerasPage",       new Tuple<ContentPage, Button, Image, Label>(new CamerasPage(), FooterBarCamerasButton, FooterBarCamerasImage, FooterBarCamerasLabel) },
+                { "SettingsPage",      new Tuple<ContentPage, Button, Image, Label>(new SettingsPage(), FooterBarSettingsButton, FooterBarSettingsImage, FooterBarSettingsLabel) },
+                { "EventsPage",        new Tuple<ContentPage, Button, Image, Label>(new EventsPage(), FooterBarEventsButton, FooterBarEventsImage, FooterBarEventsLabel) }
+            };
         }
 
 
@@ -52,7 +54,7 @@ namespace AgentVI.Views
                         kvPair.Value.Item4.BackgroundColor = Color.Transparent;
                 }
                 else
-                    kvPair.Value.Item4.BackgroundColor = Color.FromHex(k_TabSelectedColor);
+                    kvPair.Value.Item4.BackgroundColor = Color.FromHex(k_TabSelectionColor);
             }
         }
 

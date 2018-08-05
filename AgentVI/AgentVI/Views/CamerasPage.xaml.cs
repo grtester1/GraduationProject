@@ -1,9 +1,12 @@
-﻿using System;
+﻿#if DPROXY
+using DummyProxy;
+#else
+using InnoviApiProxy;
+#endif
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-//<debugWithMainProxy>using InnoviApiProxy;
-using DummyProxy;
 using AgentVI.ViewModels;
 using Xamarin.Forms;
 using System.Linq;

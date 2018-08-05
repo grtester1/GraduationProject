@@ -1,4 +1,9 @@
-﻿using AgentVI.Models;
+﻿#if DPROXY
+using DummyProxy;
+#else
+using InnoviApiProxy;
+#endif
+using AgentVI.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,8 +12,6 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
-//<debugWithMainProxy>using InnoviApiProxy;
-using DummyProxy;
 using AgentVI.Services;
 
 namespace AgentVI.ViewModels

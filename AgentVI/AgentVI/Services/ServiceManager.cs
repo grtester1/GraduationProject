@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AgentVI.Services
 {
-    public class ServiceManager
+    public partial class ServiceManager
     {
         private static ServiceManager _Instance = null;
         public static ServiceManager Instance
@@ -25,8 +25,8 @@ namespace AgentVI.Services
 
         private ServiceManager()
         {
-            LoginService = new LoginService();
-            FilterService = new FilterService();
+            LoginService = new LoginServiceS();
+            FilterService = new FilterServiceS();
         }
     }
 }
