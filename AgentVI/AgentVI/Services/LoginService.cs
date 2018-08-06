@@ -9,6 +9,7 @@ using System.Text;
 using System.Linq;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
+using AgentVI.Utils;
 
 namespace AgentVI.Services
 {
@@ -20,7 +21,10 @@ namespace AgentVI.Services
 
             public void setLoggedInUser(User i_loggedInUser)
             {
-                LoggedInUser = i_loggedInUser;
+                if (i_loggedInUser != null &&
+                    (LoggedInUser == null || !i_loggedInUser.Compare(LoggedInUser))
+                    )
+                    LoggedInUser = i_loggedInUser; 
             }
 
             private ISettings AppSettings
