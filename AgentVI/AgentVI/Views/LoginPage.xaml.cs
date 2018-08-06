@@ -62,7 +62,7 @@ namespace AgentVI.Views
                         m_LoginPageViewModel = new LoginPageViewModel();
                         m_LoginPageViewModel.InitializeFields(m_LoginResult.User);
 						ServiceManager.Instance.LoginService.SaveCredentials(m_LoginPageViewModel.AccessToken);
-						Navigation.InsertPageBefore(new MainPage(), this);
+						Navigation.InsertPageBefore(new MainPage(null), this); //TODO
                         Navigation.PopAsync();
                     }
                     else

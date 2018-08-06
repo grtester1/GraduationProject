@@ -1,4 +1,5 @@
-﻿using AgentVI.Services;
+﻿using AgentVI.Models;
+using AgentVI.Services;
 using AgentVI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,33 +15,61 @@ namespace AgentVI.Views
         private LoginPageViewModel m_LoginPageViewModel = null;
         private FilterIndicatorViewModel m_FilterIndicatorViewModel = null;
         private Page m_FilterPage = null;
+        private IProgress<ProgressReportModel> m_ProgressReporter = null;
+
         private Dictionary<String, Tuple<ContentPage, Button, Image, Label>> pageCollection;
         private const String k_TabSelectionColor = "bababa";
 
-        public MainPage()
+
+        public MainPage(IProgress<ProgressReportModel> i_ProgressReporter)
         {
+            m_ProgressReporter = i_ProgressReporter;
+            ProgressReportModel report = new ProgressReportModel(8);
+
+            updateReporter("Initializing filter...", report);
             m_FilterIndicatorViewModel = new FilterIndicatorViewModel();
             m_FilterPage = new FilterPage(m_FilterIndicatorViewModel);
             InitializeComponent();
             FilterStateIndicatorListView.BindingContext = m_FilterIndicatorViewModel;
+            updateReporter("Filter initialized correctly", report);
+
+            updateReporter("Fetching account...", report);
             m_LoginPageViewModel = new LoginPageViewModel();
             m_LoginPageViewModel.InitializeFields(ServiceManager.Instance.LoginService.LoggedInUser);
             BindingContext = m_LoginPageViewModel;
-            NavigationPage.SetHasNavigationBar(this, false);
-            initPagesCollection();
-        }
-        
+            updateReporter("Account initialized.", report);
+            initPagesCollection(report);
 
-        private void initPagesCollection()
+            NavigationPage.SetHasNavigationBar(this, false);            
+        }
+
+        private void updateReporter(String i_StageCompleted, ProgressReportModel i_Report)
         {
+            if(m_ProgressReporter != null && i_Report != null)
+            {
+                i_Report.Progress();
+                i_Report.AddStage(i_StageCompleted);
+                m_ProgressReporter.Report(i_Report);
+            }
+        }
+
+        private void initPagesCollection(ProgressReportModel i_Report)
+        {
+            updateReporter("Initializing app pages...", i_Report);
             pageCollection = new Dictionary<String, Tuple<ContentPage, Button, Image, Label>>()
             {
                 { "Page1",             new Tuple<ContentPage, Button, Image, Label>(new Page1(), null, null, null) },
-                { "Page2",             new Tuple<ContentPage, Button, Image, Label>(new Page2(), null, null, null) },
-                { "CamerasPage",       new Tuple<ContentPage, Button, Image, Label>(new CamerasPage(), FooterBarCamerasButton, FooterBarCamerasImage, FooterBarCamerasLabel) },
-                { "SettingsPage",      new Tuple<ContentPage, Button, Image, Label>(new SettingsPage(), FooterBarSettingsButton, FooterBarSettingsImage, FooterBarSettingsLabel) },
-                { "EventsPage",        new Tuple<ContentPage, Button, Image, Label>(new EventsPage(), FooterBarEventsButton, FooterBarEventsImage, FooterBarEventsLabel) }
+                { "Page2",             new Tuple<ContentPage, Button, Image, Label>(new Page2(), null, null, null) }
             };
+
+            updateReporter("Fetching Cameras...", i_Report);
+            pageCollection.Add("CamerasPage", new Tuple<ContentPage, Button, Image, Label>(new CamerasPage(), FooterBarCamerasButton, FooterBarCamerasImage, FooterBarCamerasLabel));
+
+            updateReporter("Fetching Settings...", i_Report);
+            pageCollection.Add("SettingsPage", new Tuple<ContentPage, Button, Image, Label>(new SettingsPage(), FooterBarSettingsButton, FooterBarSettingsImage, FooterBarSettingsLabel));
+
+            updateReporter("Fetching Events...", i_Report);
+            pageCollection.Add("EventsPage", new Tuple<ContentPage, Button, Image, Label>(new EventsPage(), FooterBarEventsButton, FooterBarEventsImage, FooterBarEventsLabel));
         }
 
 

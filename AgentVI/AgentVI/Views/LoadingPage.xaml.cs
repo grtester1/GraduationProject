@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using AgentVI.Services;
 using Xamarin.Forms;
 using AgentVI.ViewModels;
+using AgentVI.Models;
+using System.Threading.Tasks;
 
 namespace AgentVI.Views
 {
@@ -19,45 +21,43 @@ namespace AgentVI.Views
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
 			base.OnAppearing();
-			setNextPage();
+            await Task.Factory.StartNew(setNextPage);
         }
 
 		private async void setNextPage()
 		{
-			await ProgressBarLine.ProgressTo(0.1, 1000, Easing.SinIn);
+            Progress<ProgressReportModel> progress = new Progress<ProgressReportModel>();
+            progress.ProgressChanged += ReportProgress;
 
-            if (ServiceManager.Instance.LoginService.DoCredentialsExist()) //if the user is saved
+            if (ServiceManager.Instance.LoginService.DoCredentialsExist())
             {
 				LoginResult loginResult = InnoviApiService.Connect(ServiceManager.Instance.LoginService.AccessToken);
 
-                await ProgressBarLine.ProgressTo(0.7, 2000, Easing.CubicIn);
-
-                if (loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty) //if the access token is valid and not expired
+                if (loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                 {
                     ServiceManager.Instance.LoginService.setLoggedInUser(loginResult.User);
-                    await ProgressBarLine.ProgressTo(1, 2000, Easing.Linear);
-                    //Navigation.InsertPageBefore(new MainPage(), this);
-                    await Navigation.PushAsync(new MainPage());
-                    //await Navigation.PopAsync();
+                    MainPage mainAppPage = null;
+                    await Task.Factory.StartNew(() => mainAppPage = new MainPage(progress));
+                    Device.BeginInvokeOnMainThread(()=>Navigation.PushAsync(mainAppPage));
                 }
                 else
                 {
-                    await ProgressBarLine.ProgressTo(1, 1000, Easing.Linear);
-                    //Navigation.InsertPageBefore(new LoginPage(), this);
-                    await Navigation.PushAsync(new LoginPage());
-                    //await Navigation.PopAsync();
+                    Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(new LoginPage()));
                 }
             }
             else
             {
-                await ProgressBarLine.ProgressTo(1, 1000, Easing.Linear);
-                //Navigation.InsertPageBefore(new LoginPage(), this);
-                await Navigation.PushAsync(new LoginPage());
-                //await Navigation.PopAsync();
+                Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(new LoginPage()));
             }
 		}
+
+        private async void ReportProgress(object sender, ProgressReportModel e)
+        {
+            if (e != null)
+                await LoadingProgressBar.ProgressTo(e.PercentageComplete, 1000, Easing.Linear);
+        }
     }
 }

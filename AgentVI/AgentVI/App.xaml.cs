@@ -1,5 +1,4 @@
-﻿#define DEBUG
-using AgentVI.Services;
+﻿using AgentVI.Services;
 using CommonServiceLocator;
 using System;
 using System.Collections.Generic;

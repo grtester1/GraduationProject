@@ -28,9 +28,10 @@ namespace AgentVI.ViewModels
             if (i_loggedInUser != null)
             {
                 ServiceManager.Instance.LoginService.setLoggedInUser(i_loggedInUser);
-                ServiceManager.Instance.FilterService.InitCollections(i_loggedInUser.GetDefaultAccountFolders(), i_loggedInUser.GetDefaultAccountSensors());
-				//AccessToken = Settings.AccessToken;
-				AccessToken = InnoviApiService.AccessToken;
+                ServiceManager.Instance.FilterService.InitCollections(i_loggedInUser.GetDefaultAccountFolders(),
+                                                                    i_loggedInUser.GetDefaultAccountSensors());
+
+                AccessToken = InnoviApiService.AccessToken;
                 UserEmail = i_loggedInUser.UserEmail;
                 Username = i_loggedInUser.Username;
             }
