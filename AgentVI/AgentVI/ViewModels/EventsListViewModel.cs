@@ -1,8 +1,8 @@
-﻿#if DPROXY
+﻿
 using DummyProxy;
-#else
-using InnoviApiProxy;
-#endif
+
+//using InnoviApiProxy;
+
 using System;
 using System.Collections.Generic;
 using AgentVI.Services;
@@ -35,9 +35,9 @@ namespace AgentVI.ViewModels
 
                         EventModel eventModel = new EventModel();
 						eventModel.CamName = camEvent.SensorName;
-						//eventModel.dateTime = "6/2/2018 4:57:58 PM"; //camEvent.StartTime.ToString();
-						DateTime dateTime = new DateTime((long)camEvent.StartTime);
-						eventModel.dateTime = dateTime.ToString();
+						//eventModel.DateTime = "6/2/2018 4:57:58 PM"; //camEvent.StartTime.ToString();
+						DateTime DateTime = new DateTime((long)camEvent.StartTime);
+						eventModel.DateTime = DateTime.ToString();
 						eventModel.RuleName = camEvent.RuleName.ToString();
 						eventModel.CamImage = camEvent.ImagePath;
 						if (eventModel.CamImage == null || eventModel.CamImage == "")
@@ -51,7 +51,7 @@ namespace AgentVI.ViewModels
                 }
                 else*/
                 {
-					EventsList.Add(new EventModel { CamName = "There is currently no event in the selected folder.", RuleName = "", dateTime = "", CamImage = "https://nondualityamerica.files.wordpress.com/2010/10/nothing-here-neon-300x200.jpg?w=375&h=175" });
+					EventsList.Add(new EventModel { CamName = "There is currently no event in the selected folder.", RuleName = "", DateTime = "", CamImage = "https://nondualityamerica.files.wordpress.com/2010/10/nothing-here-neon-300x200.jpg?w=375&h=175" });
                 }
             }
             else

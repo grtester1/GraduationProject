@@ -1,8 +1,8 @@
-﻿#if DPROXY
+﻿
 using DummyProxy;
-#else
-using InnoviApiProxy;
-#endif
+
+//using InnoviApiProxy;
+
 using System;
 using System.Collections.Generic;
 using AgentVI.Services;

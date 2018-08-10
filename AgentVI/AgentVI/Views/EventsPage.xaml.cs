@@ -1,8 +1,8 @@
-﻿#if DPROXY
+﻿
 using DummyProxy;
-#else
-using InnoviApiProxy;
-#endif
+
+//using InnoviApiProxy;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,11 +21,12 @@ namespace AgentVI.Views
         public EventsPage()
         {
             InitializeComponent();
-
             User user = ServiceManager.Instance.LoginService.LoggedInUser;
             allEvents = new EventsListViewModel();
             allEvents.InitializeList(user);
+			eventListView.BindingContext = allEvents.EventsList; //????????????????????????? temporary
             eventListView.ItemsSource = allEvents.EventsList;
+
         }
 
         void OnRefresh(object sender, EventArgs e)
