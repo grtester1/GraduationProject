@@ -3,13 +3,13 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/ViewModels/EventsListViewModel.cs">
     <Files>
       <File FileName="AgentVI/AgentVI/Models/CameraModel.cs" Line="7" Column="28" />
-      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml" Line="11" Column="59" />
+      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml" Line="32" Column="15" />
       <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml.cs" Line="19" Column="1" />
       <File FileName="AgentVI/AgentVI/ViewModels/CamerasListViewModel.cs" Line="17" Column="1" />
       <File FileName="AgentVI/AgentVI/Models/EventModel.cs" Line="2" Column="29" />
-      <File FileName="AgentVI/AgentVI/Views/EventsPage.xaml" Line="11" Column="40" />
+      <File FileName="AgentVI/AgentVI/Views/EventsPage.xaml" Line="33" Column="1" />
       <File FileName="AgentVI/AgentVI/Views/EventsPage.xaml.cs" Line="34" Column="24" />
-      <File FileName="AgentVI/AgentVI/ViewModels/EventsListViewModel.cs" Line="48" Column="18" />
+      <File FileName="AgentVI/AgentVI/ViewModels/EventsListViewModel.cs" Line="48" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
