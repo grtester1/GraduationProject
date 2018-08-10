@@ -8,19 +8,19 @@
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-        <ListView x:Name="cameraListView" RowHeight="300" ItemTapped="OnTap" IsPullToRefreshEnabled="true" Refreshing="OnRefresh">
+        <ListView x:Name="cameraListView" RowHeight="300" IsPullToRefreshEnabled="true" Refreshing="OnRefresh">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Margin="20">
-                            <Label Text= "{Binding CamName}" TextColor="Navy" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center">
+                            <Label Text= "{Binding CamName, Mode=TwoWay}" TextColor="Navy" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="onCameraNameTapped"/>
                                 </Label.GestureRecognizers>
                             </Label>
-                            <Image Source="{Binding CamImage}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                            <Image Source="{Binding CamImage, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                             <StackLayout Spacing="5" Orientation="Horizontal" HorizontalOptions="Start">
-                                <Button BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding CamColorHealth}" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                                <Button BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding CamColorHealth, Mode=TwoWay}" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
 
                             </StackLayout>
                         </StackLayout>

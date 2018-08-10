@@ -13,17 +13,17 @@ using Xamarin.Forms.Xaml;
 
 namespace AgentVI.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CameraEventsPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class CameraEventsPage : ContentPage
+    {
         Sensor m_InPageSensor = null;
 
-		public CameraEventsPage ()
-		{
-			InitializeComponent();
-		}
+        public CameraEventsPage()
+        {
+            InitializeComponent();
+        }
 
-        public CameraEventsPage(Sensor i_InputSensor):this()
+        public CameraEventsPage(Sensor i_InputSensor) : this()
         {
             m_InPageSensor = i_InputSensor;
             SensorNameLabel.Text = i_InputSensor.Name;
@@ -32,5 +32,5 @@ namespace AgentVI.Views
             SensorDateLabel.Text = i_InputSensor.StreamUrl;
             //SensorRuleNameLabel.Text = i_InputSensor.LiveViewStream;
         }
-	}
+    }
 }

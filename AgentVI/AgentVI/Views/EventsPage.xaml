@@ -13,15 +13,15 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Margin="20">
-                            <Image Source="{Binding CamImage}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                            <Label Text= "{Binding CamName}" TextColor="Navy" HorizontalOptions="Start" >
+                            <Image Source="{Binding CamImage, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                            <Label Text= "{Binding CamName, Mode=TwoWay}" TextColor="Navy" HorizontalOptions="Start" >
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="cameraButton_Clicked"/>
                                 </Label.GestureRecognizers>
                             </Label>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding RuleName}" HorizontalOptions="Start" VerticalOptions="Center"  />
-                                <Label Text = "{Binding dateTime}" TextColor="Navy" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                                <Label Text="{Binding RuleName, Mode=TwoWay}" HorizontalOptions="Start" VerticalOptions="Center"  />
+                                <Label Text = "{Binding DateTime, Mode=TwoWay}" TextColor="Navy" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>
