@@ -23,11 +23,11 @@ namespace AgentVI.ViewModels
 
 		public void UpdateCameras()
 		{
+			CamerasList.Clear();
 			List<Sensor> filteredCamList = ServiceManager.Instance.FilterService.GetFilteredSensorCollection();
 			if (filteredCamList != null)
 			{
 				filteredCamList.Reverse(); //for debug
-				CamerasList.Clear();
 				foreach (Sensor camera in filteredCamList)
 				{
 					CameraModel camModel = new CameraModel();

@@ -16,36 +16,34 @@ namespace AgentVI.Views
 {
     public partial class EventsPage : ContentPage
     {
-        private EventsListViewModel allEvents = null;
+		private EventsListViewModel allEventsVM = null;
 
         public EventsPage()
         {
-            InitializeComponent();
+			InitializeComponent();
             User user = ServiceManager.Instance.LoginService.LoggedInUser;
-            allEvents = new EventsListViewModel();
-            allEvents.InitializeList(user);
-			eventListView.BindingContext = allEvents.EventsList; //????????????????????????? temporary
-            eventListView.ItemsSource = allEvents.EventsList;
-
+            allEventsVM = new EventsListViewModel();
+            allEventsVM.InitializeList(user);
+			eventListView.ItemsSource = allEventsVM.EventsList;
+            eventListView.BindingContext = allEventsVM.EventsList; //????????????????????????? temporary         
         }
 
-        void OnRefresh(object sender, EventArgs e)
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+			allEventsVM.UpdateEvents();
+        }
+
+        private void OnRefresh(object sender, EventArgs e)
         {
             var list = (ListView)sender;
-            //put the refreshing logic here
-            var itemList = allEvents.EventsList.Reverse().ToList();
-            allEvents.EventsList.Clear();
-            foreach (var s in itemList)
-            {
-                allEvents.EventsList.Add(s);
-            }
-            //make sure to end the refresh state
-            list.IsRefreshing = false;
+			allEventsVM.UpdateEvents();
+            list.IsRefreshing = false; //end the refresh state
         }
 
-        void cameraButton_Clicked(object sender, EventArgs e)
+		void cameraButton_Clicked(object sender, EventArgs e)
         {
             DisplayAlert("Message", "???", "Ok");
-        }
-    }
+        }     
+    }  
 }
