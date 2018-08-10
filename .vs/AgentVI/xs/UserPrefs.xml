@@ -1,0 +1,16 @@
+﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
+  <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Models/EventModel.cs">
+    <Files>
+      <File FileName="AgentVI/AgentVI/Models/CameraModel.cs" Line="7" Column="29" />
+      <File FileName="AgentVI/AgentVI/Models/EventModel.cs" Line="2" Column="29" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.8A81584A-48A8-4217-BBD6-54F8D4E3209A" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
