@@ -13,10 +13,12 @@ namespace AgentVI.Services
     {
         List<Folder>        GetAllFoldersBeneath(List<Folder> i_folders);
         void                InitCollections(InnoviObjectCollection<Folder> i_FolderCollection, InnoviObjectCollection<Sensor> i_SensorCollection);
+        void                SaveFilteredSensorCollection();
         List<Sensor>        GetFilteredSensorCollection();
         List<Folder>        SelectFolder(Folder i_selectedFolder);
         bool                IsEmptyFolder(Folder i_SelectedFolder);
         List<Folder>        GetAccountFolders(User i_user);
         List<String>        GetSelectedFoldersHirearchy();
+        event EventHandler  FilterStateUpdated;
     }
 }

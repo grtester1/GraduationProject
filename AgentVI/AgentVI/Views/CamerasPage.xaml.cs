@@ -16,30 +16,35 @@ namespace AgentVI.Views
 {
     public partial class CamerasPage : ContentPage
     {
-        private CamerasListViewModel allCamerasVM = null;
+        private CamerasListViewModel CamerasPageVM = null;
 
         public CamerasPage()
         {
             InitializeComponent();
 
-            User user = ServiceManager.Instance.LoginService.LoggedInUser;
-            allCamerasVM = new CamerasListViewModel();
-            allCamerasVM.InitializeList(user);
-            cameraListView.ItemsSource = allCamerasVM.CamerasList;
-            cameraListView.BindingContext = allCamerasVM.CamerasList; //????????????????????????? temporary
-
+            CamerasPageVM = new CamerasListViewModel();
+            initOnFilterStateUpdatedEventHandler();
+            CamerasPageVM.InitializeList(ServiceManager.Instance.LoginService.LoggedInUser);
+            cameraListView.ItemsSource = CamerasPageVM.CamerasList;
+            cameraListView.BindingContext = CamerasPageVM.CamerasList; //????????????????????????? temporary
         }
+
+        public void initOnFilterStateUpdatedEventHandler()
+        {
+            ServiceManager.Instance.FilterService.FilterStateUpdated += CamerasPageVM.OnFilterStateUpdated;
+        }
+
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            allCamerasVM.UpdateCameras();
+            CamerasPageVM.UpdateCameras();
         }
 
         private void OnRefresh(object sender, EventArgs e)
         {
             var list = (ListView)sender;
-            allCamerasVM.UpdateCameras();
+            CamerasPageVM.UpdateCameras();
             list.IsRefreshing = false; //end the refresh state
         }
 
@@ -50,7 +55,7 @@ namespace AgentVI.Views
 
         private void onCameraNameTapped(object sender, EventArgs e)
         {
-            (App.Current.MainPage as NavigationPage).PushAsync(new CameraEventsPage(allCamerasVM.CamerasList.Where(cam => cam.CamName == (sender as Label).Text).First().Sensor));
+            (App.Current.MainPage as NavigationPage).PushAsync(new CameraEventsPage(CamerasPageVM.CamerasList.Where(cam => cam.CamName == (sender as Label).Text).First().Sensor));
         }
     }
 }

@@ -14,12 +14,14 @@ namespace AgentVI.Services
     {
         private class FilterServiceS : IFilterService
         {
+            //TODO: merge AccountFolders_Depth0 & levelOneFolderCollection to 1 variable
+
             private List<Folder> AccountFolders_Depth0 { get; set; }
             private List<List<Folder>> FilteringLevelsCache { get; set; }
             private List<String> SelectedFoldersNames { get; set; }
             private List<Sensor> FilteredSensorsCollection { get; set; }
-            private List<Folder> levelOneFolderCollection;
             private bool isFilterUpdated = false;
+            public event EventHandler FilterStateUpdated;
 
             public FilterServiceS()
             {
@@ -37,13 +39,18 @@ namespace AgentVI.Services
                                         InnoviObjectCollection<Sensor> i_SensorCollection)
             {
                 if (i_FolderCollection != null)
-                    levelOneFolderCollection = i_FolderCollection.ToList();
+                    AccountFolders_Depth0 = i_FolderCollection.ToList();
                 if (i_SensorCollection != null)
                     FilteredSensorsCollection = i_SensorCollection.ToList();
                 isFilterUpdated = false;
             }
 
-            public List<Sensor> GetFilteredSensorCollection()
+            protected virtual void OnFilterStateUpdated()
+            {
+                FilterStateUpdated?.Invoke(this, EventArgs.Empty);
+            }
+
+            public void SaveFilteredSensorCollection()
             {
                 List<Sensor> res = null;
                 List<Folder> bufListOfFolders = null;
@@ -92,7 +99,12 @@ namespace AgentVI.Services
                     }
                 }
 
-                return res;
+                OnFilterStateUpdated();
+            }
+
+            public List<Sensor> GetFilteredSensorCollection()
+            {
+                return FilteredSensorsCollection;
             }
 
             /// <summary>

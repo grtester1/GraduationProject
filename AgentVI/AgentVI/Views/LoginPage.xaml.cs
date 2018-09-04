@@ -38,6 +38,7 @@ namespace AgentVI.Views
             string password = passwordEntry.Text;
             bool isUsernameEmpty = string.IsNullOrEmpty(username) || string.IsNullOrWhiteSpace(username);
             bool isPasswordEmpty = string.IsNullOrEmpty(password) || string.IsNullOrWhiteSpace(password);
+
             if (isUsernameEmpty || isPasswordEmpty)
             {
                 DisplayAlert("Login Error", "Please enter your username and password.", "Retry");
@@ -62,8 +63,9 @@ namespace AgentVI.Views
                         m_LoginPageViewModel = new LoginPageViewModel();
                         m_LoginPageViewModel.InitializeFields(m_LoginResult.User);
 						ServiceManager.Instance.LoginService.SaveCredentials(m_LoginPageViewModel.AccessToken);
-						Navigation.InsertPageBefore(new MainPage(null), this); //TODO
-                        Navigation.PopAsync();
+                        //Navigation.InsertPageBefore(new MainPage(null), this); //TODO
+                        //Navigation.PopAsync();
+                        Navigation.PushAsync(new LoadingPage());
                     }
                     else
                     {
@@ -77,7 +79,7 @@ namespace AgentVI.Views
 
         async void forgotPwdButton_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
-            var response = await DisplayActionSheet("forgot your password?", "Cancel", "Delete", "Copy Link", "Duplicate Link");
+            var response = await DisplayActionSheet("forgot your password?", "Cancel", null, "TODO: Implement action for password reset");
             await DisplayAlert("Response", response, "OK");
         }
     }

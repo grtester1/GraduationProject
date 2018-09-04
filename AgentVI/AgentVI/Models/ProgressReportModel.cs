@@ -18,7 +18,7 @@ namespace AgentVI.Models
         public void Progress()
         {
             if (PercentageComplete >= 100)
-                throw new Exception("Progress Bar was overflowed");
+                throw new Exception("Progress Bar is overflown");
             PercentageComplete += (float)1/progressResolution;
         }
 

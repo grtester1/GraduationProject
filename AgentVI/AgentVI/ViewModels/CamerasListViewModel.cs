@@ -21,6 +21,11 @@ namespace AgentVI.ViewModels
             CamerasList = new ObservableCollection<CameraModel>();
         }
 
+        public void OnFilterStateUpdated(object source, EventArgs e)
+        {
+            UpdateCameras();
+        }
+
         public void UpdateCameras()
         {
             CamerasList.Clear();

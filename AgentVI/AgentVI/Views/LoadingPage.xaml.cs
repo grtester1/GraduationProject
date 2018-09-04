@@ -29,18 +29,32 @@ namespace AgentVI.Views
 
 		private async void setNextPage()
 		{
+            //bool isServerAvailable = true;
             Progress<ProgressReportModel> progress = new Progress<ProgressReportModel>();
             progress.ProgressChanged += ReportProgress;
 
             if (ServiceManager.Instance.LoginService.DoCredentialsExist())
             {
-				LoginResult loginResult = InnoviApiService.Connect(ServiceManager.Instance.LoginService.AccessToken);
+                //try
+                //{
+                    LoginResult loginResult = InnoviApiService.Connect(ServiceManager.Instance.LoginService.AccessToken);
+                //}catch(ServerTimeOutException e)
+                //{
+                //    isServerAvailable = false;
+                //    PopupMessage explaining the error;
+                //}
+
 
                 if (loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                 {
                     ServiceManager.Instance.LoginService.setLoggedInUser(loginResult.User);
                     MainPage mainAppPage = null;
-                    await Task.Factory.StartNew(() => mainAppPage = new MainPage(progress));
+                    await Task.Factory.StartNew(() =>
+                        {
+                            mainAppPage = new MainPage(progress);
+                            
+                        }
+                                                );
                     Device.BeginInvokeOnMainThread(()=>Navigation.PushAsync(mainAppPage));
                 }
                 else

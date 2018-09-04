@@ -19,12 +19,13 @@ namespace AgentVI.Views
 
         private Dictionary<String, Tuple<ContentPage, Button, Image, Label>> pageCollection;
         private const String k_TabSelectionColor = "bababa";
+        private const short k_NumberOfInitializations = 8;
 
 
         public MainPage(IProgress<ProgressReportModel> i_ProgressReporter)
         {
             m_ProgressReporter = i_ProgressReporter;
-            ProgressReportModel report = new ProgressReportModel(8);
+            ProgressReportModel report = new ProgressReportModel(k_NumberOfInitializations);
 
             updateReporter("Initializing filter...", report);
             m_FilterIndicatorViewModel = new FilterIndicatorViewModel();
@@ -38,9 +39,13 @@ namespace AgentVI.Views
             m_LoginPageViewModel.InitializeFields(ServiceManager.Instance.LoginService.LoggedInUser);
             BindingContext = m_LoginPageViewModel;
             updateReporter("Account initialized.", report);
-            initPagesCollection(report);
 
-            NavigationPage.SetHasNavigationBar(this, false);            
+            initPagesCollectionHelper(report);
+
+            NavigationPage.SetHasNavigationBar(this, false);
+
+            PlaceHolder.Content = pageCollection["EventsPage"].Item1.Content;
+            markSelectedTab(pageCollection["EventsPage"].Item2);
         }
 
         private void updateReporter(String i_StageCompleted, ProgressReportModel i_Report)
@@ -53,7 +58,7 @@ namespace AgentVI.Views
             }
         }
 
-        private void initPagesCollection(ProgressReportModel i_Report)
+        private void initPagesCollectionHelper(ProgressReportModel i_Report)
         {
             updateReporter("Initializing app pages...", i_Report);
             pageCollection = new Dictionary<String, Tuple<ContentPage, Button, Image, Label>>()
