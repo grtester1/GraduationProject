@@ -90,40 +90,51 @@ namespace InnoviApiProxy
 
         private static LoginResult getLoginResult(HttpClient i_Client, HttpRequestMessage i_HttpRequestMessage)
         {
-            Task<HttpResponseMessage> result = i_Client.SendAsync(i_HttpRequestMessage);
-            HttpResponseMessage response = result.Result;
-            JObject responseJsonObject = HttpUtils.GetHttpResponseBody(response);
             LoginResult loginResult = new LoginResult();
 
-            if (responseJsonObject == null)
+            try
             {
-                if (i_HttpRequestMessage.RequestUri.ToString() == Settings.InnoviApiEndpoint + Settings.ApiVersionEndpoint +
-                    "user/refresh-token")
-                {
-                    loginResult.ErrorMessage = LoginResult.eErrorMessage.InvalidAccessToken;
-                }
-                else
-                {
-                    loginResult.ErrorMessage = LoginResult.eErrorMessage.ServerError;
-                }
-            }
-            else
-            {
-                string error = responseJsonObject["error"].ToString();
+                Task<HttpResponseMessage> result = i_Client.SendAsync(i_HttpRequestMessage);
+                HttpResponseMessage response = result.Result;
+                JObject responseJsonObject = HttpUtils.GetHttpResponseBody(response);
 
-                if (error == String.Empty)
+                if (responseJsonObject == null)
                 {
-                    m_Instance = JsonConvert.DeserializeObject<User>(responseJsonObject["entity"].ToString());
-                    loginResult.User = m_Instance;
-                    loginResult.ErrorMessage = LoginResult.eErrorMessage.Empty;
-                    InnoviApiService.AccessToken = responseJsonObject["entity"]["accessToken"].ToString();
+                    if (i_HttpRequestMessage.RequestUri.ToString() == Settings.InnoviApiEndpoint + Settings.ApiVersionEndpoint +
+                        "user/refresh-token")
+                    {
+                        loginResult.ErrorMessage = LoginResult.eErrorMessage.InvalidAccessToken;
+                    }
+                    else
+                    {
+                        loginResult.ErrorMessage = LoginResult.eErrorMessage.ServerError;
+                    }
                 }
                 else
                 {
-                    loginResult.ErrorMessage = LoginResult.eErrorMessage.WrongCredentials;
+                    string error = responseJsonObject["error"].ToString();
+
+                    if (error == String.Empty)
+                    {
+                        m_Instance = JsonConvert.DeserializeObject<User>(responseJsonObject["entity"].ToString());
+                        loginResult.User = m_Instance;
+                        loginResult.ErrorMessage = LoginResult.eErrorMessage.Empty;
+                        InnoviApiService.AccessToken = responseJsonObject["entity"]["accessToken"].ToString();
+                    }
+                    else
+                    {
+                        loginResult.ErrorMessage = LoginResult.eErrorMessage.WrongCredentials;
+                    }
                 }
+
+                
             }
-            
+            catch (Exception ex)
+            {
+                loginResult.ErrorMessage = LoginResult.eErrorMessage.ServerError;
+                loginResult.User = null;
+            }
+
             return loginResult;
         }
     }

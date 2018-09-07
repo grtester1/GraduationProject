@@ -44,7 +44,6 @@ namespace InnoviApiProxy
         public uint AlarmInterval { get; private set; }
         [JsonProperty]
         public string StreamUrl { get; private set; }
-        public string ReferenceImage { get; internal set; } = string.Empty;
         public string LiveViewStream { get; internal set; } = string.Empty;
         public int Health { get; internal set; } = 100;
 
@@ -57,6 +56,14 @@ namespace InnoviApiProxy
             private set
             {
                 SensorEvents = value;
+            }
+        }
+
+        public byte[] ReferenceImage
+        {
+            get
+            {
+                return HttpUtils.GetSensorReferenceImage(accountId, sensorId);
             }
         }
 

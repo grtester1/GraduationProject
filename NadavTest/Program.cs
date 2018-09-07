@@ -14,14 +14,12 @@ namespace NadavTest
             //         LoginResult loginResult1 = User.Connect("eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50SWQiOiI2Iiwicm9sZSI6IkFETUlOIiwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJUeXBlIjoiVVNFUiIsImV4cCI6MTUyNTg4NTU4MywidXNlcklkIjoiNTU1In0.jt - SDvzroj1 - dtjpU6O1zpklP_hZREb6RC8rSdCCP7g");
             InnoviObjectCollection<Sensor> lazySensors = user.GetDefaultAccountSensors();
 
-            List<Sensor> sesnsorList = lazySensors.ToList();
+      //      List<Sensor> sesnsorList = lazySensors.ToList();
 
-            foreach (Sensor sensor in sesnsorList)
+            foreach (Sensor sensor in lazySensors)
             {
-                if (sensor.Name != "Main camera")
-                {
-         //           continue;
-                }
+
+                byte[] testArr = sensor.ReferenceImage;
 
                 InnoviObjectCollection<SensorEvent> events = sensor.SensorEvents;
 

@@ -18,6 +18,7 @@ namespace InnoviApiProxy
             myClient.BaseAddress = new Uri(Settings.InnoviApiEndpoint);
             myClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             myClient.DefaultRequestHeaders.TryAddWithoutValidation("X-API-KEY", Settings.ApiKey);
+            myClient.Timeout = new TimeSpan(0, 0, 15);
             return myClient;
         }
 
@@ -31,6 +32,7 @@ namespace InnoviApiProxy
 
         internal static JObject GetHttpResponseBody(HttpResponseMessage i_HttpResponseMessage)
         {
+
             checkForTimeout(i_HttpResponseMessage);
             Task<string> responseAsString = i_HttpResponseMessage.Content.ReadAsStringAsync();
             string str = responseAsString.Result;
@@ -345,6 +347,27 @@ namespace InnoviApiProxy
             }
 
             return sortedEvents;
+        }
+
+        internal static byte[] GetSensorReferenceImage(int i_AccountId, int i_SensorId)
+        {
+            HttpClient myClient = new HttpClient();
+            myClient.BaseAddress = new Uri(Settings.InnoviApiEndpoint);
+            myClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/jpeg"));
+            myClient.DefaultRequestHeaders.TryAddWithoutValidation("X-API-KEY", Settings.ApiKey);
+            myClient.Timeout = new TimeSpan(0, 0, 15);
+
+            myClient.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken);
+
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, "sensorImage?accountId=" + i_AccountId.ToString() +
+                "&sensorId=" + i_SensorId.ToString());
+
+
+            Task<HttpResponseMessage> result = myClient.SendAsync(httpRequest);
+            HttpResponseMessage response = result.Result;
+            Task<byte[]> responseAsByteArray = response.Content.ReadAsByteArrayAsync();
+
+            return responseAsByteArray.Result;
         }
     }
 }
