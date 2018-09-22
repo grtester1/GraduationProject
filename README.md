@@ -1,4 +1,4 @@
-# Computer Science B.Sc Graduation Project [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
+# Computer Science B.Sc Graduation Project
 
 * Computer Science B.Sc Graduation Project
 * Xamarin based client-applications (for mobile platform) intended to provide alternative GUI for an existing web (non-mobile supported) GUI.
