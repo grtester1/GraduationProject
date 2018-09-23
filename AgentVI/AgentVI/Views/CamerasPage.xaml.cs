@@ -47,7 +47,9 @@ namespace AgentVI.Views
 
         private void onCameraNameTapped(object sender, EventArgs e)
         {
-            (Application.Current.MainPage as NavigationPage).PushAsync(new CameraEventsPage(SensorsListVM.SensorsList.Where(sensor => sensor.SensorName == (sender as Grid).FindByName<Label>("SensorName").Text).First().Sensor));
+            var name = (sender as Grid).FindByName<Label>("SensorName");
+            var a = SensorsListVM.SensorsList.Where(sensor => sensor.SensorName == name.Text);
+            (Application.Current.MainPage as NavigationPage).PushAsync(new CameraEventsPage(a.First().Sensor));
         }
     }
 }
