@@ -16,46 +16,38 @@ namespace AgentVI.Views
 {
     public partial class CamerasPage : ContentPage
     {
-        private CamerasListViewModel CamerasPageVM = null;
+        private SensorsListViewModel SensorsListVM = null;
 
         public CamerasPage()
         {
             InitializeComponent();
 
-            CamerasPageVM = new CamerasListViewModel();
+            SensorsListVM = new SensorsListViewModel();
             initOnFilterStateUpdatedEventHandler();
-            CamerasPageVM.InitializeList(ServiceManager.Instance.LoginService.LoggedInUser);
-            cameraListView.ItemsSource = CamerasPageVM.CamerasList;
-            cameraListView.BindingContext = CamerasPageVM.CamerasList; //????????????????????????? temporary
+            SensorsListVM.InitializeList(ServiceManager.Instance.LoginService.LoggedInUser);
+            cameraListView.BindingContext = SensorsListVM;
         }
 
         public void initOnFilterStateUpdatedEventHandler()
         {
-            ServiceManager.Instance.FilterService.FilterStateUpdated += CamerasPageVM.OnFilterStateUpdated;
+            ServiceManager.Instance.FilterService.FilterStateUpdated += SensorsListVM.OnFilterStateUpdated;
         }
-
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            CamerasPageVM.UpdateCameras();
+            SensorsListVM.UpdateCameras();
         }
 
         private void OnRefresh(object sender, EventArgs e)
         {
-            var list = (ListView)sender;
-            CamerasPageVM.UpdateCameras();
-            list.IsRefreshing = false; //end the refresh state
+            SensorsListVM.UpdateCameras();
+            ((ListView)sender).IsRefreshing = false; //end the refresh state
         }
-
-        /*void OnTap(object sender, ItemTappedEventArgs e)
-        {
-            DisplayAlert("Camera Tapped", e.Item.ToString(), "Ok");
-        }*/
 
         private void onCameraNameTapped(object sender, EventArgs e)
         {
-            (App.Current.MainPage as NavigationPage).PushAsync(new CameraEventsPage(CamerasPageVM.CamerasList.Where(cam => cam.CamName == (sender as Label).Text).First().Sensor));
+            (Application.Current.MainPage as NavigationPage).PushAsync(new CameraEventsPage(SensorsListVM.SensorsList.Where(sensor => sensor.SensorName == (sender as Grid).FindByName<Label>("SensorName").Text).First().Sensor));
         }
     }
 }

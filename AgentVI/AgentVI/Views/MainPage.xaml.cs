@@ -61,11 +61,7 @@ namespace AgentVI.Views
         private void initPagesCollectionHelper(ProgressReportModel i_Report)
         {
             updateReporter("Initializing app pages...", i_Report);
-            pageCollection = new Dictionary<String, Tuple<ContentPage, Button, Image, Label>>()
-            {
-                { "Page1",             new Tuple<ContentPage, Button, Image, Label>(new Page1(), null, null, null) },
-                { "Page2",             new Tuple<ContentPage, Button, Image, Label>(new Page2(), null, null, null) }
-            };
+            pageCollection = new Dictionary<String, Tuple<ContentPage, Button, Image, Label>>();
 
             updateReporter("Fetching Cameras...", i_Report);
             pageCollection.Add("CamerasPage", new Tuple<ContentPage, Button, Image, Label>(new CamerasPage(), FooterBarCamerasButton, FooterBarCamerasImage, FooterBarCamerasLabel));

@@ -46,7 +46,7 @@ namespace AgentVI.ViewModels
             }
             else*/
             {
-                EventsList.Add(new EventModel { CamName = "There is currently no event in the selected folder.", RuleName = "", DateTime = "", CamImage = "https://nondualityamerica.files.wordpress.com/2010/10/nothing-here-neon-300x200.jpg?w=375&h=175" });
+                EventsList.Add(new EventModel { CamName = "There is currently no event in the selected folder.", RuleName = "", DateTime = "", ImagePath = "https://nondualityamerica.files.wordpress.com/2010/10/nothing-here-neon-300x200.jpg?w=375&h=175" });
             }
         }
 

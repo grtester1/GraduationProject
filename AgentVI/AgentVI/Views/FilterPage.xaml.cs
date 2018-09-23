@@ -59,7 +59,7 @@ namespace AgentVI.Views
         protected override bool OnBackButtonPressed()
         {
             m_FilterIndicatorViewModel.SelectedFoldersNamesCache = ServiceManager.Instance.FilterService.GetSelectedFoldersHirearchy();
-            ServiceManager.Instance.FilterService.SaveFilteredSensorCollection();
+            ServiceManager.Instance.FilterService.FetchSelectedFolder();
             return base.OnBackButtonPressed();
         }
 
@@ -75,8 +75,25 @@ namespace AgentVI.Views
                     filterDepthLabelValue = (int)a.ConvertBack(filterDepthLabelValue, null, null, null);
                 }
             }
-
             m_FilterViewModel.FetchNextFilteringDepth(selectedFolder, ++filterDepthLabelValue);
+            ConsiderSwipeRightSwipeUp();
+        }
+
+        private void ConsiderSwipeRightSwipeUp()
+        {
+            int numberOfPages = m_FilterViewModel.FilteringPagesContent.Count;
+            int numberOfSelectedFolders = m_FilterViewModel.SelectedFoldersCache.Count;
+            FilteringPageViewModel nextPage = m_FilterViewModel.FilteringPagesContent[numberOfPages - 1];
+
+            if (nextPage != null && numberOfPages != numberOfSelectedFolders)
+            {
+                SelectedItem = nextPage;
+                OnBindingContextChanged();
+            }
+            else
+            {
+                OnBackButtonPressed();
+            }
         }
 
         private void filterSearchBar_TextChanged(object i_Sender, TextChangedEventArgs i_TextChangeEventArgs)

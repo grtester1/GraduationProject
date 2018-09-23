@@ -13,7 +13,7 @@ namespace AgentVI.Services
     {
         List<Folder>        GetAllFoldersBeneath(List<Folder> i_folders);
         void                InitCollections(InnoviObjectCollection<Folder> i_FolderCollection, InnoviObjectCollection<Sensor> i_SensorCollection);
-        void                SaveFilteredSensorCollection();
+        void                FetchSelectedFolder();
         List<Sensor>        GetFilteredSensorCollection();
         List<Folder>        SelectFolder(Folder i_selectedFolder);
         bool                IsEmptyFolder(Folder i_SelectedFolder);

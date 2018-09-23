@@ -6,47 +6,69 @@ namespace AgentVI.Models
 {
     public class EventModel : INotifyPropertyChanged
     {
-        private string m_camName;
+        private string m_SensorName;
         public string CamName
         {
-            get { return m_camName; }
+            get { return m_SensorName; }
             set
             {
-                m_camName = value;
-                OnPropertyChanged("CamName");
+                m_SensorName = value;
+                OnPropertyChanged("SensorName");
             }
         }
 
-        private string m_ruleName;
+        private string m_RuleName;
         public string RuleName
         {
-            get { return m_ruleName; }
+            get { return m_RuleName; }
             set
             {
-                m_ruleName = value;
+                m_RuleName = value;
                 OnPropertyChanged("RuleName");
             }
         }
 
-        private string m_dateTime;
+        private string m_DateTime;
         public string DateTime
         {
-            get { return m_dateTime; }
+            get { return m_DateTime; }
             set
             {
-                m_dateTime = value;
+                m_DateTime = value;
                 OnPropertyChanged("DateTime");
             }
         }
 
-        private string m_camImage;
-        public string CamImage
+        private string m_ImagePath;
+        public string ImagePath
         {
-            get { return m_camImage; }
+            get { return m_ImagePath; }
             set
             {
-                m_camImage = value;
-                OnPropertyChanged("CamImage");
+                m_ImagePath = value;
+                OnPropertyChanged("SensorImage");
+            }
+        }
+
+        private string m_ClipPath;
+        public string ClipPath
+        {
+            get { return m_ClipPath; }
+            set
+            {
+                m_ClipPath = value;
+                OnPropertyChanged("ClipPath");
+            }
+        }
+
+        private string m_Tag;
+        public string Tag
+        {
+            get { return m_Tag; }
+            set
+            {
+                m_Tag = value;
+                OnPropertyChanged("SensorTag");
             }
         }
 

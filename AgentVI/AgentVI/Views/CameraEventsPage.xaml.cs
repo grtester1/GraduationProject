@@ -10,27 +10,41 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using AgentVI.ViewModels;
+using AgentVI.Services;
 
 namespace AgentVI.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CameraEventsPage : ContentPage
     {
-        Sensor m_InPageSensor = null;
+        private SensorEventsListViewModel SensorEventsLVVM = null;
 
         public CameraEventsPage()
         {
             InitializeComponent();
         }
 
-        public CameraEventsPage(Sensor i_InputSensor) : this()
+        public CameraEventsPage(InnoviObjectCollection<SensorEvent> i_SensorEventCollection) : this()
         {
-            m_InPageSensor = i_InputSensor;
-            SensorNameLabel.Text = i_InputSensor.Name;
-            SensorImage.Source = i_InputSensor.StreamUrl;
-            SensorImageAddress.Text = "Image address: " + i_InputSensor.StreamUrl;
-            SensorDateLabel.Text = i_InputSensor.StreamUrl;
-            //SensorRuleNameLabel.Text = i_InputSensor.LiveViewStream;
+            SensorEventsLVVM = new SensorEventsListViewModel(i_SensorEventCollection);
+            cameraEventsListView.ItemsSource = SensorEventsLVVM.SensorEventList;
+            cameraEventsListView.BindingContext = SensorEventsLVVM.SensorEventList;
+            initOnFilterStateUpdatedEventHandler();
+        }
+
+        public CameraEventsPage(Sensor i_Sensor) : this(i_Sensor.SensorEvents)
+        {
+        }
+
+        private void initOnFilterStateUpdatedEventHandler()
+        {
+            ServiceManager.Instance.FilterService.FilterStateUpdated += SensorEventsLVVM.OnFilterStateUpdated;
+        }
+
+        private void onCameraEventTapped(object sender, EventArgs e)
+        {
+
         }
     }
 }

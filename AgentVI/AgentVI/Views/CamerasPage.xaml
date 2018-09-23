@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="AgentVI.Views.CamerasPage">
+             x:Class="AgentVI.Views.CamerasPage"
+             xmlns:converters="clr-namespace:AgentVI.Converters;assembly=AgentVI">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:EnumStatusColorConverter x:Key="EnumStatusColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
         <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
                     iOS="0,30,0,0">
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-        <ListView x:Name="cameraListView" RowHeight="300" IsPullToRefreshEnabled="true" Refreshing="OnRefresh">
+        <ListView SeparatorColor="Black" x:Name="cameraListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" ItemsSource="{Binding SensorsList}" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Margin="20">
-                            <Label Text= "{Binding CamName, Mode=TwoWay}" TextColor="Navy" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="onCameraNameTapped"/>
-                                </Label.GestureRecognizers>
-                            </Label>
-                            <Image Source="{Binding CamImage, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                            <StackLayout Spacing="5" Orientation="Horizontal" HorizontalOptions="Start">
-                                <Button BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding CamColorHealth, Mode=TwoWay}" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-
-                            </StackLayout>
-                        </StackLayout>
+                        <Grid RowSpacing="0" Margin="0,5,0,5" Padding="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" x:Name="CameraName" Text= "{Binding SensorName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Image Grid.Row="1" Source="{Binding SensorImage}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" Margin="0,5,0,5"/>
+                            <Button Grid.Row="2" BorderRadius="10" HeightRequest="10" WidthRequest="20" BackgroundColor="{Binding SensorHealthStatus, Converter={StaticResource EnumStatusColorConverter}}" HorizontalOptions="StartAndExpand"/>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="onCameraNameTapped"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

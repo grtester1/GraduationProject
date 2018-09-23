@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace AgentVI.Services
 {
@@ -16,32 +17,35 @@ namespace AgentVI.Services
         {
             //TODO: merge AccountFolders_Depth0 & levelOneFolderCollection to 1 variable
 
-            private List<Folder> AccountFolders_Depth0 { get; set; }
-            private List<List<Folder>> FilteringLevelsCache { get; set; }
-            private List<String> SelectedFoldersNames { get; set; }
-            private List<Sensor> FilteredSensorsCollection { get; set; }
+            private List<Folder> RootFolders { get; set; }
+            private List<List<Folder>> HierarchyLevel { get; set; }
+            private List<String> SelectedFolderNames { get; set; }
+            private List<Folder> SelectedFolders { get; set; }
+            private List<Sensor> FilteredSensorCollection { get; set; }
+            private readonly object FilteredSensorCollectionLock = new object();
             private bool isFilterUpdated = false;
             public event EventHandler FilterStateUpdated;
 
             public FilterServiceS()
             {
-                AccountFolders_Depth0 = null;
-                FilteringLevelsCache = new List<List<Folder>>();
-                SelectedFoldersNames = new List<String>();
+                RootFolders = null;
+                HierarchyLevel = new List<List<Folder>>();
+                SelectedFolderNames = new List<String>();
+                SelectedFolders= new List<Folder>();
             }
 
             public List<String> GetSelectedFoldersHirearchy()
             {
-                return SelectedFoldersNames;
+                return SelectedFolderNames;
             }
 
             public void InitCollections(InnoviObjectCollection<Folder> i_FolderCollection,
                                         InnoviObjectCollection<Sensor> i_SensorCollection)
             {
                 if (i_FolderCollection != null)
-                    AccountFolders_Depth0 = i_FolderCollection.ToList();
+                    RootFolders = i_FolderCollection.ToList();
                 if (i_SensorCollection != null)
-                    FilteredSensorsCollection = i_SensorCollection.ToList();
+                    FilteredSensorCollection = i_SensorCollection.ToList();
                 isFilterUpdated = false;
             }
 
@@ -50,61 +54,55 @@ namespace AgentVI.Services
                 FilterStateUpdated?.Invoke(this, EventArgs.Empty);
             }
 
-            public void SaveFilteredSensorCollection()
+            public void FetchSelectedFolder()
             {
-                List<Sensor> res = null;
-                List<Folder> bufListOfFolders = null;
-
-                if (FilteringLevelsCache.Count == 0 || SelectedFoldersNames.Count == 0)
+                if (SelectedFolders != null && SelectedFolders.Count >= 1)
                 {
-                    res = FilteredSensorsCollection;
+                    FetchSelectedFolderHelper(SelectedFolders[SelectedFolders.Count - 1]);
                 }
                 else
                 {
-                    if (isFilterUpdated)                                                                        //Filter is set
+                    foreach(Folder f in RootFolders)
                     {
-                        res = FilteredSensorsCollection;
-                    }
-                    else
-                    {
-                        if (FilteringLevelsCache[FilteringLevelsCache.Count - 1] == null)                       //Filter is set till the last level
+                        Task.Factory.StartNew(() =>
                         {
-                            bufListOfFolders = FilteringLevelsCache[FilteringLevelsCache.Count - 2];
-                            Folder foundFolder = null;
-                            foreach (Folder f in bufListOfFolders)
-                            {
-                                if (f.Name == SelectedFoldersNames[SelectedFoldersNames.Count - 1])
-                                {
-                                    foundFolder = f;
-                                    break;
-                                }
-                            }
-                            FilteredSensorsCollection = res = foundFolder.Sensors.ToList();
+                            FetchSelectedFolderHelper(f);
                         }
-                        else                                                                                    //Filter is set but not till the last level (case "Filter1->Filter2" out of Filter1,Filter2,Filter3 is not considered!)
-                        {
-                            FilteredSensorsCollection = null;
-                            foreach (Folder f in FilteringLevelsCache[FilteringLevelsCache.Count - 1])
-                            {
-                                if (FilteredSensorsCollection == null)
-                                    FilteredSensorsCollection = f.Sensors.ToList();
-                                else
-                                {
-                                    FilteredSensorsCollection.AddRange(f.Sensors.ToList());
-                                }
-                            }
-                            res = FilteredSensorsCollection;
-                        }
-                        isFilterUpdated = true;
+                        );
                     }
                 }
+            }
 
-                OnFilterStateUpdated();
+            private void FetchSelectedFolderHelper(Folder i_currentlyFetchedFolder)
+            {
+                FilteredSensorCollection = new List<Sensor>();
+
+                if (i_currentlyFetchedFolder.Folders.IsEmpty())  //leaf folder
+                {
+                    Task.Factory.StartNew(() =>
+                    {
+                        lock(FilteredSensorCollectionLock)
+                        {
+                            FilteredSensorCollection.AddRange(i_currentlyFetchedFolder.Sensors.ToList());
+                            OnFilterStateUpdated();
+                        }
+                    });
+                }
+                else
+                {
+                    foreach (Folder f in i_currentlyFetchedFolder.Folders)
+                    {
+                        Task.Factory.StartNew(() =>
+                        {
+                            FetchSelectedFolderHelper(f);
+                        });
+                    }
+                }
             }
 
             public List<Sensor> GetFilteredSensorCollection()
             {
-                return FilteredSensorsCollection;
+                return FilteredSensorCollection;
             }
 
             /// <summary>
@@ -144,38 +142,41 @@ namespace AgentVI.Services
                 {
                     throw new Exception("Selected item isn't a folder.");
                 }
-                if (i_selectedFolder.Depth == FilteringLevelsCache.Count - 2)
+                if (i_selectedFolder.Depth == HierarchyLevel.Count - 2)
                 {
-                    SelectedFoldersNames.RemoveRange(i_selectedFolder.Depth, SelectedFoldersNames.Count - 1);
+                    SelectedFolderNames.RemoveRange(i_selectedFolder.Depth, SelectedFolderNames.Count - 1);
+                    SelectedFolders.RemoveRange(i_selectedFolder.Depth, SelectedFolders.Count - 1);
                     isLastFiltrationLevelSelection = true;
                 }
-                else if (i_selectedFolder.Depth < FilteringLevelsCache.Count - 1)
+                else if (i_selectedFolder.Depth < HierarchyLevel.Count - 1)
                 {
-                    FilteringLevelsCache.RemoveRange(i_selectedFolder.Depth + 1, FilteringLevelsCache.Count - 1);
-                    SelectedFoldersNames.RemoveRange(i_selectedFolder.Depth, SelectedFoldersNames.Count);
+                    HierarchyLevel.RemoveRange(i_selectedFolder.Depth + 1, HierarchyLevel.Count - 1);
+                    SelectedFolderNames.RemoveRange(i_selectedFolder.Depth, SelectedFolderNames.Count);
+                    SelectedFolders.RemoveRange(i_selectedFolder.Depth, SelectedFolders.Count);
                 }
                 if (i_selectedFolder != null)
                 {
                     if (i_selectedFolder.Folders != null && !isLastFiltrationLevelSelection)
                     {
-                        FilteringLevelsCache.Add(i_selectedFolder.Folders.ToList());
+                        HierarchyLevel.Add(i_selectedFolder.Folders.ToList());
                     }
-                    SelectedFoldersNames.Add(i_selectedFolder.Name);
+                    SelectedFolderNames.Add(i_selectedFolder.Name);
+                    SelectedFolders.Add(i_selectedFolder);
 
                 }
                 isFilterUpdated = false;
-                return FilteringLevelsCache[FilteringLevelsCache.Count - 1];
+                return HierarchyLevel[HierarchyLevel.Count - 1];
             }
 
             public List<Folder> GetAccountFolders(User i_user)
             {
-                if (AccountFolders_Depth0 == null)
+                if (RootFolders == null)
                 {
-                    AccountFolders_Depth0 = i_user.GetDefaultAccountFolders().ToList();
-                    if (AccountFolders_Depth0 == null) { throw new Exception("No folders for current user."); }
-                    FilteringLevelsCache.Add(AccountFolders_Depth0);
+                    RootFolders = i_user.GetDefaultAccountFolders().ToList();
+                    if (RootFolders == null) { throw new Exception("No folders for current user."); }
+                    HierarchyLevel.Add(RootFolders);
                 }
-                return AccountFolders_Depth0;
+                return RootFolders;
             }
 
             public bool IsEmptyFolder(Folder i_SelectedFolder)
