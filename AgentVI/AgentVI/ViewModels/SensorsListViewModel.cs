@@ -12,16 +12,14 @@ using AgentVI.Models;
 
 namespace AgentVI.ViewModels
 {
-    public class SensorsListViewModel
+    public class SensorsListViewModel : FilterDependentViewModel<SensorModel>
     {
-        public ObservableCollection<SensorModel> SensorsList { get; private set; }
-
         public SensorsListViewModel()
         {
-            SensorsList = new ObservableCollection<SensorModel>();
+            ObservableCollection = new ObservableCollection<SensorModel>();
         }
 
-        public void OnFilterStateUpdated(object source, EventArgs e)
+        public override void OnFilterStateUpdated(object source, EventArgs e)
         {
             UpdateCameras();
         }
@@ -29,20 +27,8 @@ namespace AgentVI.ViewModels
         public void UpdateCameras()
         {
             List<Sensor> filteredSensors = ServiceManager.Instance.FilterService.GetFilteredSensorCollection();
-            SensorsList.Clear();
-            filteredSensors.ForEach(sensor => SensorsList.Add(SensorModel.FactoryMethod(sensor)));
-        }
-
-        public void InitializeList(User i_loggedInUser)
-        {
-            if (i_loggedInUser != null)
-            {
-                UpdateCameras();
-            }
-            else
-            {
-                throw new Exception("Method InitializeList was called with null param");
-            }
+            ObservableCollection.Clear();
+            filteredSensors.ForEach(sensor => ObservableCollection.Add(SensorModel.FactoryMethod(sensor)));
         }
     }
 }

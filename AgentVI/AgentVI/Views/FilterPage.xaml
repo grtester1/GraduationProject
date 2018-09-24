@@ -3,23 +3,22 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:ViewModels="clr-namespace:AgentVI.ViewModels;assembly=AgentVI"
                 xmlns:local="clr-namespace:AgentVI.Views;assembly=AgentVI"
+                xmlns:settings="clr-namespace:AgentVI.Utils"
                 xmlns:converters="clr-namespace:AgentVI.Converters;assembly=AgentVI"
                 x:Class="AgentVI.Views.FilterPage"
                 ItemsSource="{Binding FilteringPagesContent}"
                 x:Name="MyFilterPage">
-    
-   <CarouselPage.Resources>
+    <CarouselPage.Resources>
         <ResourceDictionary>
             <converters:FilterPageIDConverter x:Key="FilterPageIDConverter"/>
         </ResourceDictionary>
     </CarouselPage.Resources>
-
     <CarouselPage.ItemTemplate>
         <DataTemplate>
             <ContentPage>
                 <ContentPage.Padding>
                     <OnPlatform x:TypeArguments="Thickness"
-                    iOS="0,30,0,0">
+                        iOS="{x:Static settings:Settings.iOSPlatformPadding}">
                     </OnPlatform>
                 </ContentPage.Padding>
                 <Grid>

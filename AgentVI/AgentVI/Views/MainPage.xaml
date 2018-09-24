@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:AgentVI"
              xmlns:ViewModels="clr-namespace:AgentVI.ViewModels"
-             x:Class="AgentVI.Views.MainPage">
+             x:Class="AgentVI.Views.MainPage"
+             xmlns:settings="clr-namespace:AgentVI.Utils">
 
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
-                    iOS="0,30,0,0">
+                    iOS="{x:Static settings:Settings.iOSPlatformPadding}">
         </OnPlatform>
     </ContentPage.Padding>
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using InnoviApiProxy;
 using Xamarin.Forms;
 
 namespace AgentVI.Models
@@ -7,69 +8,89 @@ namespace AgentVI.Models
     public class EventModel : INotifyPropertyChanged
     {
         private string m_SensorName;
-        public string CamName
+        public string SensorName
         {
             get { return m_SensorName; }
-            set
+            private set
             {
                 m_SensorName = value;
                 OnPropertyChanged("SensorName");
             }
         }
 
-        private string m_RuleName;
-        public string RuleName
+        private SensorEvent.eBehaviorType m_SensorEventRuleName;
+        public SensorEvent.eBehaviorType SensorEventRuleName
         {
-            get { return m_RuleName; }
-            set
+            get { return m_SensorEventRuleName; }
+            private set
             {
-                m_RuleName = value;
-                OnPropertyChanged("RuleName");
+                m_SensorEventRuleName = value;
+                OnPropertyChanged("SensorEventRuleName");
             }
         }
 
-        private string m_DateTime;
-        public string DateTime
+        private ulong m_SensorEventDateTime;
+        public ulong SensorEventDateTime
         {
-            get { return m_DateTime; }
-            set
+            get { return m_SensorEventDateTime; }
+            private set
             {
-                m_DateTime = value;
-                OnPropertyChanged("DateTime");
+                m_SensorEventDateTime = value;
+                OnPropertyChanged("SensorEventDateTime");
             }
         }
 
-        private string m_ImagePath;
-        public string ImagePath
+        private string m_SensorEventImage;
+        public string SensorEventImage
         {
-            get { return m_ImagePath; }
-            set
+            get { return m_SensorEventImage; }
+            private set
             {
-                m_ImagePath = value;
-                OnPropertyChanged("SensorImage");
+                m_SensorEventImage = value;
+                OnPropertyChanged("SensorEventImage");
             }
         }
 
-        private string m_ClipPath;
-        public string ClipPath
+        private string m_SensorEventClip;
+        public string SensorEventClip
         {
-            get { return m_ClipPath; }
-            set
+            get { return m_SensorEventClip; }
+            private set
             {
-                m_ClipPath = value;
-                OnPropertyChanged("ClipPath");
+                m_SensorEventClip = value;
+                OnPropertyChanged("SensorEventClip");
             }
         }
 
-        private string m_Tag;
-        public string Tag
+        private Sensor.eSensorEventTag m_SensorEventTag;
+        public Sensor.eSensorEventTag SensorEventTag
         {
-            get { return m_Tag; }
-            set
+            get { return m_SensorEventTag; }
+            private set
             {
-                m_Tag = value;
-                OnPropertyChanged("SensorTag");
+                m_SensorEventTag = value;
+                OnPropertyChanged("SensorEventTag");
             }
+        }
+
+        private EventModel()
+        {
+
+        }
+
+        internal static EventModel FactoryMethod(SensorEvent i_SensorEvent)
+        {
+            EventModel res = new EventModel()
+            {
+                SensorName = i_SensorEvent.SensorName,
+                SensorEventClip = i_SensorEvent.ClipPath,
+                SensorEventDateTime = i_SensorEvent.StartTime,
+                SensorEventImage = i_SensorEvent.ImagePath,
+                SensorEventRuleName = i_SensorEvent.RuleName,
+                SensorEventTag = i_SensorEvent.Tag
+            };
+
+            return res;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

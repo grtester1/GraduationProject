@@ -1,28 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="AgentVI.Views.EventsPage">
-        <ContentPage.Padding>
+             xmlns:local="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             x:Class="AgentVI.Views.EventsPage"
+             xmlns:converters="clr-namespace:AgentVI.Converters">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TimestampConverter x:Key="TimestampConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
                     iOS="0,30,0,0">
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-        <ListView x:Name="eventListView" RowHeight="300" IsPullToRefreshEnabled="true" Refreshing="OnRefresh">
+        <ListView SeparatorColor="Black" x:Name="eventListView" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" HorizontalOptions="CenterAndExpand" HasUnevenRows="True" ItemsSource="{Binding ObservableCollection}}">
+            <ListView.Footer>
+                <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                    <Grid.Triggers>
+                        <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                            <Setter Property="HeightRequest" Value="0"/>
+                        </Trigger>
+                    </Grid.Triggers>
+                    <Label Text="Loading..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"/>
+                </Grid>
+            </ListView.Footer>
+            <ListView.Behaviors>
+                <local:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
+            </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Margin="20">
-                            <Image Source="{Binding CamImage, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                            <Label Text= "{Binding CamName, Mode=TwoWay}" TextColor="Navy" HorizontalOptions="Start" />
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding RuleName, Mode=TwoWay}" HorizontalOptions="Start" VerticalOptions="Center"  />
-                                <Label Text = "{Binding DateTime, Mode=TwoWay}" TextColor="Navy" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
-                            </StackLayout>
-                            <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="cameraButton_Clicked"/>
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
+                        <Grid RowSpacing="0" Margin="0,5,0,5" Padding="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <!--{Binding SensorEventImage}-->
+                            <Image Grid.Row="0" Source="https://picsum.photos/200/200" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" Margin="0,5,0,5"/>
+                            <Label Grid.Row="1" Text="{Binding SensorName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Grid ColumnSpacing="0" Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding SensorEventRuleName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                                <Label Grid.Column="1" Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
+                            </Grid>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSensorEvent_Tapped"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

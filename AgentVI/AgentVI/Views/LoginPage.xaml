@@ -3,22 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AgentVI.Views.LoginPage">
     <RelativeLayout>
-        <!-- XamarinLiveBug
-                     xmlns:local="clr-namespace:AgentVI.MarkupExtensions"
-        <Image Source="{local:EmbeddedImage ResourceId=AgentVI_New.Resources.Images.background.png}" Aspect="AspectFill" RelativeLayout.WidthConstraint="{ConstraintExpression
-                                                                                                    Type=RelativeToParent,
-                                                                                                    Property=Width}"
-                                                                RelativeLayout.HeightConstraint="{ConstraintExpression
-                                                                                                    Type=RelativeToParent,
-                                                                                                    Property=Height}"/>
-        -->
         <Image x:Name="backgroundPicture" Source="imgs/common/background.png" Aspect="AspectFill"
-                                                                RelativeLayout.WidthConstraint="{ConstraintExpression
-                                                                                                    Type=RelativeToParent,
-                                                                                                    Property=Width}"
-                                                                RelativeLayout.HeightConstraint="{ConstraintExpression
-                                                                                                    Type=RelativeToParent,
-                                                                                                    Property=Height}"/>
+                                                RelativeLayout.WidthConstraint="{ConstraintExpression
+                                                                                Type=RelativeToParent,
+                                                                                Property=Width}"
+                                                RelativeLayout.HeightConstraint="{ConstraintExpression
+                                                                                Type=RelativeToParent,
+                                                                                Property=Height}"/>
         <Image x:Name="logoPicture" Source="imgs/common/innovi_logo.png"
                                                 RelativeLayout.WidthConstraint="{ConstraintExpression
                                                                                 Type=RelativeToParent,
