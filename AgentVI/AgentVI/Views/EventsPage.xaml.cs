@@ -23,7 +23,7 @@ namespace AgentVI.Views
             InitializeComponent();
             SensorsEventsListVM = new EventsListViewModel();
             initOnFilterStateUpdatedEventHandler();
-            SensorsEventsListVM.InitializeList(ServiceManager.Instance.LoginService.LoggedInUser);
+            SensorsEventsListVM.UpdateEvents();
             eventListView.BindingContext = SensorsEventsListVM;
         }
 

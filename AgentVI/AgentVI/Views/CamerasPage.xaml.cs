@@ -24,7 +24,7 @@ namespace AgentVI.Views
 
             SensorsListVM = new SensorsListViewModel();
             initOnFilterStateUpdatedEventHandler();
-            SensorsListVM.InitializeList(ServiceManager.Instance.LoginService.LoggedInUser);
+            SensorsListVM.UpdateCameras();
             cameraListView.BindingContext = SensorsListVM;
         }
 

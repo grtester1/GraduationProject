@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace AgentVI.Utils
 {
-    internal static class Settings
+    public static class Settings
     {
-        internal static string iOSPlatformPadding { get; } = "5";
-        internal static string ListViewMargins { get; } = "0,5,0,5";
+        public static Thickness iOSPlatformPadding { get; } = new Thickness(5);
+        public static Thickness ListViewMargins { get; } = new Thickness(0,5,0,5);
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              x:Class="AgentVI.Views.EventsPage"
              xmlns:converters="clr-namespace:AgentVI.Converters">
     <ContentPage.Resources>
@@ -15,6 +16,19 @@
     </ContentPage.Padding>
     <ContentPage.Content>
         <ListView SeparatorColor="Black" x:Name="eventListView" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" HorizontalOptions="CenterAndExpand" HasUnevenRows="True" ItemsSource="{Binding ObservableCollection}}">
+            <ListView.Footer>
+                <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                    <Grid.Triggers>
+                        <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                            <Setter Property="HeightRequest" Value="0"/>
+                        </Trigger>
+                    </Grid.Triggers>
+                    <Label Text="Loading..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"/>
+                </Grid>
+            </ListView.Footer>
+            <ListView.Behaviors>
+                <local:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
+            </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -24,15 +38,16 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Image Grid.Row="0" Source="{Binding SensorEventImage}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" Margin="0,5,0,5"/>
+                            <!--{Binding SensorEventImage}-->
+                            <Image Grid.Row="0" Source="https://picsum.photos/200/200" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" Margin="0,5,0,5"/>
                             <Label Grid.Row="1" Text="{Binding SensorName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="Center"/>
                             <Grid ColumnSpacing="0" Grid.Row="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding EventRuleName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
-                                <Label Grid.Column="1" Text="{Binding EventTimestamp, Converter={StaticResource TimestampConverter}}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
+                                <Label Grid.Column="0" Text="{Binding SensorEventRuleName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                                <Label Grid.Column="1" Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
                             </Grid>
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnSensorEvent_Tapped"/>

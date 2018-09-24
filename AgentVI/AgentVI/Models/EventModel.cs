@@ -8,7 +8,7 @@ namespace AgentVI.Models
     public class EventModel : INotifyPropertyChanged
     {
         private string m_SensorName;
-        public string CamName
+        public string SensorName
         {
             get { return m_SensorName; }
             private set
@@ -18,58 +18,58 @@ namespace AgentVI.Models
             }
         }
 
-        private SensorEvent.eBehaviorType m_RuleName;
-        public SensorEvent.eBehaviorType RuleName
+        private SensorEvent.eBehaviorType m_SensorEventRuleName;
+        public SensorEvent.eBehaviorType SensorEventRuleName
         {
-            get { return m_RuleName; }
+            get { return m_SensorEventRuleName; }
             private set
             {
-                m_RuleName = value;
-                OnPropertyChanged("RuleName");
+                m_SensorEventRuleName = value;
+                OnPropertyChanged("SensorEventRuleName");
             }
         }
 
-        private ulong m_DateTime;
-        public ulong DateTime
+        private ulong m_SensorEventDateTime;
+        public ulong SensorEventDateTime
         {
-            get { return m_DateTime; }
+            get { return m_SensorEventDateTime; }
             private set
             {
-                m_DateTime = value;
-                OnPropertyChanged("DateTime");
+                m_SensorEventDateTime = value;
+                OnPropertyChanged("SensorEventDateTime");
             }
         }
 
-        private string m_ImagePath;
-        public string ImagePath
+        private string m_SensorEventImage;
+        public string SensorEventImage
         {
-            get { return m_ImagePath; }
+            get { return m_SensorEventImage; }
             private set
             {
-                m_ImagePath = value;
-                OnPropertyChanged("SensorImage");
+                m_SensorEventImage = value;
+                OnPropertyChanged("SensorEventImage");
             }
         }
 
-        private string m_ClipPath;
-        public string ClipPath
+        private string m_SensorEventClip;
+        public string SensorEventClip
         {
-            get { return m_ClipPath; }
+            get { return m_SensorEventClip; }
             private set
             {
-                m_ClipPath = value;
-                OnPropertyChanged("ClipPath");
+                m_SensorEventClip = value;
+                OnPropertyChanged("SensorEventClip");
             }
         }
 
-        private Sensor.eSensorEventTag m_Tag;
-        public Sensor.eSensorEventTag Tag
+        private Sensor.eSensorEventTag m_SensorEventTag;
+        public Sensor.eSensorEventTag SensorEventTag
         {
-            get { return m_Tag; }
+            get { return m_SensorEventTag; }
             private set
             {
-                m_Tag = value;
-                OnPropertyChanged("SensorTag");
+                m_SensorEventTag = value;
+                OnPropertyChanged("SensorEventTag");
             }
         }
 
@@ -82,12 +82,12 @@ namespace AgentVI.Models
         {
             EventModel res = new EventModel()
             {
-                CamName = i_SensorEvent.SensorName,
-                ClipPath = i_SensorEvent.ClipPath,
-                DateTime = i_SensorEvent.StartTime,
-                ImagePath = i_SensorEvent.ImagePath,
-                RuleName = i_SensorEvent.RuleName,
-                Tag = i_SensorEvent.Tag
+                SensorName = i_SensorEvent.SensorName,
+                SensorEventClip = i_SensorEvent.ClipPath,
+                SensorEventDateTime = i_SensorEvent.StartTime,
+                SensorEventImage = i_SensorEvent.ImagePath,
+                SensorEventRuleName = i_SensorEvent.RuleName,
+                SensorEventTag = i_SensorEvent.Tag
             };
 
             return res;

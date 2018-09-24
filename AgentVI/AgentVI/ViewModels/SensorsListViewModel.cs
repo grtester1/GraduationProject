@@ -30,17 +30,5 @@ namespace AgentVI.ViewModels
             ObservableCollection.Clear();
             filteredSensors.ForEach(sensor => ObservableCollection.Add(SensorModel.FactoryMethod(sensor)));
         }
-
-        public void InitializeList(User i_loggedInUser)
-        {
-            if (i_loggedInUser != null)
-            {
-                UpdateCameras();
-            }
-            else
-            {
-                throw new Exception("Method InitializeList was called with null param");
-            }
-        }
     }
 }
