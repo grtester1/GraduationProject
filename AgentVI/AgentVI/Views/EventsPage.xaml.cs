@@ -16,34 +16,37 @@ namespace AgentVI.Views
 {
     public partial class EventsPage : ContentPage
     {
-        private EventsListViewModel allEventsVM = null;
+        private EventsListViewModel SensorsEventsListVM = null;
 
         public EventsPage()
         {
             InitializeComponent();
-            User user = ServiceManager.Instance.LoginService.LoggedInUser;
-            allEventsVM = new EventsListViewModel();
-            allEventsVM.InitializeList(user);
-            eventListView.ItemsSource = allEventsVM.EventsList;
-            eventListView.BindingContext = allEventsVM.EventsList; //????????????????????????? temporary         
+            SensorsEventsListVM = new EventsListViewModel();
+            initOnFilterStateUpdatedEventHandler();
+            SensorsEventsListVM.InitializeList(ServiceManager.Instance.LoginService.LoggedInUser);
+            eventListView.BindingContext = SensorsEventsListVM;
+        }
+
+        public void initOnFilterStateUpdatedEventHandler()
+        {
+            ServiceManager.Instance.FilterService.FilterStateUpdated += SensorsEventsListVM.OnFilterStateUpdated;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            allEventsVM.UpdateEvents();
+            SensorsEventsListVM.UpdateEvents();
         }
 
         private void OnRefresh(object sender, EventArgs e)
         {
-            var list = (ListView)sender;
-            allEventsVM.UpdateEvents();
-            list.IsRefreshing = false; //end the refresh state
+            SensorsEventsListVM.UpdateEvents();
+            ((ListView)sender).IsRefreshing = false; //end the refresh state
         }
 
-        void cameraButton_Clicked(object sender, EventArgs e)
+        private void OnSensorEvent_Tapped(object sender, EventArgs e)
         {
-            DisplayAlert("Message", "???", "Ok");
+            throw new NotImplementedException();
         }
     }
 }

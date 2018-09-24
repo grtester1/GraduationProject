@@ -16,7 +16,7 @@ namespace AgentVI.Models
 
         }
 
-        public static SensorModel FactoryMethod(Sensor i_Sensor)
+        internal static SensorModel FactoryMethod(Sensor i_Sensor)
         {
             SensorModel res = new SensorModel()
             {

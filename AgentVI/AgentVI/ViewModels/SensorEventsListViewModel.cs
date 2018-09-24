@@ -25,15 +25,7 @@ namespace AgentVI.ViewModels
             SensorEventList = new ObservableCollection<EventModel>();
             foreach(SensorEvent se in i_SensorEventCollection)
             {
-                SensorEventList.Add(new EventModel()
-                {
-                    CamName = se.SensorName,
-                    ClipPath = se.ClipPath,
-                    DateTime = se.StartTime.ToString(),
-                    ImagePath = se.ImagePath,
-                    RuleName = se.RuleName.ToString(),
-                    Tag = se.Tag.ToString()
-                });
+                SensorEventList.Add(EventModel.FactoryMethod(se));
             }
         }
 

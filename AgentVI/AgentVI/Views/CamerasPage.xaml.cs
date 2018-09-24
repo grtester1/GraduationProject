@@ -45,10 +45,10 @@ namespace AgentVI.Views
             ((ListView)sender).IsRefreshing = false; //end the refresh state
         }
 
-        private void onCameraNameTapped(object sender, EventArgs e)
+        private void OnSensor_Tapped(object sender, EventArgs e)
         {
             var name = (sender as Grid).FindByName<Label>("SensorName");
-            var a = SensorsListVM.SensorsList.Where(sensor => sensor.SensorName == name.Text);
+            var a = SensorsListVM.ObservableCollection.Where(sensor => sensor.SensorName == name.Text);
             (Application.Current.MainPage as NavigationPage).PushAsync(new CameraEventsPage(a.First().Sensor));
         }
     }

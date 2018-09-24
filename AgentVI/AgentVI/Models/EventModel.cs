@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using InnoviApiProxy;
 using Xamarin.Forms;
 
 namespace AgentVI.Models
@@ -10,29 +11,29 @@ namespace AgentVI.Models
         public string CamName
         {
             get { return m_SensorName; }
-            set
+            private set
             {
                 m_SensorName = value;
                 OnPropertyChanged("SensorName");
             }
         }
 
-        private string m_RuleName;
-        public string RuleName
+        private SensorEvent.eBehaviorType m_RuleName;
+        public SensorEvent.eBehaviorType RuleName
         {
             get { return m_RuleName; }
-            set
+            private set
             {
                 m_RuleName = value;
                 OnPropertyChanged("RuleName");
             }
         }
 
-        private string m_DateTime;
-        public string DateTime
+        private ulong m_DateTime;
+        public ulong DateTime
         {
             get { return m_DateTime; }
-            set
+            private set
             {
                 m_DateTime = value;
                 OnPropertyChanged("DateTime");
@@ -43,7 +44,7 @@ namespace AgentVI.Models
         public string ImagePath
         {
             get { return m_ImagePath; }
-            set
+            private set
             {
                 m_ImagePath = value;
                 OnPropertyChanged("SensorImage");
@@ -54,22 +55,42 @@ namespace AgentVI.Models
         public string ClipPath
         {
             get { return m_ClipPath; }
-            set
+            private set
             {
                 m_ClipPath = value;
                 OnPropertyChanged("ClipPath");
             }
         }
 
-        private string m_Tag;
-        public string Tag
+        private Sensor.eSensorEventTag m_Tag;
+        public Sensor.eSensorEventTag Tag
         {
             get { return m_Tag; }
-            set
+            private set
             {
                 m_Tag = value;
                 OnPropertyChanged("SensorTag");
             }
+        }
+
+        private EventModel()
+        {
+
+        }
+
+        internal static EventModel FactoryMethod(SensorEvent i_SensorEvent)
+        {
+            EventModel res = new EventModel()
+            {
+                CamName = i_SensorEvent.SensorName,
+                ClipPath = i_SensorEvent.ClipPath,
+                DateTime = i_SensorEvent.StartTime,
+                ImagePath = i_SensorEvent.ImagePath,
+                RuleName = i_SensorEvent.RuleName,
+                Tag = i_SensorEvent.Tag
+            };
+
+            return res;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

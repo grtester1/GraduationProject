@@ -8,13 +8,13 @@
             <converters:EnumStatusColorConverter x:Key="EnumStatusColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-        <ContentPage.Padding>
+    <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
                     iOS="0,30,0,0">
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-        <ListView SeparatorColor="Black" x:Name="cameraListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" ItemsSource="{Binding SensorsList}" HasUnevenRows="True">
+        <ListView SeparatorColor="Black" x:Name="cameraListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -26,9 +26,9 @@
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" x:Name="SensorName" Text= "{Binding SensorName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="Center"/>
                             <Image Grid.Row="1" Source="{Binding SensorImage}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" Margin="0,5,0,5"/>
-                            <Button Grid.Row="2" BorderRadius="10" HeightRequest="10" WidthRequest="20" BackgroundColor="{Binding SensorHealthStatus, Converter={StaticResource EnumStatusColorConverter}}" HorizontalOptions="StartAndExpand"/>
+                            <Button Grid.Row="2" BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding SensorHealthStatus, Converter={StaticResource EnumStatusColorConverter}}" HorizontalOptions="StartAndExpand"/>
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="onCameraNameTapped"/>
+                                <TapGestureRecognizer Tapped="OnSensor_Tapped"/>
                             </Grid.GestureRecognizers>
                         </Grid>
                     </ViewCell>

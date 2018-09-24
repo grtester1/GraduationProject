@@ -1,23 +1,16 @@
 ﻿using System;
-using System.Globalization;
+using System.Collections.Generic;
+using System.Text;
 using Xamarin.Forms;
-using AgentVI.Models;
-using AgentVI.Utils;
+using System.Globalization;
 
 namespace AgentVI.Converters
 {
-    public class EnumStatusColorConverter : IValueConverter, IDisposable
+    public class TimestampConverter : IValueConverter, IDisposable
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            String res = "Black";
-
-            if (value != null)
-            {
-                res = ((SensorModel.ESensorColorHealth)value).convertEnumToString();
-            }
-
-            return res;
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

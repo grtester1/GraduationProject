@@ -9,44 +9,72 @@ using AgentVI.Services;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using AgentVI.Models;
+using System.Threading.Tasks;
 
 namespace AgentVI.ViewModels
 {
-    public class EventsListViewModel
+    public class EventsListViewModel : FilterDependentViewModel<EventModel>
     {
-        public ObservableCollection<EventModel> EventsList { get; set; }
-
         public EventsListViewModel()
         {
-            EventsList = new ObservableCollection<EventModel>();
+            ObservableCollection = new ObservableCollection<EventModel>();
+        }
+
+        public override void OnFilterStateUpdated(object source, EventArgs e)
+        {
+            UpdateEvents();
         }
 
         public void UpdateEvents()
         {
-            EventsList.Clear();
-            /*List<SensorEvent> filteredEventsList = ServiceManager.Instance.FilterService.GetFilteredEventsCollection();
-            if (filteredEventsList != null)
+            List<Sensor> filteredSensors = ServiceManager.Instance.FilterService.GetFilteredSensorCollection();
+            ObservableCollection.Clear();
+            Task.Factory.StartNew(() => extractAndShowSensorsEvents(filteredSensors));
+            //filteredEvents.ForEach(se => ObservableCollection.Add(EventModel.FactoryMethod(se)));
+        }
+
+        private void extractAndShowSensorsEvents(List<Sensor> filteredSensors)
+        {
+
+            SortedDictionary<ulong, EventModel> res = new SortedDictionary<ulong, EventModel>(new ReverseComparer<ulong>(Comparer<ulong>.Default));
+            object AddToDictionaryLock = new object();
+            List<Task> sensorsEventsFetchingTasks = new List<Task>();
+
+            foreach (Sensor s in filteredSensors)
             {
-                filteredEventsList.Reverse(); //for debug
-                foreach (SensorEvent camEvent in filteredEventsList)
+                sensorsEventsFetchingTasks.Add(new Task(() =>
                 {
-                    EventModel eventModel = new EventModel();
-                    eventModel.CamName = camEvent.SensorName;
-                    //eventModel.DateTime = "6/2/2018 4:57:58 PM"; //camEvent.StartTime.ToString();
-                    DateTime DateTime = new DateTime((long)camEvent.StartTime);
-                    eventModel.DateTime = DateTime.ToString();
-                    eventModel.RuleName = camEvent.RuleName.ToString();
-                    eventModel.CamImage = camEvent.ImagePath;
-                    if (String.IsNullOrWhiteSpace(eventModel.CamImage))
+                    foreach (SensorEvent se in s.SensorEvents)
                     {
-                        eventModel.CamImage = "https://i.ytimg.com/vi/CKgEmWL1YrQ/maxresdefault.jpg";
+                        lock (AddToDictionaryLock)
+                        {
+                            res.Add(se.StartTime, EventModel.FactoryMethod(se));
+                            Console.WriteLine(se.RuleName.ToString());
+                        }
                     }
-                    EventsList.Add(eventModel);
-                }
+                }));
             }
-            else*/
+
+            Parallel.ForEach(sensorsEventsFetchingTasks, task => task.Start());
+            Task.WhenAll(sensorsEventsFetchingTasks);
+            foreach(var v in res)
             {
-                EventsList.Add(new EventModel { CamName = "There is currently no event in the selected folder.", RuleName = "", DateTime = "", ImagePath = "https://nondualityamerica.files.wordpress.com/2010/10/nothing-here-neon-300x200.jpg?w=375&h=175" });
+                ObservableCollection.Add(v.Value);
+            }
+        }
+
+        private class ReverseComparer<T> : IComparer<T>
+        {
+            private readonly IComparer<T> original;
+
+            public ReverseComparer(IComparer<T> i_Original)
+            {
+                original = i_Original;
+            }
+
+            public int Compare(T i_Left, T i_Right)
+            {
+                return original.Compare(i_Right, i_Left);
             }
         }
 
