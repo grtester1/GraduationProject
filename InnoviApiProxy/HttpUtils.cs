@@ -208,8 +208,8 @@ namespace InnoviApiProxy
 
         private static List<SensorEvent> getFolderEventsHepler(HttpClient i_Client, int i_FolderId, int i_PageId, out int i_PagesCount)
         {
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
-                "events?page=" + i_PageId.ToString());
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint +
+               "events?folderId=" + i_FolderId.ToString() + "&page=" + i_PageId.ToString());
             Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
 

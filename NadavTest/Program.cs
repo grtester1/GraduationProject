@@ -10,8 +10,20 @@ namespace NadavTest
         {
             LoginResult loginResult = InnoviApiService.Login("ramot.n@gmail.com", "password");
             User user = loginResult.User;
-            
+
             //         LoginResult loginResult1 = User.Connect("eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50SWQiOiI2Iiwicm9sZSI6IkFETUlOIiwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJUeXBlIjoiVVNFUiIsImV4cCI6MTUyNTg4NTU4MywidXNlcklkIjoiNTU1In0.jt - SDvzroj1 - dtjpU6O1zpklP_hZREb6RC8rSdCCP7g");
+            InnoviObjectCollection<Folder> lazyFolders =  user.GetDefaultAccountFolders();
+
+            foreach (Folder folder in lazyFolders)
+            {
+                InnoviObjectCollection<SensorEvent> smartEvents = folder.FolderEvents;
+
+                foreach (SensorEvent smartEvent in smartEvents)
+                {
+                    SensorEvent.eBehaviorType bType = smartEvent.RuleName;
+                }
+            }
+
             InnoviObjectCollection<Sensor> lazySensors = user.GetDefaultAccountSensors();
 
       //      List<Sensor> sesnsorList = lazySensors.ToList();

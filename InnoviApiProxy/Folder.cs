@@ -34,6 +34,15 @@ namespace InnoviApiProxy
             }
         }
 
+        public InnoviObjectCollection<SensorEvent> FolderEvents
+        {
+            get
+            {
+                return new InnoviObjectCollection<SensorEvent>(HttpUtils.GetFolderEvents, folderId);
+            }
+        }
+
+
         public InnoviObjectCollection<Folder> Folders
         {
             get
