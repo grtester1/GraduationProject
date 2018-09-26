@@ -72,7 +72,7 @@ namespace AgentVI.ViewModels
 
         public void UpdateEvents()
         {
-            collectionEnumerator = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountEvents().GetEnumerator();
+            collectionEnumerator = ServiceManager.Instance.FilterService.GetFilteredEventsEnumerator();
             collectionEnumerator.MoveNext();
             ObservableCollection.Clear();
             downloadData();

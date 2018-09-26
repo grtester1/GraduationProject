@@ -15,8 +15,6 @@ namespace AgentVI.Services
     {
         private class FilterServiceS : IFilterService
         {
-            //TODO: merge AccountFolders_Depth0 & levelOneFolderCollection to 1 variable
-
             private List<Folder> RootFolders { get; set; }
             private List<List<Folder>> HierarchyLevel { get; set; }
             private List<String> SelectedFolderNames { get; set; }
