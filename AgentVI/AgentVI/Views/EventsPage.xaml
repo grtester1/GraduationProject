@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              x:Class="AgentVI.Views.EventsPage"
-             xmlns:converters="clr-namespace:AgentVI.Converters">
+             xmlns:converters="clr-namespace:AgentVI.Converters"
+             xmlns:settings="clr-namespace:AgentVI.Utils">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:TimestampConverter x:Key="TimestampConverter"/>
@@ -11,7 +12,7 @@
     </ContentPage.Resources>
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
-                    iOS="0,30,0,0">
+                    iOS="{x:Static settings:Settings.iOSPlatformPadding}">
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
@@ -38,16 +39,17 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <!--{Binding SensorEventImage}-->
-                            <Image Grid.Row="0" Source="https://picsum.photos/200/200" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" Margin="0,5,0,5"/>
-                            <Label Grid.Row="1" Text="{Binding SensorName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Frame Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
+                                <Image Grid.Row="0" Source="https://picsum.photos/200/200" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill"/>
+                            </Frame>
+                            <Label Grid.Row="1" Text="{Binding SensorName}" TextColor="Navy" FontSize="20"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
                             <Grid ColumnSpacing="0" Grid.Row="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding SensorEventRuleName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
-                                <Label Grid.Column="1" Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
+                                <Label Grid.Column="0" Text="{Binding SensorEventRuleName}" TextColor="Navy" FontSize="16"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                                <Label Grid.Column="1" Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="Navy" FontSize="16"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
                             </Grid>
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnSensorEvent_Tapped"/>

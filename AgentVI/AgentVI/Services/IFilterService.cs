@@ -20,5 +20,6 @@ namespace AgentVI.Services
         List<Folder>        GetAccountFolders(User i_user);
         List<String>        GetSelectedFoldersHirearchy();
         event EventHandler  FilterStateUpdated;
+        
     }
 }
