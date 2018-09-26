@@ -23,6 +23,7 @@ namespace AgentVI.Services
             private readonly object FilteredSensorCollectionLock = new object();
             private bool isFilterUpdated = false;
             public event EventHandler FilterStateUpdated;
+            public bool IsAtRootLevel { get; private set; } = true;
 
             public FilterServiceS()
             {
@@ -50,6 +51,22 @@ namespace AgentVI.Services
             protected virtual void OnFilterStateUpdated()
             {
                 FilterStateUpdated?.Invoke(this, EventArgs.Empty);
+            }
+
+            public System.Collections.IEnumerator GetFilteredEventsEnumerator()
+            {
+                System.Collections.IEnumerator res = null;
+
+                if (!IsAtRootLevel && SelectedFolders != null && SelectedFolders.Count >= 1)
+                {
+                    res = SelectedFolders[SelectedFolders.Count - 1].FolderEvents.GetEnumerator();
+                }
+                else
+                {
+                    res = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountEvents().GetEnumerator();
+                }
+
+                return res;
             }
 
             public void FetchSelectedFolder()
@@ -163,6 +180,14 @@ namespace AgentVI.Services
 
                 }
                 isFilterUpdated = false;
+                if(SelectedFolders.Count>=1)
+                {
+                    IsAtRootLevel = false;
+                }
+                else
+                {
+                    IsAtRootLevel = true;
+                }
                 return HierarchyLevel[HierarchyLevel.Count - 1];
             }
 
