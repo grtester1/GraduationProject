@@ -39,9 +39,9 @@ namespace AgentVI.Views
             SensorsListVM.UpdateCameras();
         }
 
-        private void OnRefresh(object sender, EventArgs e)
+        private async void OnRefresh(object sender, EventArgs e)
         {
-            SensorsListVM.UpdateCameras();
+            await System.Threading.Tasks.Task.Factory.StartNew(() => SensorsListVM.UpdateCameras());
             ((ListView)sender).IsRefreshing = false; //end the refresh state
         }
 
