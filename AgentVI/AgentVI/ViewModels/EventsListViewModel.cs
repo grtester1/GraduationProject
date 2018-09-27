@@ -34,10 +34,13 @@ namespace AgentVI.ViewModels
 
         private void downloadData()
         {
-            for (int i = 0; i < 1 && collectionEnumerator.Current != null; i++)
+            try
             {
-                ObservableCollection.Add(EventModel.FactoryMethod(collectionEnumerator.Current as SensorEvent));
-                collectionEnumerator.MoveNext();
+                for (int i = 0; i < 1 && collectionEnumerator.Current != null; i++)
+                {
+                    ObservableCollection.Add(EventModel.FactoryMethod(collectionEnumerator.Current as SensorEvent));
+                    collectionEnumerator.MoveNext();
+                }
             }
         }
 
@@ -48,6 +51,7 @@ namespace AgentVI.ViewModels
 
         public void UpdateEvents()
         {
+
             collectionEnumerator = ServiceManager.Instance.FilterService.GetFilteredEventsEnumerator();
             collectionEnumerator.MoveNext();
             ObservableCollection.Clear();

@@ -47,7 +47,6 @@ namespace AgentVI.Services
                     RootFolders = i_FolderCollection.ToList();
                 if (i_SensorCollection != null)
                     FilteredSensorCollection = i_SensorCollection.ToList();
-                FetchSelectedFolder();
                 isFilterUpdated = false;
             }
 

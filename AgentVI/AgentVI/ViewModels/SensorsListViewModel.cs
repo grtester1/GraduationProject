@@ -4,9 +4,7 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
-using System.Collections.Generic;
 using AgentVI.Services;
-using System.Collections.ObjectModel;
 using AgentVI.Models;
 using Xamarin.Forms.Extended;
 using System.Threading.Tasks;
