@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using AgentVI.Utils;
+using System.Collections;
 
 namespace AgentVI.Services
 {
@@ -45,6 +47,7 @@ namespace AgentVI.Services
                     RootFolders = i_FolderCollection.ToList();
                 if (i_SensorCollection != null)
                     FilteredSensorCollection = i_SensorCollection.ToList();
+                FetchSelectedFolder();
                 isFilterUpdated = false;
             }
 
@@ -53,9 +56,9 @@ namespace AgentVI.Services
                 FilterStateUpdated?.Invoke(this, EventArgs.Empty);
             }
 
-            public System.Collections.IEnumerator GetFilteredEventsEnumerator()
+            public IEnumerator GetFilteredEventsEnumerator()
             {
-                System.Collections.IEnumerator res = null;
+                IEnumerator res = null;
 
                 if (!IsAtRootLevel && SelectedFolders != null && SelectedFolders.Count >= 1)
                 {
@@ -118,6 +121,22 @@ namespace AgentVI.Services
             public List<Sensor> GetFilteredSensorCollection()
             {
                 return FilteredSensorCollection;
+            }
+
+            public IEnumerator GetFilteredSensorsEnumerator()
+            {
+                IEnumerator res = null;
+
+                if (!IsAtRootLevel && SelectedFolders != null && SelectedFolders.Count >= 1)
+                {
+                    res = SelectedFolders[SelectedFolders.Count - 1].GetFilteredSensors().GetEnumerator();
+                }
+                else
+                {
+                    res = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors().GetEnumerator();
+                }
+
+                return res;
             }
 
             /// <summary>

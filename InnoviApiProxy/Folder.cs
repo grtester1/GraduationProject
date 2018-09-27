@@ -65,6 +65,11 @@ namespace InnoviApiProxy
             throw new Exception("Not yet implemented");
         }
 
+        public InnoviObjectCollection<Sensor> GetFilteredSensors()
+        {
+            throw new NotImplementedException();
+        }
+
 
         /*
             public List<Sensor> GetAllFolderSensors(Folder i_Folder)
