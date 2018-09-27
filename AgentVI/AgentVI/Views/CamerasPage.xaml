@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="AgentVI.Views.CamerasPage"
              xmlns:converters="clr-namespace:AgentVI.Converters;assembly=AgentVI"
+             xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              xmlns:settings="clr-namespace:AgentVI.Utils">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -16,6 +17,19 @@
     </ContentPage.Padding>
     <ContentPage.Content>
         <ListView SeparatorColor="Black" x:Name="cameraListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
+            <ListView.Footer>
+                <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                    <Grid.Triggers>
+                        <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                            <Setter Property="HeightRequest" Value="0"/>
+                        </Trigger>
+                    </Grid.Triggers>
+                    <Label Text="Loading..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"/>
+                </Grid>
+            </ListView.Footer>
+            <ListView.Behaviors>
+                <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
+            </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -26,7 +40,9 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" x:Name="SensorName" Text= "{Binding SensorName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="Center"/>
-                            <Image Grid.Row="1" Source="{Binding SensorImage}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" Margin="0,5,0,5"/>
+                            <Frame Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
+                                <Image Grid.Row="1" Source="{Binding SensorImage}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill"/>
+                            </Frame>
                             <Button Grid.Row="2" BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding SensorHealthStatus, Converter={StaticResource EnumStatusColorConverter}}" HorizontalOptions="StartAndExpand"/>
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnSensor_Tapped"/>
