@@ -4,8 +4,8 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AgentVI.Services
 {
@@ -14,14 +14,15 @@ namespace AgentVI.Services
         List<Folder>                        GetAllFoldersBeneath(List<Folder> i_folders);
         void                                InitCollections(InnoviObjectCollection<Folder> i_FolderCollection, InnoviObjectCollection<Sensor> i_SensorCollection);
         void                                FetchSelectedFolder();
-        List<Sensor>                        GetFilteredSensorCollection();
         List<Folder>                        SelectFolder(Folder i_selectedFolder);
         bool                                IsEmptyFolder(Folder i_SelectedFolder);
         List<Folder>                        GetAccountFolders(User i_user);
+        [Obsolete("Method GetFilteredSensorCollection is deprecated. Use instead GetFilteredSensorsEnumerator()")]
+        List<Sensor>                        GetFilteredSensorCollection();
         List<String>                        GetSelectedFoldersHirearchy();
-        System.Collections.IEnumerator      GetFilteredEventsEnumerator();
+        IEnumerator                         GetFilteredSensorsEnumerator();
+        IEnumerator                         GetFilteredEventsEnumerator();
         event EventHandler                  FilterStateUpdated;
         bool IsAtRootLevel                  { get; }
-
     }
 }
