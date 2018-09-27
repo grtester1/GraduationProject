@@ -6,9 +6,10 @@ using InnoviApiProxy;
 using System;
 using System.Collections.Generic;
 using AgentVI.Services;
-using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using AgentVI.Models;
+using Xamarin.Forms.Extended;
+using System.Threading.Tasks;
 
 namespace AgentVI.ViewModels
 {
@@ -16,7 +17,20 @@ namespace AgentVI.ViewModels
     {
         public SensorsListViewModel()
         {
-            ObservableCollection = new ObservableCollection<SensorModel>();
+            ObservableCollection = new InfiniteScrollCollection<SensorModel>()
+            {
+                OnLoadMore = async () =>
+                {
+                    IsBusy = true;
+                    await Task.Factory.StartNew(() => downloadData());
+                    IsBusy = false;
+                    return null;
+                },
+                OnCanLoadMore = () =>
+                {
+                    return ObservableCollection.Count > -1;
+                }
+            };
         }
 
         public override void OnFilterStateUpdated(object source, EventArgs e)
@@ -24,11 +38,29 @@ namespace AgentVI.ViewModels
             UpdateCameras();
         }
 
+        private void downloadData()
+        {
+            for (int i = 0; i < 1 && collectionEnumerator.Current != null; i++)
+            {
+                ObservableCollection.Add(SensorModel.FactoryMethod(collectionEnumerator.Current as Sensor));
+                collectionEnumerator.MoveNext();
+            }
+        }
+
+        public void UpdateCameras()
+        {
+            collectionEnumerator = ServiceManager.Instance.FilterService.GetFilteredSensorsEnumerator();
+            collectionEnumerator.MoveNext();
+            ObservableCollection.Clear();
+            downloadData();
+        }
+
+        /*======Old working ver.=======
         public void UpdateCameras()
         {
             List<Sensor> filteredSensors = ServiceManager.Instance.FilterService.GetFilteredSensorCollection();
             ObservableCollection.Clear();
             filteredSensors.ForEach(sensor => ObservableCollection.Add(SensorModel.FactoryMethod(sensor)));
-        }
+        }*/
     }
 }

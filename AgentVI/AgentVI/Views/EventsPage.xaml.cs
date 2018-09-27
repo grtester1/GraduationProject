@@ -4,12 +4,8 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
 using AgentVI.ViewModels;
 using Xamarin.Forms;
-using System.Linq;
 using AgentVI.Services;
 
 namespace AgentVI.Views

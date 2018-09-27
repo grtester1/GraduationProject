@@ -6,31 +6,14 @@ using InnoviApiProxy;
 using System;
 using System.Collections;
 using AgentVI.Services;
-using Xamarin.Forms;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
 using AgentVI.Models;
 using System.Threading.Tasks;
-using System.ComponentModel;
 using Xamarin.Forms.Extended;
 
 namespace AgentVI.ViewModels
 {
     public class EventsListViewModel : FilterDependentViewModel<EventModel>
     {
-
-        private IEnumerator collectionEnumerator;
-        private bool _isBusy;
-        public bool IsBusy
-        {
-            get => _isBusy;
-            set
-            {
-                _isBusy = value;
-                OnPropertyChanged();
-            }
-        }
-
         public EventsListViewModel()
         {
             ObservableCollection = new InfiniteScrollCollection<EventModel>()
@@ -53,15 +36,8 @@ namespace AgentVI.ViewModels
         {
             for (int i = 0; i < 1 && collectionEnumerator.Current != null; i++)
             {
-                try
-                {
-                    ObservableCollection.Add(EventModel.FactoryMethod(collectionEnumerator.Current as SensorEvent));
-                    collectionEnumerator.MoveNext();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                ObservableCollection.Add(EventModel.FactoryMethod(collectionEnumerator.Current as SensorEvent));
+                collectionEnumerator.MoveNext();
             }
         }
 

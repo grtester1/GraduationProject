@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:local="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              x:Class="AgentVI.Views.EventsPage"
              xmlns:converters="clr-namespace:AgentVI.Converters"
              xmlns:settings="clr-namespace:AgentVI.Utils">
@@ -28,12 +28,12 @@
                 </Grid>
             </ListView.Footer>
             <ListView.Behaviors>
-                <local:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
+                <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
             </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid RowSpacing="0" Margin="0,5,0,5" Padding="5">
+                        <Grid RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10*"/>
                                 <RowDefinition Height="*"/>
