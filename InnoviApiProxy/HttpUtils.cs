@@ -240,17 +240,32 @@ namespace InnoviApiProxy
         {
             verifyLoggedInStatus();
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken); 
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken);
 
-            return getFolderSensorsHelper(client, i_FolderId, i_PageId, out i_PagesCount);
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint +
+                "sensors?page=" + i_PageId.ToString() + "&folder=" + i_FolderId.ToString() + "&sort=name+");
+
+            return getFolderSensorsHelper(client, i_FolderId, i_PageId, out i_PagesCount, httpRequest);
         }
 
-        private static List<Sensor> getFolderSensorsHelper(HttpClient i_Client, int i_FolderId, int i_PageId, out int i_PagesCount)
+        internal static List<Sensor> GetAllFolderSensors(int i_FolderId, int i_PageId, out int i_PagesCount)
         {
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
-                "sensors?page=" + i_PageId.ToString() + "&folder=" + i_FolderId.ToString());
+            verifyLoggedInStatus();
+            HttpClient client = BaseHttpClient();
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken);
 
-            Task<HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint +
+                "sensors?page=" + i_PageId.ToString() + "&folder=" + i_FolderId.ToString() + "&subFolders=true" + "&sort=name+");
+
+            return getFolderSensorsHelper(client, i_FolderId, i_PageId, out i_PagesCount, httpRequest);
+        }
+
+        private static List<Sensor> getFolderSensorsHelper(HttpClient i_Client, int i_FolderId, int i_PageId, out int i_PagesCount, HttpRequestMessage i_HttpRequest)
+        {
+          //  var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
+          //      "sensors?page=" + i_PageId.ToString() + "&folder=" + i_FolderId.ToString());
+
+            Task<HttpResponseMessage> result = i_Client.SendAsync(i_HttpRequest);
             HttpResponseMessage response = result.Result;
             JObject responseJsonObject = GetHttpResponseBody(response);
 
@@ -260,15 +275,15 @@ namespace InnoviApiProxy
 
             verifyCodeZero(responseJsonObject);
             InnoviApiService.RefreshAccessToken(response);
-            List<Sensor> SortedSensors = sensors.OrderByDescending(x => x.Name).ToList();
-            SortedSensors.Reverse();
+       //     List<Sensor> SortedSensors = sensors.OrderByDescending(x => x.Name).ToList();
+       //     SortedSensors.Reverse();
 
             if (sensors.Count == 0)
             {
                 sensors = null;
             }
 
-            return SortedSensors;
+            return sensors;
         }
 
         internal static List<Folder> GetFolders(int i_FolderId, int i_PageId, out int i_PagesCount)

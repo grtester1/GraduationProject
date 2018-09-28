@@ -16,6 +16,17 @@ namespace NadavTest
 
             foreach (Folder folder in lazyFolders)
             {
+                InnoviObjectCollection<Sensor> allSensors = folder.GetAllSensors();
+
+                foreach (Sensor sensor in allSensors)
+                {
+                    string bbb = "1";
+                }
+
+            }
+           
+            foreach (Folder folder in lazyFolders)
+            {
                 InnoviObjectCollection<SensorEvent> smartEvents = folder.FolderEvents;
 
                 foreach (SensorEvent smartEvent in smartEvents)
