@@ -221,19 +221,19 @@ namespace InnoviApiProxy
             verifyCodeZero(responseJsonObject);
             InnoviApiService.RefreshAccessToken(response);
 
-            List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
-            sortedEvents.Reverse();
+        //    List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
+     //       sortedEvents.Reverse();
 
-            if (sortedEvents.Count == 0)
+            if (events.Count == 0)
             {
-                sortedEvents = null;
+                events = null;
             }
             else
             {
-                AddSensorNamesToEventsList(sortedEvents);
+                AddSensorNamesToEventsList(events);
             }
 
-            return sortedEvents;
+            return events;
         }
 
         internal static List<Sensor> GetFolderSensors(int i_FolderId, int i_PageId, out int i_PagesCount)
@@ -299,7 +299,7 @@ namespace InnoviApiProxy
         private static List<Folder> GetFoldersHelper(HttpClient i_Client, int i_FolderId, int i_PageId, out int i_PagesCount)
         {
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
-                "folders/" + i_FolderId.ToString() + "/folders" + "?page=" + i_PageId.ToString());
+                "folders/" + i_FolderId.ToString() + "/folders" + "?page=" + i_PageId.ToString() + "&sort=name+");
 
 
             Task <HttpResponseMessage> result = i_Client.SendAsync(httpRequest);
@@ -313,15 +313,15 @@ namespace InnoviApiProxy
             verifyCodeZero(responseJsonObject);
             InnoviApiService.RefreshAccessToken(response);
 
-            List<Folder> sortedFolders = folders.OrderByDescending(x => x.Name).ToList();
-            sortedFolders.Reverse();
+         //   List<Folder> sortedFolders = folders.OrderByDescending(x => x.Name).ToList();
+        //    sortedFolders.Reverse();
 
             if (folders.Count == 0)
             {
                 folders = null;
             }
 
-            return sortedFolders;
+            return folders;
         }
 
         internal static List<SensorEvent> GetSensorEvents(int i_SensorId, int i_PageId, out int i_PagesCount)
@@ -349,8 +349,8 @@ namespace InnoviApiProxy
 
             verifyCodeZero(responseJsonObject);
             InnoviApiService.RefreshAccessToken(response);
-            List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
-            sortedEvents.Reverse();
+        //    List<SensorEvent> sortedEvents = events.OrderByDescending(x => x.StartTime).ToList();
+         //   sortedEvents.Reverse();
 
             if (events.Count == 0)
             {
@@ -358,10 +358,10 @@ namespace InnoviApiProxy
             }
             else
             {
-                AddSensorNamesToEventsList(sortedEvents);
+                AddSensorNamesToEventsList(events);
             }
 
-            return sortedEvents;
+            return events;
         }
 
         internal static byte[] GetSensorReferenceImage(int i_AccountId, int i_SensorId)
