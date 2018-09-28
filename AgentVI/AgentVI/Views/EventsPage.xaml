@@ -43,14 +43,14 @@
                             <Frame Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
                                 <ff:CachedImage Source="https://picsum.photos/200/200" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
                             </Frame>
-                            <Label Grid.Row="1" Text="{Binding SensorName}" TextColor="Navy" FontSize="20"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                            <Label Grid.Row="1" Text="{Binding SensorName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
                             <Grid ColumnSpacing="0" Grid.Row="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding SensorEventRuleName}" TextColor="Navy" FontSize="16"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
-                                <Label Grid.Column="1" Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="Navy" FontSize="16"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
+                                <Label Grid.Column="0" Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                                <Label Grid.Column="1" Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
                             </Grid>
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnSensorEvent_Tapped"/>

@@ -40,7 +40,7 @@
                                 <RowDefinition Height="10*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" x:Name="SensorName" Text= "{Binding SensorName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Label Grid.Row="0" x:Name="SensorName" Text= "{Binding SensorName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="Center"/>
                             <Frame Grid.Row="1" Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
                                 <ff:CachedImage Source="{Binding SensorImage}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
                             </Frame>
