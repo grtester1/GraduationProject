@@ -41,9 +41,16 @@ namespace AgentVI.ViewModels
 
         private void downloadData()
         {
-            for (int i = 0; i < 1 && collectionEnumerator.Current != null; i++)
+            for (int i = 0; i < 1 && canLoadMore ; i++)
             {
-                ObservableCollection.Add(SensorModel.FactoryMethod(collectionEnumerator.Current as Sensor));
+                try
+                {
+                    ObservableCollection.Add(SensorModel.FactoryMethod(collectionEnumerator.Current as Sensor));
+                }catch(ArgumentOutOfRangeException e)
+                {
+                    Console.WriteLine(e.Message);
+                    canLoadMore = false;
+                }
                 canLoadMore = collectionEnumerator.MoveNext();
             }
         }

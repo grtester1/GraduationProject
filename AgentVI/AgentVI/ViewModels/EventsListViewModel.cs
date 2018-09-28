@@ -35,11 +35,18 @@ namespace AgentVI.ViewModels
 
         private void downloadData()
         {
-                for (int i = 0; i < 1 && collectionEnumerator.Current != null; i++)
+            for (int i = 0; i < 1 && collectionEnumerator.Current != null; i++)
+            {
+                try
                 {
                     ObservableCollection.Add(EventModel.FactoryMethod(collectionEnumerator.Current as SensorEvent));
-                    canLoadMore = collectionEnumerator.MoveNext();
+                }catch (ArgumentOutOfRangeException e)
+                {
+                    Console.WriteLine(e.Message);
+                    canLoadMore = false;
                 }
+                canLoadMore = collectionEnumerator.MoveNext();
+            }
         }
 
         public override void OnFilterStateUpdated(object source, EventArgs e)
@@ -49,7 +56,6 @@ namespace AgentVI.ViewModels
 
         public void UpdateEvents()
         {
-
             collectionEnumerator = ServiceManager.Instance.FilterService.GetFilteredEventsEnumerator();
             canLoadMore = collectionEnumerator.MoveNext();
             ObservableCollection.Clear();
