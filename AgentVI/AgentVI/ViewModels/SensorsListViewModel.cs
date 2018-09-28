@@ -8,11 +8,14 @@ using AgentVI.Services;
 using AgentVI.Models;
 using Xamarin.Forms.Extended;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace AgentVI.ViewModels
 {
     public class SensorsListViewModel : FilterDependentViewModel<SensorModel>
     {
+        private bool canLoadMore = false;
+
         public SensorsListViewModel()
         {
             ObservableCollection = new InfiniteScrollCollection<SensorModel>()
@@ -26,7 +29,7 @@ namespace AgentVI.ViewModels
                 },
                 OnCanLoadMore = () =>
                 {
-                    return ObservableCollection.Count > -1;
+                    return canLoadMore;
                 }
             };
         }
@@ -41,14 +44,14 @@ namespace AgentVI.ViewModels
             for (int i = 0; i < 1 && collectionEnumerator.Current != null; i++)
             {
                 ObservableCollection.Add(SensorModel.FactoryMethod(collectionEnumerator.Current as Sensor));
-                collectionEnumerator.MoveNext();
+                canLoadMore = collectionEnumerator.MoveNext();
             }
         }
 
         public void UpdateCameras()
         {
             collectionEnumerator = ServiceManager.Instance.FilterService.GetFilteredSensorsEnumerator();
-            collectionEnumerator.MoveNext();
+            canLoadMore = collectionEnumerator.MoveNext();
             ObservableCollection.Clear();
             downloadData();
         }

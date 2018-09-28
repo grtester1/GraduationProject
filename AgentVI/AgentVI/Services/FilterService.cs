@@ -45,8 +45,8 @@ namespace AgentVI.Services
             {
                 if (i_FolderCollection != null)
                     RootFolders = i_FolderCollection.ToList();
-                if (i_SensorCollection != null)
-                    FilteredSensorCollection = i_SensorCollection.ToList();
+                //if (i_SensorCollection != null)
+                //    FilteredSensorCollection = i_SensorCollection.ToList();
                 isFilterUpdated = false;
             }
 
@@ -128,7 +128,7 @@ namespace AgentVI.Services
 
                 if (!IsAtRootLevel && SelectedFolders != null && SelectedFolders.Count >= 1)
                 {
-                    res = SelectedFolders[SelectedFolders.Count - 1].GetFilteredSensors().GetEnumerator();
+                    res = SelectedFolders[SelectedFolders.Count - 1].GetAllSensors().GetEnumerator();
                 }
                 else
                 {

@@ -4,7 +4,6 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
-using System.Collections;
 using AgentVI.Services;
 using AgentVI.Models;
 using System.Threading.Tasks;
@@ -14,6 +13,8 @@ namespace AgentVI.ViewModels
 {
     public class EventsListViewModel : FilterDependentViewModel<EventModel>
     {
+        bool canLoadMore = false;
+
         public EventsListViewModel()
         {
             ObservableCollection = new InfiniteScrollCollection<EventModel>()
@@ -27,21 +28,18 @@ namespace AgentVI.ViewModels
                 },
                 OnCanLoadMore = () =>
                 {
-                    return ObservableCollection.Count > -1;
+                    return canLoadMore;
                 }
             };
         }
 
         private void downloadData()
         {
-            try
-            {
                 for (int i = 0; i < 1 && collectionEnumerator.Current != null; i++)
                 {
                     ObservableCollection.Add(EventModel.FactoryMethod(collectionEnumerator.Current as SensorEvent));
-                    collectionEnumerator.MoveNext();
+                    canLoadMore = collectionEnumerator.MoveNext();
                 }
-            }
         }
 
         public override void OnFilterStateUpdated(object source, EventArgs e)
@@ -53,7 +51,7 @@ namespace AgentVI.ViewModels
         {
 
             collectionEnumerator = ServiceManager.Instance.FilterService.GetFilteredEventsEnumerator();
-            collectionEnumerator.MoveNext();
+            canLoadMore = collectionEnumerator.MoveNext();
             ObservableCollection.Clear();
             downloadData();
         }

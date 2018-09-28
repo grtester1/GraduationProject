@@ -40,8 +40,8 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" x:Name="SensorName" Text= "{Binding SensorName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="Center"/>
-                            <Frame Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
-                                <Image Grid.Row="1" Source="{Binding SensorImage}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill"/>
+                            <Frame Grid.Row="1" Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
+                                <Image Source="{Binding SensorImage}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill"/>
                             </Frame>
                             <Button Grid.Row="2" BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding SensorHealthStatus, Converter={StaticResource EnumStatusColorConverter}}" HorizontalOptions="StartAndExpand"/>
                             <Grid.GestureRecognizers>
