@@ -5,7 +5,7 @@
              x:Class="AgentVI.Views.HealthPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="validPersonTemplate">
+            <DataTemplate x:Key="validHealthTemplate">
                 <ViewCell>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -19,7 +19,7 @@
                     </Grid>
                 </ViewCell>
             </DataTemplate>
-            <DataTemplate x:Key="invalidPersonTemplate">
+            <DataTemplate x:Key="invalidHealthTemplate">
                 <ViewCell>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -33,7 +33,7 @@
                     </Grid>
                 </ViewCell>
             </DataTemplate>
-            <local:PersonDataTemplateSelector x:Key="personDataTemplateSelector" ValidTemplate="{StaticResource validPersonTemplate}" InvalidTemplate="{StaticResource invalidPersonTemplate}" />
+            <local:HealthPageViewModel x:Key="healthDataTemplateSelector" ValidTemplate="{StaticResource validHealthTemplate}" InvalidTemplate="{StaticResource invalidHealthTemplate}" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout Margin="20">
@@ -48,6 +48,6 @@
             <Label Grid.Column="1" Text="Description" TextColor="Navy" FontAttributes="Bold"/>
             <Label Grid.Column="2" Text="Duration (HH:MM)" TextColor="Navy" FontAttributes="Bold" HorizontalTextAlignment="End" />
         </Grid>
-        <ListView x:Name="listView" Margin="0,20,0,0" ItemTemplate="{StaticResource personDataTemplateSelector}" />
+        <ListView x:Name="listView" Margin="0,20,0,0" ItemTemplate="{StaticResource healthDataTemplateSelector}" />
     </StackLayout>
 </ContentPage>
