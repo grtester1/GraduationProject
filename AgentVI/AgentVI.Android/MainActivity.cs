@@ -7,6 +7,7 @@ using Android.Widget;
 using Android.OS;
 using System.Reflection;
 using Octane.Xamarin.Forms.VideoPlayer.Android;
+using FFImageLoading.Forms.Platform;
 
 namespace AgentVI.Droid
 {
@@ -21,6 +22,7 @@ namespace AgentVI.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            CachedImageRenderer.Init(true);
             FormsVideoPlayer.Init();
             LoadApplication(new App());
         }

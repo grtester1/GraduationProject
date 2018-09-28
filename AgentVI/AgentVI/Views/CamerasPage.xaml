@@ -4,6 +4,7 @@
              x:Class="AgentVI.Views.CamerasPage"
              xmlns:converters="clr-namespace:AgentVI.Converters;assembly=AgentVI"
              xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:settings="clr-namespace:AgentVI.Utils">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -24,7 +25,7 @@
                             <Setter Property="HeightRequest" Value="0"/>
                         </Trigger>
                     </Grid.Triggers>
-                    <Label Text="Loading..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"/>
+                    <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
                 </Grid>
             </ListView.Footer>
             <ListView.Behaviors>
@@ -41,7 +42,7 @@
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" x:Name="SensorName" Text= "{Binding SensorName}" TextColor="Navy" FontSize="Medium"  FontAttributes="Bold" HorizontalOptions="Center"/>
                             <Frame Grid.Row="1" Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
-                                <Image Source="{Binding SensorImage}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill"/>
+                                <ff:CachedImage Source="{Binding SensorImage}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
                             </Frame>
                             <Button Grid.Row="2" BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding SensorHealthStatus, Converter={StaticResource EnumStatusColorConverter}}" HorizontalOptions="StartAndExpand"/>
                             <Grid.GestureRecognizers>

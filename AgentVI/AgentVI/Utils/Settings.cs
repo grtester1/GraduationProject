@@ -9,5 +9,6 @@ namespace AgentVI.Utils
     {
         public static Thickness iOSPlatformPadding { get; } = new Thickness(5);
         public static Thickness ListViewMargins { get; } = new Thickness(0,5,0,5);
+        public static String LoadingAnimationPath { get; } = "resource://AgentVI.Sources.LoadingAnimation.gif";
     }
 }
