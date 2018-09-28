@@ -21,10 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Sources\background.png" />
+    <None Remove="Sources\innovi_logo.png" />
     <None Remove="Sources\LoadingAnimation.gif" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Sources\background.png" />
+    <EmbeddedResource Include="Sources\innovi_logo.png" />
     <EmbeddedResource Include="Sources\LoadingAnimation.gif" />
   </ItemGroup>
 

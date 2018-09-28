@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:settings="clr-namespace:AgentVI.Utils"
              x:Class="AgentVI.Views.LoadingPage">
     <RelativeLayout>
-        <Image x:Name="backgroundPicture" Source="imgs/common/background.png" Aspect="AspectFill"
+        <Image x:Name="backgroundPicture" Source="{x:Static settings:Settings.BackgroundPicturePath}" Aspect="AspectFill"
                                                 RelativeLayout.WidthConstraint="{ConstraintExpression
                                                                                 Type=RelativeToParent,
                                                                                 Property=Width}"
                                                 RelativeLayout.HeightConstraint="{ConstraintExpression
                                                                                 Type=RelativeToParent,
                                                                                 Property=Height}"/>
-        <Image x:Name="logoPicture" Source="imgs/common/innovi_logo.png"
+        <Image x:Name="logoPicture" Source="{x:Static settings:Settings.LogoPicturePath}"
                                                 RelativeLayout.WidthConstraint="{ConstraintExpression
                                                                                 Type=RelativeToParent,
                                                                                 Property=Width,
