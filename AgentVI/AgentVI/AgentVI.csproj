@@ -8,6 +8,9 @@
   <ItemGroup>
     <PackageReference Include="Octane.Xam.VideoPlayer" Version="2.1.0" />
     <PackageReference Include="Unity" Version="5.8.6" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.3.840" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg" Version="2.4.3.840" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.3.840" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.1.444934" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.0.0.7" />
     <PackageReference Include="Xamarin.Forms.Extended.InfiniteScrolling" Version="1.0.0-preview2" />
@@ -15,6 +18,14 @@
 
   <ItemGroup>
     <Compile Remove="ViewModels\CameraViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Sources\LoadingAnimation.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Sources\LoadingAnimation.gif" />
   </ItemGroup>
 
   <ItemGroup>

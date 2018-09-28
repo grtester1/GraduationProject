@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              x:Class="AgentVI.Views.EventsPage"
              xmlns:converters="clr-namespace:AgentVI.Converters"
+             xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:settings="clr-namespace:AgentVI.Utils">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -24,7 +25,7 @@
                             <Setter Property="HeightRequest" Value="0"/>
                         </Trigger>
                     </Grid.Triggers>
-                    <Label Text="Loading..." TextColor="DeepPink" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"/>
+                    <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
                 </Grid>
             </ListView.Footer>
             <ListView.Behaviors>
@@ -40,7 +41,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Frame Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
-                                <Image Grid.Row="0" Source="https://picsum.photos/200/200" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill"/>
+                                <ff:CachedImage Source="https://picsum.photos/200/200" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
                             </Frame>
                             <Label Grid.Row="1" Text="{Binding SensorName}" TextColor="Navy" FontSize="20"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
                             <Grid ColumnSpacing="0" Grid.Row="2">
