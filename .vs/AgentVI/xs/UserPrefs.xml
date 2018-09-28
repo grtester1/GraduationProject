@@ -1,23 +1,18 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/EventsPage.xaml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/MainPage.xaml">
     <Files>
-      <File FileName="AgentVI/AgentVI/Models/CameraModel.cs" Line="7" Column="29" />
-      <File FileName="AgentVI/AgentVI/Models/EventModel.cs" Line="5" Column="25" />
-      <File FileName="AgentVI/AgentVI/ViewModels/CamerasListViewModel.cs" Line="84" Column="2" />
-      <File FileName="AgentVI/AgentVI/ViewModels/EventsListViewModel.cs" Line="65" Column="2" />
-      <File FileName="AgentVI/AgentVI/Views/CameraEventsPage.xaml.cs" Line="36" Column="2" />
-      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml.cs" Line="56" Column="2" />
-      <File FileName="AgentVI/AgentVI/Views/EventsPage.xaml.cs" Line="1" Column="1" />
-      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml" Line="32" Column="15" />
-      <File FileName="AgentVI/AgentVI/Views/EventsPage.xaml" Line="11" Column="4" />
+      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml.cs" Line="59" Column="10" />
+      <File FileName="AgentVI/AgentVI/Utils/Icon.cs" Line="5" Column="21" />
+      <File FileName="AgentVI/AgentVI/Views/MainPage.xaml" Line="107" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.ItemProperties.AgentVI.Android AndroidDesignerPreferredTheme="Theme.DeviceDefault.NoActionBar.Fullscreen" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.8A81584A-48A8-4217-BBD6-54F8D4E3209A" />
+  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.538e301684d91edcec33c0ca6ed04035d6e4abdb" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
 </Properties>

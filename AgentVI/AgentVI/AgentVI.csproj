@@ -14,6 +14,9 @@
     <PackageReference Include="Xamarin.Forms" Version="2.5.1.444934" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.0.0.7" />
     <PackageReference Include="Xamarin.Forms.Extended.InfiniteScrolling" Version="1.0.0-preview2" />
+    <PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.60.3" />
+    <PackageReference Include="SkiaSharp.Extended" Version="1.60.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,12 +27,74 @@
     <None Remove="Sources\background.png" />
     <None Remove="Sources\innovi_logo.png" />
     <None Remove="Sources\LoadingAnimation.gif" />
+    <None Remove="Sources\Icons\events.svg" />
+    <None Remove="Sources\Icons\folder_24px.svg" />
+    <None Remove="Sources\Icons\folder_open_24px.svg" />
+    <None Remove="Sources\Icons\health_24px.svg" />
+    <None Remove="Sources\Icons\health_active_24px.svg" />
+    <None Remove="Sources\Icons\health_open_24px.svg" />
+    <None Remove="Sources\Icons\health_open.svg" />
+    <None Remove="Sources\Icons\health.svg" />
+    <None Remove="Sources\Icons\live_view_24px.svg" />
+    <None Remove="Sources\Icons\live_view_active_24px.svg" />
+    <None Remove="Sources\Icons\object_bicycle_24px.svg" />
+    <None Remove="Sources\Icons\object_bus_24px.svg" />
+    <None Remove="Sources\Icons\object_car_24px.svg" />
+    <None Remove="Sources\Icons\object_motorcycl_24px.svg" />
+    <None Remove="Sources\Icons\object_person_24px.svg" />
+    <None Remove="Sources\Icons\object_truck_24px.svg" />
+    <None Remove="Sources\Icons\play_open_24px.svg" />
+    <None Remove="Sources\Icons\play24px.svg" />
+    <None Remove="Sources\Icons\sensors_24px.svg" />
+    <None Remove="Sources\Icons\sensors_active_24px.svg" />
+    <None Remove="Sources\Icons\sensors_open.svg" />
+    <None Remove="Sources\Icons\sensors.svg" />
+    <None Remove="Sources\Icons\settings_24px.svg" />
+    <None Remove="Sources\Icons\settings_active_24px.svg" />
+    <None Remove="Sources\Icons\settings_open.svg" />
+    <None Remove="Sources\Icons\settings.svg" />
+    <None Remove="Sources\Icons\visibility_24px.svg" />
+    <None Remove="Sources\Icons\events_24px.svg" />
+    <None Remove="Sources\Icons\events_active__24px.svg" />
+    <None Remove="Sources\Icons\events_open_24px.svg" />
+    <None Remove="Sources\Icons\events_open.svg" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Sources\background.png" />
     <EmbeddedResource Include="Sources\innovi_logo.png" />
     <EmbeddedResource Include="Sources\LoadingAnimation.gif" />
+    <EmbeddedResource Include="Sources\Icons\events.svg" />
+    <EmbeddedResource Include="Sources\Icons\folder_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\folder_open_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\health_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\health_active_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\health_open_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\health_open.svg" />
+    <EmbeddedResource Include="Sources\Icons\health.svg" />
+    <EmbeddedResource Include="Sources\Icons\live_view_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\live_view_active_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\object_bicycle_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\object_bus_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\object_car_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\object_motorcycl_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\object_person_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\object_truck_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\play_open_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\play24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\sensors_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\sensors_active_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\sensors_open.svg" />
+    <EmbeddedResource Include="Sources\Icons\sensors.svg" />
+    <EmbeddedResource Include="Sources\Icons\settings_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\settings_active_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\settings_open.svg" />
+    <EmbeddedResource Include="Sources\Icons\settings.svg" />
+    <EmbeddedResource Include="Sources\Icons\visibility_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\events_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\events_active__24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\events_open_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\events_open.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,5 +126,8 @@
     <EmbeddedResource Update="Views\LoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sources\Icons\" />
   </ItemGroup>
 </Project>

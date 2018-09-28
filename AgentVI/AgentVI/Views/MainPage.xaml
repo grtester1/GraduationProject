@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:AgentVI"
              xmlns:ViewModels="clr-namespace:AgentVI.ViewModels"
              x:Class="AgentVI.Views.MainPage"
+             xmlns:svg="clr-namespace:AgentVI.Utils"
              xmlns:settings="clr-namespace:AgentVI.Utils">
 
     <ContentPage.Padding>
@@ -42,9 +43,9 @@
         </StackLayout>
 
         <ContentView x:Name="PlaceHolder" Grid.Row="2"/>
-        <BoxView BackgroundColor="{x:Static settings:Settings.FooterSeparatorColor}" Grid.Row="3"/>
+        <BoxView BackgroundColor="#DCDCDC" Grid.Row="3"/>
 
-        <Grid BackgroundColor="{x:Static settings:Settings.FooterColor}" Grid.Row="4">
+        <Grid BackgroundColor="AliceBlue" Grid.Row="4">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -54,13 +55,13 @@
             </Grid.ColumnDefinitions>
 
 
-            <RelativeLayout Grid.Column="0" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-                <Image                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
+            <RelativeLayout Grid.Column="0" BackgroundColor="AliceBlue">
+                <svg:Icon                                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                                             x:Name="FooterBarEventsImage"
-                                                            Source="https://picsum.photos/200"/>
+                                                            ResourceId="AgentVI.Sources.Icons.events.svg"/>
                 <Button                                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.15}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
@@ -75,13 +76,13 @@
                                                             FontSize="10"/>
             </RelativeLayout>
 
-            <RelativeLayout Grid.Column="1" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-                <Image                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
+            <RelativeLayout Grid.Column="1" BackgroundColor="AliceBlue">
+               <svg:Icon                                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                                             x:Name="FooterBarCamerasImage"
-                                                            Source="https://picsum.photos/201"/>
+                                                            ResourceId="AgentVI.Sources.Icons.sensors.svg"/>
                 <Button                                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.15}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
@@ -96,13 +97,13 @@
                                                             FontSize="10"/>
             </RelativeLayout>
 
-            <RelativeLayout Grid.Column="2" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-                <Image                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
+            <RelativeLayout Grid.Column="2" BackgroundColor="AliceBlue">
+                <svg:Icon                                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                                             x:Name="FooterBarHealthImage"
-                                                            Source="https://picsum.photos/202"/>
+                                                            ResourceId="AgentVI.Sources.Icons.health.svg"/>
                 <Button                                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.15}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
@@ -117,13 +118,13 @@
                                                             FontSize="10"/>
             </RelativeLayout>
 
-            <RelativeLayout Grid.Column="3" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-                <Image                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
+            <RelativeLayout Grid.Column="3" BackgroundColor="AliceBlue">
+                <svg:Icon                                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                                             x:Name="FooterBarSettingsImage"
-                                                            Source="https://picsum.photos/203"/>
+                                                            ResourceId="AgentVI.Sources.Icons.settings.svg"/>
                 <Button                                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.15}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
@@ -139,4 +140,5 @@
             </RelativeLayout>
         </Grid>
     </Grid>
+
 </ContentPage>
