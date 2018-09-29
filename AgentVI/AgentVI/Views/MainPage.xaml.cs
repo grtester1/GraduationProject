@@ -72,6 +72,9 @@ namespace AgentVI.Views
 
             updateReporter("Fetching Events...", i_Report);
             pageCollection.Add("EventsPage", new Tuple<ContentPage, Button, AgentVI.Utils.Icon, Label>(new EventsPage(), FooterBarEventsButton, FooterBarEventsImage, FooterBarEventsLabel));
+
+            updateReporter("Fetching Health...", i_Report);
+            pageCollection.Add("HealthPage", new Tuple<ContentPage, Button, AgentVI.Utils.Icon, Label>(new HealthPage(), FooterBarHealthButton, FooterBarHealthImage, FooterBarHealthLabel));
         }
 
         private void markSelectedTab(Button i_SelectedTab)
@@ -172,6 +175,7 @@ namespace AgentVI.Views
 
         void FooterBarHealth_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
+            PlaceHolder.Content = pageCollection["HealthPage"].Item1.Content;
             markSelectedTab(i_Sender as Button);
         }
 
