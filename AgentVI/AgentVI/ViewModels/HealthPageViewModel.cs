@@ -4,7 +4,7 @@ using AgentVI.Models;
 
 namespace AgentVI.ViewModels
 {
-    public class HealthPageViewMode : DataTemplateSelector
+    public class HealthPageViewModel : DataTemplateSelector
     {
         public DataTemplate ValidTemplate { get; set; }
 

@@ -1,29 +1,13 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/ViewModels/HealthPageViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../Library/Frameworks/Xamarin.iOS.framework/Versions/12.0.0.15/src/Xamarin.iOS/mcs/class/referencesource/mscorlib/system/runtime/exceptionservices/exceptionservicescommon.cs">
     <Files>
       <File FileName="AgentVI/AgentVI/Models/HealthModel.cs" Line="10" Column="2" />
-      <File FileName="AgentVI/AgentVI/ViewModels/HealthPageViewModel.cs" Line="6" Column="2" />
+      <File FileName="AgentVI/AgentVI/ViewModels/HealthPageViewModel.cs" Line="18" Column="2" />
+      <File FileName="AgentVI/AgentVI/Views/HealthPage.xaml" Line="23" Column="27" />
+      <File FileName="AgentVI/AgentVI/Views/HealthPage.xaml.cs" Line="22" Column="26" />
+      <File FileName="../../../../../Library/Frameworks/Xamarin.iOS.framework/Versions/12.0.0.15/src/Xamarin.iOS/mcs/class/referencesource/mscorlib/system/runtime/exceptionservices/exceptionservicescommon.cs" Line="155" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="AgentVI" expanded="True">
-            <Node name="AgentVI" expanded="True">
-              <Node name="Models" expanded="True" />
-              <Node name="ViewModels" expanded="True">
-                <Node name="HealthPageViewModel.cs" selected="True" />
-              </Node>
-              <Node name="Views" expanded="True">
-                <Node name="CamerasPage.xaml" expanded="True" />
-                <Node name="HealthPage.xaml" expanded="True" />
-                <Node name="MainPage.xaml" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
   <MonoDevelop.Ide.ItemProperties.AgentVI.Android AndroidDesignerPreferredTheme="Theme.DeviceDefault.NoActionBar.Fullscreen" />
