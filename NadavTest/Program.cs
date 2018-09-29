@@ -20,7 +20,7 @@ namespace NadavTest
 
                 foreach (Sensor sensor in allSensors)
                 {
-                    string bbb = "1";
+                    List<Sensor.Health> healthArray = sensor.SensorHealthArray;
                 }
 
             }
