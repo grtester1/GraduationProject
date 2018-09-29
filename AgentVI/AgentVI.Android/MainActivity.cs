@@ -1,6 +1,8 @@
 ﻿using System;
 using Android.App;
 using Android.Content.PM;
+using AgentVI.Droid;
+using Xamarin.Forms;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -8,11 +10,13 @@ using Android.OS;
 using System.Reflection;
 using Octane.Xamarin.Forms.VideoPlayer.Android;
 using FFImageLoading.Forms.Platform;
+using AgentVI.Utils;
 
+[assembly: Dependency(typeof(MainActivity))]
 namespace AgentVI.Droid
 {
     [Activity(Label = "AgentVI", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, IBackButtonPressed
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -25,6 +29,16 @@ namespace AgentVI.Droid
             CachedImageRenderer.Init(true);
             FormsVideoPlayer.Init();
             LoadApplication(new App());
+        }
+
+        public void NativeOnBackButtonPressed()
+        {
+            OnBackPressed();
+        }
+
+        public override void OnBackPressed()
+        {
+            MoveTaskToBack(true);
         }
     }
 }

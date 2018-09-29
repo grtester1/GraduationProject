@@ -1,5 +1,6 @@
 ﻿using AgentVI.Models;
 using AgentVI.Services;
+using AgentVI.Utils;
 using AgentVI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -119,7 +120,7 @@ namespace AgentVI.Views
 
         protected override bool OnBackButtonPressed()
         {
-            //Handle back button pressed in MainPage
+            DependencyService.Get<IBackButtonPressed>().NativeOnBackButtonPressed();
             return true;
         }
     }
