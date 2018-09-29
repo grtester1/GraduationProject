@@ -4,34 +4,64 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
-using System.Collections.Generic;
-using AgentVI.Services;
-using Xamarin.Forms;
-using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using AgentVI.Models;
+using Xamarin.Forms.Extended;
 
 namespace AgentVI.ViewModels
 {
-    public class SensorEventsListViewModel
+    public class SensorEventsListViewModel : FilterDependentViewModel<EventModel>
     {
-        public ObservableCollection<EventModel> SensorEventList { get; set; }
+        private bool canLoadMore = false;
+        private Sensor m_Sensor;
 
-        public SensorEventsListViewModel(Sensor i_Sensor) : this(i_Sensor.SensorEvents)
+        private SensorEventsListViewModel()
         {
+            ObservableCollection = new InfiniteScrollCollection<EventModel>()
+            {
+                OnLoadMore = async () =>
+                {
+                    IsBusy = true;
+                    await Task.Factory.StartNew(() => downloadData());
+                    IsBusy = false;
+                    return null;
+                },
+                OnCanLoadMore = () =>
+                {
+                    return canLoadMore;
+                }
+            };
         }
 
-        public SensorEventsListViewModel(InnoviObjectCollection<SensorEvent> i_SensorEventCollection)
+        public SensorEventsListViewModel(Sensor i_Sensor) : this()
         {
-            SensorEventList = new ObservableCollection<EventModel>();
-            foreach(SensorEvent se in i_SensorEventCollection)
+            m_Sensor = i_Sensor;
+        }
+
+        public override void OnFilterStateUpdated(object source, EventArgs e) { return; }
+
+        private void downloadData()
+        {
+            for(int i=0;i<1&&canLoadMore;i++)
             {
-                SensorEventList.Add(EventModel.FactoryMethod(se));
+                try
+                {
+                    ObservableCollection.Add(EventModel.FactoryMethod(collectionEnumerator.Current as SensorEvent));
+                }catch(ArgumentOutOfRangeException e)
+                {
+                    Console.WriteLine(e.Message);
+                    canLoadMore = false;
+                }
+                canLoadMore = collectionEnumerator.MoveNext();
             }
         }
 
-        public void OnFilterStateUpdated(object source, EventArgs e)
+        internal void UpdateSensorEvents()
         {
-            //UpdateSensorEvents();
+            collectionEnumerator = m_Sensor.SensorEvents.GetEnumerator();
+            canLoadMore = collectionEnumerator.MoveNext();
+            ObservableCollection.Clear();
+            downloadData();
         }
     }
 }

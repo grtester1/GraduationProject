@@ -18,33 +18,35 @@ namespace AgentVI.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CameraEventsPage : ContentPage
     {
-        private SensorEventsListViewModel SensorEventsLVVM = null;
+        private SensorEventsListViewModel SensorEventsListVM = null;
 
         public CameraEventsPage()
         {
             InitializeComponent();
         }
 
-        public CameraEventsPage(InnoviObjectCollection<SensorEvent> i_SensorEventCollection) : this()
+        public CameraEventsPage(Sensor i_Sensor) : this()
         {
-            SensorEventsLVVM = new SensorEventsListViewModel(i_SensorEventCollection);
-            cameraEventsListView.ItemsSource = SensorEventsLVVM.SensorEventList;
-            cameraEventsListView.BindingContext = SensorEventsLVVM.SensorEventList;
-            initOnFilterStateUpdatedEventHandler();
+            SensorEventsListVM = new SensorEventsListViewModel(i_Sensor);
+            SensorEventsListVM.UpdateSensorEvents();
+            cameraEventsListView.BindingContext = SensorEventsListVM;
         }
 
-        public CameraEventsPage(Sensor i_Sensor) : this(i_Sensor.SensorEvents)
+        protected override void OnAppearing()
         {
+            base.OnAppearing();
+            SensorEventsListVM.UpdateSensorEvents();
         }
 
-        private void initOnFilterStateUpdatedEventHandler()
+        private async void OnRefresh(object sender, EventArgs e)
         {
-            ServiceManager.Instance.FilterService.FilterStateUpdated += SensorEventsLVVM.OnFilterStateUpdated;
+            await Task.Factory.StartNew(() => SensorEventsListVM.UpdateSensorEvents());
+            ((ListView)sender).IsRefreshing = false;
         }
 
         private void onCameraEventTapped(object sender, EventArgs e)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

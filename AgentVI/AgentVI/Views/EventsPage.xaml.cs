@@ -23,7 +23,7 @@ namespace AgentVI.Views
             eventListView.BindingContext = SensorsEventsListVM;
         }
 
-        public void initOnFilterStateUpdatedEventHandler()
+        private void initOnFilterStateUpdatedEventHandler()
         {
             ServiceManager.Instance.FilterService.FilterStateUpdated += SensorsEventsListVM.OnFilterStateUpdated;
         }

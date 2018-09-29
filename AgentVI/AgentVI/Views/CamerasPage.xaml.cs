@@ -4,19 +4,20 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
 using AgentVI.ViewModels;
 using Xamarin.Forms;
 using System.Linq;
 using AgentVI.Services;
+using AgentVI.Interfaces;
+using AgentVI.Views;
+using AgentVI.Utils;
 
 namespace AgentVI.Views
 {
-    public partial class CamerasPage : ContentPage
+    public partial class CamerasPage : ContentPage, INotifyContentViewChanged
     {
         private SensorsListViewModel SensorsListVM = null;
+        public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
 
         public CamerasPage()
         {
@@ -28,7 +29,7 @@ namespace AgentVI.Views
             cameraListView.BindingContext = SensorsListVM;
         }
 
-        public void initOnFilterStateUpdatedEventHandler()
+        private void initOnFilterStateUpdatedEventHandler()
         {
             ServiceManager.Instance.FilterService.FilterStateUpdated += SensorsListVM.OnFilterStateUpdated;
         }
@@ -49,7 +50,7 @@ namespace AgentVI.Views
         {
             var name = (sender as Grid).FindByName<Label>("SensorName");
             var a = SensorsListVM.ObservableCollection.Where(sensor => sensor.SensorName == name.Text);
-            (Application.Current.MainPage as NavigationPage).PushAsync(new CameraEventsPage(a.First().Sensor));
+            RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(new CameraEventsPage(a.First().Sensor)));
         }
     }
 }

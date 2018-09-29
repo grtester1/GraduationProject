@@ -3,32 +3,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AgentVI.Views.CameraEventsPage"
              xmlns:vidplayer="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
+             xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:settings="clr-namespace:AgentVI.Utils">
-    
-    <ListView x:Name="cameraEventsListView" RowHeight="300">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout x:Name="SensorLayout" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                        <Label Text="Sensor Name:" Style="Bold"/>
-                        <Label x:Name="SensorNameLabel" Text="{Binding CamName}"/>
-                        <Label Text="Rule Name:" Style="Bold"/>
-                        <Label x:Name="SensorRuleNameLabel" Text="{Binding RuleName}"/>
-                        <Label Text="Tag:" Style="Bold"/>
-                        <Label x:Name="SensorTagLabel" Text="{Binding Tag}"/>
-                        <Label Text="Clip Path:" Style="Bold"/>
-                        <Label x:Name="SensorEventClipPathLabel" Text="{Binding ClipPath}"/>
-                        <vidplayer:VideoPlayer x:Name="vidPlayer" Source="https://vjs.zencdn.net/v/oceans.mp4" AutoPlay="True" />
-                        <Label Text="Image Path:" Style="Bold"/>
-                        <Label x:Name="SensorEventImagePathLabel" Text="{Binding ImagePath}"/>
-                        <Label Text="Event Date:" Style="Bold"/>
-                        <Label x:Name="SensorEventDateLabel" Text="{Binding DateTime}"/>
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="onCameraEventTapped"/>
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+    <ContentPage.Content>
+        <ListView SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
+            <ListView.Footer>
+                <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                    <Grid.Triggers>
+                        <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                            <Setter Property="HeightRequest" Value="0"/>
+                        </Trigger>
+                    </Grid.Triggers>
+                    <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                </Grid>
+            </ListView.Footer>
+            <ListView.Behaviors>
+                <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout x:Name="SensorLayout" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                            <Label Text="Sensor Name:" Style="Bold"/>
+                            <Label x:Name="SensorNameLabel" Text="{Binding SensorName}"/>
+                            <Label Text="Rule Name:" Style="Bold"/>
+                            <Label x:Name="SensorRuleNameLabel" Text="{Binding SensorEventRuleName}"/>
+                            <Label Text="Tag:" Style="Bold"/>
+                            <Label x:Name="SensorTagLabel" Text="{Binding SensorEventTag}"/>
+                            <!--
+                            <Label Text="Clip Path:" Style="Bold"/>
+                            <Label x:Name="SensorEventClipPathLabel" Text="{Binding ClipPath}"/>
+                            <vidplayer:VideoPlayer x:Name="vidPlayer" Source="https://vjs.zencdn.net/v/oceans.mp4" AutoPlay="True" />
+                            -->
+                            <Label Text="Image Path:" Style="Bold"/>
+                            <Label x:Name="SensorEventImagePathLabel" Text="{Binding SensorEventImage}"/>
+                            <Label Text="Event Date:" Style="Bold"/>
+                            <Label x:Name="SensorEventDateLabel" Text="{Binding SensorEventDateTime}"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="onCameraEventTapped"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
 </ContentPage>
