@@ -12,9 +12,9 @@
         <Label Margin="20" x:Name="cameraNameHeader" FontAttributes="Bold" HorizontalOptions="Center" FontSize="Large"/>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.3*" />
-                <ColumnDefinition Width="0.3*" />
-                <ColumnDefinition Width="0.3*" />
+                <ColumnDefinition Width="0.2*" />
+                <ColumnDefinition Width="0.4*" />
+                <ColumnDefinition Width="0.2*" />
             </Grid.ColumnDefinitions>
             <Label Text="Time" TextColor="Navy" FontAttributes="Bold" FontSize="Medium"/>
             <Label Grid.Column="1" Text="Description" TextColor="Navy" FontAttributes="Bold"/>
@@ -26,13 +26,13 @@
                     <ViewCell>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.3*" />
-                                <ColumnDefinition Width="0.3*" />
-                                <ColumnDefinition Width="0.3*" />
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition Width="0.4*" />
+                                <ColumnDefinition Width="0.2*" />
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding HealthTime, Converter={StaticResource TimestampConverter}}" FontSize="Micro"/>
-                            <Label Grid.Column="1" Text="{Binding HealthDescription}" FontSize="Micro"/>
-                            <Label Grid.Column="2" Text="{Binding HealthDuration}" HorizontalTextAlignment="End" FontSize="Micro"/>
+                            <Label Text="{Binding HealthTime, Converter={StaticResource TimestampConverter}}" FontSize="Micro" HeightRequest="100" MinimumHeightRequest="100"/>
+                            <Label Grid.Column="1" Text="{Binding HealthDescription}" FontSize="Micro" HeightRequest="100" MinimumHeightRequest="100"/>
+                            <Label Grid.Column="2" Text="{Binding HealthDuration}" HorizontalTextAlignment="End" FontSize="Micro" HeightRequest="100" MinimumHeightRequest="100"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
