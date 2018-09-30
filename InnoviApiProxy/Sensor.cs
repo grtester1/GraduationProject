@@ -171,7 +171,7 @@ namespace InnoviApiProxy
         public class Health
         {
             [JsonProperty("timestamp")]
-            public long StatusTimeStamp { get; private set; }
+            public ulong StatusTimeStamp { get; private set; }
       
             public eSensorStatus Status { get; internal set; }
             [JsonProperty("value")]

@@ -27,7 +27,7 @@ namespace AgentVI.ViewModels
             foreach (Sensor.Health sh in healths)
             {
                 HealthModel hm = new HealthModel();
-                hm.HealthTime = DateTime.FromBinary(sh.StatusTimeStamp);
+                hm.HealthTime = sh.StatusTimeStamp;
                 hm.HealthDescription = sh.DetailedDescription;
                 hm.HealthDuration = "1:05";
                 healthList.Add(hm);
