@@ -15,7 +15,8 @@ namespace AgentVI.Views
         private FilterIndicatorViewModel m_FilterIndicatorViewModel = null;
         private Page m_FilterPage = null;
         private IProgress<ProgressReportModel> m_ProgressReporter = null;
-
+        private readonly object contentViewUpdateLock = new object();
+        private WaitingPagexaml waitingPage = new WaitingPagexaml();
         private Dictionary<String, Tuple<ContentPage, Button, Icon, Label>> pageCollection;
         private const String k_TabSelectionColor = "#BABABA";
         private const short k_NumberOfInitializations = 8;
@@ -175,8 +176,19 @@ namespace AgentVI.Views
 
         private void OnContentViewUpdateEvent(object sender, UpdatedContentEventArgs e)
         {
-            PlaceHolder.Content = e.UpdatedContent.Content;
-            addToContentViewStack(e.UpdatedContent);
+            lock(contentViewUpdateLock)
+            {
+                if (e == null)
+                {
+                    PlaceHolder.Content = waitingPage.Content;
+                }
+                else
+                {
+                    PlaceHolder.Content = e.UpdatedContent.Content;
+                    addToContentViewStack(e.UpdatedContent);
+                }
+            }
+            
         }
 
         private void addToContentViewStack(ContentPage i_updatedContent)

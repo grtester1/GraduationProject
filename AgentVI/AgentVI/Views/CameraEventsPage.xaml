@@ -3,50 +3,70 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AgentVI.Views.CameraEventsPage"
              xmlns:vidplayer="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
+             xmlns:converters="clr-namespace:AgentVI.Converters"
              xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              xmlns:settings="clr-namespace:AgentVI.Utils">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TimestampConverter x:Key="TimestampConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <ListView SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
-            <ListView.Footer>
-                <Grid Padding="6" IsVisible="{Binding IsBusy}">
-                    <Grid.Triggers>
-                        <Trigger TargetType="Grid" Property="IsVisible" Value="False">
-                            <Setter Property="HeightRequest" Value="0"/>
-                        </Trigger>
-                    </Grid.Triggers>
-                    <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
-                </Grid>
-            </ListView.Footer>
-            <ListView.Behaviors>
-                <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
-            </ListView.Behaviors>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout x:Name="SensorLayout" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                            <Label Text="Sensor Name:" Style="Bold"/>
-                            <Label x:Name="SensorNameLabel" Text="{Binding SensorName}"/>
-                            <Label Text="Rule Name:" Style="Bold"/>
-                            <Label x:Name="SensorRuleNameLabel" Text="{Binding SensorEventRuleName}"/>
-                            <Label Text="Tag:" Style="Bold"/>
-                            <Label x:Name="SensorTagLabel" Text="{Binding SensorEventTag}"/>
-                            <!--
-                            <Label Text="Clip Path:" Style="Bold"/>
-                            <Label x:Name="SensorEventClipPathLabel" Text="{Binding ClipPath}"/>
-                            <vidplayer:VideoPlayer x:Name="vidPlayer" Source="https://vjs.zencdn.net/v/oceans.mp4" AutoPlay="True" />
-                            -->
-                            <Label Text="Image Path:" Style="Bold"/>
-                            <Label x:Name="SensorEventImagePathLabel" Text="{Binding SensorEventImage}"/>
-                            <Label Text="Event Date:" Style="Bold"/>
-                            <Label x:Name="SensorEventDateLabel" Text="{Binding SensorEventDateTime}"/>
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="onCameraEventTapped"/>
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="11*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="0" Orientation="Horizontal">
+                    <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BackButtonSVGPath}" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30"/>
+                    <Label x:Name="sensorNameLabel" HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontAttributes="Bold"/>
+                </StackLayout>
+            </Grid>
+            <ListView Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
+                <ListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0"/>
+                            </Trigger>
+                        </Grid.Triggers>
+                        <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                    </Grid>
+                </ListView.Footer>
+                <ListView.Behaviors>
+                    <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid x:Name="SensorLayout" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="10*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Frame Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
+                                    <ff:CachedImage Source="https://picsum.photos/200/200" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
+                                </Frame>
+                                <Grid ColumnSpacing="0" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                                    <Label Grid.Column="1" Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
+                                </Grid>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -13,7 +13,7 @@ namespace AgentVI.ViewModels
     public class SensorEventsListViewModel : FilterDependentViewModel<EventModel>
     {
         private bool canLoadMore = false;
-        private Sensor m_Sensor;
+        public Sensor SensorSource { get; private set; }
 
         private SensorEventsListViewModel()
         {
@@ -35,7 +35,7 @@ namespace AgentVI.ViewModels
 
         public SensorEventsListViewModel(Sensor i_Sensor) : this()
         {
-            m_Sensor = i_Sensor;
+            SensorSource = i_Sensor;
         }
 
         public override void OnFilterStateUpdated(object source, EventArgs e) { return; }
@@ -58,7 +58,7 @@ namespace AgentVI.ViewModels
 
         internal void UpdateSensorEvents()
         {
-            collectionEnumerator = m_Sensor.SensorEvents.GetEnumerator();
+            collectionEnumerator = SensorSource.SensorEvents.GetEnumerator();
             canLoadMore = collectionEnumerator.MoveNext();
             ObservableCollection.Clear();
             downloadData();

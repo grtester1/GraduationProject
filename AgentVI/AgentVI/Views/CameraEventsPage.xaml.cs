@@ -30,6 +30,7 @@ namespace AgentVI.Views
             SensorEventsListVM = new SensorEventsListViewModel(i_Sensor);
             SensorEventsListVM.UpdateSensorEvents();
             cameraEventsListView.BindingContext = SensorEventsListVM;
+            sensorNameLabel.Text = SensorEventsListVM.SensorSource.Name;
         }
 
         protected override void OnAppearing()
