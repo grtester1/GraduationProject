@@ -7,28 +7,44 @@ namespace AgentVI.Views
 {
     public partial class HealthPage : ContentPage
     {
-        public HealthPage()
+        private List<HealthModel> healthList;
+
+        public HealthPage(SensorModel sensor)
         {
             InitializeComponent();
 
-            var healthList = new List<HealthModel>
+            healthList = new List<HealthModel>();
+
+            if (sensor != null)
             {
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency",  HealthDuration = "1:05" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "Resolution too low",  HealthDuration = "11:02" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "Resolution too low", HealthDuration = "27:31" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency", HealthDuration = "2:09" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency", HealthDuration = "4:00" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "Resolution too low", HealthDuration = "56:23" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency", HealthDuration = "78:59" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency",  HealthDuration = "1:05" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "Resolution too low",  HealthDuration = "11:02" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "Resolution too low", HealthDuration = "27:31" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency", HealthDuration = "2:09" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency", HealthDuration = "4:00" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "Resolution too low", HealthDuration = "56:23" },
-                new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency", HealthDuration = "78:59" }
-            };
-            cameraNameHeader.Text = "Health for CameraName";
+                cameraNameHeader.Text = "Health for Camera " + sensor.SensorName;
+
+                /*
+                healthList = new List<HealthModel>
+                {
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency",  HealthDuration = "1:05" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "Resolution too low",  HealthDuration = "11:02" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "Resolution too low", HealthDuration = "27:31" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency", HealthDuration = "2:09" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency", HealthDuration = "4:00" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "Resolution too low", HealthDuration = "56:23" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency", HealthDuration = "78:59" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency",  HealthDuration = "1:05" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "Resolution too low",  HealthDuration = "11:02" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "Resolution too low", HealthDuration = "27:31" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency", HealthDuration = "2:09" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency", HealthDuration = "4:00" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "Resolution too low", HealthDuration = "56:23" },
+                    new HealthModel { HealthTime = new DateTime(1985, 11, 20 , 17, 23, 59), HealthDescription = "High Latency", HealthDuration = "78:59" }
+                };*/
+
+            }
+            else
+            {
+                cameraNameHeader.Text = "no camera selected";
+            }
+
+
             listView.ItemsSource = healthList;
         }
     }
