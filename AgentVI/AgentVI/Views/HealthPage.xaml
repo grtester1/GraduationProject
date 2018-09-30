@@ -1,41 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:local="clr-namespace:AgentVI.ViewModels" 
              x:Class="AgentVI.Views.HealthPage">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <DataTemplate x:Key="validHealthTemplate">
-                <ViewCell>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.3*" />
-                            <ColumnDefinition Width="0.3*" />
-                            <ColumnDefinition Width="0.3*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Text="{Binding HealthTime}" TextColor="Green" FontSize="Micro"/>
-                        <Label Grid.Column="1" Text="{Binding HealthDescription}" TextColor="Green" FontSize="Micro"/>
-                        <Label Grid.Column="2" Text="{Binding HealthDuration}" TextColor="Green" HorizontalTextAlignment="End" FontSize="Micro"/>
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
-            <DataTemplate x:Key="invalidHealthTemplate">
-                <ViewCell>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.3*" />
-                            <ColumnDefinition Width="0.3*" />
-                            <ColumnDefinition Width="0.3*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Text="{Binding HealthTime}" TextColor="Red" FontSize="Micro" />
-                        <Label Grid.Column="1" Text="{Binding HealthDescription}" TextColor="Red" FontSize="Micro"/>
-                        <Label Grid.Column="2" Text="{Binding HealthDuration}" TextColor="Red" HorizontalTextAlignment="End" FontSize="Micro"/>
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
-            <local:HealthPageViewModel x:Key="healthDataTemplateSelector" ValidTemplate="{StaticResource validHealthTemplate}" InvalidTemplate="{StaticResource invalidHealthTemplate}" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <StackLayout Margin="20">
         <Label Margin="20" x:Name="cameraNameHeader" FontAttributes="Bold" HorizontalOptions="Center" FontSize="Large"/>
         <Grid>
@@ -48,6 +14,23 @@
             <Label Grid.Column="1" Text="Description" TextColor="Navy" FontAttributes="Bold"/>
             <Label Grid.Column="2" Text="Duration (HH:MM)" TextColor="Navy" FontAttributes="Bold" HorizontalTextAlignment="End" />
         </Grid>
-        <ListView x:Name="listView" Margin="0,20,0,0" ItemTemplate="{StaticResource healthDataTemplateSelector}" />
+        <ListView x:Name="listView" Margin="0,20,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.3*" />
+                                <ColumnDefinition Width="0.3*" />
+                                <ColumnDefinition Width="0.3*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding HealthTime}" FontSize="Micro"/>
+                            <Label Grid.Column="1" Text="{Binding HealthDescription}" FontSize="Micro"/>
+                            <Label Grid.Column="2" Text="{Binding HealthDuration}" HorizontalTextAlignment="End" FontSize="Micro"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackLayout>
 </ContentPage>

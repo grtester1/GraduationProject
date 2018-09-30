@@ -22,7 +22,7 @@ namespace AgentVI.Models
             {
                 Sensor = i_Sensor,
                 SensorName = i_Sensor.Name,
-                SensorHealth = 5,//need change!!!
+                SensorHealth = 5,//*****************************need change!!!
                 SensorImage = ImageSource.FromStream(() => new System.IO.MemoryStream(i_Sensor.ReferenceImage))
             };
 
