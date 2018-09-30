@@ -6,6 +6,7 @@ using InnoviApiProxy;
 using System;
 using System.ComponentModel;
 using Xamarin.Forms;
+using System.Collections.Generic;
 
 namespace AgentVI.Models
 {
@@ -22,7 +23,8 @@ namespace AgentVI.Models
             {
                 Sensor = i_Sensor,
                 SensorName = i_Sensor.Name,
-                SensorHealth = 5,//*****************************need change!!!
+                SensorHealth = 100,
+                //SensorHealthList = i_Sensor.SensorHealthArray;
                 SensorImage = ImageSource.FromStream(() => new System.IO.MemoryStream(i_Sensor.ReferenceImage))
             };
 
@@ -58,6 +60,17 @@ namespace AgentVI.Models
             {
                 m_SensorName = value;
                 OnPropertyChanged("SensorName");
+            }
+        }
+
+        private List<Sensor.Health> m_SensorHealthList;
+        public List<Sensor.Health> SensorHealthList
+        {
+            get { return m_SensorHealthList; }
+            private set
+            {
+                m_SensorHealthList = value;
+                OnPropertyChanged("SensorHealthList");
             }
         }
 

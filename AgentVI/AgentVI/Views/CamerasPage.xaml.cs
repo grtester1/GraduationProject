@@ -50,7 +50,7 @@ namespace AgentVI.Views
         {
             var name = (sender as Grid).FindByName<Label>("SensorName");
             var a = SensorsListVM.ObservableCollection.Where(sensor => sensor.SensorName == name.Text);
-            (Application.Current.MainPage as NavigationPage).PushAsync(new HealthPage(SensorModel.FactoryMethod(a.First().Sensor)));
+            (Application.Current.MainPage as NavigationPage).PushAsync(new HealthPage(a.First().Sensor));
         }
     }
 }
