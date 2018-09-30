@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using AgentVI.Interfaces;
+using AgentVI.Views;
 
+[assembly: Dependency(typeof(MainPage))]
 namespace AgentVI.Views
 {
     public partial class MainPage : ContentPage
@@ -20,9 +22,14 @@ namespace AgentVI.Views
         private Dictionary<String, Tuple<ContentPage, Button, Icon, Label>> pageCollection;
         private const String k_TabSelectionColor = "#BABABA";
         private const short k_NumberOfInitializations = 8;
-        private Stack<ContentPage> contentViewStack;
+        private Stack<View> contentViewStack;
 
-        public MainPage(IProgress<ProgressReportModel> i_ProgressReporter)
+        public MainPage()
+        {
+
+        }
+
+        public MainPage(IProgress<ProgressReportModel> i_ProgressReporter):this()
         {
             m_ProgressReporter = i_ProgressReporter;
             ProgressReportModel report = new ProgressReportModel(k_NumberOfInitializations);
@@ -180,22 +187,26 @@ namespace AgentVI.Views
             {
                 if (e == null)
                 {
+                    addToContentViewStack(PlaceHolder.Content);
                     PlaceHolder.Content = waitingPage.Content;
+                }
+                else if(e != null && e.IsStackPopRequested)
+                {
+                    popFromControlViewStack();
                 }
                 else
                 {
                     PlaceHolder.Content = e.UpdatedContent.Content;
-                    addToContentViewStack(e.UpdatedContent);
                 }
             }
             
         }
 
-        private void addToContentViewStack(ContentPage i_updatedContent)
+        private void addToContentViewStack(View i_updatedContent)
         {
             if(contentViewStack == null)
             {
-                contentViewStack = new Stack<ContentPage>();
+                contentViewStack = new Stack<View>();
             }
             contentViewStack.Push(i_updatedContent);
         }
@@ -203,6 +214,19 @@ namespace AgentVI.Views
         private void resetContentViewStack()
         {
             contentViewStack = null;
+        }
+
+        private void popFromControlViewStack()
+        {
+                View stackTop = contentViewStack.Pop();
+                if (stackTop != null)
+                {
+                    PlaceHolder.Content = stackTop;
+                }
+                else
+                {
+                    throw new Exception("MainPage.PopFromControlViewStack called unexpectedely");
+                }
         }
     }
 }

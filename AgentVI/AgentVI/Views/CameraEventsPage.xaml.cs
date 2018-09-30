@@ -12,13 +12,16 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using AgentVI.ViewModels;
 using AgentVI.Services;
+using AgentVI.Interfaces;
+using AgentVI.Utils;
 
 namespace AgentVI.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CameraEventsPage : ContentPage
+    public partial class CameraEventsPage : ContentPage, INotifyContentViewChanged
     {
         private SensorEventsListViewModel SensorEventsListVM = null;
+        public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
 
         public CameraEventsPage()
         {
@@ -31,6 +34,8 @@ namespace AgentVI.Views
             SensorEventsListVM.UpdateSensorEvents();
             cameraEventsListView.BindingContext = SensorEventsListVM;
             sensorNameLabel.Text = SensorEventsListVM.SensorSource.Name;
+            IsEmptyFiller.IsVisible = SensorEventsListVM.IsEmptyFolder;
+            IsEmptyText.IsVisible = SensorEventsListVM.IsEmptyFolder;
         }
 
         protected override void OnAppearing()
@@ -41,13 +46,24 @@ namespace AgentVI.Views
 
         private async void OnRefresh(object sender, EventArgs e)
         {
-            await Task.Factory.StartNew(() => SensorEventsListVM.UpdateSensorEvents());
-            ((ListView)sender).IsRefreshing = false;
+            try
+            {
+                await Task.Factory.StartNew(() => SensorEventsListVM.UpdateSensorEvents());
+                ((ListView)sender).IsRefreshing = false;
+            }catch(AggregateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void onCameraEventTapped(object sender, EventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void onCameraEventBackButtonTapped(object sender, EventArgs e)
+        {
+            RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(null , true));
         }
     }
 }

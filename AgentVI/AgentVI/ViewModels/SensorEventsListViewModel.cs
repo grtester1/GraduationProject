@@ -14,6 +14,16 @@ namespace AgentVI.ViewModels
     {
         private bool canLoadMore = false;
         public Sensor SensorSource { get; private set; }
+        private bool _isEmptyFolder = true;
+        public bool IsEmptyFolder
+        {
+            get => _isEmptyFolder;
+            set
+            {
+                _isEmptyFolder = value;
+                OnPropertyChanged();
+            }
+        }
 
         private SensorEventsListViewModel()
         {
@@ -47,12 +57,26 @@ namespace AgentVI.ViewModels
                 try
                 {
                     ObservableCollection.Add(EventModel.FactoryMethod(collectionEnumerator.Current as SensorEvent));
+                    updateFolderState();                    
                 }catch(ArgumentOutOfRangeException e)
                 {
+                    updateFolderState();
                     Console.WriteLine(e.Message);
                     canLoadMore = false;
                 }
                 canLoadMore = collectionEnumerator.MoveNext();
+            }
+        }
+
+        private void updateFolderState()
+        {
+            if(ObservableCollection.Count == 0)
+            {
+                IsEmptyFolder = true;
+            }
+            else
+            {
+                IsEmptyFolder = false;
             }
         }
 

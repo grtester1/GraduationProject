@@ -14,59 +14,95 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="11*"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <StackLayout Grid.Column="0" Orientation="Horizontal">
-                    <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BackButtonSVGPath}" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30"/>
-                    <Label x:Name="sensorNameLabel" HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontAttributes="Bold"/>
-                </StackLayout>
-            </Grid>
-            <ListView Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
-                <ListView.Footer>
-                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
-                        <Grid.Triggers>
-                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
-                                <Setter Property="HeightRequest" Value="0"/>
-                            </Trigger>
-                        </Grid.Triggers>
-                        <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
-                    </Grid>
-                </ListView.Footer>
-                <ListView.Behaviors>
-                    <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
-                </ListView.Behaviors>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid x:Name="SensorLayout" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="10*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Frame Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
-                                    <ff:CachedImage Source="https://picsum.photos/200/200" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
-                                </Frame>
-                                <Grid ColumnSpacing="0" Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
-                                    <Label Grid.Column="1" Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
+        <RelativeLayout VerticalOptions="FillAndExpand">
+            <ffsvg:SvgCachedImage x:Name="IsEmptyFiller" IsVisible="{Binding IsEmptyFolder}"
+                                  Source="{x:Static settings:Settings.EmptyCollectionSVGPath}"
+                                  Aspect="AspectFill"
+                                                RelativeLayout.WidthConstraint="{ConstraintExpression
+                                                                                Type=RelativeToParent,
+                                                                                Property=Width, Factor=0.5}"
+                                                RelativeLayout.HeightConstraint="{ConstraintExpression
+                                                                                Type=RelativeToParent,
+                                                                                Property=Height, Factor=0.5}"
+                                                RelativeLayout.XConstraint="{ConstraintExpression
+                                                                            Type=RelativeToParent,
+                                                                            Property=Width,
+                                                                            Factor=0.2}"
+                                                RelativeLayout.YConstraint="{ConstraintExpression
+                                                                            Type=RelativeToParent,
+                                                                            Property=Height,
+                                                                            Factor=0.1}"/>
+            <Label x:Name="IsEmptyText" IsVisible="{Binding IsEmptyFolder}"
+                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                   Text="You don't have any events for selected sensor"
+                   FontSize="Large" RelativeLayout.YConstraint="{ConstraintExpression
+                                                                Type=RelativeToParent,
+                                                                Property=Height,
+                                                                Factor=0.7}"/>
+            
+            <Grid VerticalOptions="FillAndExpand" RelativeLayout.WidthConstraint="{ConstraintExpression
+                                                                                Type=RelativeToParent,
+                                                                                Property=Width}"
+                                                    RelativeLayout.HeightConstraint="{ConstraintExpression
+                                                                                Type=RelativeToParent,
+                                                                                Property=Height}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="11*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Column="0" Orientation="Horizontal">
+                        <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BackButtonSVGPath}" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30">
+                            <ffsvg:SvgCachedImage.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="onCameraEventBackButtonTapped"/>
+                            </ffsvg:SvgCachedImage.GestureRecognizers>
+                        </ffsvg:SvgCachedImage>
+                        <Label x:Name="sensorNameLabel" HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontAttributes="Bold" TextColor="Navy"/>
+                    </StackLayout>
+                </Grid>
+                <ListView Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
+                    <ListView.Footer>
+                        <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                            <Grid.Triggers>
+                                <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                    <Setter Property="HeightRequest" Value="0"/>
+                                </Trigger>
+                            </Grid.Triggers>
+                            <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                        </Grid>
+                    </ListView.Footer>
+                    <ListView.Behaviors>
+                        <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
+                    </ListView.Behaviors>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid x:Name="SensorLayout" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="10*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Frame Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
+                                        <ff:CachedImage Source="https://picsum.photos/200/200" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
+                                    </Frame>
+                                    <Grid ColumnSpacing="0" Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                                        <Label Grid.Column="1" Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

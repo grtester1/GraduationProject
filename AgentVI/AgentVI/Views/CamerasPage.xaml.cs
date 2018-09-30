@@ -45,22 +45,32 @@ namespace AgentVI.Views
         private async void OnRefresh(object sender, EventArgs e)
         {
             await System.Threading.Tasks.Task.Factory.StartNew(() => SensorsListVM.UpdateCameras());
-            ((ListView)sender).IsRefreshing = false; //end the refresh state
+            ((ListView)sender).IsRefreshing = false;
         }
 
         private async void OnSensor_Tapped(object sender, EventArgs e)
         {
             RaiseContentViewUpdateEvent?.Invoke(this, null);
             UpdatedContentEventArgs updatedContentEventArgs = null;
+            CameraEventsPage cameraEventsPageBuf = null;
             Sensor sensorBuffer = null;
+
             await Task.Factory.StartNew(() =>
             {
                 Label labelObj = (sender as Grid).FindByName<Label>("SensorName");
                 IEnumerable<SensorModel> sensorEnumerable = SensorsListVM.ObservableCollection.Where(sensor => sensor.SensorName == labelObj.Text);
                 sensorBuffer = sensorEnumerable.First().Sensor;
+                cameraEventsPageBuf = new CameraEventsPage(sensorBuffer);
+                cameraEventsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
+
             });
-            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(new CameraEventsPage(sensorBuffer)));
+            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(cameraEventsPageBuf));
             RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
+        }
+
+        private void eventsRouter(object sender, UpdatedContentEventArgs e)
+        {
+            RaiseContentViewUpdateEvent?.Invoke(this, e);
         }
     }
 }
