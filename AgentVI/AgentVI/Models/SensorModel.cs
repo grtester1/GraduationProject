@@ -1,11 +1,14 @@
 ﻿#if DPROXY
 using DummyProxy;
 #else
+using AgentVI.Converters;
 using InnoviApiProxy;
 #endif
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
+using static InnoviApiProxy.Sensor;
 
 namespace AgentVI.Models
 {
@@ -22,7 +25,8 @@ namespace AgentVI.Models
             {
                 Sensor = i_Sensor,
                 SensorName = i_Sensor.Name,
-                SensorHealth = i_Sensor.Health,
+                SensorHealth = i_Sensor.Status,
+                SensorHealthHistory = i_Sensor.SensorHealthArray,
                 SensorImage = ImageSource.FromStream(() => new System.IO.MemoryStream(i_Sensor.ReferenceImage))
             };
 
@@ -61,14 +65,25 @@ namespace AgentVI.Models
             }
         }
 
-        private int m_SensorHealth;
-        public int SensorHealth
+        private eSensorStatus m_SensorHealth;
+        public eSensorStatus SensorHealth
         {
             get { return m_SensorHealth; }
             private set
             {
                 m_SensorHealth = value;
                 OnPropertyChanged("SensorHealth");
+            }
+        }
+        
+        private List<Health> m_ensorHealthHistory;
+        public List<Health> SensorHealthHistory
+        {
+            get { return m_ensorHealthHistory; }
+            private set
+            {
+                m_ensorHealthHistory = value;
+                OnPropertyChanged("SensorHealthHistory");
             }
         }
 
@@ -94,29 +109,30 @@ namespace AgentVI.Models
             }
         }
 
-        private ESensorColorHealth GetEnumForValue(int i_value)
+        private ESensorColorHealth GetEnumForValue(eSensorStatus i_value)
         {
             ESensorColorHealth res;
 
-            if (i_value > 80)
+            switch(i_value)
             {
-                res = ESensorColorHealth.Green;
-            }
-            else if (i_value > 60)
-            {
-                res = ESensorColorHealth.Yellow;
-            }
-            else if (i_value > 40)
-            {
-                res = ESensorColorHealth.Red;
-            }
-            else if (i_value > 20)
-            {
-                res = ESensorColorHealth.Grey;
-            }
-            else
-            {
-                res = ESensorColorHealth.Black;
+                case eSensorStatus.Active:
+                    res = ESensorColorHealth.Green;
+                    break;
+                case eSensorStatus.Warning:
+                    res = ESensorColorHealth.Yellow;
+                    break;
+                case eSensorStatus.Error:
+                    res = ESensorColorHealth.Red;
+                    break;
+                case eSensorStatus.Inactive:
+                    res = ESensorColorHealth.Black;
+                    break;
+                case eSensorStatus.Undefined:
+                    res = ESensorColorHealth.Grey;
+                    break;
+                default:
+                    res = ESensorColorHealth.Grey;
+                    break;
             }
 
             return res;
@@ -130,10 +146,7 @@ namespace AgentVI.Models
 
         private void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
