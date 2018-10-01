@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
+using AgentVI.Utils;
 using System.Globalization;
 
 namespace AgentVI.Converters
@@ -10,7 +11,7 @@ namespace AgentVI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (new DateTime(1970,1,1,0,0,0,0)).AddMilliseconds((ulong)value).ToLocalTime().ToString("dd/MM/yyyy hh:mm tt");
+            return (new DateTime(1970,1,1,0,0,0,0)).AddMilliseconds((ulong)value).ToLocalTime().ToString(Settings.DateTimeFormat);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

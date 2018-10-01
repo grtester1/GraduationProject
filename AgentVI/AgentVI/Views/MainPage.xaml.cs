@@ -4,11 +4,11 @@ using AgentVI.Utils;
 using AgentVI.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using AgentVI.Utils;
+using AgentVI.Interfaces;
+using AgentVI.Views;
+
+[assembly: Dependency(typeof(MainPage))]
 namespace AgentVI.Views
 {
     public partial class MainPage : ContentPage
@@ -17,13 +17,19 @@ namespace AgentVI.Views
         private FilterIndicatorViewModel m_FilterIndicatorViewModel = null;
         private Page m_FilterPage = null;
         private IProgress<ProgressReportModel> m_ProgressReporter = null;
-
-        private Dictionary<String, Tuple<ContentPage, Button, AgentVI.Utils.Icon, Label>> pageCollection;
-        private const String k_TabSelectionColor = "bababa";
+        private readonly object contentViewUpdateLock = new object();
+        private WaitingPagexaml waitingPage = new WaitingPagexaml();
+        private Dictionary<String, Tuple<ContentPage, Button, Icon, Label>> pageCollection;
+        private const String k_TabSelectionColor = "#BABABA";
         private const short k_NumberOfInitializations = 8;
+        private Stack<View> contentViewStack;
 
+        public MainPage()
+        {
 
-        public MainPage(IProgress<ProgressReportModel> i_ProgressReporter)
+        }
+
+        public MainPage(IProgress<ProgressReportModel> i_ProgressReporter):this()
         {
             m_ProgressReporter = i_ProgressReporter;
             ProgressReportModel report = new ProgressReportModel(k_NumberOfInitializations);
@@ -62,16 +68,20 @@ namespace AgentVI.Views
         private void initPagesCollectionHelper(ProgressReportModel i_Report)
         {
             updateReporter("Initializing app pages...", i_Report);
-            pageCollection = new Dictionary<String, Tuple<ContentPage, Button, AgentVI.Utils.Icon, Label>>();
+            pageCollection = new Dictionary<String, Tuple<ContentPage, Button, Icon, Label>>();
 
             updateReporter("Fetching Cameras...", i_Report);
-            pageCollection.Add("CamerasPage", new Tuple<ContentPage, Button, AgentVI.Utils.Icon, Label>(new CamerasPage(), FooterBarCamerasButton, FooterBarCamerasImage, FooterBarCamerasLabel));
+            CamerasPage camerasPageInstance = new CamerasPage();
+            camerasPageInstance.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
+            pageCollection.Add("CamerasPage", new Tuple<ContentPage, Button, Icon, Label>(camerasPageInstance, FooterBarCamerasButton, FooterBarCamerasImage, FooterBarCamerasLabel));
 
             updateReporter("Fetching Settings...", i_Report);
-            pageCollection.Add("SettingsPage", new Tuple<ContentPage, Button, AgentVI.Utils.Icon, Label>(new SettingsPage(), FooterBarSettingsButton, FooterBarSettingsImage, FooterBarSettingsLabel));
+            pageCollection.Add("SettingsPage", new Tuple<ContentPage, Button, Icon, Label>(new SettingsPage(), FooterBarSettingsButton, FooterBarSettingsImage, FooterBarSettingsLabel));
 
             updateReporter("Fetching Events...", i_Report);
-            pageCollection.Add("EventsPage", new Tuple<ContentPage, Button, AgentVI.Utils.Icon, Label>(new EventsPage(), FooterBarEventsButton, FooterBarEventsImage, FooterBarEventsLabel));
+            //EventsPage eventsPageBuf = new CamerasPage();
+            //eventsPageBuf.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
+            pageCollection.Add("EventsPage", new Tuple<ContentPage, Button, Icon, Label>(new EventsPage(), FooterBarEventsButton, FooterBarEventsImage, FooterBarEventsLabel));
         }
 
         private void markSelectedTab(Button i_SelectedTab)
@@ -86,15 +96,6 @@ namespace AgentVI.Views
                     }
                     if (kvPair.Value.Item3 != null)
                     {
-                        /*string closeIconName = kvPair.Value.Item3.ResourceId;
-                         if(closeIconName.Contains("_open"))
-                         {
-                         closeIconName.Replace("_open", "");
-                         kvPair.Value.Item3.ResourceId = closeIconName;
-                         }*/
-
-
-                        //kvPair.Value.Item3.ResourceId = "AgentVI.Sources.Icons.visibility_24px.svg";
                         if (kvPair.Key == "EventsPage")
                         {
                             kvPair.Value.Item3.ResourceId = "AgentVI.Sources.Icons.events.svg";
@@ -119,19 +120,9 @@ namespace AgentVI.Views
                     {
                         kvPair.Value.Item4.BackgroundColor = Color.FromHex(k_TabSelectionColor);
                     }
-                    /*if (kvPair.Value.Item3 != null)
-                     {
-                     string openIconName = kvPair.Value.Item3.ResourceId;
-                     if (!openIconName.Contains("_open"))
-                     {
-                     openIconName.Replace(".svg", "_open.svg");
-                     kvPair.Value.Item3.ResourceId = openIconName;
-                     }*/
-
 
                     if (kvPair.Value.Item3 != null)
                     {
-                        //kvPair.Value.Item3.ResourceId = "AgentVI.Sources.Icons.play24px.svg";
                         if (kvPair.Key == "EventsPage")
                         {
                             kvPair.Value.Item3.ResourceId = "AgentVI.Sources.Icons.events_open.svg";
@@ -162,12 +153,14 @@ namespace AgentVI.Views
         {
             PlaceHolder.Content = pageCollection["EventsPage"].Item1.Content;
             markSelectedTab(i_Sender as Button);
+            resetContentViewStack();
         }
 
         void FooterBarCameras_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             PlaceHolder.Content = pageCollection["CamerasPage"].Item1.Content;
             markSelectedTab(i_Sender as Button);
+            resetContentViewStack();
         }
 
         void FooterBarHealth_Clicked(object i_Sender, EventArgs i_EventArgs)
@@ -179,12 +172,61 @@ namespace AgentVI.Views
         {
             PlaceHolder.Content = pageCollection["SettingsPage"].Item1.Content;
             markSelectedTab(i_Sender as Button);
+            resetContentViewStack();
         }
 
         protected override bool OnBackButtonPressed()
         {
             DependencyService.Get<IBackButtonPressed>().NativeOnBackButtonPressed();
             return true;
+        }
+
+        private void OnContentViewUpdateEvent(object sender, UpdatedContentEventArgs e)
+        {
+            lock(contentViewUpdateLock)
+            {
+                if (e == null)
+                {
+                    addToContentViewStack(PlaceHolder.Content);
+                    PlaceHolder.Content = waitingPage.Content;
+                }
+                else if(e != null && e.IsStackPopRequested)
+                {
+                    popFromControlViewStack();
+                }
+                else
+                {
+                    PlaceHolder.Content = e.UpdatedContent.Content;
+                }
+            }
+            
+        }
+
+        private void addToContentViewStack(View i_updatedContent)
+        {
+            if(contentViewStack == null)
+            {
+                contentViewStack = new Stack<View>();
+            }
+            contentViewStack.Push(i_updatedContent);
+        }
+        
+        private void resetContentViewStack()
+        {
+            contentViewStack = null;
+        }
+
+        private void popFromControlViewStack()
+        {
+                View stackTop = contentViewStack.Pop();
+                if (stackTop != null)
+                {
+                    PlaceHolder.Content = stackTop;
+                }
+                else
+                {
+                    throw new Exception("MainPage.PopFromControlViewStack called unexpectedely");
+                }
         }
     }
 }

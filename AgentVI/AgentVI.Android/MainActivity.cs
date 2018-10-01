@@ -10,7 +10,7 @@ using Android.OS;
 using System.Reflection;
 using Octane.Xamarin.Forms.VideoPlayer.Android;
 using FFImageLoading.Forms.Platform;
-using AgentVI.Utils;
+using AgentVI.Interfaces;
 
 [assembly: Dependency(typeof(MainActivity))]
 namespace AgentVI.Droid

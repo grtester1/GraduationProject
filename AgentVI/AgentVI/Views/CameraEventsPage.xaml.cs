@@ -12,39 +12,75 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using AgentVI.ViewModels;
 using AgentVI.Services;
+using AgentVI.Interfaces;
+using AgentVI.Utils;
+using AgentVI.Models;
 
 namespace AgentVI.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CameraEventsPage : ContentPage
+    public partial class CameraEventsPage : ContentPage, INotifyContentViewChanged
     {
-        private SensorEventsListViewModel SensorEventsLVVM = null;
+        private SensorEventsListViewModel SensorEventsListVM = null;
+        public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
 
         public CameraEventsPage()
         {
             InitializeComponent();
         }
 
-        public CameraEventsPage(InnoviObjectCollection<SensorEvent> i_SensorEventCollection) : this()
+        public CameraEventsPage(Sensor i_Sensor) : this()
         {
-            SensorEventsLVVM = new SensorEventsListViewModel(i_SensorEventCollection);
-            cameraEventsListView.ItemsSource = SensorEventsLVVM.SensorEventList;
-            cameraEventsListView.BindingContext = SensorEventsLVVM.SensorEventList;
-            initOnFilterStateUpdatedEventHandler();
+            SensorEventsListVM = new SensorEventsListViewModel(i_Sensor);
+            SensorEventsListVM.UpdateSensorEvents();
+            cameraEventsListView.BindingContext = SensorEventsListVM;
+            sensorNameLabel.Text = SensorEventsListVM.SensorSource.Name;
+            IsEmptyFiller.IsVisible = SensorEventsListVM.IsEmptyFolder;
+            IsEmptyText.IsVisible = SensorEventsListVM.IsEmptyFolder;
         }
 
-        public CameraEventsPage(Sensor i_Sensor) : this(i_Sensor.SensorEvents)
+        protected override void OnAppearing()
         {
+            base.OnAppearing();
+            SensorEventsListVM.UpdateSensorEvents();
         }
 
-        private void initOnFilterStateUpdatedEventHandler()
+        private async void OnRefresh(object sender, EventArgs e)
         {
-            ServiceManager.Instance.FilterService.FilterStateUpdated += SensorEventsLVVM.OnFilterStateUpdated;
+            try
+            {
+                await Task.Factory.StartNew(() => SensorEventsListVM.UpdateSensorEvents());
+                ((ListView)sender).IsRefreshing = false;
+            }catch(AggregateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
-        private void onCameraEventTapped(object sender, EventArgs e)
+        private void onCameraEventBackButtonTapped(object sender, EventArgs e)
         {
+            RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(null , true));
+        }
 
+        private async void cameraEventsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            RaiseContentViewUpdateEvent?.Invoke(this, null);
+            EventModel selectedSensorEvent = e.SelectedItem as EventModel;
+            UpdatedContentEventArgs updatedContentEventArgs = null;
+            EventDetailsPage eventDetailsPageBuf = null;
+
+            await Task.Factory.StartNew(() =>
+            {
+                eventDetailsPageBuf = new EventDetailsPage(selectedSensorEvent);
+                eventDetailsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
+            });
+            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(eventDetailsPageBuf));
+            RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
+        }
+
+        private void eventsRouter(object sender, UpdatedContentEventArgs e)
+        {
+            RaiseContentViewUpdateEvent?.Invoke(this, e);
         }
     }
 }

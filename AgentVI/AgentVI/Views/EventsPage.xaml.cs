@@ -23,7 +23,7 @@ namespace AgentVI.Views
             eventListView.BindingContext = SensorsEventsListVM;
         }
 
-        public void initOnFilterStateUpdatedEventHandler()
+        private void initOnFilterStateUpdatedEventHandler()
         {
             ServiceManager.Instance.FilterService.FilterStateUpdated += SensorsEventsListVM.OnFilterStateUpdated;
         }
@@ -36,8 +36,14 @@ namespace AgentVI.Views
 
         private async void OnRefresh(object sender, EventArgs e)
         {
-            await System.Threading.Tasks.Task.Factory.StartNew(() => SensorsEventsListVM.UpdateEvents());
-            ((ListView)sender).IsRefreshing = false;
+            try
+            {
+                await System.Threading.Tasks.Task.Factory.StartNew(() => SensorsEventsListVM.UpdateEvents());
+                ((ListView)sender).IsRefreshing = false;
+            }catch(AggregateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void OnSensorEvent_Tapped(object sender, EventArgs e)

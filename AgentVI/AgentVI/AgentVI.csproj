@@ -25,6 +25,8 @@
 
   <ItemGroup>
     <None Remove="Sources\background.png" />
+    <None Remove="Sources\EmptyPageFiller.svg" />
+    <None Remove="Sources\Icons\backButton.svg" />
     <None Remove="Sources\innovi_logo.png" />
     <None Remove="Sources\LoadingAnimation.gif" />
     <None Remove="Sources\Icons\events.svg" />
@@ -62,6 +64,8 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Sources\background.png" />
+    <EmbeddedResource Include="Sources\EmptyPageFiller.svg" />
+    <EmbeddedResource Include="Sources\Icons\backButton.svg" />
     <EmbeddedResource Include="Sources\innovi_logo.png" />
     <EmbeddedResource Include="Sources\LoadingAnimation.gif" />
     <EmbeddedResource Include="Sources\Icons\events.svg" />
@@ -105,6 +109,9 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
       <DependentUpon>*.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\EventDetailsPage.xaml.cs">
+      <DependentUpon>EventDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\FilterPage.xaml.cs">
       <DependentUpon>FilterPage.xaml</DependentUpon>
     </Compile>
@@ -123,11 +130,14 @@
     <EmbeddedResource Update="Views\CameraEventsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\EventDetailsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\LoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Sources\Icons\" />
+    <EmbeddedResource Update="Views\WaitingPagexaml.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

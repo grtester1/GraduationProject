@@ -4,34 +4,88 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
-using System.Collections.Generic;
-using AgentVI.Services;
-using Xamarin.Forms;
-using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using AgentVI.Models;
+using Xamarin.Forms.Extended;
 
 namespace AgentVI.ViewModels
 {
-    public class SensorEventsListViewModel
+    public class SensorEventsListViewModel : FilterDependentViewModel<EventModel>
     {
-        public ObservableCollection<EventModel> SensorEventList { get; set; }
-
-        public SensorEventsListViewModel(Sensor i_Sensor) : this(i_Sensor.SensorEvents)
+        private bool canLoadMore = false;
+        public Sensor SensorSource { get; private set; }
+        private bool _isEmptyFolder = true;
+        public bool IsEmptyFolder
         {
-        }
-
-        public SensorEventsListViewModel(InnoviObjectCollection<SensorEvent> i_SensorEventCollection)
-        {
-            SensorEventList = new ObservableCollection<EventModel>();
-            foreach(SensorEvent se in i_SensorEventCollection)
+            get => _isEmptyFolder;
+            set
             {
-                SensorEventList.Add(EventModel.FactoryMethod(se));
+                _isEmptyFolder = value;
+                OnPropertyChanged();
             }
         }
 
-        public void OnFilterStateUpdated(object source, EventArgs e)
+        private SensorEventsListViewModel()
         {
-            //UpdateSensorEvents();
+            ObservableCollection = new InfiniteScrollCollection<EventModel>()
+            {
+                OnLoadMore = async () =>
+                {
+                    IsBusy = true;
+                    await Task.Factory.StartNew(() => downloadData());
+                    IsBusy = false;
+                    return null;
+                },
+                OnCanLoadMore = () =>
+                {
+                    return canLoadMore;
+                }
+            };
+        }
+
+        public SensorEventsListViewModel(Sensor i_Sensor) : this()
+        {
+            SensorSource = i_Sensor;
+        }
+
+        public override void OnFilterStateUpdated(object source, EventArgs e) { return; }
+
+        private void downloadData()
+        {
+            for(int i=0;i<1&&canLoadMore;i++)
+            {
+                try
+                {
+                    ObservableCollection.Add(EventModel.FactoryMethod(collectionEnumerator.Current as SensorEvent));
+                    updateFolderState();                    
+                }catch(ArgumentOutOfRangeException e)
+                {
+                    updateFolderState();
+                    Console.WriteLine(e.Message);
+                    canLoadMore = false;
+                }
+                canLoadMore = collectionEnumerator.MoveNext();
+            }
+        }
+
+        private void updateFolderState()
+        {
+            if(ObservableCollection.Count == 0)
+            {
+                IsEmptyFolder = true;
+            }
+            else
+            {
+                IsEmptyFolder = false;
+            }
+        }
+
+        internal void UpdateSensorEvents()
+        {
+            collectionEnumerator = SensorSource.SensorEvents.GetEnumerator();
+            canLoadMore = collectionEnumerator.MoveNext();
+            ObservableCollection.Clear();
+            downloadData();
         }
     }
 }

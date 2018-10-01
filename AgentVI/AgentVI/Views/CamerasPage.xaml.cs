@@ -4,19 +4,22 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
 using AgentVI.ViewModels;
 using Xamarin.Forms;
 using System.Linq;
 using AgentVI.Services;
+using AgentVI.Interfaces;
+using AgentVI.Models;
+using AgentVI.Utils;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace AgentVI.Views
 {
-    public partial class CamerasPage : ContentPage
+    public partial class CamerasPage : ContentPage, INotifyContentViewChanged
     {
         private SensorsListViewModel SensorsListVM = null;
+        public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
 
         public CamerasPage()
         {
@@ -28,7 +31,7 @@ namespace AgentVI.Views
             cameraListView.BindingContext = SensorsListVM;
         }
 
-        public void initOnFilterStateUpdatedEventHandler()
+        private void initOnFilterStateUpdatedEventHandler()
         {
             ServiceManager.Instance.FilterService.FilterStateUpdated += SensorsListVM.OnFilterStateUpdated;
         }
@@ -42,14 +45,32 @@ namespace AgentVI.Views
         private async void OnRefresh(object sender, EventArgs e)
         {
             await System.Threading.Tasks.Task.Factory.StartNew(() => SensorsListVM.UpdateCameras());
-            ((ListView)sender).IsRefreshing = false; //end the refresh state
+            ((ListView)sender).IsRefreshing = false;
         }
 
-        private void OnSensor_Tapped(object sender, EventArgs e)
+        private async void OnSensor_Tapped(object sender, EventArgs e)
         {
-            var name = (sender as Grid).FindByName<Label>("SensorName");
-            var a = SensorsListVM.ObservableCollection.Where(sensor => sensor.SensorName == name.Text);
-            (Application.Current.MainPage as NavigationPage).PushAsync(new CameraEventsPage(a.First().Sensor));
+            RaiseContentViewUpdateEvent?.Invoke(this, null);
+            UpdatedContentEventArgs updatedContentEventArgs = null;
+            CameraEventsPage cameraEventsPageBuf = null;
+            Sensor sensorBuffer = null;
+
+            await Task.Factory.StartNew(() =>
+            {
+                Label labelObj = (sender as Grid).FindByName<Label>("SensorName");
+                IEnumerable<SensorModel> sensorEnumerable = SensorsListVM.ObservableCollection.Where(sensor => sensor.SensorName == labelObj.Text);
+                sensorBuffer = sensorEnumerable.First().Sensor;
+                cameraEventsPageBuf = new CameraEventsPage(sensorBuffer);
+                cameraEventsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
+
+            });
+            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(cameraEventsPageBuf));
+            RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
+        }
+
+        private void eventsRouter(object sender, UpdatedContentEventArgs e)
+        {
+            RaiseContentViewUpdateEvent?.Invoke(this, e);
         }
     }
 }

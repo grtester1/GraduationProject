@@ -15,6 +15,9 @@ namespace AgentVI.Utils
         public static Color SensorEventFontColor { get; } = Color.Navy;
 
         public static string LoadingAnimationPath { get; } = "resource://AgentVI.Sources.LoadingAnimation.gif";
+        public static string EmptyCollectionSVGPath { get; } = "resource://AgentVI.Sources.EmptyPageFiller.svg";
+        public static string BackButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.backButton.svg";
+        public static string DateTimeFormat { get; } = "dd/MM/yyyy hh:mm tt";
 
         public static ImageSource BackgroundPicturePath { get; } = ImageSource.FromResource("AgentVI.Sources.background.png");
         public static ImageSource LogoPicturePath { get; } = ImageSource.FromResource("AgentVI.Sources.innovi_logo.png");
