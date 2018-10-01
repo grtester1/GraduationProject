@@ -36,7 +36,7 @@
                     <RowDefinition Height="4*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <vidplayer:VideoPlayer Source="https://vjs.zencdn.net/v/oceans.mp4" HorizontalOptions="Fill" VerticalOptions="Fill" x:Name="vidPlayer" AutoPlay="True" Grid.Row="0"/>
+                <vidplayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" HorizontalOptions="Fill" VerticalOptions="Fill" AutoPlay="True" Grid.Row="0"/>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

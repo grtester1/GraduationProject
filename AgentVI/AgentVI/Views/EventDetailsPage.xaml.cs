@@ -3,6 +3,7 @@ using AgentVI.Models;
 using AgentVI.Utils;
 using AgentVI.ViewModels;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,13 +31,18 @@ namespace AgentVI.Views
             RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(null, true));
         }
 
-        private void bindUnbindableUIFields()
+        private async void bindUnbindableUIFields()
         {
-            sensorNameLabel.Text = eventDetailsViewModel.EventModel.SensorName;
-            sensorEventRuleNameLabel.Text = eventDetailsViewModel.EventModel.SensorEventRuleName.convertEnumToString();
-            SensorEventDateTimeLabel.Text = eventDetailsViewModel.EventModel.SensorEventDateTime.ToString();
-            SensorEventRuleNameImage.Source = Settings.BackButtonSVGPath;
-            SensorEventTagLabel.Text = eventDetailsViewModel.EventModel.SensorEventTag.convertEnumToString();
+            await Task.Factory.StartNew(() =>
+            {
+                SensorEventClipVideoPlayer.Source = eventDetailsViewModel.SensorEventClipPath;
+                sensorNameLabel.Text = eventDetailsViewModel.SensorName;
+                sensorEventRuleNameLabel.Text = eventDetailsViewModel.SensorEventRuleName;
+                SensorEventDateTimeLabel.Text = eventDetailsViewModel.SensorEventDateTime;
+                SensorEventRuleNameImage.Source = eventDetailsViewModel.RuleNameObjectPath;
+                SensorEventTagLabel.Text = eventDetailsViewModel.SensorEventTag;
+            });
+            OnPropertyChanged();
         }
     }
 }
