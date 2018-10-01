@@ -13,22 +13,19 @@ namespace AgentVI.Views
 {
     public partial class HealthPage : ContentPage
     {
-        private HealthListViewModel healthListVM = null;
+        private HealthListViewModel HealthPageVM = null;
 
         public HealthPage()
         {
             InitializeComponent();
-            cameraNameHeader.Text = "no camera selected";
         }
 
-        public HealthPage(Sensor i_sensor)
+        public HealthPage(SensorModel i_sensor) : this()
         {
-            InitializeComponent();
-            healthListVM = new HealthListViewModel(i_sensor);
-            cameraNameHeader.Text = "Health for " + i_sensor.Name;
-            Title = i_sensor.Name;
-
-            listView.ItemsSource = healthListVM.healthList;
+            HealthPageVM = new HealthListViewModel(i_sensor);
+            cameraNameHeader.Text = "Health for " + i_sensor.SensorName;
+            Title = i_sensor.SensorName;
+            listView.ItemsSource = HealthPageVM.HealthsList;
         }
     }
 }

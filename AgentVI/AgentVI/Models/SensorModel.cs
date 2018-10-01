@@ -23,8 +23,8 @@ namespace AgentVI.Models
             {
                 Sensor = i_Sensor,
                 SensorName = i_Sensor.Name,
-                SensorHealth = 100,
-                //SensorHealthList = i_Sensor.SensorHealthArray;
+                SensorHealth = 100,//i_Sensor.SensorHealthArray[0].Status, ///////// need to change!!!
+                SensorHealthList = i_Sensor.SensorHealthArray,
                 SensorImage = ImageSource.FromStream(() => new System.IO.MemoryStream(i_Sensor.ReferenceImage))
             };
 
@@ -66,7 +66,10 @@ namespace AgentVI.Models
         private List<Sensor.Health> m_SensorHealthList;
         public List<Sensor.Health> SensorHealthList
         {
-            get { return m_SensorHealthList; }
+            get
+            {
+                return m_SensorHealthList;
+            }
             private set
             {
                 m_SensorHealthList = value;
