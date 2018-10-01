@@ -248,6 +248,34 @@ namespace InnoviApiProxy
             return getFolderSensorsHelper(client, i_FolderId, i_PageId, out i_PagesCount, httpRequest);
         }
 
+        internal static List<Sensor.Health> GetSensorHealthArray (int i_SensorId)
+        {
+            verifyLoggedInStatus();
+            HttpClient client = BaseHttpClient();
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken);
+
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint +
+                "sensors/" + i_SensorId.ToString() + "/status/overtime");
+
+            Task <HttpResponseMessage> result = client.SendAsync(httpRequest);
+            HttpResponseMessage response = result.Result;
+            JObject responseJsonObject = GetHttpResponseBody(response);
+
+            List<Sensor.Health> HealthArray = JsonConvert.DeserializeObject<List<Sensor.Health>>(responseJsonObject["entity"]["data"].ToString());
+
+            verifyCodeZero(responseJsonObject);
+            InnoviApiService.RefreshAccessToken(response);
+
+            if (HealthArray.Count == 0)
+            {
+                HealthArray = null;
+            }
+
+            return HealthArray;
+
+        }
+
+
         internal static List<Sensor> GetAllFolderSensors(int i_FolderId, int i_PageId, out int i_PagesCount)
         {
             verifyLoggedInStatus();
