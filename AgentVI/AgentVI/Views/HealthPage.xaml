@@ -20,7 +20,7 @@
             <Label Grid.Column="1" Text="Description" TextColor="Navy" FontAttributes="Bold"/>
             <Label Grid.Column="2" Text="Duration (HH:MM)" TextColor="Navy" FontAttributes="Bold" HorizontalTextAlignment="End" />
         </Grid>
-        <ListView x:Name="listView" Margin="0,20,0,0">
+        <ListView x:Name="listView" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" Margin="0,20,0,0">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

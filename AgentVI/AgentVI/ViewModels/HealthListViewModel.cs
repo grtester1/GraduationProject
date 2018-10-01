@@ -102,6 +102,12 @@ namespace AgentVI.ViewModels
             return healthList;    
         }
 
+        public void UpdateHealthList()
+        {
+            HealthsList.Clear();
+            HealthsList = GetHealthSensorList(SensorModel);
+        }
+
         private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)

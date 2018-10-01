@@ -27,5 +27,11 @@ namespace AgentVI.Views
             Title = i_sensor.SensorName;
             listView.ItemsSource = HealthPageVM.HealthsList;
         }
+
+        private async void OnRefresh(object sender, EventArgs e)
+        {
+            await System.Threading.Tasks.Task.Factory.StartNew(() => HealthPageVM.UpdateHealthList());
+            ((ListView)sender).IsRefreshing = false; //end the refresh state
+        }
     }
 }
