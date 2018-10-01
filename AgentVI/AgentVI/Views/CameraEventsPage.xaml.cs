@@ -14,6 +14,7 @@ using AgentVI.ViewModels;
 using AgentVI.Services;
 using AgentVI.Interfaces;
 using AgentVI.Utils;
+using AgentVI.Models;
 
 namespace AgentVI.Views
 {
@@ -56,14 +57,30 @@ namespace AgentVI.Views
             }
         }
 
-        private void onCameraEventTapped(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void onCameraEventBackButtonTapped(object sender, EventArgs e)
         {
             RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(null , true));
+        }
+
+        private async void cameraEventsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            RaiseContentViewUpdateEvent?.Invoke(this, null);
+            EventModel selectedSensorEvent = e.SelectedItem as EventModel;
+            UpdatedContentEventArgs updatedContentEventArgs = null;
+            EventDetailsPage eventDetailsPageBuf = null;
+
+            await Task.Factory.StartNew(() =>
+            {
+                eventDetailsPageBuf = new EventDetailsPage(selectedSensorEvent);
+                eventDetailsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
+            });
+            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(eventDetailsPageBuf));
+            RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
+        }
+
+        private void eventsRouter(object sender, UpdatedContentEventArgs e)
+        {
+            RaiseContentViewUpdateEvent?.Invoke(this, e);
         }
     }
 }

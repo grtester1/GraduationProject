@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AgentVI.Views.CameraEventsPage"
-             xmlns:vidplayer="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
              xmlns:converters="clr-namespace:AgentVI.Converters"
              xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
@@ -64,7 +63,7 @@
                         <Label x:Name="sensorNameLabel" HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontAttributes="Bold" TextColor="Navy"/>
                     </StackLayout>
                 </Grid>
-                <ListView Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
+                <ListView ItemSelected="cameraEventsListView_ItemSelected" Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
                     <ListView.Footer>
                         <Grid Padding="6" IsVisible="{Binding IsBusy}">
                             <Grid.Triggers>
@@ -86,7 +85,7 @@
                                         <RowDefinition Height="10*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <Frame Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
+                                    <Frame Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True" Grid.Row="0">
                                         <ff:CachedImage Source="https://picsum.photos/200/200" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
                                     </Frame>
                                     <Grid ColumnSpacing="0" Grid.Row="1">
@@ -97,6 +96,11 @@
                                         <Label Grid.Column="0" Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
                                         <Label Grid.Column="1" Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
                                     </Grid>
+                                    <!--
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="onSensorEventTapped"/>
+                                    </Grid.GestureRecognizers>
+                                    -->
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
