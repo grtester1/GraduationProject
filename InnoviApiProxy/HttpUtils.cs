@@ -92,13 +92,13 @@ namespace InnoviApiProxy
             }
         }
 
-        internal static string GetSensorNameById(int i_SensorId)
+        internal static Sensor GetSensorByID(int i_SensorId)
         {
             verifyLoggedInStatus();
 
             HttpClient client = BaseHttpClient();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken); 
-            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint + 
+            client.DefaultRequestHeaders.TryAddWithoutValidation("X-ACCESS-TOKEN", InnoviApiService.AccessToken);
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, Settings.ApiVersionEndpoint +
                 "sensors/" + i_SensorId.ToString());
             Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
             HttpResponseMessage response = result.Result;
@@ -107,6 +107,14 @@ namespace InnoviApiProxy
             verifyCodeZero(responseJsonObject);
             InnoviApiService.RefreshAccessToken(response);
             Sensor sensor = JsonConvert.DeserializeObject<Sensor>(responseJsonObject["entity"].ToString());
+
+            return sensor;
+        }
+
+
+        internal static string GetSensorNameById(int i_SensorId)
+        {
+            Sensor sensor = GetSensorByID(i_SensorId);
 
             string sensorName = "Unavailable";
             

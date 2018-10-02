@@ -29,6 +29,14 @@ namespace InnoviApiProxy
         [JsonProperty("behaviorType")]
         public eBehaviorType RuleName { get; private set; }
 
+        public Sensor EventSensor
+        {
+            get
+            {
+                return HttpUtils.GetSensorByID(SensorId);
+            }
+        }
+
         internal SensorEvent() { }
 
         public enum eBehaviorType
