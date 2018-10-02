@@ -27,8 +27,8 @@ namespace AgentVI.ViewModels
             get => EventModel.SensorEventTag.convertEnumToString();
         }
         public string SensorEventClipPath
-        {//EventModel.SensorEventClip
-            get => "https://vjs.zencdn.net/v/oceans.mp4";
+        {
+            get => EventModel.SensorEventClip;
         }
         public string SensorEventObjectType
         {

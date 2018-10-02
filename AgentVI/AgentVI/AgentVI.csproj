@@ -52,8 +52,6 @@
     <None Remove="Sources\Icons\object_truck_24px.svg" />
     <None Remove="Sources\Icons\play_open_24px.svg" />
     <None Remove="Sources\Icons\play24px.svg" />
-    <None Remove="Sources\Icons\sensors_open.svg" />
-    <None Remove="Sources\Icons\settings_open.svg" />
     <None Remove="Sources\Icons\visibility_24px.svg" />
   </ItemGroup>
 
@@ -86,8 +84,6 @@
     <EmbeddedResource Include="Sources\Icons\object_truck_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\play_open_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\play24px.svg" />
-    <EmbeddedResource Include="Sources\Icons\sensors_open.svg" />
-    <EmbeddedResource Include="Sources\Icons\settings_open.svg" />
     <EmbeddedResource Include="Sources\Icons\visibility_24px.svg" />
   </ItemGroup>
 

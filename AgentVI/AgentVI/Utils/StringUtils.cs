@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace AgentVI.Utils
@@ -18,15 +15,6 @@ namespace AgentVI.Utils
                                                 RegexOptions.IgnorePatternWhitespace);
 
             return enumToStringRegex.Replace(enumToString, " ");
-        }
-
-        public static string GetStringValue(this Enum i_Enum)
-        {
-            Type type = i_Enum.GetType();
-            FieldInfo fieldInfo = type.GetField(i_Enum.ToString());
-
-            StringValueAttribute[] attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
-            return attribs.Length > 0 ? attribs[0].StringValue : null;
         }
     }
 }

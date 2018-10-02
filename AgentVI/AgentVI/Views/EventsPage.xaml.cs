@@ -54,19 +54,25 @@ namespace AgentVI.Views
 
         private async void onEventTapped(object sender, SelectedItemChangedEventArgs e)
         {
-            RaiseContentViewUpdateEvent?.Invoke(this, null);
-            UpdatedContentEventArgs updatedContentEventArgs = null;
-            EventDetailsPage eventDetailsPageBuf = null;
-            EventModel selectedEvent = e.SelectedItem as EventModel;
-                
-            await Task.Factory.StartNew(() =>
+            try
             {
-                eventDetailsPageBuf = new EventDetailsPage(selectedEvent);
-                eventDetailsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
-            });
-            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(eventDetailsPageBuf));
+                RaiseContentViewUpdateEvent?.Invoke(this, null);
+                UpdatedContentEventArgs updatedContentEventArgs = null;
+                EventDetailsPage eventDetailsPageBuf = null;
+                EventModel selectedEvent = e.SelectedItem as EventModel;
 
-            RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
+                await Task.Factory.StartNew(() =>
+                {
+                    eventDetailsPageBuf = new EventDetailsPage(selectedEvent);
+                    eventDetailsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
+                });
+                await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(eventDetailsPageBuf));
+
+                RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
+            }catch(ObjectDisposedException ex)
+            {
+                OnRefresh(sender, null);
+            }
         }
 
         private void eventsRouter(object sender, UpdatedContentEventArgs e)

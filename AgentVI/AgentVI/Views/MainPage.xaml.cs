@@ -9,30 +9,20 @@ using Xamarin.Forms;
 using AgentVI.Interfaces;
 using AgentVI.Views;
 
-[assembly: Dependency(typeof(MainPage))]
 namespace AgentVI.Views
 {
     public partial class MainPage : ContentPage
     {
-        private enum Tabs : int
-        {
-            [StringValue("Events")]
-            Events,
-            [StringValue("Sensors")]
-            Sensors,
-            [StringValue("Health")]
-            Health,
-            [StringValue("Settings")]
-            Setting
-        };
+        private enum AppTab{EventsPage, SensorsPage, SettingsPage};
+        private enum Selection { Active, Passive};
         private LoginPageViewModel m_LoginPageViewModel = null;
         private FilterIndicatorViewModel m_FilterIndicatorViewModel = null;
         private Page m_FilterPage = null;
         private IProgress<ProgressReportModel> m_ProgressReporter = null;
         private readonly object contentViewUpdateLock = new object();
         private WaitingPagexaml waitingPage = new WaitingPagexaml();
-        private Dictionary<String, Tuple<ContentPage, Button, SvgCachedImage, Label>> pageCollection;
-        private const String k_TabSelectionColor = "#BABABA";
+        private Dictionary<AppTab, Tuple<ContentPage, SvgCachedImage>> pageCollection;
+        private const string k_TabSelectionColor = "#BABABA";
         private const short k_NumberOfInitializations = 8;
         private Stack<View> contentViewStack;
 
@@ -63,8 +53,44 @@ namespace AgentVI.Views
 
             NavigationPage.SetHasNavigationBar(this, false);
 
-            PlaceHolder.Content = pageCollection["EventsPage"].Item1.Content;
-            markSelectedTab(pageCollection["EventsPage"].Item2);
+            PlaceHolder.Content = pageCollection[AppTab.EventsPage].Item1.Content;
+            markSelectedTab(AppTab.EventsPage);
+        }
+
+        private string EnumToSVGPath(AppTab i_TabPage, Selection i_SelectionStatus)
+        {
+            string res;
+
+            if(i_TabPage == AppTab.EventsPage && i_SelectionStatus == Selection.Active)
+            {
+                res = Settings.EventsTabSelectedSVGPath;
+            }
+            else if(i_TabPage == AppTab.EventsPage && i_SelectionStatus == Selection.Passive)
+            {
+                res = Settings.EventsTabSVGPath;
+            }
+            else if(i_TabPage == AppTab.SensorsPage && i_SelectionStatus == Selection.Active)
+            {
+                res = Settings.SensorsTabSelectedSVGPath;
+            }
+            else if(i_TabPage == AppTab.SensorsPage && i_SelectionStatus == Selection.Passive)
+            {
+                res = Settings.SensorsTabSVGPath;
+            }
+            else if(i_TabPage == AppTab.SettingsPage&& i_SelectionStatus == Selection.Active)
+            {
+                res = Settings.SettingsTabSelectedSVGPath;
+            }
+            else if(i_TabPage == AppTab.SettingsPage && i_SelectionStatus == Selection.Passive)
+            {
+                res = Settings.SettingsTabSVGPath;
+            }
+            else
+            {
+                res = null;
+            }
+
+            return res;
         }
 
         private void updateReporter(String i_StageCompleted, ProgressReportModel i_Report)
@@ -80,80 +106,30 @@ namespace AgentVI.Views
         private void initPagesCollectionHelper(ProgressReportModel i_Report)
         {
             updateReporter("Initializing app pages...", i_Report);
-            pageCollection = new Dictionary<String, Tuple<ContentPage, Button, SvgCachedImage, Label>>();
+            pageCollection = new Dictionary<AppTab, Tuple<ContentPage, SvgCachedImage>>();
 
             updateReporter("Fetching Cameras...", i_Report);
             CamerasPage camerasPageInstance = new CamerasPage();
             camerasPageInstance.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
-            pageCollection.Add("CamerasPage", new Tuple<ContentPage, Button, SvgCachedImage, Label>(camerasPageInstance, FooterBarCamerasButton, FooterBarCamerasImage, FooterBarCamerasLabel));
+            pageCollection.Add(AppTab.SensorsPage, new Tuple<ContentPage, SvgCachedImage>(camerasPageInstance, FooterBarCamerasImage));
 
             updateReporter("Fetching Settings...", i_Report);
-            pageCollection.Add("SettingsPage", new Tuple<ContentPage, Button, SvgCachedImage, Label>(new SettingsPage(), FooterBarSettingsButton, FooterBarSettingsImage, FooterBarSettingsLabel));
+            pageCollection.Add(AppTab.SettingsPage, new Tuple<ContentPage, SvgCachedImage>(new SettingsPage(), FooterBarSettingsImage));
 
             updateReporter("Fetching Events...", i_Report);
             EventsPage eventsPageBuf = new EventsPage();
             eventsPageBuf.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
-            pageCollection.Add("EventsPage", new Tuple<ContentPage, Button, SvgCachedImage, Label>(eventsPageBuf, FooterBarEventsButton, FooterBarEventsImage, FooterBarEventsLabel));
+            pageCollection.Add(AppTab.EventsPage, new Tuple<ContentPage, SvgCachedImage>(eventsPageBuf, FooterBarEventsImage));
         }
 
-        
-
-        private void markSelectedTab(Button i_SelectedTab)
+        private void markSelectedTab(AppTab i_SelectedTab)
         {
-            foreach (var kvPair in pageCollection)
+            pageCollection[i_SelectedTab].Item2.Source = EnumToSVGPath(i_SelectedTab, Selection.Active);
+            foreach (KeyValuePair<AppTab, Tuple<ContentPage, SvgCachedImage>> kvPair in pageCollection)
             {
-                if (kvPair.Value.Item2 != i_SelectedTab)
+                if (kvPair.Key != i_SelectedTab)
                 {
-                    if (kvPair.Value.Item4 != null)
-                    {
-                        kvPair.Value.Item4.BackgroundColor = Color.Transparent;
-                    }
-                    if (kvPair.Value.Item3 != null)
-                    {
-                        if (kvPair.Key == "EventsPage")
-                        {
-                            kvPair.Value.Item3.Source = Settings.EventsTabSVGPath;
-                        }
-                        if (kvPair.Key == "CamerasPage")
-                        {
-                            kvPair.Value.Item3.Source = Settings.SensorsTabSVGPath;
-                        }
-                        if (kvPair.Key == "HealthPage")
-                        {
-                            kvPair.Value.Item3.Source = Settings.SensorsTabSVGPath;
-                        }
-                        if (kvPair.Key == "SettingsPage")
-                        {
-                            kvPair.Value.Item3.Source = Settings.SettingsTabSVGPath;
-                        }
-                    }
-                }
-                else
-                {
-                    if (kvPair.Value.Item4 != null)
-                    {
-                        kvPair.Value.Item4.BackgroundColor = Color.FromHex(k_TabSelectionColor);
-                    }
-
-                    if (kvPair.Value.Item3 != null)
-                    {
-                        if (kvPair.Key == "EventsPage")
-                        {
-                            kvPair.Value.Item3.Source = Settings.EventsTabSelectedSVGPath;
-                        }
-                        if (kvPair.Key == "CamerasPage")
-                        {
-                            kvPair.Value.Item3.Source = Settings.SensorsTabSelectedSVGPath;
-                        }
-                        if (kvPair.Key == "HealthPage")
-                        {
-                            kvPair.Value.Item3.Source = Settings.SensorsTabSelectedSVGPath;
-                        }
-                        if (kvPair.Key == "SettingsPage")
-                        {
-                            kvPair.Value.Item3.Source = Settings.SettingsTabSelectedSVGPath; ;
-                        }
-                    }
+                    kvPair.Value.Item2.Source = EnumToSVGPath(kvPair.Key, Selection.Passive);
                 }
             }
         }
@@ -165,27 +141,22 @@ namespace AgentVI.Views
 
         void FooterBarEvents_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
-            PlaceHolder.Content = pageCollection["EventsPage"].Item1.Content;
-            markSelectedTab(i_Sender as Button);
+            PlaceHolder.Content = pageCollection[AppTab.EventsPage].Item1.Content;
+            markSelectedTab(AppTab.EventsPage);
             resetContentViewStack();
         }
 
         void FooterBarCameras_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
-            PlaceHolder.Content = pageCollection["CamerasPage"].Item1.Content;
-            markSelectedTab(i_Sender as Button);
+            PlaceHolder.Content = pageCollection[AppTab.SensorsPage].Item1.Content;
+            markSelectedTab(AppTab.SensorsPage);
             resetContentViewStack();
-        }
-
-        void FooterBarHealth_Clicked(object i_Sender, EventArgs i_EventArgs)
-        {
-            markSelectedTab(i_Sender as Button);
         }
 
         void FooterBarSettings_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
-            PlaceHolder.Content = pageCollection["SettingsPage"].Item1.Content;
-            markSelectedTab(i_Sender as Button);
+            PlaceHolder.Content = pageCollection[AppTab.SettingsPage].Item1.Content;
+            markSelectedTab(AppTab.SettingsPage);
             resetContentViewStack();
         }
 
@@ -213,7 +184,6 @@ namespace AgentVI.Views
                     PlaceHolder.Content = e.UpdatedContent.Content;
                 }
             }
-            
         }
 
         private void addToContentViewStack(View i_updatedContent)
@@ -232,15 +202,15 @@ namespace AgentVI.Views
 
         private void popFromControlViewStack()
         {
-                View stackTop = contentViewStack.Pop();
-                if (stackTop != null)
-                {
-                    PlaceHolder.Content = stackTop;
-                }
-                else
-                {
-                    throw new Exception("MainPage.PopFromControlViewStack called unexpectedely");
-                }
+            View stackTop = contentViewStack.Pop();
+            if (stackTop != null)
+            {
+                PlaceHolder.Content = stackTop;
+            }
+            else
+            {
+                throw new Exception("MainPage.PopFromControlViewStack called unexpectedely");
+            }
         }
     }
 }

@@ -15,10 +15,9 @@ namespace AgentVI
 		public App ()
 		{
 			InitializeComponent();
+
             UnityContainer unityContainer = new UnityContainer();
-
             ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(unityContainer));
-
             MainPage = new NavigationPage(new Views.LoadingPage());
         }
 
