@@ -27,9 +27,14 @@
     <None Remove="Sources\background.png" />
     <None Remove="Sources\EmptyPageFiller.svg" />
     <None Remove="Sources\Icons\backButton.svg" />
+    <None Remove="Sources\Icons\events_24px.svg" />
+    <None Remove="Sources\Icons\events_active_24px.svg" />
+    <None Remove="Sources\Icons\sensors_24px.svg" />
+    <None Remove="Sources\Icons\sensors_active_24px.svg" />
+    <None Remove="Sources\Icons\settings_24px.svg" />
+    <None Remove="Sources\Icons\settings_active_24px.svg" />
     <None Remove="Sources\innovi_logo.png" />
     <None Remove="Sources\LoadingAnimation.gif" />
-    <None Remove="Sources\Icons\events.svg" />
     <None Remove="Sources\Icons\folder_24px.svg" />
     <None Remove="Sources\Icons\folder_open_24px.svg" />
     <None Remove="Sources\Icons\health_24px.svg" />
@@ -47,28 +52,23 @@
     <None Remove="Sources\Icons\object_truck_24px.svg" />
     <None Remove="Sources\Icons\play_open_24px.svg" />
     <None Remove="Sources\Icons\play24px.svg" />
-    <None Remove="Sources\Icons\sensors_24px.svg" />
-    <None Remove="Sources\Icons\sensors_active_24px.svg" />
     <None Remove="Sources\Icons\sensors_open.svg" />
-    <None Remove="Sources\Icons\sensors.svg" />
-    <None Remove="Sources\Icons\settings_24px.svg" />
-    <None Remove="Sources\Icons\settings_active_24px.svg" />
     <None Remove="Sources\Icons\settings_open.svg" />
-    <None Remove="Sources\Icons\settings.svg" />
     <None Remove="Sources\Icons\visibility_24px.svg" />
-    <None Remove="Sources\Icons\events_24px.svg" />
-    <None Remove="Sources\Icons\events_active__24px.svg" />
-    <None Remove="Sources\Icons\events_open_24px.svg" />
-    <None Remove="Sources\Icons\events_open.svg" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Sources\background.png" />
     <EmbeddedResource Include="Sources\EmptyPageFiller.svg" />
     <EmbeddedResource Include="Sources\Icons\backButton.svg" />
+    <EmbeddedResource Include="Sources\Icons\events_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\events_active_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\sensors_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\sensors_active_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\settings_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\settings_active_24px.svg" />
     <EmbeddedResource Include="Sources\innovi_logo.png" />
     <EmbeddedResource Include="Sources\LoadingAnimation.gif" />
-    <EmbeddedResource Include="Sources\Icons\events.svg" />
     <EmbeddedResource Include="Sources\Icons\folder_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\folder_open_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\health_24px.svg" />
@@ -86,19 +86,9 @@
     <EmbeddedResource Include="Sources\Icons\object_truck_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\play_open_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\play24px.svg" />
-    <EmbeddedResource Include="Sources\Icons\sensors_24px.svg" />
-    <EmbeddedResource Include="Sources\Icons\sensors_active_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\sensors_open.svg" />
-    <EmbeddedResource Include="Sources\Icons\sensors.svg" />
-    <EmbeddedResource Include="Sources\Icons\settings_24px.svg" />
-    <EmbeddedResource Include="Sources\Icons\settings_active_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\settings_open.svg" />
-    <EmbeddedResource Include="Sources\Icons\settings.svg" />
     <EmbeddedResource Include="Sources\Icons\visibility_24px.svg" />
-    <EmbeddedResource Include="Sources\Icons\events_24px.svg" />
-    <EmbeddedResource Include="Sources\Icons\events_active__24px.svg" />
-    <EmbeddedResource Include="Sources\Icons\events_open_24px.svg" />
-    <EmbeddedResource Include="Sources\Icons\events_open.svg" />
   </ItemGroup>
 
   <ItemGroup>

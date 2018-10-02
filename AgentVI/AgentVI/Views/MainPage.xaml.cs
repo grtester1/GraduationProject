@@ -2,6 +2,7 @@
 using AgentVI.Services;
 using AgentVI.Utils;
 using AgentVI.ViewModels;
+using FFImageLoading.Svg.Forms;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
@@ -13,13 +14,24 @@ namespace AgentVI.Views
 {
     public partial class MainPage : ContentPage
     {
+        private enum Tabs : int
+        {
+            [StringValue("Events")]
+            Events,
+            [StringValue("Sensors")]
+            Sensors,
+            [StringValue("Health")]
+            Health,
+            [StringValue("Settings")]
+            Setting
+        };
         private LoginPageViewModel m_LoginPageViewModel = null;
         private FilterIndicatorViewModel m_FilterIndicatorViewModel = null;
         private Page m_FilterPage = null;
         private IProgress<ProgressReportModel> m_ProgressReporter = null;
         private readonly object contentViewUpdateLock = new object();
         private WaitingPagexaml waitingPage = new WaitingPagexaml();
-        private Dictionary<String, Tuple<ContentPage, Button, Icon, Label>> pageCollection;
+        private Dictionary<String, Tuple<ContentPage, Button, SvgCachedImage, Label>> pageCollection;
         private const String k_TabSelectionColor = "#BABABA";
         private const short k_NumberOfInitializations = 8;
         private Stack<View> contentViewStack;
@@ -68,21 +80,23 @@ namespace AgentVI.Views
         private void initPagesCollectionHelper(ProgressReportModel i_Report)
         {
             updateReporter("Initializing app pages...", i_Report);
-            pageCollection = new Dictionary<String, Tuple<ContentPage, Button, Icon, Label>>();
+            pageCollection = new Dictionary<String, Tuple<ContentPage, Button, SvgCachedImage, Label>>();
 
             updateReporter("Fetching Cameras...", i_Report);
             CamerasPage camerasPageInstance = new CamerasPage();
             camerasPageInstance.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
-            pageCollection.Add("CamerasPage", new Tuple<ContentPage, Button, Icon, Label>(camerasPageInstance, FooterBarCamerasButton, FooterBarCamerasImage, FooterBarCamerasLabel));
+            pageCollection.Add("CamerasPage", new Tuple<ContentPage, Button, SvgCachedImage, Label>(camerasPageInstance, FooterBarCamerasButton, FooterBarCamerasImage, FooterBarCamerasLabel));
 
             updateReporter("Fetching Settings...", i_Report);
-            pageCollection.Add("SettingsPage", new Tuple<ContentPage, Button, Icon, Label>(new SettingsPage(), FooterBarSettingsButton, FooterBarSettingsImage, FooterBarSettingsLabel));
+            pageCollection.Add("SettingsPage", new Tuple<ContentPage, Button, SvgCachedImage, Label>(new SettingsPage(), FooterBarSettingsButton, FooterBarSettingsImage, FooterBarSettingsLabel));
 
             updateReporter("Fetching Events...", i_Report);
             //EventsPage eventsPageBuf = new CamerasPage();
             //eventsPageBuf.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
-            pageCollection.Add("EventsPage", new Tuple<ContentPage, Button, Icon, Label>(new EventsPage(), FooterBarEventsButton, FooterBarEventsImage, FooterBarEventsLabel));
+            pageCollection.Add("EventsPage", new Tuple<ContentPage, Button, SvgCachedImage, Label>(new EventsPage(), FooterBarEventsButton, FooterBarEventsImage, FooterBarEventsLabel));
         }
+
+        
 
         private void markSelectedTab(Button i_SelectedTab)
         {
@@ -98,19 +112,19 @@ namespace AgentVI.Views
                     {
                         if (kvPair.Key == "EventsPage")
                         {
-                            kvPair.Value.Item3.ResourceId = "AgentVI.Sources.Icons.events.svg";
+                            kvPair.Value.Item3.Source = Settings.EventsTabSVGPath;
                         }
                         if (kvPair.Key == "CamerasPage")
                         {
-                            kvPair.Value.Item3.ResourceId = "AgentVI.Sources.Icons.sensors.svg";
+                            kvPair.Value.Item3.Source = Settings.SensorsTabSVGPath;
                         }
                         if (kvPair.Key == "HealthPage")
                         {
-                            kvPair.Value.Item3.ResourceId = "AgentVI.Sources.Icons.health.svg";
+                            kvPair.Value.Item3.Source = Settings.SensorsTabSVGPath;
                         }
                         if (kvPair.Key == "SettingsPage")
                         {
-                            kvPair.Value.Item3.ResourceId = "AgentVI.Sources.Icons.settings.svg";
+                            kvPair.Value.Item3.Source = Settings.SettingsTabSVGPath;
                         }
                     }
                 }
@@ -125,19 +139,19 @@ namespace AgentVI.Views
                     {
                         if (kvPair.Key == "EventsPage")
                         {
-                            kvPair.Value.Item3.ResourceId = "AgentVI.Sources.Icons.events_open.svg";
+                            kvPair.Value.Item3.Source = Settings.EventsTabSelectedSVGPath;
                         }
                         if (kvPair.Key == "CamerasPage")
                         {
-                            kvPair.Value.Item3.ResourceId = "AgentVI.Sources.Icons.sensors_open.svg";
+                            kvPair.Value.Item3.Source = Settings.SensorsTabSelectedSVGPath;
                         }
                         if (kvPair.Key == "HealthPage")
                         {
-                            kvPair.Value.Item3.ResourceId = "AgentVI.Sources.Icons.health_open.svg";
+                            kvPair.Value.Item3.Source = Settings.SensorsTabSelectedSVGPath;
                         }
                         if (kvPair.Key == "SettingsPage")
                         {
-                            kvPair.Value.Item3.ResourceId = "AgentVI.Sources.Icons.settings_open.svg";
+                            kvPair.Value.Item3.Source = Settings.SettingsTabSelectedSVGPath; ;
                         }
                     }
                 }

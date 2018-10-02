@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:AgentVI"
              xmlns:ViewModels="clr-namespace:AgentVI.ViewModels"
              x:Class="AgentVI.Views.MainPage"
-             xmlns:svg="clr-namespace:AgentVI.Utils"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              xmlns:settings="clr-namespace:AgentVI.Utils">
 
     <ContentPage.Padding>
@@ -56,12 +56,12 @@
 
 
             <RelativeLayout Grid.Column="0" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-                <svg:Icon                                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
+                <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                                             x:Name="FooterBarEventsImage"
-                                                            ResourceId="AgentVI.Sources.Icons.events.svg"/>
+                                                            Source="{x:Static settings:Settings.EventsTabSVGPath}"/>
                 <Button                                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.15}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
@@ -77,12 +77,12 @@
             </RelativeLayout>
 
             <RelativeLayout Grid.Column="1" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-               <svg:Icon                                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
+                <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                                             x:Name="FooterBarCamerasImage"
-                                                            ResourceId="AgentVI.Sources.Icons.sensors.svg"/>
+                                                            Source="{x:Static settings:Settings.SensorsTabSVGPath}"/>
                 <Button                                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.15}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
@@ -98,12 +98,12 @@
             </RelativeLayout>
 
             <RelativeLayout Grid.Column="2" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-                <svg:Icon                                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
+                <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                                             x:Name="FooterBarHealthImage"
-                                                            ResourceId="AgentVI.Sources.Icons.health.svg"/>
+                                                            Source="{x:Static settings:Settings.EventsTabSVGPath}"/>
                 <Button                                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.15}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
@@ -119,12 +119,12 @@
             </RelativeLayout>
 
             <RelativeLayout Grid.Column="3" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-                <svg:Icon                                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
+                <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                                             x:Name="FooterBarSettingsImage"
-                                                            ResourceId="AgentVI.Sources.Icons.settings.svg"/>
+                                                            Source="{x:Static settings:Settings.SettingsTabSVGPath}"/>
                 <Button                                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0, Constant=-8}" 
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.15}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
