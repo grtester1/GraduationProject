@@ -91,9 +91,9 @@ namespace AgentVI.Views
             pageCollection.Add("SettingsPage", new Tuple<ContentPage, Button, SvgCachedImage, Label>(new SettingsPage(), FooterBarSettingsButton, FooterBarSettingsImage, FooterBarSettingsLabel));
 
             updateReporter("Fetching Events...", i_Report);
-            //EventsPage eventsPageBuf = new CamerasPage();
-            //eventsPageBuf.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
-            pageCollection.Add("EventsPage", new Tuple<ContentPage, Button, SvgCachedImage, Label>(new EventsPage(), FooterBarEventsButton, FooterBarEventsImage, FooterBarEventsLabel));
+            EventsPage eventsPageBuf = new EventsPage();
+            eventsPageBuf.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
+            pageCollection.Add("EventsPage", new Tuple<ContentPage, Button, SvgCachedImage, Label>(eventsPageBuf, FooterBarEventsButton, FooterBarEventsImage, FooterBarEventsLabel));
         }
 
         

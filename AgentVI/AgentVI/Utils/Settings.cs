@@ -21,6 +21,13 @@ namespace AgentVI.Utils
         public static string SettingsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_24px.svg";
         public static string SettingsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_active_24px.svg";
 
+        public static string ObjectTypeBicycleSVGPath { get; } = "resource://AgentVI.Sources.Icons.object_bicycle_24px.svg";
+        public static string ObjectTypeBusSVGPath { get; } = "resource://AgentVI.Sources.Icons.object_bus_24px.svg";
+        public static string ObjectTypeCarSVGPath { get; } = "resource://AgentVI.Sources.Icons.object_car_24px.svg";
+        public static string ObjectTypeMotorcycleSVGPath { get; } = "resource://AgentVI.Sources.Icons.object_motorcycl_24px.svg";
+        public static string ObjectTypePersonSVGPath { get; } = "resource://AgentVI.Sources.Icons.object_person_24px.svg";
+        public static string ObjectTypeTruckSVGPath { get; } = "resource://AgentVI.Sources.Icons.object_truck_24px.svg";
+
         public static string LoadingAnimationPath { get; } = "resource://AgentVI.Sources.LoadingAnimation.gif";
         public static string EmptyCollectionSVGPath { get; } = "resource://AgentVI.Sources.EmptyPageFiller.svg";
         public static string BackButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.backButton.svg";

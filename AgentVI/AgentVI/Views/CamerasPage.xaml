@@ -17,41 +17,41 @@
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-            <ListView SeparatorColor="Black" x:Name="cameraListView" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
-                <ListView.Footer>
-                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
-                        <Grid.Triggers>
-                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
-                                <Setter Property="HeightRequest" Value="0"/>
-                            </Trigger>
-                        </Grid.Triggers>
-                        <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
-                    </Grid>
-                </ListView.Footer>
-                <ListView.Behaviors>
-                    <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
-                </ListView.Behaviors>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="10*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Label Grid.Row="0" x:Name="SensorName" Text= "{Binding SensorName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="Center"/>
-                                <Frame Grid.Row="1" Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
-                                    <ff:CachedImage Source="{Binding SensorImage}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
-                                </Frame>
-                                <Button Grid.Row="2" BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding SensorHealthStatus, Converter={StaticResource EnumStatusColorConverter}}" HorizontalOptions="StartAndExpand"/>
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnSensor_Tapped"/>
-                                </Grid.GestureRecognizers>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+        <ListView SeparatorColor="Black" x:Name="cameraListView" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
+            <ListView.Footer>
+                <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                    <Grid.Triggers>
+                        <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                            <Setter Property="HeightRequest" Value="0"/>
+                        </Trigger>
+                    </Grid.Triggers>
+                    <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                </Grid>
+            </ListView.Footer>
+            <ListView.Behaviors>
+                <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" x:Name="SensorName" Text= "{Binding SensorName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Frame Grid.Row="1" Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
+                                <ff:CachedImage Source="{Binding SensorImage}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
+                            </Frame>
+                            <Button Grid.Row="2" BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding SensorHealthStatus, Converter={StaticResource EnumStatusColorConverter}}" HorizontalOptions="StartAndExpand"/>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="onSensorTapped"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

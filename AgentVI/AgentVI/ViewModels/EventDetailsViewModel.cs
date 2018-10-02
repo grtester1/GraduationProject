@@ -22,10 +22,6 @@ namespace AgentVI.ViewModels
         {
             get => new TimestampConverter().Convert(EventModel.SensorEventDateTime,typeof(String), null, null).ToString();
         }
-        public string RuleNameObjectPath
-        {//TODO
-            get => Settings.BackButtonSVGPath;
-        }
         public string SensorEventTag
         {
             get => EventModel.SensorEventTag.convertEnumToString();
@@ -34,6 +30,11 @@ namespace AgentVI.ViewModels
         {//EventModel.SensorEventClip
             get => "https://vjs.zencdn.net/v/oceans.mp4";
         }
+        public string SensorEventObjectType
+        {
+            get => new EnumObjectTypeSVGConverter().Convert(EventModel.SensorEventObjectType, EventModel.SensorEventObjectType.GetType() , null, null).ToString();
+        }
+
 
         public EventDetailsViewModel(EventModel i_EventModel)
         {

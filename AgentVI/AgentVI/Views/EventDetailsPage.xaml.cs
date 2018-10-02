@@ -39,7 +39,7 @@ namespace AgentVI.Views
                 sensorNameLabel.Text = eventDetailsViewModel.SensorName;
                 sensorEventRuleNameLabel.Text = eventDetailsViewModel.SensorEventRuleName;
                 SensorEventDateTimeLabel.Text = eventDetailsViewModel.SensorEventDateTime;
-                SensorEventRuleNameImage.Source = eventDetailsViewModel.RuleNameObjectPath;
+                SensorEventRuleNameImage.Source = eventDetailsViewModel.SensorEventObjectType;
                 SensorEventTagLabel.Text = eventDetailsViewModel.SensorEventTag;
             });
             OnPropertyChanged();

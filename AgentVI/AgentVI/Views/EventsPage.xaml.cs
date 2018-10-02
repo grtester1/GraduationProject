@@ -7,12 +7,18 @@ using System;
 using AgentVI.ViewModels;
 using Xamarin.Forms;
 using AgentVI.Services;
+using AgentVI.Interfaces;
+using AgentVI.Utils;
+using AgentVI.Models;
+using System.Threading.Tasks;
+using System.Collections;
 
 namespace AgentVI.Views
 {
-    public partial class EventsPage : ContentPage
+    public partial class EventsPage : ContentPage, INotifyContentViewChanged
     {
         private EventsListViewModel SensorsEventsListVM = null;
+        public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
 
         public EventsPage()
         {
@@ -38,7 +44,7 @@ namespace AgentVI.Views
         {
             try
             {
-                await System.Threading.Tasks.Task.Factory.StartNew(() => SensorsEventsListVM.UpdateEvents());
+                await Task.Factory.StartNew(() => SensorsEventsListVM.UpdateEvents());
                 ((ListView)sender).IsRefreshing = false;
             }catch(AggregateException ex)
             {
@@ -46,9 +52,26 @@ namespace AgentVI.Views
             }
         }
 
-        private void OnSensorEvent_Tapped(object sender, EventArgs e)
+        private async void onEventTapped(object sender, SelectedItemChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            RaiseContentViewUpdateEvent?.Invoke(this, null);
+            UpdatedContentEventArgs updatedContentEventArgs = null;
+            EventDetailsPage eventDetailsPageBuf = null;
+            EventModel selectedEvent = e.SelectedItem as EventModel;
+                
+            await Task.Factory.StartNew(() =>
+            {
+                eventDetailsPageBuf = new EventDetailsPage(selectedEvent);
+                eventDetailsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
+            });
+            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(eventDetailsPageBuf));
+
+            RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
+        }
+
+        private void eventsRouter(object sender, UpdatedContentEventArgs e)
+        {
+            RaiseContentViewUpdateEvent?.Invoke(this, e);
         }
     }
 }

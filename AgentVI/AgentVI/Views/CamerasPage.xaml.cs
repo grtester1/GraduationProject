@@ -48,7 +48,7 @@ namespace AgentVI.Views
             ((ListView)sender).IsRefreshing = false;
         }
 
-        private async void OnSensor_Tapped(object sender, EventArgs e)
+        private async void onSensorTapped(object sender, EventArgs e)
         {
             RaiseContentViewUpdateEvent?.Invoke(this, null);
             UpdatedContentEventArgs updatedContentEventArgs = null;
