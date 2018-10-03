@@ -53,8 +53,8 @@ namespace AgentVI.Models
 
         private string m_SensorEventClip;
         public string SensorEventClip
-        {
-            get { return m_SensorEventClip; }
+        {//return m_SensorEventClip;
+            get { return "https://vjs.zencdn.net/v/oceans.mp4"; }
             private set
             {
                 m_SensorEventClip = value;

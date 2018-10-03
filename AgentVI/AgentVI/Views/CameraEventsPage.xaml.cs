@@ -59,7 +59,7 @@ namespace AgentVI.Views
 
         private void onCameraEventBackButtonTapped(object sender, EventArgs e)
         {
-            RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(null , true));
+            RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Pop));
         }
 
         private async void cameraEventsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -74,7 +74,7 @@ namespace AgentVI.Views
                 eventDetailsPageBuf = new EventDetailsPage(selectedSensorEvent);
                 eventDetailsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
             });
-            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(eventDetailsPageBuf));
+            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Push, eventDetailsPageBuf));
             RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
         }
 

@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using AgentVI.Interfaces;
 using AgentVI.Views;
+using Plugin.DeviceOrientation;
+using Plugin.DeviceOrientation.Abstractions;
 
 namespace AgentVI.Views
 {
@@ -24,11 +26,12 @@ namespace AgentVI.Views
         private Dictionary<AppTab, Tuple<ContentPage, SvgCachedImage>> pageCollection;
         private const string k_TabSelectionColor = "#BABABA";
         private const short k_NumberOfInitializations = 8;
-        private Stack<View> contentViewStack;
+        private Stack<ContentPage> contentViewStack;
+        private ContentPage currentPageInContentView = null;
 
         public MainPage()
         {
-
+            CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
         }
 
         public MainPage(IProgress<ProgressReportModel> i_ProgressReporter):this()
@@ -53,8 +56,7 @@ namespace AgentVI.Views
 
             NavigationPage.SetHasNavigationBar(this, false);
 
-            PlaceHolder.Content = pageCollection[AppTab.EventsPage].Item1.Content;
-            markSelectedTab(AppTab.EventsPage);
+            FooterBarEvents_Clicked(null, null);
         }
 
         private string EnumToSVGPath(AppTab i_TabPage, Selection i_SelectionStatus)
@@ -141,21 +143,25 @@ namespace AgentVI.Views
 
         void FooterBarEvents_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
-            PlaceHolder.Content = pageCollection[AppTab.EventsPage].Item1.Content;
+            currentPageInContentView = pageCollection[AppTab.EventsPage].Item1;
+            PlaceHolder.Content = currentPageInContentView.Content;
+            
             markSelectedTab(AppTab.EventsPage);
             resetContentViewStack();
         }
 
         void FooterBarCameras_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
-            PlaceHolder.Content = pageCollection[AppTab.SensorsPage].Item1.Content;
+            currentPageInContentView = pageCollection[AppTab.SensorsPage].Item1;
+            PlaceHolder.Content = currentPageInContentView.Content;
             markSelectedTab(AppTab.SensorsPage);
             resetContentViewStack();
         }
 
         void FooterBarSettings_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
-            PlaceHolder.Content = pageCollection[AppTab.SettingsPage].Item1.Content;
+            currentPageInContentView = pageCollection[AppTab.SettingsPage].Item1;
+            PlaceHolder.Content = currentPageInContentView.Content;
             markSelectedTab(AppTab.SettingsPage);
             resetContentViewStack();
         }
@@ -170,27 +176,46 @@ namespace AgentVI.Views
         {
             lock(contentViewUpdateLock)
             {
-                if (e == null)
+                if (e == null || e.ContentUpdateType == UpdatedContentEventArgs.EContentUpdateType.Buffering)
                 {
-                    addToContentViewStack(PlaceHolder.Content);
+                    addToContentViewStack(currentPageInContentView);
                     PlaceHolder.Content = waitingPage.Content;
                 }
-                else if(e != null && e.IsStackPopRequested)
+                else if(e.ContentUpdateType == UpdatedContentEventArgs.EContentUpdateType.Pop)
                 {
                     popFromControlViewStack();
                 }
-                else
+                else if(e.ContentUpdateType == UpdatedContentEventArgs.EContentUpdateType.PushAsync)
                 {
-                    PlaceHolder.Content = e.UpdatedContent.Content;
+                    addToContentViewStack(currentPageInContentView);
+                    try
+                    {
+                        (e.UpdatedContent as IFocusable).Refocus();
+                    }catch(NullReferenceException ex) { Console.WriteLine(ex.Message); }
+                    Navigation.PushAsync(e.UpdatedContent);
+                }
+                else if(e.ContentUpdateType == UpdatedContentEventArgs.EContentUpdateType.PopAsync)
+                {
+                    Navigation.PopAsync();
+                    ContentPage stackTop = contentViewStack.Pop();
+                    try
+                    {
+                        (stackTop as IFocusable).Refocus();
+                    }catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
+                }
+                else                                        //UpdatedContentEventArgs.EContentUpdateType.Push
+                {
+                    currentPageInContentView = e.UpdatedContent;
+                    PlaceHolder.Content = currentPageInContentView.Content;
                 }
             }
         }
 
-        private void addToContentViewStack(View i_updatedContent)
+        private void addToContentViewStack(ContentPage i_updatedContent)
         {
             if(contentViewStack == null)
             {
-                contentViewStack = new Stack<View>();
+                contentViewStack = new Stack<ContentPage>();
             }
             contentViewStack.Push(i_updatedContent);
         }
@@ -198,14 +223,16 @@ namespace AgentVI.Views
         private void resetContentViewStack()
         {
             contentViewStack = null;
+            CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
         }
 
         private void popFromControlViewStack()
         {
-            View stackTop = contentViewStack.Pop();
+            ContentPage stackTop = contentViewStack.Pop();
             if (stackTop != null)
             {
-                PlaceHolder.Content = stackTop;
+                currentPageInContentView = stackTop;
+                PlaceHolder.Content = stackTop.Content;
             }
             else
             {

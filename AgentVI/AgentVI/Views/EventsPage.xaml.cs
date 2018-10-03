@@ -66,7 +66,7 @@ namespace AgentVI.Views
                     eventDetailsPageBuf = new EventDetailsPage(selectedEvent);
                     eventDetailsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
                 });
-                await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(eventDetailsPageBuf));
+                await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Push ,eventDetailsPageBuf));
 
                 RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
             }catch(ObjectDisposedException ex)
