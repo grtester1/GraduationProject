@@ -52,13 +52,25 @@ namespace AgentVI.ViewModels
         private List<HealthModel> GetHealthSensorList(SensorModel i_Sensor)  
         { 
             List<HealthModel> healthList = new List<HealthModel>();   
-            List<Sensor.Health> healths = i_Sensor.SensorHealthList; 
-            foreach (Sensor.Health sh in healths) 
-            { 
-                HealthModel hm = new HealthModel();   
-                hm.HealthTime = sh.StatusTimeStamp;   
-                hm.HealthDescription = sh.DetailedDescription;    
-                hm.HealthDuration = "1:05";   
+            List<Sensor.Health> healths = i_Sensor.SensorHealthList;
+            foreach (Sensor.Health sh in healths)
+            {
+                HealthModel hm = new HealthModel();
+                hm.HealthTime = sh.StatusTimeStamp;
+                hm.HealthDescription = sh.DetailedDescription;
+                if (sh != healths[healths.Count - 1])
+                {
+                    int minutes, hours;
+                    ulong currentTime = sh.StatusTimeStamp;
+                    ulong nextTime = healths[healths.IndexOf(sh) + 1].StatusTimeStamp;
+                    ulong duration = nextTime - currentTime;
+                    TimeSpan dur = new TimeSpan((long)duration * 10000);
+                    minutes = (int)dur.TotalMinutes;
+                    hours = minutes / 60;
+                    minutes = minutes % 60;
+
+                    hm.HealthDuration = hours + ":" + minutes;
+                }
                 healthList.Add(hm);   
             } 
             return healthList;    
@@ -66,8 +78,8 @@ namespace AgentVI.ViewModels
 
         public void UpdateHealthList() //need to implement!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         {
-            HealthsList.Clear();
-            HealthsList = GetHealthSensorList(SensorModel);
+            //HealthsList.Clear();
+            //HealthsList = GetHealthSensorList(SensorModel);
         }
 
         private void OnPropertyChanged(string propertyName)
