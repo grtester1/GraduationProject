@@ -49,18 +49,22 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="11*"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" HorizontalOptions="Start">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackLayout Grid.Column="0" Orientation="Horizontal">
+                    <StackLayout Grid.Column="0" Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center">
                         <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BackButtonSVGPath}" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30">
                             <ffsvg:SvgCachedImage.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="onCameraEventBackButtonTapped"/>
                             </ffsvg:SvgCachedImage.GestureRecognizers>
                         </ffsvg:SvgCachedImage>
-                        <Label x:Name="sensorNameLabel" HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontAttributes="Bold" TextColor="Navy"/>
+                        <Label x:Name="sensorNameLabel" VerticalOptions="Center" FontAttributes="Bold" TextColor="Navy"/>
+                    </StackLayout>
+                    <StackLayout Grid.Column="1" Orientation="Horizontal" VerticalOptions="Center">
+                        <Button Text="Live" WidthRequest="70"/>
+                        <Button Text="Health" WidthRequest="80"/>
                     </StackLayout>
                 </Grid>
                 <ListView ItemSelected="cameraEventsListView_ItemSelected" Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
