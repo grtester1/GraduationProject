@@ -28,6 +28,13 @@ namespace InnoviApiProxy
         public Sensor.eSensorEventTag Tag { get; private set; }
         [JsonProperty("behaviorType")]
         public eBehaviorType RuleName { get; private set; }
+        public Sensor EventSensor
+        {
+            get
+            {
+                return HttpUtils.GetSensorByID(SensorId);
+            }
+        }
 
         internal SensorEvent() { }
 
