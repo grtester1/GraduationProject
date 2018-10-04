@@ -12,13 +12,9 @@ namespace AgentVI
 {
 	public partial class App : Application
 	{
-		public App ()
-		{
-			InitializeComponent();
-            UnityContainer unityContainer = new UnityContainer();
-
-            ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(unityContainer));
-
+        public App()
+        {
+            InitializeComponent();
             MainPage = new NavigationPage(new Views.LoadingPage());
         }
 

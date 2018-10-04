@@ -6,29 +6,61 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Plugin.DeviceOrientation;
+using Plugin.DeviceOrientation.Abstractions;
 
 namespace AgentVI.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class EventDetailsPage : ContentPage, INotifyContentViewChanged
+	public partial class EventDetailsPage : ContentPage, INotifyContentViewChanged, IFocusable
     {
         private EventDetailsViewModel eventDetailsViewModel = null;
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
+        private LandscapeEventDetailsPage landscapeEventDetailsPage = null;
+
 
         public EventDetailsPage()
         {
             InitializeComponent();
         }
 
+
         public EventDetailsPage(EventModel i_EventModel) : this()
         {
+            Task.Factory.StartNew(() =>
+            {
+                landscapeEventDetailsPage = new LandscapeEventDetailsPage(i_EventModel);
+                landscapeEventDetailsPage.RaiseContentViewUpdateEvent += eventsRouter;
+            });
             eventDetailsViewModel = new EventDetailsViewModel(i_EventModel);
+            CrossDeviceOrientation.Current.UnlockOrientation();
+            CrossDeviceOrientation.Current.OrientationChanged += handleOrientationChanged;
             bindUnbindableUIFields();
+        }
+
+        private void handleOrientationChanged(object sender, OrientationChangedEventArgs e)
+        {
+            if(e.Orientation == DeviceOrientations.Landscape)
+            {
+                quitClipLoading();
+                RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.PushAsync, landscapeEventDetailsPage));
+            }
+        }
+
+        private void quitClipLoading()
+        {
+            SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = false;
+        }
+
+        private void restartClipLoading()
+        {
+            SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = true;
         }
 
         private void onEventDetailsBackButtonTapped(object sender, EventArgs e)
         {
-            RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(null, true));
+            RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Pop));
+            CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
         }
 
         private async void bindUnbindableUIFields()
@@ -39,10 +71,20 @@ namespace AgentVI.Views
                 sensorNameLabel.Text = eventDetailsViewModel.SensorName;
                 sensorEventRuleNameLabel.Text = eventDetailsViewModel.SensorEventRuleName;
                 SensorEventDateTimeLabel.Text = eventDetailsViewModel.SensorEventDateTime;
-                SensorEventRuleNameImage.Source = eventDetailsViewModel.RuleNameObjectPath;
+                SensorEventRuleNameImage.Source = eventDetailsViewModel.SensorEventObjectType;
                 SensorEventTagLabel.Text = eventDetailsViewModel.SensorEventTag;
             });
             OnPropertyChanged();
+        }
+
+        private void eventsRouter(object sender, UpdatedContentEventArgs e)
+        {
+            RaiseContentViewUpdateEvent?.Invoke(this, e);
+        }
+
+        public void Refocus()
+        {
+            restartClipLoading();
         }
     }
 }

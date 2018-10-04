@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Octane.Xam.VideoPlayer" Version="2.1.0" />
+    <PackageReference Include="Plugin.DeviceOrientation" Version="1.0.7" />
     <PackageReference Include="Unity" Version="5.8.6" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.3.840" />
     <PackageReference Include="Xamarin.FFImageLoading.Svg" Version="2.4.3.840" />
@@ -52,8 +53,6 @@
     <None Remove="Sources\Icons\object_truck_24px.svg" />
     <None Remove="Sources\Icons\play_open_24px.svg" />
     <None Remove="Sources\Icons\play24px.svg" />
-    <None Remove="Sources\Icons\sensors_open.svg" />
-    <None Remove="Sources\Icons\settings_open.svg" />
     <None Remove="Sources\Icons\visibility_24px.svg" />
   </ItemGroup>
 
@@ -86,8 +85,6 @@
     <EmbeddedResource Include="Sources\Icons\object_truck_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\play_open_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\play24px.svg" />
-    <EmbeddedResource Include="Sources\Icons\sensors_open.svg" />
-    <EmbeddedResource Include="Sources\Icons\settings_open.svg" />
     <EmbeddedResource Include="Sources\Icons\visibility_24px.svg" />
   </ItemGroup>
 
@@ -121,6 +118,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\EventDetailsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\LandscapeEventDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\LoginPage.xaml">

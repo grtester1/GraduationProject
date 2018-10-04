@@ -20,6 +20,7 @@ namespace AgentVI.Services
         [Obsolete("Method GetFilteredSensorCollection is deprecated. Use instead GetFilteredSensorsEnumerator()")]
         List<Sensor>                        GetFilteredSensorCollection();
         List<String>                        GetSelectedFoldersHirearchy();
+        string                              GetLeafFolder();
         IEnumerator                         GetFilteredSensorsEnumerator();
         IEnumerator                         GetFilteredEventsEnumerator();
         event EventHandler                  FilterStateUpdated;

@@ -12,45 +12,45 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="11*"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <StackLayout Grid.Column="0" Orientation="Horizontal">
-                    <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BackButtonSVGPath}" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30">
-                        <ffsvg:SvgCachedImage.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="onEventDetailsBackButtonTapped"/>
-                        </ffsvg:SvgCachedImage.GestureRecognizers>
-                    </ffsvg:SvgCachedImage>
-                    <Label x:Name="sensorNameLabel" HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontAttributes="Bold" TextColor="Navy"/>
-                </StackLayout>
-            </Grid>
-            <Grid Grid.Row="1" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
+            <Grid VerticalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="4*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="11*"/>
                 </Grid.RowDefinitions>
-                <vidplayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" HorizontalOptions="Fill" VerticalOptions="Fill" AutoPlay="True" Grid.Row="0"/>
-                <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" x:Name="SensorEventDateTimeLabel" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
-                    <Label Grid.Row="1" x:Name="sensorEventRuleNameLabel" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
-                    <StackLayout Orientation="Horizontal" Grid.Row="2" HorizontalOptions="StartAndExpand">
-                        <ffsvg:SvgCachedImage x:Name="SensorEventRuleNameImage" HeightRequest="25" WidthRequest="25" Margin="0,0,5,0"/>
-                        <Label x:Name="SensorEventTagLabel" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontAttributes="Bold"/>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Column="0" Orientation="Horizontal">
+                        <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BackButtonSVGPath}" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30">
+                            <ffsvg:SvgCachedImage.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="onEventDetailsBackButtonTapped"/>
+                            </ffsvg:SvgCachedImage.GestureRecognizers>
+                        </ffsvg:SvgCachedImage>
+                        <Label x:Name="sensorNameLabel" HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontAttributes="Bold" TextColor="Navy"/>
                     </StackLayout>
                 </Grid>
+                <Grid Grid.Row="1" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <vidplayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" HorizontalOptions="Fill" VerticalOptions="Fill" AutoPlay="True" Grid.Row="0"/>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" x:Name="SensorEventDateTimeLabel" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                        <Label Grid.Row="1" x:Name="sensorEventRuleNameLabel" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                        <StackLayout Orientation="Horizontal" Grid.Row="2" HorizontalOptions="StartAndExpand">
+                            <ffsvg:SvgCachedImage x:Name="SensorEventRuleNameImage" HeightRequest="25" WidthRequest="25" Margin="0,0,5,0"/>
+                            <Label x:Name="SensorEventTagLabel" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontAttributes="Bold"/>
+                        </StackLayout>
+                    </Grid>
+                </Grid>
             </Grid>
-        </Grid>
     </ContentPage.Content>
 </ContentPage>

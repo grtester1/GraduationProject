@@ -43,7 +43,7 @@ namespace AgentVI.Models
         private string m_SensorEventImage;
         public string SensorEventImage
         {
-            get { return m_SensorEventImage; }
+            get { return "https://picsum.photos/200/200"; }
             private set
             {
                 m_SensorEventImage = value;
@@ -53,12 +53,23 @@ namespace AgentVI.Models
 
         private string m_SensorEventClip;
         public string SensorEventClip
-        {
-            get { return m_SensorEventClip; }
+        {//return m_SensorEventClip;
+            get { return "https://vjs.zencdn.net/v/oceans.mp4"; }
             private set
             {
                 m_SensorEventClip = value;
                 OnPropertyChanged("SensorEventClip");
+            }
+        }
+
+        private SensorEvent.eObjectType m_SensorEventObjectType;
+        public SensorEvent.eObjectType SensorEventObjectType
+        {
+            get { return m_SensorEventObjectType; }
+            private set
+            {
+                m_SensorEventObjectType = value;
+                OnPropertyChanged("SensorEventObjectType");
             }
         }
 
@@ -87,6 +98,7 @@ namespace AgentVI.Models
                 SensorEventDateTime = i_SensorEvent.StartTime,
                 SensorEventImage = i_SensorEvent.ImagePath,
                 SensorEventRuleName = i_SensorEvent.RuleName,
+                SensorEventObjectType = i_SensorEvent.ObjectType,
                 SensorEventTag = i_SensorEvent.Tag
             };
 
@@ -97,10 +109,7 @@ namespace AgentVI.Models
 
         private void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

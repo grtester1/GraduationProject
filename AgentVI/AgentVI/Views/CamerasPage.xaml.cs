@@ -44,13 +44,13 @@ namespace AgentVI.Views
 
         private async void OnRefresh(object sender, EventArgs e)
         {
-            await System.Threading.Tasks.Task.Factory.StartNew(() => SensorsListVM.UpdateCameras());
+            await Task.Factory.StartNew(() => SensorsListVM.UpdateCameras());
             ((ListView)sender).IsRefreshing = false;
         }
 
-        private async void OnSensor_Tapped(object sender, EventArgs e)
+        private async void onSensorTapped(object sender, EventArgs e)
         {
-            RaiseContentViewUpdateEvent?.Invoke(this, null);
+            RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Buffering));
             UpdatedContentEventArgs updatedContentEventArgs = null;
             CameraEventsPage cameraEventsPageBuf = null;
             Sensor sensorBuffer = null;
@@ -64,7 +64,7 @@ namespace AgentVI.Views
                 cameraEventsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
 
             });
-            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(cameraEventsPageBuf));
+            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Push, cameraEventsPageBuf));
             RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
         }
 

@@ -41,7 +41,7 @@ namespace AgentVI.ViewModels
 
         private void downloadData()
         {
-            for (int i = 0; i < 1 && canLoadMore ; i++)
+            for (int i = 0; i < 3 && canLoadMore ; i++)
             {
                 try
                 {

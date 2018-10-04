@@ -224,6 +224,16 @@ namespace AgentVI.Services
             {
                 return i_SelectedFolder.Folders.IsEmpty();
             }
+
+            public string GetLeafFolder()
+            {
+                string res = String.Empty;
+                if (SelectedFolders != null && SelectedFolders.Count > 0)
+                {
+                    res = SelectedFolders[SelectedFolders.Count - 1].Name;
+                }
+                return res;
+            }
         }
     }
 }
