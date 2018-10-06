@@ -47,7 +47,7 @@ namespace InnoviApiProxy
         {
             get
             {
-                return Settings.InnoviApiEndpoint + "sensorImage?accountId=" + accountId.ToString() + "&sensorId=" + sensorId.ToString();
+                return Settings.InnoviApiEndpoint + "eventClip?accountId=" + accountId.ToString() + "&eventId=" + eventId.ToString();
             }
         }
 
