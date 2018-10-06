@@ -80,11 +80,11 @@ namespace InnoviApiProxy
             }
         }
 
-        public byte[] ReferenceImage
+        public string ReferenceImage
         {
             get
             {
-                return HttpUtils.GetSensorReferenceImage(accountId, sensorId);
+                return Settings.InnoviApiEndpoint + "sensorImage?accountId=" + accountId.ToString() + "&sensorId=" + sensorId.ToString();
             }
         }
 
