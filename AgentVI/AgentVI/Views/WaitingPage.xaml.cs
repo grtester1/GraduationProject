@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace AgentVI.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class WaitingPagexaml : ContentPage
+	public partial class WaitingPage : ContentPage
 	{
-		public WaitingPagexaml ()
+		public WaitingPage ()
 		{
 			InitializeComponent ();
 		}

@@ -10,6 +10,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:TimestampConverter x:Key="TimestampConverter"/>
+            <converters:tmpImagePlaceholderGeneratorConverter x:Key="tmpImagePlaceholderGeneratorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -49,24 +50,20 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="11*"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" HorizontalOptions="Start">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackLayout Grid.Column="0" Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center">
+                <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center">
                         <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BackButtonSVGPath}" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30">
                             <ffsvg:SvgCachedImage.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="onCameraEventBackButtonTapped"/>
                             </ffsvg:SvgCachedImage.GestureRecognizers>
                         </ffsvg:SvgCachedImage>
-                        <Label x:Name="sensorNameLabel" VerticalOptions="Center" FontAttributes="Bold" TextColor="Navy"/>
+                        <Label x:Name="sensorNameLabel" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" VerticalOptions="Center" FontAttributes="Bold" TextColor="Navy" LineBreakMode="TailTruncation"/>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                            <Button Text="Live" WidthRequest="70"/>
+                            <Button Text="Health" WidthRequest="80"/>
+                        </StackLayout>
                     </StackLayout>
-                    <StackLayout Grid.Column="1" Orientation="Horizontal" VerticalOptions="Center">
-                        <Button Text="Live" WidthRequest="70"/>
-                        <Button Text="Health" WidthRequest="80"/>
-                    </StackLayout>
-                </Grid>
+                </StackLayout>
                 <ListView ItemSelected="cameraEventsListView_ItemSelected" Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
                     <ListView.Footer>
                         <Grid Padding="6" IsVisible="{Binding IsBusy}">
@@ -84,27 +81,18 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid x:Name="SensorLayout" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
+                                <Grid x:Name="SensorLayout" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5" HorizontalOptions="FillAndExpand">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="7*"/>
+                                        <RowDefinition Height="6*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <Frame Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="30,0,30,0" CornerRadius="8" HasShadow="True" Grid.Row="0">
-                                        <ff:CachedImage Source="https://picsum.photos/200/200" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" CacheType="All"/>
+                                    <Frame Padding="0" WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand" Margin="30,0,30,0" CornerRadius="8" HasShadow="True" Grid.Row="0">
+                                        <ff:CachedImage Source="{Binding SensorEventImage, Converter={StaticResource tmpImagePlaceholderGeneratorConverter}}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" CacheType="All"/>
                                     </Frame>
-                                    <Grid ColumnSpacing="0" Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
-                                        <Label Grid.Column="1" Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
-                                    </Grid>
-                                    <!--
-                                    <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="onSensorEventTapped"/>
-                                    </Grid.GestureRecognizers>
-                                    -->
+                                    <StackLayout Orientation="Horizontal" Grid.Row="1" HorizontalOptions="FillAndExpand">
+                                        <Label Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="Start"/>
+                                        <Label Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
+                                    </StackLayout>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

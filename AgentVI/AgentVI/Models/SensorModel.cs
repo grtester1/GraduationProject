@@ -27,7 +27,7 @@ namespace AgentVI.Models
                 SensorName = i_Sensor.Name,
                 SensorHealth = i_Sensor.Status,
                 SensorHealthHistory = i_Sensor.SensorHealthArray,
-                SensorImage = ImageSource.FromStream(() => new System.IO.MemoryStream(i_Sensor.ReferenceImage))
+                SensorImage = i_Sensor.ReferenceImage
             };
 
             return res.UpdateSensorsHealthStatus();
@@ -98,8 +98,8 @@ namespace AgentVI.Models
             }
         }
 
-        private ImageSource m_SensorImage;
-        public  ImageSource SensorImage
+        private string m_SensorImage;
+        public  string SensorImage
         {
             get { return m_SensorImage; }
             private set

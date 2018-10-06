@@ -12,6 +12,8 @@ namespace AgentVI.Utils
         public static Thickness ListViewMargins { get; } = new Thickness(0,5,0,5);
         public static Thickness HeaderLogoMargines { get; } = new Thickness(0, 0, 70, 0);
 
+        public static double GridElementSizeRequest { get; } = 300;
+
         public static double GenericTitleFontSize { get; } = 22;
         public static double HeaderTitleFontSize { get; } = 16;
         public static double SensorEventNameFontSize { get; } = 20;

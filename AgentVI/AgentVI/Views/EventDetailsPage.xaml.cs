@@ -67,7 +67,9 @@ namespace AgentVI.Views
         {
             await Task.Factory.StartNew(() =>
             {
-                SensorEventClipVideoPlayer.Source = eventDetailsViewModel.SensorEventClipPath;
+                SensorEventClipVideoPlayer.Source = new Converters.tmpVidPlaceholderGeneratorConverter()
+                                                    .Convert(eventDetailsViewModel.SensorEventClipPath, typeof(string), null, null)
+                                                    .ToString();
                 sensorNameLabel.Text = eventDetailsViewModel.SensorName;
                 sensorEventRuleNameLabel.Text = eventDetailsViewModel.SensorEventRuleName;
                 SensorEventDateTimeLabel.Text = eventDetailsViewModel.SensorEventDateTime;
