@@ -20,10 +20,7 @@ namespace InnoviApiProxy
         public eObjectType ObjectType { get; private set; }
         [JsonProperty]
         public int RuleId { get; private set; }
-        [JsonProperty]
-        public string ImagePath { get; private set; }
-        [JsonProperty]
-        public string ClipPath { get; private set; }
+
         [JsonProperty]
         public Sensor.eSensorEventTag Tag { get; private set; }
         [JsonProperty("behaviorType")]
@@ -33,6 +30,24 @@ namespace InnoviApiProxy
             get
             {
                 return HttpUtils.GetSensorByID(SensorId);
+            }
+        }
+
+        public string ImagePath
+        {
+            get
+            {
+                return Settings.InnoviApiEndpoint + "eventClip?accountId=" + accountId.ToString() + "&eventId=" + eventId.ToString();
+            }
+        
+        }
+
+
+        public string ClipPath
+        {
+            get
+            {
+                return Settings.InnoviApiEndpoint + "sensorImage?accountId=" + accountId.ToString() + "&sensorId=" + sensorId.ToString();
             }
         }
 
