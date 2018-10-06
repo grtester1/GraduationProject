@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:AgentVI"
-             xmlns:ViewModels="clr-namespace:AgentVI.ViewModels"
              x:Class="AgentVI.Views.MainPage"
              xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              xmlns:settings="clr-namespace:AgentVI.Utils">
@@ -25,7 +23,7 @@
             <Image HorizontalOptions="Start" Source="{x:Static settings:Settings.LogoPicturePath}" Margin="{x:Static settings:Settings.HeaderLogoMargines}"/>
             <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
                 <Label FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold, Italic" Text="Hello, "/>
-                <Label x:Name="userNameHeader_Label" FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold, Italic" Text="{Binding Username}" LineBreakMode="TailTruncation"/>
+                <Label Text="{Binding LoginContext.Username}" FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold, Italic" LineBreakMode="TailTruncation"/>
             </StackLayout>
         </StackLayout>
 
@@ -36,7 +34,7 @@
             <ListView x:Name="FilterStateIndicatorListView" ItemsSource="{Binding SelectedFoldersNamesCache}" ItemTapped="FilterStateIndicator_Tapped"/>
         </StackLayout>
 
-        <ContentView x:Name="PlaceHolder" Grid.Row="2" VerticalOptions="FillAndExpand"/>
+        <ContentView Content="{Binding ContentView}" Grid.Row="2" VerticalOptions="FillAndExpand"/>
         <BoxView BackgroundColor="{x:Static settings:Settings.FooterSeparatorColor}" Grid.Row="3"/>
 
         <Grid BackgroundColor="{x:Static settings:Settings.FooterColor}" Grid.Row="4">
@@ -53,8 +51,7 @@
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.1}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.2}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1.3}"
-                                                            x:Name="FooterBarEventsImage"
-                                                            Source="{x:Static settings:Settings.EventsTabSVGPath}">
+                                                            Source="{Binding FooterBarEventsIcon}">
                     <ffsvg:SvgCachedImage.GestureRecognizers>
                         <TapGestureRecognizer Tapped="FooterBarEvents_Clicked"/>
                     </ffsvg:SvgCachedImage.GestureRecognizers>
@@ -66,8 +63,7 @@
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.1}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.15}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1.2}"
-                                                            x:Name="FooterBarCamerasImage"
-                                                            Source="{x:Static settings:Settings.SensorsTabSVGPath}">
+                                                            Source="{Binding FooterBarCamerasIcon}">
                     <ffsvg:SvgCachedImage.GestureRecognizers>
                         <TapGestureRecognizer Tapped="FooterBarCameras_Clicked"/>
                     </ffsvg:SvgCachedImage.GestureRecognizers>
@@ -79,8 +75,7 @@
                                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.85}"
                                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
                                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                                                            x:Name="FooterBarSettingsImage"
-                                                            Source="{x:Static settings:Settings.SettingsTabSVGPath}">
+                                                            Source="{Binding FooterBarSettingsIcon}">
                     <ffsvg:SvgCachedImage.GestureRecognizers>
                         <TapGestureRecognizer Tapped="FooterBarSettings_Clicked"/>
                     </ffsvg:SvgCachedImage.GestureRecognizers>
