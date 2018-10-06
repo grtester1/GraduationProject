@@ -17,18 +17,16 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="11*"/>
             </Grid.RowDefinitions>
-            <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center">
-                    <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BackButtonSVGPath}" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30">
-                        <ffsvg:SvgCachedImage.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="onEventDetailsBackButtonTapped"/>
-                        </ffsvg:SvgCachedImage.GestureRecognizers>
-                    </ffsvg:SvgCachedImage>
-                    <Label x:Name="sensorNameLabel" VerticalOptions="Center" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" FontAttributes="Bold" TextColor="Navy" LineBreakMode="TailTruncation"/>
-                    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
-                        <Button Text="Live" WidthRequest="70"/>
-                        <Button Text="Health" WidthRequest="80"/>
-                    </StackLayout>
+            <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BackButtonSVGPath}" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30">
+                    <ffsvg:SvgCachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="onEventDetailsBackButtonTapped"/>
+                    </ffsvg:SvgCachedImage.GestureRecognizers>
+                </ffsvg:SvgCachedImage>
+                <Label x:Name="sensorNameLabel" VerticalOptions="Center" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" FontAttributes="Bold" TextColor="Navy" LineBreakMode="TailTruncation"/>
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                    <Button Text="Live" WidthRequest="70"/>
+                    <Button Text="Health" WidthRequest="80"/>
                 </StackLayout>
             </StackLayout>
             <Grid Grid.Row="1" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
