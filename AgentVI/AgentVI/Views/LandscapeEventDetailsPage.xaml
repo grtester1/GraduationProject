@@ -3,10 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AgentVI.Views.LandscapeEventDetailsPage"
              xmlns:fadingLabel="clr-namespace:AgentVI.ViewModels"
+             xmlns:converters="clr-namespace:AgentVI.Converters"
              xmlns:videoPlayer="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:tmpVidPlaceholderGeneratorConverter x:Key="tmpVidPlaceholderGeneratorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <RelativeLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <videoPlayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" Source="{Binding SensorEventClip}" AutoPlay="True"
+            <videoPlayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" Source="{Binding SensorEventClip, Converter={StaticResource tmpVidPlaceholderGeneratorConverter}}" AutoPlay="True"
                                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
             <StackLayout RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"

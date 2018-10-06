@@ -43,7 +43,7 @@ namespace AgentVI.Models
         private string m_SensorEventImage;
         public string SensorEventImage
         {
-            get { return "https://picsum.photos/200/200"; }
+            get { return m_SensorEventImage; }
             private set
             {
                 m_SensorEventImage = value;
@@ -53,8 +53,8 @@ namespace AgentVI.Models
 
         private string m_SensorEventClip;
         public string SensorEventClip
-        {//return m_SensorEventClip;
-            get { return "https://vjs.zencdn.net/v/oceans.mp4"; }
+        {
+            get { return m_SensorEventClip; }
             private set
             {
                 m_SensorEventClip = value;

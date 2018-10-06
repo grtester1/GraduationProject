@@ -37,12 +37,12 @@
                         <Grid RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="6*"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" x:Name="SensorName" Text= "{Binding SensorName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="Center"/>
-                            <Frame Grid.Row="1" Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
-                                <ff:CachedImage Source="{Binding SensorImage}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
+                            <Frame Grid.Row="1" WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
+                                <ff:CachedImage Source="{Binding SensorImage}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" CacheType="All"/>
                             </Frame>
                             <Button Grid.Row="2" BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding SensorHealthStatus, Converter={StaticResource EnumStatusColorConverter}}" HorizontalOptions="StartAndExpand"/>
                             <Grid.GestureRecognizers>

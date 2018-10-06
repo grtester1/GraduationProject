@@ -22,7 +22,7 @@ namespace AgentVI.Views
         private Page m_FilterPage = null;
         private IProgress<ProgressReportModel> m_ProgressReporter = null;
         private readonly object contentViewUpdateLock = new object();
-        private WaitingPagexaml waitingPage = new WaitingPagexaml();
+        private WaitingPage waitingPage = new WaitingPage();
         private Dictionary<AppTab, Tuple<ContentPage, SvgCachedImage>> pageCollection;
         private const string k_TabSelectionColor = "#BABABA";
         private const short k_NumberOfInitializations = 8;
