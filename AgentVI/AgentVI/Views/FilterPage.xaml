@@ -5,6 +5,7 @@
                 xmlns:local="clr-namespace:AgentVI.Views;assembly=AgentVI"
                 xmlns:settings="clr-namespace:AgentVI.Utils"
                 xmlns:converters="clr-namespace:AgentVI.Converters;assembly=AgentVI"
+                xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
                 x:Class="AgentVI.Views.FilterPage"
                 ItemsSource="{Binding FilteringPagesContent}"
                 x:Name="MyFilterPage">
@@ -21,22 +22,41 @@
                         iOS="{x:Static settings:Settings.iOSPlatformPadding}">
                     </OnPlatform>
                 </ContentPage.Padding>
-                <Grid>
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="19*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="18*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <StackLayout x:Name="filterDataStackLayout" Grid.Row="0" HorizontalOptions="CenterAndExpand">
-                        <SearchBar x:Name="filterSearchBar" Placeholder="Search..." HeightRequest="30" TextChanged="filterSearchBar_TextChanged"/>
-                        <ListView x:Name="filteredItemsListView" ItemSelected="Handle_FilterListItemSelected" ItemsSource="{Binding FoldersList}" BackgroundColor="Transparent" SeparatorColor="Transparent">
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                            <Image Source="{x:Static settings:Settings.LogoPicturePath}" Aspect="AspectFit"/>
+                            <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.DividerIconSVGPath}"/>
+                            <Label Text="Accnt Name" FontAttributes="Bold" FontSize="{x:Static settings:Settings.GenericTitleFontSize}" VerticalOptions="CenterAndExpand"/>
+                        </StackLayout>
+                        <Label Grid.Row="1" Text="/Path/Path/Path/Path" HorizontalOptions="StartAndExpand" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"/>
+                    </Grid>
+                    <StackLayout x:Name="filterDataStackLayout" Grid.Row="1" HorizontalOptions="CenterAndExpand">
+                        <SearchBar x:Name="filterSearchBar" Placeholder="{x:Static settings:Settings.SearchBarPlaceHolderText}" HeightRequest="30" TextChanged="filterSearchBar_TextChanged"/>
+                        <ListView x:Name="filteredItemsListView" HasUnevenRows="True" ItemSelected="Handle_FilterListItemSelected" ItemsSource="{Binding FoldersList}" BackgroundColor="Transparent" SeparatorColor="Transparent">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <TextCell Text="{Binding Name}"/>
+                                    <ViewCell>
+                                        <StackLayout HeightRequest="40" Orientation="Horizontal" Padding="{x:Static settings:Settings.PaddingForViewCellInListView}">
+                                            <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.FolderIconSVGPath}"/>
+                                            <Label HorizontalOptions="StartAndExpand" VerticalOptions="Center" Text="{Binding Name}"/>
+                                            <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BackButtonSVGPath}"/>
+                                        </StackLayout>
+                                    </ViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
                     </StackLayout>
-                    <StackLayout x:Name="filterNumStackLayout" Orientation="Horizontal" Grid.Row="1" HorizontalOptions="CenterAndExpand">
+                    <StackLayout x:Name="filterNumStackLayout" Grid.Row="2" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                         <Label Text="Filter Num. "/>
                         <Label x:Name="filterNumLabel" Text="{Binding FilterID, Converter={StaticResource FilterPageIDConverter}}"/>
                     </StackLayout>
@@ -44,5 +64,4 @@
             </ContentPage>
         </DataTemplate>
     </CarouselPage.ItemTemplate>
-
 </CarouselPage>

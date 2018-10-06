@@ -36,12 +36,12 @@
                     <ViewCell>
                         <Grid RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="6*"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Frame Grid.Row="0" Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
-                                <ff:CachedImage Source="{Binding SensorEventImage}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
+                            <Frame Grid.Row="0" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="30,0,30,0" CornerRadius="8" HasShadow="True">
+                                <ff:CachedImage Source="{Binding SensorEventImage}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" CacheType="All"/>
                             </Frame>
                             <Label Grid.Row="1" Text="{Binding SensorName}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
                             <Grid Grid.Row="2" ColumnSpacing="0">

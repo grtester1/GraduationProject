@@ -21,19 +21,13 @@
             <RowDefinition Height="1"/>
             <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
-        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Image HorizontalOptions="StartAndExpand" Source="{x:Static settings:Settings.LogoPicturePath}" Grid.Column="0"/>
-            <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Grid.Column="2" Margin="0,0,5,0">
-                <Label FontSize="18" FontAttributes="Bold, Italic" Text="Hello, "/>
-                <Label x:Name="userNameHeader_Label" FontSize="18" FontAttributes="Bold, Italic" Text="{Binding Username}"/>
-                <Label FontSize="18" FontAttributes="Bold, Italic" Text="!"/>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="0" Orientation="Horizontal">
+            <Image HorizontalOptions="Start" Source="{x:Static settings:Settings.LogoPicturePath}" Margin="{x:Static settings:Settings.HeaderLogoMargines}"/>
+            <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
+                <Label FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold, Italic" Text="Hello, "/>
+                <Label x:Name="userNameHeader_Label" FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold, Italic" Text="{Binding Username}" LineBreakMode="TailTruncation"/>
             </StackLayout>
-        </Grid>
+        </StackLayout>
 
         <StackLayout Grid.Row="1">
             <StackLayout.GestureRecognizers>

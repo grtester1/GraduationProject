@@ -86,11 +86,11 @@
                             <ViewCell>
                                 <Grid x:Name="SensorLayout" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="10*"/>
+                                        <RowDefinition Height="7*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <Frame Padding="0" Margin="30,0,30,0" CornerRadius="8" HasShadow="True" Grid.Row="0">
-                                        <ff:CachedImage Source="https://picsum.photos/200/200" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFill" CacheType="All"/>
+                                    <Frame Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="30,0,30,0" CornerRadius="8" HasShadow="True" Grid.Row="0">
+                                        <ff:CachedImage Source="https://picsum.photos/200/200" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" CacheType="All"/>
                                     </Frame>
                                     <Grid ColumnSpacing="0" Grid.Row="1">
                                         <Grid.ColumnDefinitions>
