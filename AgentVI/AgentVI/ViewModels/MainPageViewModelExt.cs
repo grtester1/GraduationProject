@@ -6,11 +6,13 @@ using Xamarin.Forms;
 using AgentVI.Views;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using AgentVI.Utils;
 
 namespace AgentVI.ViewModels
 {
     public partial class MainPageViewModel : INotifyPropertyChanged
     {
+        public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
         public event PropertyChangedEventHandler PropertyChanged;
         internal Dictionary<EAppTab, Tuple<ContentPage, SvgCachedImage>> PagesCollection { get; private set; }
         internal Page FilterPage { get; private set; }
@@ -22,48 +24,28 @@ namespace AgentVI.ViewModels
 
         private readonly object contentViewUpdateLock = new object();
         private const short k_NumberOfInitializations = 8;
-        internal enum EAppTab { EventsPage, SensorsPage, SettingsPage };
+        internal enum EAppTab { EventsPage, SensorsPage, HealthPage, SettingsPage, None };
         internal enum ESelection { Active, Passive };
 
-        internal LoginPageViewModel LoginContext { get; private set; }
-        private SvgCachedImage _footerBarEventsIcon;
-        internal SvgCachedImage FooterBarEventsIcon
+
+        public string Username
         {
-            get => _footerBarEventsIcon;
-            private set
+            get
             {
-                _footerBarEventsIcon = value;
-                OnPropertyChanged(nameof(FooterBarEventsIcon));
+                if (LoginContext != null)
+                    return LoginContext.Username;
+                else
+                    return String.Empty;
             }
         }
-        private SvgCachedImage _footerBarCamerasIcon;
-        internal SvgCachedImage FooterBarCamerasIcon
+        private LoginPageViewModel _loginContext;
+        internal LoginPageViewModel LoginContext
         {
-            get => _footerBarCamerasIcon;
-            private set
+            get => _loginContext;
+            set
             {
-                _footerBarCamerasIcon = value;
-                OnPropertyChanged(nameof(FooterBarCamerasIcon));
-            }
-        }
-        private SvgCachedImage _footerBarHealthIcon;
-        internal SvgCachedImage FooterBarHealthIcon
-        {
-            get => _footerBarHealthIcon;
-            private set
-            {
-                _footerBarHealthIcon = value;
-                OnPropertyChanged(nameof(FooterBarHealthIcon));
-            }
-        }
-        private SvgCachedImage _footerBarSettingsIcon;
-        internal SvgCachedImage FooterBarSettingsIcon
-        {
-            get => _footerBarSettingsIcon;
-            private set
-            {
-                _footerBarSettingsIcon = value;
-                OnPropertyChanged(nameof(FooterBarSettingsIcon));
+                _loginContext = value;
+                OnPropertyChanged(nameof(LoginContext));
             }
         }
         private FilterIndicatorViewModel _filterIndicator;
@@ -80,7 +62,7 @@ namespace AgentVI.ViewModels
         internal View ContentView
         {
             get => _contentView;
-            set
+            private set
             {
                 _contentView = value;
                 OnPropertyChanged(nameof(ContentView));
@@ -92,4 +74,5 @@ namespace AgentVI.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
 }

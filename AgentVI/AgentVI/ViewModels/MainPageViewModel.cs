@@ -13,9 +13,9 @@ using EContentUpdateType = AgentVI.Utils.UpdatedContentEventArgs.EContentUpdateT
 
 namespace AgentVI.ViewModels
 {
-    public partial class MainPageViewModel
+    public partial class MainPageViewModel : INotifyContentViewChanged
     {
-        public MainPageViewModel(IProgress<ProgressReportModel> i_ProgressReporter)
+        internal MainPageViewModel(IProgress<ProgressReportModel> i_ProgressReporter, Dictionary<EAppTab, SvgCachedImage> i_AppTabs)
         {
             waitingPage = new WaitingPage();
             progressReporter = i_ProgressReporter;
@@ -31,27 +31,26 @@ namespace AgentVI.ViewModels
             LoginContext.InitializeFields(ServiceManager.Instance.LoginService.LoggedInUser);
             updateReporter("Account initialized.", report);
 
-            initPagesCollectionHelper(report);
+            initPagesCollectionHelper(report, i_AppTabs);
         }
 
-        private void initPagesCollectionHelper(ProgressReportModel i_Report)
+        private void initPagesCollectionHelper(ProgressReportModel i_Report, Dictionary<EAppTab, SvgCachedImage> i_AppTabs)
         {
-            initializeTabIcons();
             updateReporter("Initializing app pages...", i_Report);
             PagesCollection = new Dictionary<EAppTab, Tuple<ContentPage, SvgCachedImage>>();
 
             updateReporter("Fetching Cameras...", i_Report);
             CamerasPage camerasPageInstance = new CamerasPage();
             camerasPageInstance.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
-            PagesCollection.Add(EAppTab.SensorsPage, new Tuple<ContentPage, SvgCachedImage>(camerasPageInstance, FooterBarCamerasIcon));
+            PagesCollection.Add(EAppTab.SensorsPage, new Tuple<ContentPage, SvgCachedImage>(camerasPageInstance, i_AppTabs[EAppTab.SensorsPage]));
 
             updateReporter("Fetching Settings...", i_Report);
-            PagesCollection.Add(EAppTab.SettingsPage, new Tuple<ContentPage, SvgCachedImage>(new SettingsPage(), FooterBarSettingsIcon));
+            PagesCollection.Add(EAppTab.SettingsPage, new Tuple<ContentPage, SvgCachedImage>(new SettingsPage(), i_AppTabs[EAppTab.SettingsPage]));
 
             updateReporter("Fetching Events...", i_Report);
             EventsPage eventsPageBuf = new EventsPage();
             eventsPageBuf.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
-            PagesCollection.Add(EAppTab.EventsPage, new Tuple<ContentPage, SvgCachedImage>(eventsPageBuf, FooterBarEventsIcon));
+            PagesCollection.Add(EAppTab.EventsPage, new Tuple<ContentPage, SvgCachedImage>(eventsPageBuf, i_AppTabs[EAppTab.EventsPage]));
         }
 
         private void addToContentViewStack(ContentPage i_updatedContent)
@@ -75,23 +74,11 @@ namespace AgentVI.ViewModels
             if (stackTop != null)
             {
                 currentPageInContentView = stackTop;
-                ContentView = stackTop.Content;
+                RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Pop, currentPageInContentView));
             }
             else
             {
                 throw new Exception("MainPage.PopFromControlViewStack called unexpectedely");
-            }
-        }
-
-        private void markSelectedTab(EAppTab i_SelectedTab)
-        {
-            PagesCollection[i_SelectedTab].Item2.Source = EnumToSVGPath(i_SelectedTab, ESelection.Active);
-            foreach (KeyValuePair<EAppTab, Tuple<ContentPage, SvgCachedImage>> kvPair in PagesCollection)
-            {
-                if (kvPair.Key != i_SelectedTab)
-                {
-                    kvPair.Value.Item2.Source = EnumToSVGPath(kvPair.Key, ESelection.Passive);
-                }
             }
         }
 
@@ -112,7 +99,7 @@ namespace AgentVI.ViewModels
                 if (e == null || e.ContentUpdateType == EContentUpdateType.Buffering)
                 {
                     addToContentViewStack(currentPageInContentView);
-                    ContentView = waitingPage.Content;
+                    RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Buffering, waitingPage));
                 }
                 else if (e.ContentUpdateType == EContentUpdateType.Pop)
                 {
@@ -126,11 +113,11 @@ namespace AgentVI.ViewModels
                         (e.UpdatedContent as IFocusable).Refocus();
                     }
                     catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
-                    Navigation.PushAsync(e.UpdatedContent);
+                    RaiseContentViewUpdateEvent?.Invoke(null, e);
                 }
                 else if (e.ContentUpdateType == EContentUpdateType.PopAsync)
                 {
-                    Navigation.PopAsync();
+                    RaiseContentViewUpdateEvent?.Invoke(null, e);
                     ContentPage stackTop = contentViewStack.Pop();
                     try
                     {
@@ -141,28 +128,36 @@ namespace AgentVI.ViewModels
                 else                                        //UpdatedContentEventArgs.EContentUpdateType.Push
                 {
                     currentPageInContentView = e.UpdatedContent;
-                    ContentView = currentPageInContentView.Content;
+                    RaiseContentViewUpdateEvent?.Invoke(null, e);
                 }
             }
         }
-        //--------------------------------------------------------------------------------------------------------------
 
-        private void initializeTabIcons()
+        internal void updateContentView(EAppTab i_AppTab ,ContentPage i_UpdatedContent)
         {
-            FooterBarEventsIcon = new SvgCachedImage();
-            FooterBarEventsIcon.Source = Settings.EventsTabSVGPath;
+            currentPageInContentView = i_UpdatedContent;
+            RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Push, i_UpdatedContent));
 
-            FooterBarCamerasIcon = new SvgCachedImage();
-            FooterBarCamerasIcon.Source = Settings.SensorsTabSVGPath;
-
-            FooterBarHealthIcon = new SvgCachedImage();
-            FooterBarHealthIcon.Source = Settings.SettingsTabSVGPath;
-
-            FooterBarSettingsIcon = new SvgCachedImage();
-            FooterBarSettingsIcon.Source = Settings.SettingsTabSVGPath;
+            if(i_AppTab != EAppTab.None)
+            {
+                resetContentViewStack();
+                markSelectedTab(i_AppTab);
+            }
         }
 
-        private string EnumToSVGPath(EAppTab i_TabPage, ESelection i_SelectionStatus)
+        private void markSelectedTab(EAppTab i_SelectedTab)
+        {
+            PagesCollection[i_SelectedTab].Item2.Source = MainPageViewModel.EnumToSVGPath(i_SelectedTab, ESelection.Active);
+            foreach (KeyValuePair<EAppTab, Tuple<ContentPage, SvgCachedImage>> kvPair in PagesCollection)
+            {
+                if (kvPair.Key != i_SelectedTab)
+                {
+                    Device.BeginInvokeOnMainThread(() => kvPair.Value.Item2.Source = MainPageViewModel.EnumToSVGPath(kvPair.Key, ESelection.Passive));
+                }
+            }
+        }
+
+        internal static string EnumToSVGPath(EAppTab i_TabPage, ESelection i_SelectionStatus)
         {
             string res;
 

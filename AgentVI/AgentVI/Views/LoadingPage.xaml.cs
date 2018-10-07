@@ -52,7 +52,6 @@ namespace AgentVI.Views
                     await Task.Factory.StartNew(() =>
                         {
                             mainAppPage = new MainPage(progress);
-                            
                         }
                                                 );
                     Device.BeginInvokeOnMainThread(()=>Navigation.PushAsync(mainAppPage));
