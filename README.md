@@ -14,7 +14,7 @@
     - [Innovi AgentVI Company](#grad-project)
 ---
 
-### App compatability approved for:
+### App compatability is approved for:
 1. Xiaomi Mi A2
 2. Xiaomi Mi A2 Lite
 3. Xiaomi Redmi Note 4
