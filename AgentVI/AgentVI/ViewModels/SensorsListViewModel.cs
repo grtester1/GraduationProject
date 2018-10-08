@@ -57,7 +57,7 @@ namespace AgentVI.ViewModels
 
         public void UpdateCameras()
         {
-            collectionEnumerator = ServiceManager.Instance.FilterService.GetFilteredSensorsEnumerator();
+            collectionEnumerator = ServiceManager.Instance.FilterService.FilteredSensorCollection;
             canLoadMore = collectionEnumerator.MoveNext();
             ObservableCollection.Clear();
             downloadData();

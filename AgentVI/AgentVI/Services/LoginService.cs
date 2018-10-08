@@ -19,12 +19,19 @@ namespace AgentVI.Services
         {
             public User LoggedInUser { get; private set; }
 
-            public void setLoggedInUser(User i_loggedInUser)
+            public LoginServiceS() { }
+
+            public bool InitServiceModule(User i_User = null)
             {
-                if (i_loggedInUser != null &&
-                    (LoggedInUser == null || !i_loggedInUser.Compare(LoggedInUser))
-                    )
-                    LoggedInUser = i_loggedInUser; 
+                bool res = false;
+
+                if (i_User != null)
+                {
+                    LoggedInUser = i_User;
+                    res = true;
+                }
+
+                return res;
             }
 
             private ISettings AppSettings
@@ -88,8 +95,6 @@ namespace AgentVI.Services
             {
                 return string.IsNullOrWhiteSpace(AccessToken) ? false : true;
             }
-
-            public LoginServiceS() { }
         }
     }
 }

@@ -23,28 +23,11 @@ namespace AgentVI.ViewModels
         public string UserEmail { get; private set; }
         public string Username { get; private set; }
 
-        public void InitializeFields(User i_loggedInUser)
-        {
-            if (i_loggedInUser != null)
-            {
-                ServiceManager.Instance.LoginService.setLoggedInUser(i_loggedInUser);
-                ServiceManager.Instance.FilterService.InitCollections(i_loggedInUser.GetDefaultAccountFolders(),
-                                                                    i_loggedInUser.GetDefaultAccountSensors());
-
-                AccessToken = InnoviApiService.AccessToken;
-                UserEmail = i_loggedInUser.UserEmail;
-                Username = i_loggedInUser.Username;
-            }
-            else
-            {
-                throw new Exception("Method InitializeFields/LoginPageVM was called with null param");
-            }
-        }
-
-
         public LoginPageViewModel()
         {
-
+            AccessToken = InnoviApiService.AccessToken;
+            UserEmail = ServiceManager.Instance.LoginService.LoggedInUser.UserEmail;
+            Username = ServiceManager.Instance.LoginService.LoggedInUser.Username;
         }
 
 

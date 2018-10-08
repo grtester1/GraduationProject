@@ -28,7 +28,6 @@ namespace AgentVI.ViewModels
 
             updateReporter("Fetching account...", report);
             LoginContext = new LoginPageViewModel();
-            LoginContext.InitializeFields(ServiceManager.Instance.LoginService.LoggedInUser);
             updateReporter("Account initialized.", report);
 
             initPagesCollectionHelper(report, i_AppTabs);

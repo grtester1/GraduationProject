@@ -56,7 +56,7 @@ namespace AgentVI.ViewModels
 
         public void UpdateEvents()
         {
-            collectionEnumerator = ServiceManager.Instance.FilterService.GetFilteredEventsEnumerator();
+            collectionEnumerator = ServiceManager.Instance.FilterService.FilteredEvents;
             canLoadMore = collectionEnumerator.MoveNext();
             ObservableCollection.Clear();
             downloadData();

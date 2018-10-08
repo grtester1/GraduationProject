@@ -3,15 +3,12 @@ using DummyProxy;
 #else
 using InnoviApiProxy;
 #endif
-using AgentVI.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using Xamarin.Forms;
 using AgentVI.Services;
 
 namespace AgentVI.ViewModels
@@ -19,59 +16,55 @@ namespace AgentVI.ViewModels
     public class FilterViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private readonly IFilterService _filterService;
-
-        private List<String> _SelectedFoldersNames;
-        public List<String> SelectedFoldersCache
+        public IEnumerator AccountFolders { get; private set; }
+        private ObservableCollection<Folder> _selectedFoldersCache;
+        public ObservableCollection<Folder> SelectedFoldersCache
         {
             get
             {
-                return _SelectedFoldersNames;
+                return _selectedFoldersCache;
             }
             set
             {
-                _SelectedFoldersNames = value;
+                _selectedFoldersCache = value;
                 OnPropertyChanged();
             }
         }
-
-        private ObservableCollection<FilteringPageViewModel> _FilteringPagesContent;
+        private ObservableCollection<FilteringPageViewModel> _filteringPagesContent;
         public ObservableCollection<FilteringPageViewModel> FilteringPagesContent
         {
             get
             {
-                return _FilteringPagesContent;
+                return _filteringPagesContent;
             }
             private set
             {
-                _FilteringPagesContent = value;
+                _filteringPagesContent = value;
                 OnPropertyChanged();
             }
         }
-        public List<Folder> AccountFolders { get; private set; }
 
-
-        public FilterViewModel(IFilterService i_filterService)
+        public FilterViewModel()
         {
             FilteringPagesContent = new ObservableCollection<FilteringPageViewModel>();
-            _filterService = i_filterService;
-            AccountFolders = _filterService.GetAccountFolders(ServiceManager.Instance.LoginService.LoggedInUser);
-
-            FilteringPagesContent.Add(new FilteringPageViewModel(_filterService.GetAccountFolders(ServiceManager.Instance.LoginService.LoggedInUser), 0));
+            ServiceManager.Instance.FilterService.SelectRootLevel();
+            AccountFolders = ServiceManager.Instance.FilterService.CurrentLevel;
+            FilteringPagesContent.Add(new FilteringPageViewModel(AccountFolders, 0));
         }
 
-
-        public void FetchNextFilteringDepth(Folder i_selectedFolder, int i_nextDepthValue)
+        public void FetchNextFilteringDepth(Folder i_selectedFolder)
         {
-            for(int i=FilteringPagesContent.Count-1;i>=i_nextDepthValue;i--)
+            for (int i = FilteringPagesContent.Count - 1; i >= i_selectedFolder.Depth; i--)
             {
                 FilteringPagesContent.RemoveAt(i);
             }
+            ServiceManager.Instance.FilterService.SelectFolder(i_selectedFolder);
             if (i_selectedFolder.Folders != null && !i_selectedFolder.Folders.IsEmpty())
-                FilteringPagesContent.Add(new FilteringPageViewModel(_filterService.SelectFolder(i_selectedFolder), i_nextDepthValue));
-            else
-                _filterService.SelectFolder(i_selectedFolder);//empty folder scenario
-            SelectedFoldersCache = ServiceManager.Instance.FilterService.GetSelectedFoldersHirearchy();
+            {
+                FilteringPagesContent.Add(new FilteringPageViewModel(ServiceManager.Instance.FilterService.CurrentLevel, i_selectedFolder.Depth + 1));
+            }
+
+            SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using AgentVI.Services;
+using InnoviApiProxy;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace AgentVI.ViewModels
 {
@@ -11,8 +12,8 @@ namespace AgentVI.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private List<String> _SelectedFoldersNamesCache = null;
-        public List<String> SelectedFoldersNamesCache
+        private ObservableCollection<Folder> _SelectedFoldersNamesCache = null;
+        public ObservableCollection<Folder> SelectedFoldersNamesCache
         {
             get
             {
@@ -20,7 +21,7 @@ namespace AgentVI.ViewModels
             }
             set
             {
-                _SelectedFoldersNamesCache = new List<String>(value);
+                _SelectedFoldersNamesCache = new ObservableCollection<Folder>(value);
                 OnPropertyChanged();
             }
         }
@@ -32,7 +33,12 @@ namespace AgentVI.ViewModels
 
         public FilterIndicatorViewModel()
         {
-            SelectedFoldersNamesCache = new List<String> { "Filter is not set" };
+            SelectedFoldersNamesCache = new ObservableCollection<Folder>();
+        }
+
+        internal void UpdateCurrentPath()
+        {
+            SelectedFoldersNamesCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace AgentVI.Views
 
                 if (loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                 {
-                    ServiceManager.Instance.LoginService.setLoggedInUser(loginResult.User);
+                    ServiceManager.Instance.LoginService.InitServiceModule(loginResult.User);
                     MainPage mainAppPage = null;
                     await Task.Factory.StartNew(() =>
                         {
