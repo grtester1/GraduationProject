@@ -7,6 +7,7 @@ using AgentVI.Views;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AgentVI.Utils;
+using AgentVI.Services;
 
 namespace AgentVI.ViewModels
 {
@@ -28,11 +29,13 @@ namespace AgentVI.ViewModels
         internal enum ESelection { Active, Passive };
 
 
-        public string Username
+        public string AccountName
         {
             get
             {
-                if (LoginContext != null)
+                if (ServiceManager.Instance.FilterService != null)
+                    return ServiceManager.Instance.FilterService.CurrentAccount.Name;
+                else if(LoginContext != null)
                     return LoginContext.Username;
                 else
                     return String.Empty;

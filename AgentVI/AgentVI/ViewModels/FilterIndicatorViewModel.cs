@@ -5,25 +5,47 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace AgentVI.ViewModels
 {
     public class FilterIndicatorViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private ObservableCollection<Folder> _SelectedFoldersNamesCache = null;
-        public ObservableCollection<Folder> SelectedFoldersNamesCache
+        private string _selectedFoldersNamesCacheStr = null;
+        public string SelectedFoldersNamesCacheStr
         {
-            get
+            get => _selectedFoldersNamesCacheStr;
+            private set
             {
-                return _SelectedFoldersNamesCache;
-            }
-            set
-            {
-                _SelectedFoldersNamesCache = new ObservableCollection<Folder>(value);
+                _selectedFoldersNamesCacheStr = value;
                 OnPropertyChanged();
             }
+        }
+        private ObservableCollection<Folder> _selectedFoldersNamesCache = null;
+        public ObservableCollection<Folder> SelectedFoldersNamesCache
+        {
+            get => _selectedFoldersNamesCache;
+            set
+            {
+                _selectedFoldersNamesCache = new ObservableCollection<Folder>(value);
+                currenPathToString();
+                OnPropertyChanged();
+            }
+        }
+
+        private void currenPathToString()
+        {
+            string separator = "/";
+            string prefix = "root" + separator;
+            StringBuilder resBuilder = new StringBuilder(prefix);
+
+            foreach(Folder folder in _selectedFoldersNamesCache)
+            {
+                resBuilder.Append(folder.Name).Append(separator);
+            }
+
+            SelectedFoldersNamesCacheStr = resBuilder.ToString();
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

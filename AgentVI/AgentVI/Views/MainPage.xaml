@@ -7,86 +7,86 @@
              xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              xmlns:settings="clr-namespace:AgentVI.Utils">
 
-  <ContentPage.Padding>
-    <OnPlatform x:TypeArguments="Thickness"
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
                 iOS="{x:Static settings:Settings.iOSPlatformPadding}">
-    </OnPlatform>
-  </ContentPage.Padding>
+        </OnPlatform>
+    </ContentPage.Padding>
 
-  <Grid ColumnSpacing="0" RowSpacing="0">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="0.5*"/>
-      <RowDefinition Height="1.5*"/>
-      <RowDefinition Height="12*"/>
-      <RowDefinition Height="1"/>
-      <RowDefinition Height="1.5*"/>
-    </Grid.RowDefinitions>
-    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="0" Orientation="Horizontal">
-      <Image HorizontalOptions="Start" Source="{x:Static settings:Settings.LogoPicturePath}" Margin="{x:Static settings:Settings.HeaderLogoMargines}"/>
-      <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
-        <Label FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold, Italic" Text="Hello, "/>
-        <Label x:Name="userNameHeader_Label" FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold, Italic" Text="{Binding Username}" LineBreakMode="TailTruncation"/>
-      </StackLayout>
-    </StackLayout>
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Horizontal">
+            <Image HorizontalOptions="Start" Source="{x:Static settings:Settings.LogoPicturePath}" Margin="{x:Static settings:Settings.HeaderLogoMargines}"/>
+            <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
+                <Label FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold, Italic" Text="Hello, "/>
+                <Label x:Name="userNameHeader_Label" FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold, Italic" Text="{Binding AccountName}" LineBreakMode="TailTruncation"/>
+            </StackLayout>
+        </StackLayout>
 
-    <StackLayout Grid.Row="1">
-      <StackLayout.GestureRecognizers>
-        <TapGestureRecognizer Tapped="FilterStateIndicator_Tapped" />
-      </StackLayout.GestureRecognizers>
-      <ListView x:Name="FilterStateIndicatorListView" ItemsSource="{Binding SelectedFoldersNamesCache}" ItemTapped="FilterStateIndicator_Tapped"/>
-    </StackLayout>
+        <StackLayout Grid.Row="1">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="FilterStateIndicator_Tapped" />
+            </StackLayout.GestureRecognizers>
+            <Label x:Name="FilterStateIndicatorListView" Text="{Binding SelectedFoldersNamesCacheStr}"/>
+            <!--<ListView x:Name="FilterStateIndicatorListView" ItemsSource="{Binding SelectedFoldersNamesCache}" ItemTapped="FilterStateIndicator_Tapped"/>-->
+        </StackLayout>
 
-    <ContentView x:Name="PlaceHolder" Grid.Row="2" VerticalOptions="FillAndExpand"/>
-    <BoxView BackgroundColor="{x:Static settings:Settings.FooterSeparatorColor}" Grid.Row="3"/>
+        <ContentView x:Name="PlaceHolder" Grid.Row="2" VerticalOptions="FillAndExpand"/>
+        <BoxView BackgroundColor="{x:Static settings:Settings.FooterSeparatorColor}" Grid.Row="3"/>
 
-    <Grid BackgroundColor="{x:Static settings:Settings.FooterColor}" Grid.Row="4">
+        <Grid BackgroundColor="{x:Static settings:Settings.FooterColor}" Grid.Row="4">
 
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
 
-      <RelativeLayout Grid.Column="0" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-        <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}"
+            <RelativeLayout Grid.Column="0" BackgroundColor="{x:Static settings:Settings.FooterColor}">
+                <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}"
                                                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.1}"
                                                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.2}"
                                                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1.3}"
                                                     x:Name="FooterBarEventsIcon"
                                                     Source="{x:Static settings:Settings.EventsTabSVGPath}">
-          <ffsvg:SvgCachedImage.GestureRecognizers>
-            <TapGestureRecognizer Tapped="FooterBarEvents_Clicked"/>
-          </ffsvg:SvgCachedImage.GestureRecognizers>
-        </ffsvg:SvgCachedImage>
-      </RelativeLayout>
+                    <ffsvg:SvgCachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="FooterBarEvents_Clicked"/>
+                    </ffsvg:SvgCachedImage.GestureRecognizers>
+                </ffsvg:SvgCachedImage>
+            </RelativeLayout>
 
-      <RelativeLayout Grid.Column="1" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-        <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=-0.02}"
+            <RelativeLayout Grid.Column="1" BackgroundColor="{x:Static settings:Settings.FooterColor}">
+                <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=-0.02}"
                                                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.1}"
                                                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.15}"
                                                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1.2}"
                                                     x:Name="FooterBarCamerasIcon"
                                                     Source="{x:Static settings:Settings.SensorsTabSVGPath}">
-          <ffsvg:SvgCachedImage.GestureRecognizers>
-            <TapGestureRecognizer Tapped="FooterBarCameras_Clicked"/>
-          </ffsvg:SvgCachedImage.GestureRecognizers>
-        </ffsvg:SvgCachedImage>
-      </RelativeLayout>
+                    <ffsvg:SvgCachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="FooterBarCameras_Clicked"/>
+                    </ffsvg:SvgCachedImage.GestureRecognizers>
+                </ffsvg:SvgCachedImage>
+            </RelativeLayout>
 
-      <RelativeLayout Grid.Column="2" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-        <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.06}"
+            <RelativeLayout Grid.Column="2" BackgroundColor="{x:Static settings:Settings.FooterColor}">
+                <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.06}"
                                                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.85}"
                                                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
                                                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                                     x:Name="FooterBarSettingsIcon"
                                                     Source="{x:Static settings:Settings.SettingsTabSVGPath}">
-          <ffsvg:SvgCachedImage.GestureRecognizers>
-            <TapGestureRecognizer Tapped="FooterBarSettings_Clicked"/>
-          </ffsvg:SvgCachedImage.GestureRecognizers>
-        </ffsvg:SvgCachedImage>
-      </RelativeLayout>
+                    <ffsvg:SvgCachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="FooterBarSettings_Clicked"/>
+                    </ffsvg:SvgCachedImage.GestureRecognizers>
+                </ffsvg:SvgCachedImage>
+            </RelativeLayout>
+        </Grid>
     </Grid>
-  </Grid>
-
 </ContentPage>

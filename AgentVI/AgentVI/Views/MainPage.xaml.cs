@@ -66,6 +66,7 @@ namespace AgentVI.Views
         {
             BindingContext = mainPageVM;
             FilterStateIndicatorListView.BindingContext = mainPageVM.FilterIndicator;
+            //FilterStateIndicatorListView.BindingContext = mainPageVM.FilterIndicator;
         }
 
         void FilterStateIndicator_Tapped(object i_Sender, EventArgs i_EventArgs)
