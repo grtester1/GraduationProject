@@ -65,18 +65,23 @@ namespace AgentVI.Views
 
         private void Handle_FilterListItemSelected(object i_Sender, SelectedItemChangedEventArgs i_ItemEventArgs)
         {
-            int filterDepthLabelValue = -1;
+            int filterDepthLabelValue = 0;
             Folder selectedFolder = i_ItemEventArgs.SelectedItem as Folder;
-            Label filterDepthLabel = ((ListView)i_Sender).Parent.FindByName<Label>("filterNumLabel");
-            if(Int32.TryParse(filterDepthLabel.Text, out filterDepthLabelValue))
+            //updateFilterLevelView(i_Sender as ListView, filterDepthLabelValue);   //Indicator of filtering level
+            m_FilterViewModel.FetchNextFilteringDepth(selectedFolder, ++filterDepthLabelValue);
+            ConsiderSwipeRightSwipeUp();
+        }
+
+        private void updateFilterLevelView(ListView i_ListView, int i_CurrenDepth)
+        {
+            Label filterDepthLabel = ((ListView)i_ListView).Parent.FindByName<Label>("filterNumLabel");
+            if(Int32.TryParse(filterDepthLabel.Text, out i_CurrenDepth))
             {
                 using (Converters.FilterPageIDConverter a = new Converters.FilterPageIDConverter())
                 {
-                    filterDepthLabelValue = (int)a.ConvertBack(filterDepthLabelValue, null, null, null);
+                    i_CurrenDepth = (int)a.ConvertBack(i_CurrenDepth, null, null, null);
                 }
             }
-            m_FilterViewModel.FetchNextFilteringDepth(selectedFolder, ++filterDepthLabelValue);
-            ConsiderSwipeRightSwipeUp();
         }
 
         private void ConsiderSwipeRightSwipeUp()
@@ -108,6 +113,11 @@ namespace AgentVI.Views
                 currentListView.ItemsSource = unfilteredFoldersList;
             else
                 currentListView.ItemsSource = unfilteredFoldersList.Cast<Folder>().Where(item => item.Name.StartsWith(i_TextChangeEventArgs.NewTextValue));
+        }
+
+        private void OnSelectionClickedButton(object sender, EventArgs e)
+        {
+
         }
     }
 }

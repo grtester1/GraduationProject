@@ -26,7 +26,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*"/>
                         <RowDefinition Height="18*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <Grid.RowDefinitions>
@@ -36,7 +36,7 @@
                         <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                             <Image Source="{x:Static settings:Settings.LogoPicturePath}" Aspect="AspectFit"/>
                             <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.DividerIconSVGPath}"/>
-                            <Label Text="Accnt Name" FontAttributes="Bold" FontSize="{x:Static settings:Settings.GenericTitleFontSize}" VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding AccountName}" FontAttributes="Bold" FontSize="{x:Static settings:Settings.GenericTitleFontSize}" VerticalOptions="CenterAndExpand"/>
                         </StackLayout>
                         <Label Grid.Row="1" Text="/Path/Path/Path/Path" HorizontalOptions="StartAndExpand" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"/>
                     </Grid>
@@ -56,10 +56,14 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </StackLayout>
+                    <Button Grid.Row="2" Text="Apply Selection" VerticalOptions="FillAndExpand" TextColor="GhostWhite" BorderColor="WhiteSmoke" BackgroundColor="LightGreen" Clicked="OnSelectionClickedButton" HorizontalOptions="FillAndExpand"/>
+                    <!--
+                    ###CurrentLevelInFiltration
                     <StackLayout x:Name="filterNumStackLayout" Grid.Row="2" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                         <Label Text="Filter Num. "/>
                         <Label x:Name="filterNumLabel" Text="{Binding FilterID, Converter={StaticResource FilterPageIDConverter}}"/>
                     </StackLayout>
+                    -->
                 </Grid>
             </ContentPage>
         </DataTemplate>

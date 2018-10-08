@@ -4,36 +4,121 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using Xamarin.Forms;
 using System.Threading.Tasks;
-using AgentVI.Utils;
-using System.Collections;
 
 namespace AgentVI.Services
 {
     public partial class ServiceManager
     {
+        //###To keep updated###
+        //FilteredSensorCollection
+        //IsAtRootLevel
+        //IsAtLeafFolder
+        //CurrentPath
+        //CurrentPathStr
+        //CurrentLevel
+        //NextLevel
         private class FilterServiceS : IFilterService
         {
-            private List<Folder> RootFolders { get; set; }
+            public Account CurrentAccount { get; private set; }
+            public List<Account> UserAccounts { get; private set; }
+            private IEnumerator FilteredSensorCollection { get; set; }
+            private readonly object FilteredSensorCollectionLock;
+            public event EventHandler FilterStateUpdated;
+            public bool IsAtRootLevel { get; private set; }
+            public bool IsAtLeafFolder { get; private set; }
+            public bool HasNextLevel => !IsAtLeafFolder;
+            private IEnumerator RootFolders { get; set; }
+            public List<Folder> CurrentPath { get; private set; }
+            public List<string> CurrentPathStr { get; private set; }
+            public IEnumerator CurrentLevel { get; private set; }
+            private Dictionary<Folder, IEnumerator> NextLevel { get; set; }
+            private readonly string rootName = "root";
+            private readonly string pathSeparator = "/";
+
             private List<List<Folder>> HierarchyLevel { get; set; }
             private List<String> SelectedFolderNames { get; set; }
             private List<Folder> SelectedFolders { get; set; }
-            private List<Sensor> FilteredSensorCollection { get; set; }
-            private readonly object FilteredSensorCollectionLock = new object();
-            private bool isFilterUpdated = false;
-            public event EventHandler FilterStateUpdated;
-            public bool IsAtRootLevel { get; private set; } = true;
 
             public FilterServiceS()
             {
+                IsAtRootLevel = true;
+                IsAtLeafFolder = false;
+                FilteredSensorCollectionLock = new object();
+                CurrentAccount = null;
+                UserAccounts = null;
+                FilteredSensorCollection = null;
+                RootFolders = null;
+                CurrentPath = new List<Folder>();
+                CurrentPathStr = new List<string>() { new StringBuilder(rootName).Append(pathSeparator).ToString() };
+                CurrentLevel = null;
+                NextLevel = new Dictionary<Folder, IEnumerator>();
+
+                //===============
                 RootFolders = null;
                 HierarchyLevel = new List<List<Folder>>();
                 SelectedFolderNames = new List<String>();
                 SelectedFolders= new List<Folder>();
             }
+
+            public bool InitFilterServiceModule()
+            {
+                bool res = false;
+                if(ServiceManager.Instance.LoginService != null &&
+                    ServiceManager.Instance.LoginService.LoggedInUser != null)
+                {
+                    UserAccounts = ServiceManager.Instance.LoginService.LoggedInUser.Accounts;
+                    CurrentAccount = ServiceManager.Instance.LoginService.LoggedInUser.Accounts[0];
+                    IsAtRootLevel = true;
+                    IsAtLeafFolder = false;
+                    FilteredSensorCollection = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors().GetEnumerator();
+                    RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders().GetEnumerator();
+                    CurrentPath = new List<Folder>();
+                    CurrentLevel = RootFolders;
+                    NextLevel = new Dictionary<Folder, IEnumerator>();
+                    fetchNextLevel();
+                    res = true;
+                }
+
+                return res;
+            }
+
+            private void fetchNextLevel()
+            {
+                bool hasNext, wasUpdated = false;
+                Folder currentFolder;
+                do
+                {
+                    hasNext = RootFolders.MoveNext();
+                    currentFolder = RootFolders.Current as Folder;
+                    NextLevel.Add(currentFolder, currentFolder.Folders.GetEnumerator());
+                    if(!wasUpdated && !currentFolder.Folders.IsEmpty())
+                    {
+                        IsAtLeafFolder = false;
+                        wasUpdated = true;
+                    }
+                } while (hasNext = RootFolders.MoveNext());
+            }
+
+            public void selectFolder(Folder i_FolderSelected)
+            {
+                FilteredSensorCollection = i_FolderSelected.GetAllSensors().GetEnumerator();
+                IsAtRootLevel = false;
+                IsAtLeafFolder = i_FolderSelected.Folders.IsEmpty();
+                updatePath(i_FolderSelected);                               //keeps CurrentPath, CurrentPathStr updated
+                CurrentLevel = i_FolderSelected.Folders.GetEnumerator();
+                fetchNextLevel();                                           //keeps NextLevel updated
+            }
+
+            private void updatePath(Folder i_FolderSelected)
+            {
+                i_FolderSelected.Depth;
+            }
+
+            //================
 
             public List<String> GetSelectedFoldersHirearchy()
             {
