@@ -6,10 +6,16 @@
 
 ## Participants
   - [Team:](#grad-project)
-    - [Amikam Goldfarb (Team leader & Android development leader)](#grad-project)
+    - [Amikam Goldfarb (Team leader | Client-side Frontend and Android development)](#grad-project)
     - [Nadav Ramot     (Client-side backend development leader)](#grad-project)
     - [Gil Ronen       (iOS development leader)](#grad-project)
   - [Mentors:](#grad-project)
     - [Guy Ronen](#grad-project)
     - [Innovi AgentVI Company](#grad-project)
 ---
+
+### App compatability approved for:
+1. Xiaomi Mi A2
+2. Xiaomi Mi A2 Lite
+3. Xiaomi Redmi Note 4
+4. Apple IPhone X
