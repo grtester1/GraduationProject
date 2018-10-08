@@ -19,7 +19,7 @@ namespace AgentVI.Utils
         public static double SensorEventNameFontSize { get; } = 20;
         public static double SensorEventDetailsFontSize { get; } = 16;
 
-        public static Color FooterColor { get; } = Color.AliceBlue;
+        public static Color FooterColor { get; } = Color.AliceBlue; //"#BABABA"
         public static Color FooterSeparatorColor { get; } = Color.FromHex("#DCDCDC");
         public static Color SensorEventFontColor { get; } = Color.Navy;
 
