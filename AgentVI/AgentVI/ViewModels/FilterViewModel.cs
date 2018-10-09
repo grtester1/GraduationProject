@@ -16,7 +16,6 @@ namespace AgentVI.ViewModels
     public class FilterViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public IEnumerator AccountFolders { get; private set; }
         private ObservableCollection<Folder> _selectedFoldersCache;
         public ObservableCollection<Folder> SelectedFoldersCache
         {
@@ -43,25 +42,29 @@ namespace AgentVI.ViewModels
                 OnPropertyChanged();
             }
         }
+        public FilteringPageViewModel CurrentPage { get; set; }
 
         public FilterViewModel()
         {
             FilteringPagesContent = new ObservableCollection<FilteringPageViewModel>();
             ServiceManager.Instance.FilterService.SelectRootLevel();
-            AccountFolders = ServiceManager.Instance.FilterService.CurrentLevel;
-            FilteringPagesContent.Add(new FilteringPageViewModel(AccountFolders, 0));
+            FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(0);
+            currentFiltrationLevel.UpdateFolders();
+            FilteringPagesContent.Add(currentFiltrationLevel);
         }
 
         public void FetchNextFilteringDepth(Folder i_selectedFolder)
         {
-            for (int i = FilteringPagesContent.Count - 1; i >= i_selectedFolder.Depth; i--)
+            for (int i = FilteringPagesContent.Count - 1; i > i_selectedFolder.Depth; i--)
             {
                 FilteringPagesContent.RemoveAt(i);
             }
             ServiceManager.Instance.FilterService.SelectFolder(i_selectedFolder);
             if (i_selectedFolder.Folders != null && !i_selectedFolder.Folders.IsEmpty())
             {
-                FilteringPagesContent.Add(new FilteringPageViewModel(ServiceManager.Instance.FilterService.CurrentLevel, i_selectedFolder.Depth + 1));
+                FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(i_selectedFolder.Depth + 1);
+                currentFiltrationLevel.UpdateFolders();
+                FilteringPagesContent.Add(currentFiltrationLevel);
             }
 
             SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);

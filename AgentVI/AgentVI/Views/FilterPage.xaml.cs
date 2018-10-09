@@ -9,7 +9,7 @@ using System;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using System.Threading.Tasks;
 
 namespace AgentVI.Views
 {
@@ -34,6 +34,7 @@ namespace AgentVI.Views
             m_FilterIndicatorViewModel = i_FilterIndicatorViewModel;
             m_FilterViewModel = new FilterViewModel();
             BindingContext = m_FilterViewModel;
+            
             CurrentPageChanged += FilterPage_CurrentPageChanged;
         }
 

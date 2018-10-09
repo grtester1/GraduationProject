@@ -101,9 +101,10 @@ namespace AgentVI.Services
                 NextLevel = new Dictionary<Folder, IEnumerator>();
                 bool hasNext, wasUpdated = false;
                 Folder currentFolder;
+
+                hasNext = RootFolders.MoveNext();
                 do
                 {
-                    hasNext = RootFolders.MoveNext();
                     if (hasNext == true)
                     {
                         currentFolder = RootFolders.Current as Folder;
@@ -119,6 +120,7 @@ namespace AgentVI.Services
                         IsAtLeafFolder = wasUpdated = true;
                     }
                 } while (hasNext = RootFolders.MoveNext());
+                RootFolders.Reset();
             }
 
             private void updatePath(Folder i_FolderSelected)
