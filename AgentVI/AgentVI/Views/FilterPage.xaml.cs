@@ -3,20 +3,13 @@ using DummyProxy;
 #else
 using InnoviApiProxy;
 #endif
-using AgentVI.Models;
 using AgentVI.Services;
 using AgentVI.ViewModels;
-using CommonServiceLocator;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using System.Threading.Tasks;
 
 namespace AgentVI.Views
 {
@@ -30,12 +23,18 @@ namespace AgentVI.Views
         private SearchBar currentSearchBar;
         private System.Collections.IEnumerable unfilteredFoldersList;
 
-        public FilterPage(FilterIndicatorViewModel i_FilterIndicatorViewModel)
+        private FilterPage()
         {
-            InitializeComponent ();
+            InitializeComponent();
+            ServiceManager.Instance.FilterService.InitServiceModule();
+        }
+
+        public FilterPage(FilterIndicatorViewModel i_FilterIndicatorViewModel):this()
+        {
             m_FilterIndicatorViewModel = i_FilterIndicatorViewModel;
-            m_FilterViewModel = new FilterViewModel(ServiceManager.Instance.FilterService);
+            m_FilterViewModel = new FilterViewModel();
             BindingContext = m_FilterViewModel;
+            
             CurrentPageChanged += FilterPage_CurrentPageChanged;
         }
 
@@ -58,25 +57,29 @@ namespace AgentVI.Views
 
         protected override bool OnBackButtonPressed()
         {
-            m_FilterIndicatorViewModel.SelectedFoldersNamesCache = ServiceManager.Instance.FilterService.GetSelectedFoldersHirearchy();
-            ServiceManager.Instance.FilterService.FetchSelectedFolder();
+            m_FilterIndicatorViewModel.UpdateCurrentPath();
+            OnSelectionClickedButton(null , EventArgs.Empty);
             return base.OnBackButtonPressed();
         }
 
         private void Handle_FilterListItemSelected(object i_Sender, SelectedItemChangedEventArgs i_ItemEventArgs)
         {
-            int filterDepthLabelValue = -1;
             Folder selectedFolder = i_ItemEventArgs.SelectedItem as Folder;
-            Label filterDepthLabel = ((ListView)i_Sender).Parent.FindByName<Label>("filterNumLabel");
-            if(Int32.TryParse(filterDepthLabel.Text, out filterDepthLabelValue))
+            //updateFilterLevelView(i_Sender as ListView, selectedFolder.Depth);   //Indicator of filtering level
+            m_FilterViewModel.FetchNextFilteringDepth(selectedFolder);
+            ConsiderSwipeRightSwipeUp();
+        }
+
+        private void updateFilterLevelView(ListView i_ListView, int i_CurrenDepth)
+        {
+            Label filterDepthLabel = ((ListView)i_ListView).Parent.FindByName<Label>("filterNumLabel");
+            if(Int32.TryParse(filterDepthLabel.Text, out i_CurrenDepth))
             {
                 using (Converters.FilterPageIDConverter a = new Converters.FilterPageIDConverter())
                 {
-                    filterDepthLabelValue = (int)a.ConvertBack(filterDepthLabelValue, null, null, null);
+                    i_CurrenDepth = (int)a.ConvertBack(i_CurrenDepth, null, null, null);
                 }
             }
-            m_FilterViewModel.FetchNextFilteringDepth(selectedFolder, ++filterDepthLabelValue);
-            ConsiderSwipeRightSwipeUp();
         }
 
         private void ConsiderSwipeRightSwipeUp()
@@ -108,6 +111,11 @@ namespace AgentVI.Views
                 currentListView.ItemsSource = unfilteredFoldersList;
             else
                 currentListView.ItemsSource = unfilteredFoldersList.Cast<Folder>().Where(item => item.Name.StartsWith(i_TextChangeEventArgs.NewTextValue));
+        }
+
+        private void OnSelectionClickedButton(object sender, EventArgs e)
+        {
+
         }
     }
 }

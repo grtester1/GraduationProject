@@ -9,21 +9,21 @@ using System.Collections.Generic;
 
 namespace AgentVI.Services
 {
-    public interface IFilterService
+    public interface IFilterService : IServiceModule
     {
-        List<Folder>                        GetAllFoldersBeneath(List<Folder> i_folders);
-        void                                InitCollections(InnoviObjectCollection<Folder> i_FolderCollection, InnoviObjectCollection<Sensor> i_SensorCollection);
-        void                                FetchSelectedFolder();
-        List<Folder>                        SelectFolder(Folder i_selectedFolder);
-        bool                                IsEmptyFolder(Folder i_SelectedFolder);
-        List<Folder>                        GetAccountFolders(User i_user);
-        [Obsolete("Method GetFilteredSensorCollection is deprecated. Use instead GetFilteredSensorsEnumerator()")]
-        List<Sensor>                        GetFilteredSensorCollection();
-        List<String>                        GetSelectedFoldersHirearchy();
-        string                              GetLeafFolder();
-        IEnumerator                         GetFilteredSensorsEnumerator();
-        IEnumerator                         GetFilteredEventsEnumerator();
+        void                                SelectRootLevel();
+        void                                SelectFolder(Folder i_FolderSelected);
+        void                                SwitchAccount(Account i_SelectedAccount);
         event EventHandler                  FilterStateUpdated;
-        bool IsAtRootLevel                  { get; }
+        Account                             CurrentAccount { get; }
+        List<Account>                       UserAccounts { get; }
+        IEnumerator                         FilteredSensorCollection { get; }
+        IEnumerator                         CurrentLevel { get; }
+        IEnumerator                         FilteredEvents { get; }
+        bool                                IsAtRootLevel { get; }
+        bool                                IsAtLeafFolder { get; }
+        bool                                HasNextLevel { get; }
+        List<Folder>                        CurrentPath { get; }
+        Dictionary<Folder, IEnumerator>     NextLevel { get; }
     }
 }

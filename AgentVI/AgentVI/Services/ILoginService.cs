@@ -9,22 +9,14 @@ using System.Text;
 
 namespace AgentVI.Services
 {
-    public interface ILoginService
+    public interface ILoginService : IServiceModule
     {
-        User LoggedInUser { get; }
-
-        void setLoggedInUser(User i_loggedInUser);
-
-        bool ArmCamersSettings { get; set; }
-
-        bool PushNotificationsSettings { get; set; }
-
-        string AccessToken { get; }
-
-        void SaveCredentials(string accessToken);
-
-        void DeleteCredentials();
-
-        bool DoCredentialsExist();
+        User                    LoggedInUser { get; }
+        bool                    ArmCamersSettings { get; set; }
+        bool                    PushNotificationsSettings { get; set; }
+        string                  AccessToken { get; }
+        void                    SaveCredentials(string accessToken);
+        void                    DeleteCredentials();
+        bool                    DoCredentialsExist();
     }
 }

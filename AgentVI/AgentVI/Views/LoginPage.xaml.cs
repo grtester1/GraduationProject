@@ -4,10 +4,6 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using AgentVI.Utils;
@@ -60,11 +56,9 @@ namespace AgentVI.Views
                 {
                     if (m_LoginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                     {
+                        ServiceManager.Instance.LoginService.InitServiceModule(m_LoginResult.User);
                         m_LoginPageViewModel = new LoginPageViewModel();
-                        m_LoginPageViewModel.InitializeFields(m_LoginResult.User);
 						ServiceManager.Instance.LoginService.SaveCredentials(m_LoginPageViewModel.AccessToken);
-                        //Navigation.InsertPageBefore(new MainPage(null), this); //TODO
-                        //Navigation.PopAsync();
                         Navigation.PushAsync(new LoadingPage());
                     }
                     else
