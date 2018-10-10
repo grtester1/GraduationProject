@@ -60,45 +60,50 @@ namespace AgentVI.ViewModels
                 hm.HealthDescription = sh.DetailedDescription;
                 if (sh != healths[healths.Count - 1])
                 {
-                    int minutes, hours;
                     long currentTime = sh.StatusTimeStamp;
                     long nextTime = healths[healths.IndexOf(sh) + 1].StatusTimeStamp;
-                    long duration = nextTime - currentTime;
-                    TimeSpan dur = new TimeSpan(duration * 10000);
-                    minutes = (int)dur.TotalMinutes;
-                    hours = minutes / 60;
-                    minutes = minutes % 60;
-                    StringBuilder durationTimeText = new StringBuilder();
-                    if(hours <10)
-                    {
-                        durationTimeText.Append("0" + hours + ":");
-                    }
-                    else if (hours<100)
-                    {
-                        durationTimeText.Append(hours + ":");
-                    }
-                    else
-                    {
-                        durationTimeText.Append("00:");
-                    }
-                    if(minutes<10)
-                    {
-                        durationTimeText.Append("0" + minutes);
-                    }
-                    else if(minutes<100)
-                    {
-                        durationTimeText.Append(minutes);
-                    }
-                    else //never get here (cause mod 60)
-                    {
-                        durationTimeText.Append("00");
-                    }
-
-                    hm.HealthDuration = durationTimeText.ToString();
+                    hm.HealthDuration = getHealthDurationTime(currentTime, nextTime); //The duration time displayed as hh:mm format
                 }
                 healthList.Add(hm);
             }
             return healthList;
+        }
+
+        private string getHealthDurationTime(long i_currentTime, long i_nextTime)
+        {
+            int minutes, hours;
+            long duration = i_nextTime - i_currentTime;
+            TimeSpan timeDuration = new TimeSpan(duration * 10000);
+            StringBuilder durationTimeText = new StringBuilder();
+            minutes = (int)timeDuration.TotalMinutes;
+            hours = minutes / 60;
+            minutes = minutes % 60;
+            if (hours < 10)
+            {
+                durationTimeText.Append("0" + hours + ":");
+            }
+            else if (hours < 100)
+            {
+                durationTimeText.Append(hours + ":");
+            }
+            else
+            {
+                durationTimeText.Append("00:");
+            }
+            if (minutes < 10)
+            {
+                durationTimeText.Append("0" + minutes);
+            }
+            else if (minutes < 100)
+            {
+                durationTimeText.Append(minutes);
+            }
+            else //never get here (cause always 'minutes' mod 60 < 60)
+            {
+                durationTimeText.Append("00");
+            }
+
+            return durationTimeText.ToString();
         }
 
         public void UpdateHealthList() //need to implement!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
