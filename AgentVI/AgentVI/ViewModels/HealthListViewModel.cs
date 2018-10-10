@@ -68,8 +68,29 @@ namespace AgentVI.ViewModels
                     minutes = (int)dur.TotalMinutes;
                     hours = minutes / 60;
                     minutes = minutes % 60;
+                    StringBuilder durationTimeText = new StringBuilder();
+                    if(hours <10)
+                    {
+                        durationTimeText.Append("0" + hours + ":");
+                    }
+                    else if (hours<100)
+                    {
+                        durationTimeText.Append(hours + ":");
+                    }
+                    else
+                    {
+                        durationTimeText.Append("00:");
+                    }
+                    if(minutes<10)
+                    {
+                        durationTimeText.Append("0" + minutes);
+                    }
+                    else if(minutes<100)
+                    {
+                        durationTimeText.Append(minutes);
+                    }
 
-                    hm.HealthDuration = hours + ":" + minutes;
+                    hm.HealthDuration = durationTimeText.ToString();
                 }
                 healthList.Add(hm);
             }
