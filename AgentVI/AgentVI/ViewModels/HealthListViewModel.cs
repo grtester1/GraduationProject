@@ -89,6 +89,10 @@ namespace AgentVI.ViewModels
                     {
                         durationTimeText.Append(minutes);
                     }
+                    else //never get here (cause mod 60)
+                    {
+                        durationTimeText.Append("00");
+                    }
 
                     hm.HealthDuration = durationTimeText.ToString();
                 }
