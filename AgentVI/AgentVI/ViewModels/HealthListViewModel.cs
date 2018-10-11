@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 using AgentVI.Models;
-
+using AgentVI.Services;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,10 +17,39 @@ using System.Threading.Tasks;
 
 namespace AgentVI.ViewModels
 {
-    public class HealthListViewModel : INotifyPropertyChanged
+    public class HealthListViewModel : FilterDependentViewModel<HealthModel>
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        /*
+        public HealthListViewModel()
+        {
 
+        }
+
+        public HealthListViewModel(SensorModel i_SensorModel)
+        {
+            SensorModel = i_SensorModel;
+            HealthsList = GetHealthSensorList(i_SensorModel);
+        }*/
+
+        public override void OnFilterStateUpdated(object source, EventArgs e)
+        {
+            base.OnFilterStateUpdated(source, e);
+            PopulateCollection();
+        }
+
+        public override void PopulateCollection()
+        {
+            base.PopulateCollection();
+            enumerableCollection = ServiceManager.Instance.FilterService.
+                FilteredHealth.Select(health => HealthModel.FactoryMethod(health));
+            FetchCollection();
+        }
+
+
+
+        //
+
+        /*
         private SensorModel m_SensorModel;
         public SensorModel SensorModel
         {
@@ -42,13 +71,8 @@ namespace AgentVI.ViewModels
                 OnPropertyChanged("HealthsList");
             }
         }
-
-        public HealthListViewModel(SensorModel i_SensorModel)
-        {
-            SensorModel = i_SensorModel;
-            HealthsList = GetHealthSensorList(i_SensorModel);
-        }
-
+*/
+        /*
         private List<HealthModel> GetHealthSensorList(SensorModel i_Sensor)
         {
             List<HealthModel> healthList = new List<HealthModel>();
@@ -104,21 +128,14 @@ namespace AgentVI.ViewModels
             }
 
             return durationTimeText.ToString();
-        }
-
+        }*/
+        /*
         public void UpdateHealthList() //need to implement!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         {
             //HealthsList.Clear();
             //HealthsList = GetHealthSensorList(SensorModel);
         }
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+*/
 
     }
 }

@@ -50,6 +50,11 @@ namespace AgentVI.ViewModels
             EventsPage eventsPageBuf = new EventsPage();
             eventsPageBuf.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
             PagesCollection.Add(EAppTab.EventsPage, new Tuple<ContentPage, SvgCachedImage>(eventsPageBuf, i_AppTabs[EAppTab.EventsPage]));
+
+            updateReporter("Fetching Healthes...", i_Report);
+            HealthPage healthesPageBuf = new HealthPage();
+            healthesPageBuf.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
+            PagesCollection.Add(EAppTab.HealthPage, new Tuple<ContentPage, SvgCachedImage>(healthesPageBuf, i_AppTabs[EAppTab.HealthPage]));
         }
 
         private void addToContentViewStack(ContentPage i_updatedContent)
@@ -175,6 +180,14 @@ namespace AgentVI.ViewModels
             else if (i_TabPage == EAppTab.SensorsPage && i_SelectionStatus == ESelection.Passive)
             {
                 res = Settings.SensorsTabSVGPath;
+            }
+            else if (i_TabPage == EAppTab.HealthPage && i_SelectionStatus == ESelection.Active)
+            {
+                res = Settings.HealthTabSelectedSVGPath;
+            }
+            else if (i_TabPage == EAppTab.HealthPage && i_SelectionStatus == ESelection.Passive)
+            {
+                res = Settings.HealthTabSVGPath;
             }
             else if (i_TabPage == EAppTab.SettingsPage && i_SelectionStatus == ESelection.Active)
             {

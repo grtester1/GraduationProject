@@ -12,7 +12,7 @@ namespace AgentVI.Utils
         public static Thickness ListViewMargins { get; } = new Thickness(0,5,0,5);
         public static Thickness HeaderLogoMargines { get; } = new Thickness(0, 0, 70, 0);
 
-        public static double GridElementSizeRequest { get; } = 300;
+        public static double GridElementSizeRequest { get; } = 200;
 
         public static double GenericTitleFontSize { get; } = 22;
         public static double HeaderTitleFontSize { get; } = 16;
@@ -27,6 +27,8 @@ namespace AgentVI.Utils
         public static string EventsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_active_24px.svg";
         public static string SensorsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.sensors_24px.svg";
         public static string SensorsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.sensors_active_24px.svg";
+        public static string HealthTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_24px.svg";
+        public static string HealthTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_active_24px.svg";
         public static string SettingsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_24px.svg";
         public static string SettingsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_active_24px.svg";
 
