@@ -24,6 +24,5 @@ namespace AgentVI.Services
         bool                                IsAtLeafFolder { get; }
         bool                                HasNextLevel { get; }
         List<Folder>                        CurrentPath { get; }
-        Dictionary<Folder, IEnumerator>     NextLevel { get; }
     }
 }

@@ -29,6 +29,7 @@
     <None Remove="Sources\Icons\events_24px.svg" />
     <None Remove="Sources\Icons\events_active_24px.svg" />
     <None Remove="Sources\Icons\folderIcon.svg" />
+    <None Remove="Sources\Icons\rightArrow.svg" />
     <None Remove="Sources\Icons\sensors_24px.svg" />
     <None Remove="Sources\Icons\sensors_active_24px.svg" />
     <None Remove="Sources\Icons\settings_24px.svg" />
@@ -63,6 +64,7 @@
     <EmbeddedResource Include="Sources\Icons\events_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\events_active_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\folderIcon.svg" />
+    <EmbeddedResource Include="Sources\Icons\rightArrow.svg" />
     <EmbeddedResource Include="Sources\Icons\sensors_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\sensors_active_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\settings_24px.svg" />

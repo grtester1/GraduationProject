@@ -10,6 +10,7 @@ using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Threading.Tasks;
+using AgentVI.Models;
 
 namespace AgentVI.Views
 {
@@ -62,11 +63,20 @@ namespace AgentVI.Views
             return base.OnBackButtonPressed();
         }
 
-        private void Handle_FilterListItemSelected(object i_Sender, SelectedItemChangedEventArgs i_ItemEventArgs)
+        private void Button_Clicked(object sender, EventArgs e)
         {
-            Folder selectedFolder = i_ItemEventArgs.SelectedItem as Folder;
-            //updateFilterLevelView(i_Sender as ListView, selectedFolder.Depth);   //Indicator of filtering level
-            m_FilterViewModel.FetchNextFilteringDepth(selectedFolder);
+            var menuItem = sender as Button;
+            var selectedItem = menuItem.CommandParameter as FolderModel;
+        }
+
+        private async void Handle_FilterListItemSelected(object i_Sender, SelectedItemChangedEventArgs i_ItemEventArgs)
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                Folder selectedFolder = (i_ItemEventArgs.SelectedItem as FolderModel).ProxyFolder;
+                //updateFilterLevelView(i_Sender as ListView, selectedFolder.Depth);   //Indicator of filtering level
+                m_FilterViewModel.FetchNextFilteringDepth(selectedFolder);
+            });
             ConsiderSwipeRightSwipeUp();
         }
 

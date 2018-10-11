@@ -66,12 +66,17 @@ namespace AgentVI.Views
         {
             BindingContext = mainPageVM;
             FilterStateIndicatorListView.BindingContext = mainPageVM.FilterIndicator;
-            //FilterStateIndicatorListView.BindingContext = mainPageVM.FilterIndicator;
         }
 
         void FilterStateIndicator_Tapped(object i_Sender, EventArgs i_EventArgs)
         {
-            Navigation.PushModalAsync(mainPageVM.FilterPage);
+            try
+            {
+                Navigation.PushModalAsync(mainPageVM.FilterPage);
+            }catch(InvalidOperationException ex)
+            {
+                Console.WriteLine("Tapped twice the button before it was opened. No action needed");
+            }
         }
 
         void FooterBarEvents_Clicked(object i_Sender, EventArgs i_EventArgs)

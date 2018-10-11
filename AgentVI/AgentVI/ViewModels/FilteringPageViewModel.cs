@@ -1,6 +1,7 @@
 ﻿#if DPROXY
 using DummyProxy;
 #else
+using AgentVI.Models;
 using AgentVI.Services;
 using InnoviApiProxy;
 #endif
@@ -13,14 +14,14 @@ using Xamarin.Forms.Extended;
 
 namespace AgentVI.ViewModels
 {
-    public class FilteringPageViewModel : FilterDependentViewModel<Folder>
+    public class FilteringPageViewModel : FilterDependentViewModel<FolderModel>
     {
         private bool canLoadMore = false;
         public int FilterID { get; private set; }
 
         private FilteringPageViewModel()
         {
-            ObservableCollection = new InfiniteScrollCollection<Folder>()
+            ObservableCollection = new InfiniteScrollCollection<FolderModel>()
             {
                 OnLoadMore = async () =>
                 {
@@ -42,7 +43,7 @@ namespace AgentVI.ViewModels
             {
                 try
                 {
-                    ObservableCollection.Add(collectionEnumerator.Current as Folder);
+                    ObservableCollection.Add(FolderModel.FactoryMethod(collectionEnumerator.Current as Folder));
                 }catch(ArgumentOutOfRangeException e)
                 {
                     Console.WriteLine(e.Message);

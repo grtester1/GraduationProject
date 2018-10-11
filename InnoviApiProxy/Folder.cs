@@ -12,7 +12,7 @@ namespace InnoviApiProxy
         [JsonProperty]
         private int accountId { get; set; }
         [JsonProperty("id")]
-        private int folderId { get; set; }
+        public int folderId { get; internal set; }
         [JsonProperty]
         public string Name { get; private set; }
         [JsonProperty]
