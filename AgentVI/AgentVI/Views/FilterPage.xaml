@@ -23,7 +23,7 @@
                 </ContentPage.Padding>
                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="4*"/>
                         <RowDefinition Height="18*"/>
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
@@ -33,11 +33,12 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                            <ActivityIndicator x:Name="ActivityInd" IsRunning="True" IsVisible="{Binding Source={x:Reference MyFilterPage}, Path=BindingContext.IsFetching}"/>
                             <Image Source="{x:Static settings:Settings.LogoPicturePath}" Aspect="AspectFit"/>
                             <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.DividerIconSVGPath}"/>
-                            <Label Text="{Binding AccountName}" FontAttributes="Bold" FontSize="{x:Static settings:Settings.GenericTitleFontSize}" VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding Source={x:Reference MyFilterPage}, Path=BindingContext.ActiveAccountName}" FontAttributes="Bold" FontSize="{x:Static settings:Settings.GenericTitleFontSize}" VerticalOptions="CenterAndExpand"/>
                         </StackLayout>
-                        <Label Grid.Row="1" Text="/Path/Path/Path/Path" HorizontalOptions="StartAndExpand" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"/>
+                        <Label Grid.Row="1" Text="{Binding CurrentPath}" HorizontalOptions="StartAndExpand" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" LineBreakMode="TailTruncation"/>
                     </Grid>
                     <StackLayout x:Name="filterDataStackLayout" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                         <SearchBar x:Name="filterSearchBar" Placeholder="{x:Static settings:Settings.SearchBarPlaceHolderText}" HeightRequest="30" TextChanged="filterSearchBar_TextChanged"/>
@@ -60,8 +61,9 @@
                                     <ViewCell>
                                         <StackLayout HeightRequest="40" Orientation="Horizontal" Padding="{x:Static settings:Settings.PaddingForViewCellInListView}">
                                             <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.FolderIconSVGPath}"/>
-                                            <Label HorizontalOptions="StartAndExpand" VerticalOptions="Center" Text="{Binding Name}"/>
-                                            <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BackButtonSVGPath}"/>
+                                            <Label HorizontalOptions="StartAndExpand" VerticalOptions="Center" Text="{Binding FolderName}"/>
+                                            <Button WidthRequest="50" CommandParameter="{Binding}" Clicked="Button_Clicked" IsVisible="{Binding IsNextFiltrationLevelAvailable}"/>
+                                            <!--<ffsvg:SvgCachedImage Source="{x:Static settings:Settings.NextLevelButtonSVGPath}" IsVisible="{Binding IsNextFiltrationLevelAvailable}"/>-->
                                         </StackLayout>
                                     </ViewCell>
                                 </DataTemplate>

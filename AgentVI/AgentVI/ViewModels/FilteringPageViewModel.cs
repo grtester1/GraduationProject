@@ -1,26 +1,38 @@
 ﻿#if DPROXY
 using DummyProxy;
 #else
+using AgentVI.Models;
 using AgentVI.Services;
 using InnoviApiProxy;
 #endif
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms.Extended;
+using System.Collections.ObjectModel;
 
 namespace AgentVI.ViewModels
 {
-    public class FilteringPageViewModel : FilterDependentViewModel<Folder>
+    public class FilteringPageViewModel : FilterDependentViewModel<FolderModel>
     {
         private bool canLoadMore = false;
         public int FilterID { get; private set; }
+        private string _currentPath;
+        public string CurrentPath
+        {
+            get => _currentPath;
+            private set
+            {
+                if (_currentPath == null || String.IsNullOrEmpty(_currentPath))
+                {
+                    _currentPath = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private FilteringPageViewModel()
         {
-            ObservableCollection = new InfiniteScrollCollection<Folder>()
+            ObservableCollection = new InfiniteScrollCollection<FolderModel>()
             {
                 OnLoadMore = async () =>
                 {
@@ -38,11 +50,11 @@ namespace AgentVI.ViewModels
 
         private void downloadData()
         {
-            for(int i=0; i<1 && canLoadMore; i++)
+            for(int i=0; i<1000 && canLoadMore; i++)
             {
                 try
                 {
-                    ObservableCollection.Add(collectionEnumerator.Current as Folder);
+                    ObservableCollection.Add(FolderModel.FactoryMethod(collectionEnumerator.Current as Folder));
                 }catch(ArgumentOutOfRangeException e)
                 {
                     Console.WriteLine(e.Message);
@@ -55,6 +67,7 @@ namespace AgentVI.ViewModels
         public void UpdateFolders()
         {
             collectionEnumerator = ServiceManager.Instance.FilterService.CurrentLevel;
+            CurrentPath = FilterIndicatorViewModel.currenPathToString(new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath));
             canLoadMore = collectionEnumerator.MoveNext();
             ObservableCollection.Clear();
             downloadData();

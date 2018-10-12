@@ -10,6 +10,7 @@ using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Threading.Tasks;
+using AgentVI.Models;
 
 namespace AgentVI.Views
 {
@@ -34,7 +35,6 @@ namespace AgentVI.Views
             m_FilterIndicatorViewModel = i_FilterIndicatorViewModel;
             m_FilterViewModel = new FilterViewModel();
             BindingContext = m_FilterViewModel;
-            
             CurrentPageChanged += FilterPage_CurrentPageChanged;
         }
 
@@ -58,16 +58,20 @@ namespace AgentVI.Views
         protected override bool OnBackButtonPressed()
         {
             m_FilterIndicatorViewModel.UpdateCurrentPath();
-            OnSelectionClickedButton(null , EventArgs.Empty);
             return base.OnBackButtonPressed();
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            var menuItem = sender as Button;
+            var selectedFolder = (menuItem.CommandParameter as FolderModel).ProxyFolder;
+            await Task.Factory.StartNew(() =>m_FilterViewModel.FetchNextFilteringDepth(selectedFolder));
+            ConsiderSwipeRightSwipeUp();
         }
 
         private void Handle_FilterListItemSelected(object i_Sender, SelectedItemChangedEventArgs i_ItemEventArgs)
         {
-            Folder selectedFolder = i_ItemEventArgs.SelectedItem as Folder;
-            //updateFilterLevelView(i_Sender as ListView, selectedFolder.Depth);   //Indicator of filtering level
-            m_FilterViewModel.FetchNextFilteringDepth(selectedFolder);
-            ConsiderSwipeRightSwipeUp();
+            m_FilterViewModel.CurrentlySelectedFolder = (i_ItemEventArgs.SelectedItem as FolderModel).ProxyFolder;
         }
 
         private void updateFilterLevelView(ListView i_ListView, int i_CurrenDepth)
@@ -110,12 +114,21 @@ namespace AgentVI.Views
             if (String.IsNullOrWhiteSpace(i_TextChangeEventArgs.NewTextValue))
                 currentListView.ItemsSource = unfilteredFoldersList;
             else
-                currentListView.ItemsSource = unfilteredFoldersList.Cast<Folder>().Where(item => item.Name.StartsWith(i_TextChangeEventArgs.NewTextValue));
+                currentListView.ItemsSource = unfilteredFoldersList.Cast<FolderModel>().Where(item => item.FolderName.StartsWith(i_TextChangeEventArgs.NewTextValue));
         }
 
-        private void OnSelectionClickedButton(object sender, EventArgs e)
+        private async void OnSelectionClickedButton(object sender, EventArgs e)
         {
-
+            Folder selectedFolder = m_FilterViewModel.CurrentlySelectedFolder;
+            await Task.Factory.StartNew(() => m_FilterViewModel.FetchNextFilteringDepth(selectedFolder));
+            if (selectedFolder == null)
+            {
+                await DisplayAlert("Error", "Please reselect the item first", "Ok");
+            }
+            else
+            {
+                OnBackButtonPressed();
+            }
         }
     }
 }

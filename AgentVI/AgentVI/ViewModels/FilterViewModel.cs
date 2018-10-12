@@ -10,19 +10,28 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AgentVI.Services;
+using Xamarin.Forms;
 
 namespace AgentVI.ViewModels
 {
     public class FilterViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private bool _isFetching = false;
+        public bool IsFetching
+        {
+            get => _isFetching;
+            set
+            {
+                _isFetching = value;
+                OnPropertyChanged(nameof(IsFetching));
+            }
+        }
+        public string ActiveAccountName => ServiceManager.Instance.FilterService.CurrentAccount.Name;
         private ObservableCollection<Folder> _selectedFoldersCache;
         public ObservableCollection<Folder> SelectedFoldersCache
         {
-            get
-            {
-                return _selectedFoldersCache;
-            }
+            get => _selectedFoldersCache;
             set
             {
                 _selectedFoldersCache = value;
@@ -32,22 +41,21 @@ namespace AgentVI.ViewModels
         private ObservableCollection<FilteringPageViewModel> _filteringPagesContent;
         public ObservableCollection<FilteringPageViewModel> FilteringPagesContent
         {
-            get
-            {
-                return _filteringPagesContent;
-            }
+            get => _filteringPagesContent;
             private set
             {
                 _filteringPagesContent = value;
                 OnPropertyChanged();
             }
         }
-        public FilteringPageViewModel CurrentPage { get; set; }
+        public Folder CurrentlySelectedFolder{ get; set; }
 
         public FilterViewModel()
         {
+            IsFetching = false;
             FilteringPagesContent = new ObservableCollection<FilteringPageViewModel>();
             ServiceManager.Instance.FilterService.SelectRootLevel();
+            SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
             FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(0);
             currentFiltrationLevel.UpdateFolders();
             FilteringPagesContent.Add(currentFiltrationLevel);
@@ -55,6 +63,7 @@ namespace AgentVI.ViewModels
 
         public void FetchNextFilteringDepth(Folder i_selectedFolder)
         {
+            IsFetching = true;
             for (int i = FilteringPagesContent.Count - 1; i > i_selectedFolder.Depth; i--)
             {
                 FilteringPagesContent.RemoveAt(i);
@@ -68,6 +77,7 @@ namespace AgentVI.ViewModels
             }
 
             SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
+            IsFetching = false;
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

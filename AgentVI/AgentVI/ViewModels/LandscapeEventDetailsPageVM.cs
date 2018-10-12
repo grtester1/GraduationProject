@@ -35,8 +35,13 @@ namespace AgentVI.ViewModels
 
         private string getLeafNameOfCurrentFiltrationPath()
         {
+            string res = String.Empty;
             List<Folder> currentPath = ServiceManager.Instance.FilterService.CurrentPath;
-            return currentPath[currentPath.Count - 1].Name;
+            if(currentPath.Count != 0)
+            {
+                res = currentPath[currentPath.Count - 1].Name;
+            }
+            return res;
         }
 
         private string getActiveAccountName()

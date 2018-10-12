@@ -29,23 +29,23 @@ namespace AgentVI.ViewModels
             set
             {
                 _selectedFoldersNamesCache = new ObservableCollection<Folder>(value);
-                currenPathToString();
+                SelectedFoldersNamesCacheStr = currenPathToString(_selectedFoldersNamesCache);
                 OnPropertyChanged();
             }
         }
 
-        private void currenPathToString()
+        public static string currenPathToString(ObservableCollection<Folder> i_FolderCollection)
         {
             string separator = "/";
             string prefix = "root" + separator;
             StringBuilder resBuilder = new StringBuilder(prefix);
 
-            foreach(Folder folder in _selectedFoldersNamesCache)
+            foreach(Folder folder in i_FolderCollection)
             {
                 resBuilder.Append(folder.Name).Append(separator);
             }
 
-            SelectedFoldersNamesCacheStr = resBuilder.ToString();
+            return resBuilder.ToString();
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
