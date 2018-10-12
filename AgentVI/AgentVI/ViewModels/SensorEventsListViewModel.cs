@@ -28,7 +28,10 @@ namespace AgentVI.ViewModels
             SensorSource = i_Sensor;
         }
 
-        public override void OnFilterStateUpdated(object source, EventArgs e) { return; }
+        public override void OnFilterStateUpdated(object source, EventArgs e)
+        {
+            return;
+        }
 
         protected override void FetchCollection()
         {

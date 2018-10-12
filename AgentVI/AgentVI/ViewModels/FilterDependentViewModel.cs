@@ -16,6 +16,7 @@ namespace AgentVI.ViewModels
         private const int pageSize = 10;
         private IEnumerator<T> collectionEnumerator;
         protected bool canLoadMore = false;
+        protected bool IsFilterStateChanged { get; set; }
         private bool _isBusy;
         public bool IsBusy
         {
@@ -51,19 +52,19 @@ namespace AgentVI.ViewModels
         {
             bool hasNext = true;
             int fetchedItems = 0;
-            bool isEndOfPage = false;
 
-            if(collectionEnumerator == null)
+            if(collectionEnumerator == null || IsFilterStateChanged)
             {
+                IsFilterStateChanged = false;
                 collectionEnumerator = enumerableCollection.GetEnumerator();
             }
 
-            while(hasNext = collectionEnumerator.MoveNext() && !isEndOfPage)
+            while(hasNext = collectionEnumerator.MoveNext() && canLoadMore)
             {
                 ObservableCollection.Add(collectionEnumerator.Current);
                 if(fetchedItems++ == pageSize)
                 {
-                    isEndOfPage = true;
+                    break;
                 }
             }
 
@@ -84,6 +85,9 @@ namespace AgentVI.ViewModels
             canLoadMore = true;
         }
 
-        public abstract void OnFilterStateUpdated(object source, EventArgs e);
+        public virtual void OnFilterStateUpdated(object source, EventArgs e)
+        {
+            IsFilterStateChanged = true;
+        }
     }
 }

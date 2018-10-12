@@ -16,6 +16,7 @@ namespace AgentVI.ViewModels
     {
         public override void OnFilterStateUpdated(object source, EventArgs e)
         {
+            base.OnFilterStateUpdated(source, e);
             PopulateCollection();
         }
 
