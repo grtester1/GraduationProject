@@ -24,7 +24,7 @@ namespace AgentVI.Services
             public bool IsAtLeafFolder { get; private set; }
             public bool HasNextLevel => !IsAtLeafFolder;
             public List<Folder> CurrentPath { get; private set; }
-            private Dictionary<int, Tuple<Folder ,List<Folder>>> NextLevel { get; set; }
+            private Dictionary<Folder ,List<Folder>> NextLevel { get; set; }
             private IEnumerator RootFolders { get; set; }
             public event EventHandler FilterStateUpdated;
 
@@ -38,7 +38,7 @@ namespace AgentVI.Services
                 RootFolders = null;
                 CurrentPath = new List<Folder>();
                 CurrentLevel = null;
-                NextLevel = new Dictionary<int, Tuple<Folder,List<Folder>>>();
+                NextLevel = new Dictionary<Folder,List<Folder>>();
             }
 
             public bool InitServiceModule(User i_User = null)
@@ -54,6 +54,7 @@ namespace AgentVI.Services
                     RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders().GetEnumerator();
                     CurrentPath = new List<Folder>();
                     CurrentLevel = RootFolders;
+                    fetchNextLevel();    //keeps IsAtLeafFolder, NextLevel updated
                     updateFilteredEvents();                             //keeps FilteredEvents updated
                     OnFilterStateUpdated();
                     res = true;
@@ -79,10 +80,10 @@ namespace AgentVI.Services
                 IsAtLeafFolder = i_FolderSelected.Folders.IsEmpty();
                 updatePath(i_FolderSelected);                               //keeps CurrentPath, CurrentPathStr updated
                 if (NextLevel != null &&
-                    NextLevel.ContainsKey(i_FolderSelected.folderId) &&
-                    NextLevel[i_FolderSelected.folderId].Item2 != null)  //Get Cached
+                    NextLevel.ContainsKey(i_FolderSelected) &&
+                    NextLevel[i_FolderSelected] != null)  //Get Cached
                 {
-                    CurrentLevel = NextLevel[i_FolderSelected.folderId].Item2.GetEnumerator();
+                    CurrentLevel = NextLevel[i_FolderSelected].GetEnumerator();
                 }
                 else
                 {
@@ -111,7 +112,7 @@ namespace AgentVI.Services
                 bool hasNext;
                 Folder currentFolder;
                 List<Folder> listOfFoldersOfCurrentFolder;
-                NextLevel = new Dictionary<int, Tuple<Folder, List<Folder>>>();
+                NextLevel = new Dictionary<Folder, List<Folder>>();
                 List<Task> FetchingTasks = new List<Task>();
 
                 IsAtLeafFolder = true;
@@ -120,16 +121,16 @@ namespace AgentVI.Services
                 {
                     if (hasNext == true)
                     {
-                        Task.Factory.StartNew(() =>
-                        {
+                        //Task.Factory.StartNew(() =>
+                        //{
                             currentFolder = CurrentLevel.Current as Folder;
                             listOfFoldersOfCurrentFolder = currentFolder.Folders.ToList();
-                            NextLevel.Add(currentFolder.folderId, new Tuple<Folder, List<Folder>>(currentFolder, listOfFoldersOfCurrentFolder));
+                            NextLevel.Add(currentFolder, listOfFoldersOfCurrentFolder);
                             if (listOfFoldersOfCurrentFolder != null)
                             {
                                 IsAtLeafFolder = false;
                             }
-                        });
+                        //});
                     }
                 } while (hasNext = CurrentLevel.MoveNext());
                 CurrentLevel.Reset();

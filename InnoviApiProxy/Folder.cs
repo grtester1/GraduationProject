@@ -12,11 +12,12 @@ namespace InnoviApiProxy
         [JsonProperty]
         private int accountId { get; set; }
         [JsonProperty("id")]
-        public int FolderId { get; private set; }
+        internal int folderId { get; private set; }
         [JsonProperty]
         public string Name { get; private set; }
         [JsonProperty]
         public int Depth { get; private set; }
+        protected override int Id => folderId;
 
         public List<Coordinate> GeoArea;
 
@@ -26,7 +27,7 @@ namespace InnoviApiProxy
         {
             get
             {
-                return new InnoviObjectCollection<Sensor>(HttpUtils.GetFolderSensors, FolderId);
+                return new InnoviObjectCollection<Sensor>(HttpUtils.GetFolderSensors, folderId);
             }
             set
             {
@@ -38,7 +39,7 @@ namespace InnoviApiProxy
         {
             get
             {
-                return new InnoviObjectCollection<SensorEvent>(HttpUtils.GetFolderEvents, FolderId);
+                return new InnoviObjectCollection<SensorEvent>(HttpUtils.GetFolderEvents, folderId);
             }
         }
 
@@ -47,7 +48,7 @@ namespace InnoviApiProxy
         {
             get
             {
-                return new InnoviObjectCollection<Folder>(HttpUtils.GetFolders, FolderId);
+                return new InnoviObjectCollection<Folder>(HttpUtils.GetFolders, folderId);
             }
             private set
             {
@@ -67,7 +68,7 @@ namespace InnoviApiProxy
 
         public InnoviObjectCollection<Sensor> GetAllSensors()
         {
-            return new InnoviObjectCollection<Sensor>(HttpUtils.GetAllFolderSensors, FolderId);
+            return new InnoviObjectCollection<Sensor>(HttpUtils.GetAllFolderSensors, folderId);
         }
     }
 }

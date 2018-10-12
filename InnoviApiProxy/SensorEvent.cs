@@ -25,6 +25,8 @@ namespace InnoviApiProxy
         public Sensor.eSensorEventTag Tag { get; private set; }
         [JsonProperty("behaviorType")]
         public eBehaviorType RuleName { get; private set; }
+        protected override int Id => eventId.GetHashCode();
+
         public Sensor EventSensor
         {
             get
@@ -37,7 +39,7 @@ namespace InnoviApiProxy
         {
             get
             {
-                return Settings.InnoviApiEndpoint + "eventClip?accountId=" + accountId.ToString() + "&eventId=" + eventId.ToString();
+                return Settings.InnoviApiEndpoint + "eventImage?accountId=" + accountId.ToString() + "&eventId=" + eventId.ToString();
             }
         
         }

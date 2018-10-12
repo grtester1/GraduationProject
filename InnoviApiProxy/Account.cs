@@ -13,6 +13,7 @@ namespace InnoviApiProxy
         public string Name { get; private set; }
         [JsonProperty]
         public eAccountStatus Status { get; private set; }
+        protected override int Id => accountId;
 
         public enum eAccountStatus
         {

@@ -43,6 +43,9 @@ namespace InnoviApiProxy
         [JsonProperty]
         public uint AlarmInterval { get; private set; }
         public string LiveViewStream { get; internal set; } = string.Empty;
+        protected override int Id => sensorId;
+
+
         public List<Health> SensorHealthArray
         {
             get
