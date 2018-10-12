@@ -32,7 +32,7 @@ namespace AgentVI.Views
         public CameraEventsPage(Sensor i_Sensor) : this()
         {
             SensorEventsListVM = new SensorEventsListViewModel(i_Sensor);
-            SensorEventsListVM.populateCollection();
+            SensorEventsListVM.PopulateCollection();
             cameraEventsListView.BindingContext = SensorEventsListVM;
             sensorNameLabel.Text = SensorEventsListVM.SensorSource.Name;
             IsEmptyFiller.IsVisible = SensorEventsListVM.IsEmptyFolder;
@@ -42,14 +42,14 @@ namespace AgentVI.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            SensorEventsListVM.populateCollection();
+            SensorEventsListVM.PopulateCollection();
         }
 
         private async void OnRefresh(object sender, EventArgs e)
         {
             try
             {
-                await Task.Factory.StartNew(() => SensorEventsListVM.populateCollection());
+                await Task.Factory.StartNew(() => SensorEventsListVM.PopulateCollection());
                 ((ListView)sender).IsRefreshing = false;
             }catch(AggregateException ex)
             {

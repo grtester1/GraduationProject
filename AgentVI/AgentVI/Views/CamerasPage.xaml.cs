@@ -27,7 +27,7 @@ namespace AgentVI.Views
 
             SensorsListVM = new SensorsListViewModel();
             initOnFilterStateUpdatedEventHandler();
-            SensorsListVM.UpdateCameras();
+            SensorsListVM.PopulateCollection();
             cameraListView.BindingContext = SensorsListVM;
         }
 
@@ -39,12 +39,12 @@ namespace AgentVI.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            SensorsListVM.UpdateCameras();
+            SensorsListVM.PopulateCollection();
         }
 
         private async void OnRefresh(object sender, EventArgs e)
         {
-            await Task.Factory.StartNew(() => SensorsListVM.UpdateCameras());
+            await Task.Factory.StartNew(() => SensorsListVM.PopulateCollection());
             ((ListView)sender).IsRefreshing = false;
         }
 
