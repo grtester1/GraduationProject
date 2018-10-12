@@ -4,6 +4,7 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
+using System.Linq;
 using AgentVI.Services;
 using AgentVI.Models;
 using System.Threading.Tasks;
@@ -35,17 +36,12 @@ namespace AgentVI.ViewModels
 
         private void downloadData()
         {
-            for (int i = 0; i < 3 && canLoadMore; i++)
+            canLoadMore = true;
+
+            foreach(EventModel eventModel in collectionEnumerator)
             {
-                try
-                {
-                    ObservableCollection.Add(EventModel.FactoryMethod(collectionEnumerator.Current as SensorEvent));
-                }catch (ArgumentOutOfRangeException e)
-                {
-                    Console.WriteLine(e.Message);
-                    canLoadMore = false;
-                }
-                canLoadMore = collectionEnumerator.MoveNext();
+                ObservableCollection.Add(eventModel);
+                canLoadMore = false;
             }
         }
 
@@ -56,8 +52,8 @@ namespace AgentVI.ViewModels
 
         public void UpdateEvents()
         {
-            collectionEnumerator = ServiceManager.Instance.FilterService.FilteredEvents;
-            canLoadMore = collectionEnumerator.MoveNext();
+            collectionEnumerator = ServiceManager.Instance.FilterService.
+                FilteredEvents.Select(sensorEvent => EventModel.FactoryMethod(sensorEvent));
             ObservableCollection.Clear();
             downloadData();
         }

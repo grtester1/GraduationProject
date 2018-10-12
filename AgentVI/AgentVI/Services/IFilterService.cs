@@ -17,9 +17,9 @@ namespace AgentVI.Services
         event EventHandler                  FilterStateUpdated;
         Account                             CurrentAccount { get; }
         List<Account>                       UserAccounts { get; }
-        IEnumerator                         FilteredSensorCollection { get; }
-        IEnumerator                         CurrentLevel { get; }
-        IEnumerator                         FilteredEvents { get; }
+        IEnumerable<Sensor>                 FilteredSensorCollection { get; }
+        IEnumerable<Folder>                 CurrentLevel { get; }
+        IEnumerable<SensorEvent>            FilteredEvents { get; }
         bool                                IsAtRootLevel { get; }
         bool                                IsAtLeafFolder { get; }
         bool                                HasNextLevel { get; }

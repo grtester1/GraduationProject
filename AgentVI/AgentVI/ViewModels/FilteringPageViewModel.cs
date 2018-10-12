@@ -6,6 +6,7 @@ using AgentVI.Services;
 using InnoviApiProxy;
 #endif
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms.Extended;
 using System.Collections.ObjectModel;
@@ -50,25 +51,20 @@ namespace AgentVI.ViewModels
 
         private void downloadData()
         {
-            for(int i=0; i<1000 && canLoadMore; i++)
+            canLoadMore = true;
+
+            foreach(FolderModel folder in collectionEnumerator)
             {
-                try
-                {
-                    ObservableCollection.Add(FolderModel.FactoryMethod(collectionEnumerator.Current as Folder));
-                }catch(ArgumentOutOfRangeException e)
-                {
-                    Console.WriteLine(e.Message);
-                    canLoadMore = false;
-                }
-                canLoadMore = collectionEnumerator.MoveNext();
+                ObservableCollection.Add(folder);
+                canLoadMore = false;
             }
         }
 
         public void UpdateFolders()
         {
-            collectionEnumerator = ServiceManager.Instance.FilterService.CurrentLevel;
+            collectionEnumerator = ServiceManager.Instance.FilterService.
+                CurrentLevel.Select(folder => FolderModel.FactoryMethod(folder));
             CurrentPath = FilterIndicatorViewModel.currenPathToString(new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath));
-            canLoadMore = collectionEnumerator.MoveNext();
             ObservableCollection.Clear();
             downloadData();
         }

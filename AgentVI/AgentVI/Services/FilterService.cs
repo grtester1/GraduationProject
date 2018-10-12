@@ -17,15 +17,15 @@ namespace AgentVI.Services
         {
             public Account CurrentAccount { get; private set; }
             public List<Account> UserAccounts { get; private set; }
-            public IEnumerator FilteredSensorCollection { get; private set; }
-            public IEnumerator CurrentLevel { get; private set; }
-            public IEnumerator FilteredEvents { get; private set; }
+            public IEnumerable<Sensor> FilteredSensorCollection { get; private set; }
+            public IEnumerable<Folder> CurrentLevel { get; private set; }
+            public IEnumerable<SensorEvent> FilteredEvents { get; private set; }
             public bool IsAtRootLevel { get; private set; }
             public bool IsAtLeafFolder { get; private set; }
             public bool HasNextLevel => !IsAtLeafFolder;
             public List<Folder> CurrentPath { get; private set; }
             private Dictionary<Folder ,List<Folder>> NextLevel { get; set; }
-            private IEnumerator RootFolders { get; set; }
+            private IEnumerable<Folder> RootFolders { get; set; }
             public event EventHandler FilterStateUpdated;
 
             public FilterServiceS()
@@ -50,8 +50,8 @@ namespace AgentVI.Services
                     UserAccounts = ServiceManager.Instance.LoginService.LoggedInUser.Accounts;
                     CurrentAccount = ServiceManager.Instance.LoginService.LoggedInUser.Accounts[0];
                     IsAtRootLevel = true;
-                    FilteredSensorCollection = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors().GetEnumerator();
-                    RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders().GetEnumerator();
+                    FilteredSensorCollection = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors();
+                    RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders();
                     CurrentPath = new List<Folder>();
                     CurrentLevel = RootFolders;
                     fetchNextLevel();    //keeps IsAtLeafFolder, NextLevel updated
@@ -65,7 +65,7 @@ namespace AgentVI.Services
 
             public void SelectRootLevel()
             {
-                FilteredSensorCollection = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors().GetEnumerator();
+                FilteredSensorCollection = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors();
                 IsAtRootLevel = true;
                 CurrentPath = new List<Folder>();
                 CurrentLevel = RootFolders;
@@ -76,18 +76,18 @@ namespace AgentVI.Services
 
             public void SelectFolder(Folder i_FolderSelected)
             {
-                FilteredSensorCollection = i_FolderSelected.GetAllSensors().GetEnumerator();
+                FilteredSensorCollection = i_FolderSelected.GetAllSensors();
                 IsAtLeafFolder = i_FolderSelected.Folders.IsEmpty();
                 updatePath(i_FolderSelected);                               //keeps CurrentPath, CurrentPathStr updated
                 if (NextLevel != null &&
                     NextLevel.ContainsKey(i_FolderSelected) &&
                     NextLevel[i_FolderSelected] != null)  //Get Cached
                 {
-                    CurrentLevel = NextLevel[i_FolderSelected].GetEnumerator();
+                    CurrentLevel = NextLevel[i_FolderSelected];
                 }
                 else
                 {
-                    CurrentLevel = i_FolderSelected.Folders.GetEnumerator();
+                    CurrentLevel = i_FolderSelected.Folders;
                 }
                 fetchNextLevel();                                           //keeps IsAtLeafFolder, NextLevel updated
                 updateFilteredEvents();
@@ -102,38 +102,27 @@ namespace AgentVI.Services
             {
                 i_SelectedAccount.SetAsDefaultAccount();
                 CurrentAccount = i_SelectedAccount;
-                RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders().GetEnumerator();
+                RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders();
                 CurrentPath = new List<Folder>();
                 SelectRootLevel();
             }
 
             private void fetchNextLevel()
             {
-                bool hasNext;
-                Folder currentFolder;
                 List<Folder> listOfFoldersOfCurrentFolder;
                 NextLevel = new Dictionary<Folder, List<Folder>>();
                 List<Task> FetchingTasks = new List<Task>();
 
                 IsAtLeafFolder = true;
-                hasNext = CurrentLevel.MoveNext();
-                do
+                foreach(Folder folder in CurrentLevel)
                 {
-                    if (hasNext == true)
+                    listOfFoldersOfCurrentFolder = folder.Folders.ToList();
+                    NextLevel.Add(folder, listOfFoldersOfCurrentFolder);
+                    if (listOfFoldersOfCurrentFolder != null)
                     {
-                        //Task.Factory.StartNew(() =>
-                        //{
-                            currentFolder = CurrentLevel.Current as Folder;
-                            listOfFoldersOfCurrentFolder = currentFolder.Folders.ToList();
-                            NextLevel.Add(currentFolder, listOfFoldersOfCurrentFolder);
-                            if (listOfFoldersOfCurrentFolder != null)
-                            {
-                                IsAtLeafFolder = false;
-                            }
-                        //});
+                        IsAtLeafFolder = false;
                     }
-                } while (hasNext = CurrentLevel.MoveNext());
-                CurrentLevel.Reset();
+                }
                 //bool hasNext;
                 //Folder currentFolder;
                 //List<Folder> listOfFoldersOfCurrentFolder;
@@ -183,11 +172,11 @@ namespace AgentVI.Services
             {
                 if(IsAtRootLevel)
                 {
-                    FilteredEvents = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountEvents().GetEnumerator();
+                    FilteredEvents = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountEvents();
                 }
                 else
                 {
-                    FilteredEvents = CurrentPath[CurrentPath.Count - 1].FolderEvents.GetEnumerator();
+                    FilteredEvents = CurrentPath[CurrentPath.Count - 1].FolderEvents;
                 }
             }
 

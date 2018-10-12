@@ -84,11 +84,6 @@ namespace AgentVI.Models
             }
         }
 
-        private EventModel()
-        {
-
-        }
-
         internal static EventModel FactoryMethod(SensorEvent i_SensorEvent)
         {
             EventModel res = new EventModel()

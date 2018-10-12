@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -9,7 +10,7 @@ namespace AgentVI.ViewModels
     public abstract class FilterDependentViewModel<T> : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        protected IEnumerator collectionEnumerator;
+        protected IEnumerable<T> collectionEnumerator;
         private bool _isBusy;
         public bool IsBusy
         {

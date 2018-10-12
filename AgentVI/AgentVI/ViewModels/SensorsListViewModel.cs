@@ -4,11 +4,11 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
+using System.Linq;
 using AgentVI.Services;
 using AgentVI.Models;
 using Xamarin.Forms.Extended;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace AgentVI.ViewModels
 {
@@ -41,24 +41,18 @@ namespace AgentVI.ViewModels
 
         private void downloadData()
         {
-            for (int i = 0; i < 3 && canLoadMore ; i++)
+            canLoadMore = true;
+            foreach(SensorModel sensorModel in collectionEnumerator)
             {
-                try
-                {
-                    ObservableCollection.Add(SensorModel.FactoryMethod(collectionEnumerator.Current as Sensor));
-                }catch(ArgumentOutOfRangeException e)
-                {
-                    Console.WriteLine(e.Message);
-                    canLoadMore = false;
-                }
-                canLoadMore = collectionEnumerator.MoveNext();
+                ObservableCollection.Add(sensorModel);
+                canLoadMore = false;
             }
         }
 
         public void UpdateCameras()
         {
-            collectionEnumerator = ServiceManager.Instance.FilterService.FilteredSensorCollection;
-            canLoadMore = collectionEnumerator.MoveNext();
+            collectionEnumerator = ServiceManager.Instance.FilterService.
+                FilteredSensorCollection.Select(sensor => SensorModel.FactoryMethod(sensor));
             ObservableCollection.Clear();
             downloadData();
         }

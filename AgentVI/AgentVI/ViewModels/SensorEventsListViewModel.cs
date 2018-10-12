@@ -4,6 +4,7 @@ using DummyProxy;
 using InnoviApiProxy;
 #endif
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AgentVI.Models;
 using Xamarin.Forms.Extended;
@@ -52,20 +53,13 @@ namespace AgentVI.ViewModels
 
         private void downloadData()
         {
-            for (int i = 0; i < 3 && canLoadMore; i++)
+            canLoadMore = true;
+            foreach (EventModel eventModel in collectionEnumerator)
             {
-                try
-                {
-                    ObservableCollection.Add(EventModel.FactoryMethod(collectionEnumerator.Current as SensorEvent));
-                    updateFolderState();                    
-                }catch(ArgumentOutOfRangeException e)
-                {
-                    updateFolderState();
-                    Console.WriteLine(e.Message);
-                    canLoadMore = false;
-                }
-                canLoadMore = collectionEnumerator.MoveNext();
+                ObservableCollection.Add(eventModel);
+                canLoadMore = false;
             }
+            updateFolderState();
         }
 
         private void updateFolderState()
@@ -82,8 +76,8 @@ namespace AgentVI.ViewModels
 
         internal void UpdateSensorEvents()
         {
-            collectionEnumerator = SensorSource.SensorEvents.GetEnumerator();
-            canLoadMore = collectionEnumerator.MoveNext();
+            collectionEnumerator = SensorSource.SensorEvents.
+                Select(sensorEvent => EventModel.FactoryMethod(sensorEvent));
             ObservableCollection.Clear();
             downloadData();
         }
