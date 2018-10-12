@@ -14,47 +14,17 @@ namespace AgentVI.ViewModels
 {
     public class SensorsListViewModel : FilterDependentViewModel<SensorModel>
     {
-        private bool canLoadMore = false;
-
-        public SensorsListViewModel()
-        {
-            ObservableCollection = new InfiniteScrollCollection<SensorModel>()
-            {
-                OnLoadMore = async () =>
-                {
-                    IsBusy = true;
-                    await Task.Factory.StartNew(() => downloadData());
-                    IsBusy = false;
-                    return null;
-                },
-                OnCanLoadMore = () =>
-                {
-                    return canLoadMore;
-                }
-            };
-        }
-
         public override void OnFilterStateUpdated(object source, EventArgs e)
         {
-            UpdateCameras();
+            PopulateCollection();
         }
 
-        private void downloadData()
+        public override void PopulateCollection()
         {
-            canLoadMore = true;
-            foreach(SensorModel sensorModel in collectionEnumerator)
-            {
-                ObservableCollection.Add(sensorModel);
-                canLoadMore = false;
-            }
-        }
-
-        public void UpdateCameras()
-        {
-            collectionEnumerator = ServiceManager.Instance.FilterService.
+            base.PopulateCollection();
+            enumerableCollection = ServiceManager.Instance.FilterService.
                 FilteredSensorCollection.Select(sensor => SensorModel.FactoryMethod(sensor));
-            ObservableCollection.Clear();
-            downloadData();
+            FetchCollection();
         }
 
         /*======Old working ver.=======

@@ -25,7 +25,7 @@ namespace AgentVI.Views
             InitializeComponent();
             SensorsEventsListVM = new EventsListViewModel();
             initOnFilterStateUpdatedEventHandler();
-            SensorsEventsListVM.UpdateEvents();
+            SensorsEventsListVM.PopulateCollection();
             eventListView.BindingContext = SensorsEventsListVM;
         }
 
@@ -37,14 +37,14 @@ namespace AgentVI.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            SensorsEventsListVM.UpdateEvents();
+            SensorsEventsListVM.PopulateCollection();
         }
 
         private async void OnRefresh(object sender, EventArgs e)
         {
             try
             {
-                await Task.Factory.StartNew(() => SensorsEventsListVM.UpdateEvents());
+                await Task.Factory.StartNew(() => SensorsEventsListVM.PopulateCollection());
                 ((ListView)sender).IsRefreshing = false;
             }catch(AggregateException ex)
             {

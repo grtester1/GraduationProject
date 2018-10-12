@@ -7,15 +7,12 @@ using InnoviApiProxy;
 #endif
 using System;
 using System.Linq;
-using System.Threading.Tasks;
-using Xamarin.Forms.Extended;
 using System.Collections.ObjectModel;
 
 namespace AgentVI.ViewModels
 {
     public class FilteringPageViewModel : FilterDependentViewModel<FolderModel>
     {
-        private bool canLoadMore = false;
         public int FilterID { get; private set; }
         private string _currentPath;
         public string CurrentPath
@@ -31,45 +28,16 @@ namespace AgentVI.ViewModels
             }
         }
 
-        private FilteringPageViewModel()
+        public override void PopulateCollection()
         {
-            ObservableCollection = new InfiniteScrollCollection<FolderModel>()
-            {
-                OnLoadMore = async () =>
-                {
-                    IsBusy = true;
-                    await Task.Factory.StartNew(() => downloadData());
-                    IsBusy = false;
-                    return null;
-                },
-                OnCanLoadMore = () =>
-                {
-                    return canLoadMore;
-                }
-            };
-        }
-
-        private void downloadData()
-        {
-            canLoadMore = true;
-
-            foreach(FolderModel folder in collectionEnumerator)
-            {
-                ObservableCollection.Add(folder);
-                canLoadMore = false;
-            }
-        }
-
-        public void UpdateFolders()
-        {
-            collectionEnumerator = ServiceManager.Instance.FilterService.
+            base.PopulateCollection();
+            enumerableCollection = ServiceManager.Instance.FilterService.
                 CurrentLevel.Select(folder => FolderModel.FactoryMethod(folder));
             CurrentPath = FilterIndicatorViewModel.currenPathToString(new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath));
-            ObservableCollection.Clear();
-            downloadData();
+            FetchCollection();
         }
 
-        public FilteringPageViewModel(int i_filterID) : this()
+        public FilteringPageViewModel(int i_filterID):base()
         {
             FilterID = i_filterID;
         }

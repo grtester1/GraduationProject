@@ -5,15 +5,12 @@ using InnoviApiProxy;
 #endif
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using AgentVI.Models;
-using Xamarin.Forms.Extended;
 
 namespace AgentVI.ViewModels
 {
     public class SensorEventsListViewModel : FilterDependentViewModel<EventModel>
     {
-        private bool canLoadMore = false;
         public Sensor SensorSource { get; private set; }
         private bool _isEmptyFolder = true;
         public bool IsEmptyFolder
@@ -26,39 +23,16 @@ namespace AgentVI.ViewModels
             }
         }
 
-        private SensorEventsListViewModel()
-        {
-            ObservableCollection = new InfiniteScrollCollection<EventModel>()
-            {
-                OnLoadMore = async () =>
-                {
-                    IsBusy = true;
-                    await Task.Factory.StartNew(() => downloadData());
-                    IsBusy = false;
-                    return null;
-                },
-                OnCanLoadMore = () =>
-                {
-                    return canLoadMore;
-                }
-            };
-        }
-
-        public SensorEventsListViewModel(Sensor i_Sensor) : this()
+        public SensorEventsListViewModel(Sensor i_Sensor) :base()
         {
             SensorSource = i_Sensor;
         }
 
         public override void OnFilterStateUpdated(object source, EventArgs e) { return; }
 
-        private void downloadData()
+        protected override void FetchCollection()
         {
-            canLoadMore = true;
-            foreach (EventModel eventModel in collectionEnumerator)
-            {
-                ObservableCollection.Add(eventModel);
-                canLoadMore = false;
-            }
+            base.FetchCollection();
             updateFolderState();
         }
 
@@ -74,12 +48,12 @@ namespace AgentVI.ViewModels
             }
         }
 
-        internal void UpdateSensorEvents()
+        public override void PopulateCollection()
         {
-            collectionEnumerator = SensorSource.SensorEvents.
+            base.PopulateCollection();
+            enumerableCollection = SensorSource.SensorEvents.
                 Select(sensorEvent => EventModel.FactoryMethod(sensorEvent));
-            ObservableCollection.Clear();
-            downloadData();
+            FetchCollection();
         }
     }
 }

@@ -7,55 +7,22 @@ using System;
 using System.Linq;
 using AgentVI.Services;
 using AgentVI.Models;
-using System.Threading.Tasks;
-using Xamarin.Forms.Extended;
 
 namespace AgentVI.ViewModels
 {
     public class EventsListViewModel : FilterDependentViewModel<EventModel>
     {
-        bool canLoadMore = false;
-
-        public EventsListViewModel()
-        {
-            ObservableCollection = new InfiniteScrollCollection<EventModel>()
-            {
-                OnLoadMore = async () =>
-                {
-                    IsBusy = true;
-                    await Task.Factory.StartNew(() => downloadData());
-                    IsBusy = false;
-                    return null;
-                },
-                OnCanLoadMore = () =>
-                {
-                    return canLoadMore;
-                }
-            };
-        }
-
-        private void downloadData()
-        {
-            canLoadMore = true;
-
-            foreach(EventModel eventModel in collectionEnumerator)
-            {
-                ObservableCollection.Add(eventModel);
-                canLoadMore = false;
-            }
-        }
-
         public override void OnFilterStateUpdated(object source, EventArgs e)
         {
-            UpdateEvents();
+            PopulateCollection();
         }
 
-        public void UpdateEvents()
+        public override void PopulateCollection()
         {
-            collectionEnumerator = ServiceManager.Instance.FilterService.
+            base.PopulateCollection();
+            enumerableCollection = ServiceManager.Instance.FilterService.
                 FilteredEvents.Select(sensorEvent => EventModel.FactoryMethod(sensorEvent));
-            ObservableCollection.Clear();
-            downloadData();
+            FetchCollection();
         }
     }
 }

@@ -57,7 +57,7 @@ namespace AgentVI.ViewModels
             ServiceManager.Instance.FilterService.SelectRootLevel();
             SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
             FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(0);
-            currentFiltrationLevel.UpdateFolders();
+            currentFiltrationLevel.PopulateCollection();
             FilteringPagesContent.Add(currentFiltrationLevel);
         }
 
@@ -72,7 +72,7 @@ namespace AgentVI.ViewModels
             if (i_selectedFolder.Folders != null && !i_selectedFolder.Folders.IsEmpty())
             {
                 FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(i_selectedFolder.Depth + 1);
-                currentFiltrationLevel.UpdateFolders();
+                currentFiltrationLevel.PopulateCollection();
                 FilteringPagesContent.Add(currentFiltrationLevel);
             }
 
