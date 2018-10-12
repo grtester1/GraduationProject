@@ -27,13 +27,11 @@ namespace AgentVI.ViewModels
                 OnPropertyChanged(nameof(IsFetching));
             }
         }
+        public string ActiveAccountName => ServiceManager.Instance.FilterService.CurrentAccount.Name;
         private ObservableCollection<Folder> _selectedFoldersCache;
         public ObservableCollection<Folder> SelectedFoldersCache
         {
-            get
-            {
-                return _selectedFoldersCache;
-            }
+            get => _selectedFoldersCache;
             set
             {
                 _selectedFoldersCache = value;
@@ -43,28 +41,21 @@ namespace AgentVI.ViewModels
         private ObservableCollection<FilteringPageViewModel> _filteringPagesContent;
         public ObservableCollection<FilteringPageViewModel> FilteringPagesContent
         {
-            get
-            {
-                return _filteringPagesContent;
-            }
+            get => _filteringPagesContent;
             private set
             {
                 _filteringPagesContent = value;
                 OnPropertyChanged();
             }
         }
-        public Command OnTesting = new Command(InTesting);
-
-        public static void InTesting(object param)
-        {
-
-        }
+        public Folder CurrentlySelectedFolder{ get; set; }
 
         public FilterViewModel()
         {
             IsFetching = false;
             FilteringPagesContent = new ObservableCollection<FilteringPageViewModel>();
             ServiceManager.Instance.FilterService.SelectRootLevel();
+            SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
             FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(0);
             currentFiltrationLevel.UpdateFolders();
             FilteringPagesContent.Add(currentFiltrationLevel);

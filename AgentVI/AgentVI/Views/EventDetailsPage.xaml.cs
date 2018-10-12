@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Plugin.DeviceOrientation;
 using Plugin.DeviceOrientation.Abstractions;
+using System.Net.Sockets;
 
 namespace AgentVI.Views
 {

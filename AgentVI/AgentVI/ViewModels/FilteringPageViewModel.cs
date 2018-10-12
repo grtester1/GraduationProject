@@ -6,11 +6,9 @@ using AgentVI.Services;
 using InnoviApiProxy;
 #endif
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms.Extended;
+using System.Collections.ObjectModel;
 
 namespace AgentVI.ViewModels
 {
@@ -18,6 +16,19 @@ namespace AgentVI.ViewModels
     {
         private bool canLoadMore = false;
         public int FilterID { get; private set; }
+        private string _currentPath;
+        public string CurrentPath
+        {
+            get => _currentPath;
+            private set
+            {
+                if (_currentPath == null || String.IsNullOrEmpty(_currentPath))
+                {
+                    _currentPath = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private FilteringPageViewModel()
         {
@@ -39,7 +50,7 @@ namespace AgentVI.ViewModels
 
         private void downloadData()
         {
-            for(int i=0; i<1 && canLoadMore; i++)
+            for(int i=0; i<1000 && canLoadMore; i++)
             {
                 try
                 {
@@ -56,6 +67,7 @@ namespace AgentVI.ViewModels
         public void UpdateFolders()
         {
             collectionEnumerator = ServiceManager.Instance.FilterService.CurrentLevel;
+            CurrentPath = FilterIndicatorViewModel.currenPathToString(new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath));
             canLoadMore = collectionEnumerator.MoveNext();
             ObservableCollection.Clear();
             downloadData();

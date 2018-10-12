@@ -6,6 +6,7 @@ using InnoviApiProxy;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AgentVI.Services
@@ -24,8 +25,6 @@ namespace AgentVI.Services
             public bool HasNextLevel => !IsAtLeafFolder;
             public List<Folder> CurrentPath { get; private set; }
             private Dictionary<int, Tuple<Folder ,List<Folder>>> NextLevel { get; set; }
-            private enum LeafOrNot { Parent, Leaf };
-            private Dictionary<int, Tuple<Folder,LeafOrNot>> NextLevelHelper { get; set; }
             private IEnumerator RootFolders { get; set; }
             public event EventHandler FilterStateUpdated;
 
@@ -40,7 +39,6 @@ namespace AgentVI.Services
                 CurrentPath = new List<Folder>();
                 CurrentLevel = null;
                 NextLevel = new Dictionary<int, Tuple<Folder,List<Folder>>>();
-                NextLevelHelper = new Dictionary<int, Tuple<Folder,LeafOrNot>>();
             }
 
             public bool InitServiceModule(User i_User = null)
@@ -56,7 +54,6 @@ namespace AgentVI.Services
                     RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders().GetEnumerator();
                     CurrentPath = new List<Folder>();
                     CurrentLevel = RootFolders;
-                    fetchNextLevel();                                   //keeps IsAtLeafFolder updated
                     updateFilteredEvents();                             //keeps FilteredEvents updated
                     OnFilterStateUpdated();
                     res = true;
@@ -81,9 +78,9 @@ namespace AgentVI.Services
                 FilteredSensorCollection = i_FolderSelected.GetAllSensors().GetEnumerator();
                 IsAtLeafFolder = i_FolderSelected.Folders.IsEmpty();
                 updatePath(i_FolderSelected);                               //keeps CurrentPath, CurrentPathStr updated
-                if (NextLevelHelper != null &&
-                    NextLevelHelper.ContainsKey(i_FolderSelected.folderId) &&
-                    NextLevelHelper[i_FolderSelected.folderId].Item2 == LeafOrNot.Parent)  //Get Cached
+                if (NextLevel != null &&
+                    NextLevel.ContainsKey(i_FolderSelected.folderId) &&
+                    NextLevel[i_FolderSelected.folderId].Item2 != null)  //Get Cached
                 {
                     CurrentLevel = NextLevel[i_FolderSelected.folderId].Item2.GetEnumerator();
                 }
@@ -111,47 +108,53 @@ namespace AgentVI.Services
 
             private void fetchNextLevel()
             {
-                NextLevelHelper = new Dictionary<int, Tuple<Folder, LeafOrNot>>();
-                NextLevel = new Dictionary<int, Tuple<Folder, List<Folder>>>();
-                LeafOrNot LeafOrNotHolder;
-                bool hasNext, wasUpdated = false;
+                bool hasNext;
                 Folder currentFolder;
+                List<Folder> listOfFoldersOfCurrentFolder;
+                NextLevel = new Dictionary<int, Tuple<Folder, List<Folder>>>();
+                List<Task> FetchingTasks = new List<Task>();
 
+                IsAtLeafFolder = true;
                 hasNext = CurrentLevel.MoveNext();
                 do
                 {
                     if (hasNext == true)
                     {
-                        currentFolder = CurrentLevel.Current as Folder;
-                        LeafOrNotHolder = currentFolder.Folders.IsEmpty() ? LeafOrNot.Leaf : LeafOrNot.Parent;
-                        NextLevelHelper.Add(currentFolder.folderId, new Tuple<Folder, LeafOrNot>(currentFolder ,LeafOrNotHolder));
-                        if (!wasUpdated && LeafOrNotHolder == LeafOrNot.Parent)
+                        Task.Factory.StartNew(() =>
                         {
-                            IsAtLeafFolder = false;
-                            wasUpdated = true;
-                        }
-                    }
-                    else
-                    {
-                        IsAtLeafFolder = wasUpdated = true;
+                            currentFolder = CurrentLevel.Current as Folder;
+                            listOfFoldersOfCurrentFolder = currentFolder.Folders.ToList();
+                            NextLevel.Add(currentFolder.folderId, new Tuple<Folder, List<Folder>>(currentFolder, listOfFoldersOfCurrentFolder));
+                            if (listOfFoldersOfCurrentFolder != null)
+                            {
+                                IsAtLeafFolder = false;
+                            }
+                        });
                     }
                 } while (hasNext = CurrentLevel.MoveNext());
                 CurrentLevel.Reset();
-                Task.Factory.StartNew(() => fetchFullNextLevel());
-            }
+                //bool hasNext;
+                //Folder currentFolder;
+                //List<Folder> listOfFoldersOfCurrentFolder;
+                //NextLevel = new Dictionary<int, Tuple<Folder, List<Folder>>>();
+                //List<Task> FetchingTasks = new List<Task>();
 
-            private void fetchFullNextLevel()
-            {
-                foreach(var folder in NextLevelHelper)
-                {
-                    Task.Factory.StartNew(() =>
-                    {
-                        if(folder.Value.Item2 == LeafOrNot.Parent)
-                        {
-                            NextLevel.Add(folder.Key, new Tuple<Folder, List<Folder>>(folder.Value.Item1, folder.Value.Item1.Folders.ToList()));
-                        }
-                    });
-                }
+                //IsAtLeafFolder = true;
+                //hasNext = CurrentLevel.MoveNext();
+                //do
+                //{
+                //    if (hasNext == true)
+                //    {
+                //        currentFolder = CurrentLevel.Current as Folder;
+                //        listOfFoldersOfCurrentFolder = currentFolder.Folders.ToList();
+                //        NextLevel.Add(currentFolder.folderId, new Tuple<Folder, List<Folder>>(currentFolder, listOfFoldersOfCurrentFolder));
+                //        if (listOfFoldersOfCurrentFolder != null)
+                //        {
+                //            IsAtLeafFolder = false;
+                //        }
+                //    }
+                //} while (hasNext = CurrentLevel.MoveNext());
+                //CurrentLevel.Reset();
             }
 
             private void updatePath(Folder i_FolderSelected)

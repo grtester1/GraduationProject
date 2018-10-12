@@ -85,7 +85,7 @@ namespace InnoviApiProxy
             public bool MoveNext()
             {
                 m_CurrentIndex++;
-               
+
                 if (m_Collection == null || m_CurrentIndex == m_Collection.Count)
                 {
                     if (m_Collection == null)
@@ -100,7 +100,7 @@ namespace InnoviApiProxy
                     if (currentSection != null)
                     {
                         m_Collection.AddRange(currentSection);
-                    }  
+                    }
                 }
 
                 return m_CurrentPage <= m_TotalPages && m_CurrentPage < 10;
@@ -117,14 +117,14 @@ namespace InnoviApiProxy
     }
 }
 
-        
-
-      
-
-       
-
-        
 
 
-     
-        
+
+
+
+
+
+
+
+
+

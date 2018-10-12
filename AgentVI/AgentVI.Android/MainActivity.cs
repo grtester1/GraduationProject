@@ -18,7 +18,7 @@ using Plugin.CurrentActivity;
 [assembly: Dependency(typeof(MainActivity))]
 namespace AgentVI.Droid
 {
-    [Activity(Name = "com.companyname.AgentVI" ,Label = "AgentVI", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "AgentVI", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, IBackButtonPressed, ISupportOrientation
     {
         private bool OrientationLocked { get; set; } = false;

@@ -14,9 +14,10 @@ namespace AgentVI.Converters
 
             if (value != null)
             {
-                res = new StringBuilder().Append("https://picsum.photos/")
-                    .Append(new Random().Next(200,800)).Append("/")
-                    .Append(new Random(Guid.NewGuid().GetHashCode()).Next(200,800)).ToString();
+                return value;
+                //res = new StringBuilder().Append("https://picsum.photos/")
+                //    .Append(new Random().Next(200,800)).Append("/")
+                //    .Append(new Random(Guid.NewGuid().GetHashCode()).Next(200,800)).ToString();
             }
 
             return res;
