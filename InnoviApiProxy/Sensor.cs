@@ -42,8 +42,6 @@ namespace InnoviApiProxy
         public bool IsOptimizationEnabled { get; private set; }
         [JsonProperty]
         public uint AlarmInterval { get; private set; }
-        [JsonProperty]
-        public string StreamUrl { get; private set; }
         public string LiveViewStream { get; internal set; } = string.Empty;
         public List<Health> SensorHealthArray
         {

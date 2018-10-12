@@ -12,7 +12,7 @@ namespace InnoviApiProxy
         [JsonProperty]
         private int accountId { get; set; }
         [JsonProperty("id")]
-        private int folderId { get; set; }
+        public int FolderId { get; private set; }
         [JsonProperty]
         public string Name { get; private set; }
         [JsonProperty]
@@ -26,7 +26,7 @@ namespace InnoviApiProxy
         {
             get
             {
-                return new InnoviObjectCollection<Sensor>(HttpUtils.GetFolderSensors, folderId);
+                return new InnoviObjectCollection<Sensor>(HttpUtils.GetFolderSensors, FolderId);
             }
             set
             {
@@ -38,7 +38,7 @@ namespace InnoviApiProxy
         {
             get
             {
-                return new InnoviObjectCollection<SensorEvent>(HttpUtils.GetFolderEvents, folderId);
+                return new InnoviObjectCollection<SensorEvent>(HttpUtils.GetFolderEvents, FolderId);
             }
         }
 
@@ -47,7 +47,7 @@ namespace InnoviApiProxy
         {
             get
             {
-                return new InnoviObjectCollection<Folder>(HttpUtils.GetFolders, folderId);
+                return new InnoviObjectCollection<Folder>(HttpUtils.GetFolders, FolderId);
             }
             private set
             {
@@ -67,38 +67,7 @@ namespace InnoviApiProxy
 
         public InnoviObjectCollection<Sensor> GetAllSensors()
         {
-            return new InnoviObjectCollection<Sensor>(HttpUtils.GetAllFolderSensors, folderId);
+            return new InnoviObjectCollection<Sensor>(HttpUtils.GetAllFolderSensors, FolderId);
         }
-
-
-        /*
-            public List<Sensor> GetAllFolderSensors(Folder i_Folder)
-            {
-                List<Folder> subFolders = i_Folder.Folders.ToList();
-                InnoviObjectCollection<Sensor> currentSensors = null;
-                List<Sensor> allSensors = new List<Sensor>();
-
-                if (subFolders == null)
-                {
-                    currentSensors = i_Folder.Sensors;
-
-                    foreach (Sensor sensor in currentSensors)
-                    {
-                        allSensors.Add(sensor);
-                        // Do something with the sensor i.e present its data and insert it into some kind of collection
-                    }
-                }
-                else
-                {
-                    foreach (Folder subfolder in subFolders)
-                    {
-                        List<Sensor>  subfolderSensors = GetAllFolderSensors(subfolder);
-                        allSensors.AddRange(subfolderSensors);
-                    }
-                }
-
-                return allSensors;
-            }
-            */
     }
 }
