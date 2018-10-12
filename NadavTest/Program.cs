@@ -39,18 +39,7 @@ namespace NadavTest
 
       //      List<Sensor> sesnsorList = lazySensors.ToList();
 
-            foreach (Sensor sensor in lazySensors)
-            {
-
-                byte[] testArr = sensor.ReferenceImage;
-
-                InnoviObjectCollection<SensorEvent> events = sensor.SensorEvents;
-
-                foreach (SensorEvent myEvent in events)
-                {
-                    Console.WriteLine(myEvent.SensorName);
-                }
-            }
+          
             InnoviObjectCollection<SensorEvent> lazyEvents = user.GetDefaultAccountEvents();
 
             List<SensorEvent> testList = new List<SensorEvent>();

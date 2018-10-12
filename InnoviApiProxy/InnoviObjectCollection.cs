@@ -5,7 +5,7 @@ using System;
 
 namespace InnoviApiProxy
 {
-    public class InnoviObjectCollection<InnoviElement> : IEnumerable where InnoviElement : InnoviObject
+    public class InnoviObjectCollection<InnoviElement> : IEnumerable<InnoviElement> where InnoviElement : InnoviObject
     {
         private InnoviObjectDelegate<InnoviElement> m_Delegate;
         private int m_FilterItemId;
@@ -21,7 +21,12 @@ namespace InnoviApiProxy
             m_FilterItemId = i_FilterItemId;
         }
 
-        public IEnumerator GetEnumerator()
+        public IEnumerator<InnoviElement> GetEnumerator()
+        {
+            return new InnoviObjectCollectionEnumerator(m_Delegate, m_FilterItemId);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return new InnoviObjectCollectionEnumerator(m_Delegate, m_FilterItemId);
         }
@@ -57,7 +62,7 @@ namespace InnoviApiProxy
             return res;
         }
 
-        internal class InnoviObjectCollectionEnumerator : IEnumerator
+        internal class InnoviObjectCollectionEnumerator : IEnumerator<InnoviElement>
         {
             private int m_CurrentIndex = -1;
             private int m_CurrentPage = 0;
@@ -68,13 +73,26 @@ namespace InnoviApiProxy
 
             private int m_FilterItemId;
 
+            void IDisposable.Dispose()
+            {
+
+            }
+
             internal InnoviObjectCollectionEnumerator(InnoviObjectDelegate<InnoviElement> i_Delegate, int i_FilterItemId)
             {
                 m_Delegate = i_Delegate;
                 m_FilterItemId = i_FilterItemId;
             }
 
-            public object Current
+            public InnoviElement Current
+            {
+                get
+                {
+                    return m_Collection[m_CurrentIndex];
+                }
+            }
+
+            object IEnumerator.Current
             {
                 get
                 {
@@ -116,15 +134,3 @@ namespace InnoviApiProxy
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
