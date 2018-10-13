@@ -37,7 +37,7 @@ namespace AgentVI.ViewModels
         public static string currenPathToString(ObservableCollection<Folder> i_FolderCollection)
         {
             string separator = "/";
-            string prefix = "root" + separator;
+            string prefix = separator;
             StringBuilder resBuilder = new StringBuilder(prefix);
 
             foreach(Folder folder in i_FolderCollection)
