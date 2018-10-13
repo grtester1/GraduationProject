@@ -63,7 +63,6 @@
                                             <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.FolderIconSVGPath}"/>
                                             <Label HorizontalOptions="StartAndExpand" VerticalOptions="Center" Text="{Binding FolderName}"/>
                                             <Button WidthRequest="50" CommandParameter="{Binding}" Clicked="Button_Clicked" IsVisible="{Binding IsNextFiltrationLevelAvailable}"/>
-                                            <!--<ffsvg:SvgCachedImage Source="{x:Static settings:Settings.NextLevelButtonSVGPath}" IsVisible="{Binding IsNextFiltrationLevelAvailable}"/>-->
                                         </StackLayout>
                                     </ViewCell>
                                 </DataTemplate>
