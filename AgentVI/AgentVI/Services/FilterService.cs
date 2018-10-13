@@ -55,7 +55,7 @@ namespace AgentVI.Services
                     RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders();
                     CurrentPath = new List<Folder>();
                     CurrentLevel = RootFolders;
-                    fetchHealthArray();
+                    //fetchHealthArray();
                     fetchNextLevel();    //keeps IsAtLeafFolder, NextLevel updated
                     updateFilteredEvents();                             //keeps FilteredEvents updated
                     OnFilterStateUpdated();
@@ -81,7 +81,7 @@ namespace AgentVI.Services
                 IsAtRootLevel = true;
                 CurrentPath = new List<Folder>();
                 CurrentLevel = RootFolders;
-                fetchHealthArray();
+                //fetchHealthArray();
                 fetchNextLevel();    //keeps IsAtLeafFolder, NextLevel updated
                 updateFilteredEvents();
                 OnFilterStateUpdated();
@@ -102,7 +102,7 @@ namespace AgentVI.Services
                 {
                     CurrentLevel = i_FolderSelected.Folders;
                 }
-                fetchHealthArray();
+                //fetchHealthArray();
                 fetchNextLevel();                                           //keeps IsAtLeafFolder, NextLevel updated
                 updateFilteredEvents();
                 if (i_FolderSelected.Depth >= 0)

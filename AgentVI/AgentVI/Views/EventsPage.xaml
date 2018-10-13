@@ -5,6 +5,7 @@
              xmlns:converters="clr-namespace:AgentVI.Converters"
              xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:effects="clr-namespace:AgentVI.Custom.Effects"
              xmlns:settings="clr-namespace:AgentVI.Utils">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -35,13 +36,17 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Frame Padding="5" BackgroundColor="LightGray" Margin="20,20,20,20">
+                        <Frame Padding="10" BackgroundColor="{x:Static settings:Settings.PictureHolderOutsideFrameBackground}" Margin="15,15,15,15">
                             <StackLayout>
-                                <Frame WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" HorizontalOptions="FillAndExpand" CornerRadius="8" HasShadow="True">
+                                <Frame WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" BackgroundColor="{x:Static settings:Settings.PictureHolderFrameBackground}" HorizontalOptions="FillAndExpand" CornerRadius="8" HasShadow="True">
                                     <ff:CachedImage Source="{Binding SensorEventImage, Converter={StaticResource tmpImagePlaceholderGeneratorConverter}}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" CacheType="All"/>
                                 </Frame>
                                 <StackLayout HorizontalOptions="FillAndExpand">
-                                    <Label Text="{Binding SensorName}" TextColor="{x:Static settings:Settings.SensorEventHeaderFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                                    <Label Text="{Binding SensorName}" TextColor="{x:Static settings:Settings.SensorEventHeaderFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand">
+                                        <Label.Effects>
+                                            <effects:UnderlineEffect/>
+                                        </Label.Effects>
+                                    </Label>
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                         <Label Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="Start"/>
                                         <Label Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" HorizontalOptions="EndAndExpand"/>

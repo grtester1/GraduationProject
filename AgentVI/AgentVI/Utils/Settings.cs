@@ -14,7 +14,7 @@ namespace AgentVI.Utils
         public static Thickness ListviewGridMargines { get; } = new Thickness(30, 0, 30, 0);
 
         public static double GridElementSizeRequest { get; } = 200;
-
+        
         public static double GenericTitleFontSize { get; } = 22;
         public static double HeaderTitleFontSize { get; } = 16;
         public static double SensorEventNameFontSize { get; } = 20;
@@ -22,8 +22,10 @@ namespace AgentVI.Utils
 
         public static Color FooterColor { get; } = Color.AliceBlue; //"#BABABA"
         public static Color FooterSeparatorColor { get; } = Color.FromHex("#DCDCDC");
-        public static Color SensorEventHeaderFontColor { get; } = Color.Navy;
-        public static Color SensorEventDetailsFontColor { get; } = Color.Gray;
+        public static Color PictureHolderFrameBackground { get; } = Color.FromHex("#2C2D30");
+        public static Color PictureHolderOutsideFrameBackground { get; } = Color.FromHex("#434449");
+        public static Color SensorEventHeaderFontColor { get; } = Color.FromHex("#C9CCDB");
+        public static Color SensorEventDetailsFontColor { get; } = Color.FromHex("#B4B7C6");
         
 
         public static string EventsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_24px.svg";
