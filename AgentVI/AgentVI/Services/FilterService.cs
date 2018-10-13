@@ -95,6 +95,11 @@ namespace AgentVI.Services
                 {
                     IsAtRootLevel = false;
                 }
+            }
+
+            public void SelectFolderAndTriggerFetchUpdate(Folder i_FolderSelected)
+            {
+                SelectFolder(i_FolderSelected);
                 OnFilterStateUpdated();
             }
 

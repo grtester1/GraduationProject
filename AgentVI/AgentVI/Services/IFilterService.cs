@@ -13,6 +13,7 @@ namespace AgentVI.Services
     {
         void                                SelectRootLevel();
         void                                SelectFolder(Folder i_FolderSelected);
+        void                                SelectFolderAndTriggerFetchUpdate(Folder i_FolderSelected);
         void                                SwitchAccount(Account i_SelectedAccount);
         event EventHandler                  FilterStateUpdated;
         Account                             CurrentAccount { get; }

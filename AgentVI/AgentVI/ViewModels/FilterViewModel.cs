@@ -68,7 +68,7 @@ namespace AgentVI.ViewModels
             {
                 FilteringPagesContent.RemoveAt(i);
             }
-            ServiceManager.Instance.FilterService.SelectFolder(i_selectedFolder);
+            ServiceManager.Instance.FilterService.SelectFolderAndTriggerFetchUpdate(i_selectedFolder);
             if (i_selectedFolder.Folders != null && !i_selectedFolder.Folders.IsEmpty())
             {
                 FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(i_selectedFolder.Depth + 1);

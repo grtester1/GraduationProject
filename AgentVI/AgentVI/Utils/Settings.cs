@@ -11,6 +11,7 @@ namespace AgentVI.Utils
         public static Thickness PaddingForViewCellInListView { get; } = new Thickness(5);
         public static Thickness ListViewMargins { get; } = new Thickness(0,5,0,5);
         public static Thickness HeaderLogoMargines { get; } = new Thickness(0, 0, 70, 0);
+        public static Thickness ListviewGridMargines { get; } = new Thickness(30, 0, 30, 0);
 
         public static double GridElementSizeRequest { get; } = 300;
 
