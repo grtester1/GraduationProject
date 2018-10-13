@@ -41,11 +41,11 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" x:Name="SensorEventDateTimeLabel" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
-                    <Label Grid.Row="1" x:Name="sensorEventRuleNameLabel" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                    <Label Grid.Row="0" x:Name="SensorEventDateTimeLabel" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                    <Label Grid.Row="1" x:Name="sensorEventRuleNameLabel" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
                     <StackLayout Orientation="Horizontal" Grid.Row="2" HorizontalOptions="StartAndExpand">
                         <ffsvg:SvgCachedImage x:Name="SensorEventRuleNameImage" HeightRequest="25" WidthRequest="25" Margin="0,0,5,0"/>
-                        <Label x:Name="SensorEventTagLabel" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" TextColor="{x:Static settings:Settings.SensorEventFontColor}" FontAttributes="Bold"/>
+                        <Label x:Name="SensorEventTagLabel" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontAttributes="Bold"/>
                     </StackLayout>
                 </Grid>
             </Grid>
