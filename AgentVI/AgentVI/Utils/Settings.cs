@@ -10,13 +10,14 @@ namespace AgentVI.Utils
         public static Thickness iOSPlatformPadding { get; } = new Thickness(5);
         public static Thickness PaddingForViewCellInListView { get; } = new Thickness(5);
         public static Thickness ListViewMargins { get; } = new Thickness(0,5,0,5);
-        public static Thickness HeaderLogoMargines { get; } = new Thickness(0, 0, 70, 0);
+        public static Thickness HeaderLeftTopMargine { get; } = new Thickness(5, 5, 5, 0);
+        public static Thickness HeaderMargine { get; } = new Thickness(5, 0, 5, 0);
         public static Thickness ListviewGridMargines { get; } = new Thickness(30, 0, 30, 0);
 
         public static double GridElementSizeRequest { get; } = 200;
         
         public static double GenericTitleFontSize { get; } = 22;
-        public static double HeaderTitleFontSize { get; } = 16;
+        public static double HeaderTitleFontSize { get; } = 19;
         public static double SensorEventNameFontSize { get; } = 20;
         public static double SensorEventDetailsFontSize { get; } = 16;
 

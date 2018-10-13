@@ -16,28 +16,28 @@
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition Height="1.5*"/>
             <RowDefinition Height="12*"/>
             <RowDefinition Height="1"/>
             <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
-        <StackLayout Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <Image HorizontalOptions="Start" Aspect="AspectFit" WidthRequest="100" HeightRequest="50" Source="{x:Static settings:Settings.LogoPicturePath}"/>
-            <Label FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold, Italic" Text="{Binding AccountName}" HorizontalOptions="StartAndExpand" LineBreakMode="TailTruncation"/>
-        </StackLayout>
 
-        <StackLayout Grid.Row="1">
-            <StackLayout.GestureRecognizers>
-                <TapGestureRecognizer Tapped="FilterStateIndicator_Tapped" />
-            </StackLayout.GestureRecognizers>
+        <Image Grid.Row="0" Source="{x:Static settings:Settings.LogoPicturePath}" HorizontalOptions="Start" VerticalOptions="Fill" Aspect="AspectFit" Margin="{x:Static settings:Settings.HeaderLeftTopMargine}"/>
+
+        <Label Grid.Row="1" Text="{Binding AccountName}" HorizontalOptions="StartAndExpand" FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold" LineBreakMode="TailTruncation" Margin="{x:Static settings:Settings.HeaderMargine}"/>
+
+        <Frame Grid.Row="2" BackgroundColor="Yellow" HorizontalOptions="StartAndExpand" Margin="{x:Static settings:Settings.HeaderMargine}">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="FilterStateIndicator_Tapped"/>
+            </Frame.GestureRecognizers>
             <Label x:Name="FilterStateIndicatorListView" Text="{Binding SelectedFoldersNamesCacheStr}"/>
-            <!--<ListView x:Name="FilterStateIndicatorListView" ItemsSource="{Binding SelectedFoldersNamesCache}" ItemTapped="FilterStateIndicator_Tapped"/>-->
-        </StackLayout>
+        </Frame>
 
-        <ContentView x:Name="PlaceHolder" Grid.Row="2" VerticalOptions="FillAndExpand"/>
-        <BoxView BackgroundColor="{x:Static settings:Settings.FooterSeparatorColor}" Grid.Row="3"/>
+        <ContentView Grid.Row="3" x:Name="PlaceHolder" VerticalOptions="FillAndExpand"/>
+        <BoxView Grid.Row="4" BackgroundColor="{x:Static settings:Settings.FooterSeparatorColor}"/>
 
-        <Grid BackgroundColor="{x:Static settings:Settings.FooterColor}" Grid.Row="4">
+        <Grid Grid.Row="5" BackgroundColor="{x:Static settings:Settings.FooterColor}">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

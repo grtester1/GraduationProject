@@ -42,14 +42,14 @@
                                     <ff:CachedImage Source="{Binding SensorEventImage, Converter={StaticResource tmpImagePlaceholderGeneratorConverter}}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" CacheType="All"/>
                                 </Frame>
                                 <StackLayout HorizontalOptions="FillAndExpand">
-                                    <Label Text="{Binding SensorName}" TextColor="{x:Static settings:Settings.SensorEventHeaderFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand">
+                                    <Label Text="{Binding SensorName}" FontFamily="serif" TextColor="{x:Static settings:Settings.SensorEventHeaderFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand">
                                         <Label.Effects>
                                             <effects:UnderlineEffect/>
                                         </Label.Effects>
                                     </Label>
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                        <Label Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="Start"/>
-                                        <Label Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" HorizontalOptions="EndAndExpand"/>
+                                        <Label Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="Start" FontFamily="serif"/>
+                                        <Label Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" HorizontalOptions="EndAndExpand" FontFamily="serif"/>
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>
