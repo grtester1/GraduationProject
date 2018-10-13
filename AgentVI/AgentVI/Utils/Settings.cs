@@ -29,7 +29,7 @@ namespace AgentVI.Utils
         public static Color SensorEventHeaderFontColor { get; } = Color.FromHex("#478D8D"); //old: #C9CCDB
         public static Color SensorEventDetailsFontColor { get; } = Color.FromHex("#387272"); //old: #B4B7C6
         public static Color FilterBarBorderColor { get; } = Color.FromHex("#7F7F7F");
-        public static Color FilterBarBackgroundColor { get; } = Color.FromHex("#DDDDDD");
+        public static Color FilterBarBackgroundColor { get; } = Color.Transparent;
         public static Color AccountNameStringColor { get; } = Color.FromHex("#00366C");
 
 
