@@ -13,7 +13,7 @@ namespace AgentVI.Utils
         public static Thickness HeaderLogoMargines { get; } = new Thickness(0, 0, 70, 0);
         public static Thickness ListviewGridMargines { get; } = new Thickness(30, 0, 30, 0);
 
-        public static double GridElementSizeRequest { get; } = 300;
+        public static double GridElementSizeRequest { get; } = 200;
 
         public static double GenericTitleFontSize { get; } = 22;
         public static double HeaderTitleFontSize { get; } = 16;
@@ -22,7 +22,9 @@ namespace AgentVI.Utils
 
         public static Color FooterColor { get; } = Color.AliceBlue; //"#BABABA"
         public static Color FooterSeparatorColor { get; } = Color.FromHex("#DCDCDC");
-        public static Color SensorEventFontColor { get; } = Color.Navy;
+        public static Color SensorEventHeaderFontColor { get; } = Color.Navy;
+        public static Color SensorEventDetailsFontColor { get; } = Color.Gray;
+        
 
         public static string EventsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_24px.svg";
         public static string EventsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_active_24px.svg";

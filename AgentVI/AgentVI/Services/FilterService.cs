@@ -20,6 +20,7 @@ namespace AgentVI.Services
             public IEnumerable<Sensor> FilteredSensorCollection { get; private set; }
             public IEnumerable<Folder> CurrentLevel { get; private set; }
             public IEnumerable<SensorEvent> FilteredEvents { get; private set; }
+            public IEnumerable<Sensor.Health> FilteredHealth { get; private set; }
             public bool IsAtRootLevel { get; private set; }
             public bool IsAtLeafFolder { get; private set; }
             public bool HasNextLevel => !IsAtLeafFolder;
@@ -54,6 +55,7 @@ namespace AgentVI.Services
                     RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders();
                     CurrentPath = new List<Folder>();
                     CurrentLevel = RootFolders;
+                    fetchHealthArray();
                     fetchNextLevel();    //keeps IsAtLeafFolder, NextLevel updated
                     updateFilteredEvents();                             //keeps FilteredEvents updated
                     OnFilterStateUpdated();
@@ -63,12 +65,23 @@ namespace AgentVI.Services
                 return res;
             }
 
+            private void fetchHealthArray()
+            {
+                List<Sensor.Health> res = new List<Sensor.Health>();
+                foreach(Sensor sensor in FilteredSensorCollection)
+                {
+                    res.AddRange(sensor.SensorHealthArray);
+                }
+                FilteredHealth = res;
+            }
+
             public void SelectRootLevel()
             {
                 FilteredSensorCollection = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors();
                 IsAtRootLevel = true;
                 CurrentPath = new List<Folder>();
                 CurrentLevel = RootFolders;
+                fetchHealthArray();
                 fetchNextLevel();    //keeps IsAtLeafFolder, NextLevel updated
                 updateFilteredEvents();
                 OnFilterStateUpdated();
@@ -89,12 +102,14 @@ namespace AgentVI.Services
                 {
                     CurrentLevel = i_FolderSelected.Folders;
                 }
+                fetchHealthArray();
                 fetchNextLevel();                                           //keeps IsAtLeafFolder, NextLevel updated
                 updateFilteredEvents();
                 if (i_FolderSelected.Depth >= 0)
                 {
                     IsAtRootLevel = false;
                 }
+                OnFilterStateUpdated();
             }
 
             public void SelectFolderAndTriggerFetchUpdate(Folder i_FolderSelected)

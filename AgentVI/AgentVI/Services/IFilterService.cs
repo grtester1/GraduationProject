@@ -21,6 +21,7 @@ namespace AgentVI.Services
         IEnumerable<Sensor>                 FilteredSensorCollection { get; }
         IEnumerable<Folder>                 CurrentLevel { get; }
         IEnumerable<SensorEvent>            FilteredEvents { get; }
+        IEnumerable<Sensor.Health>          FilteredHealth { get; }
         bool                                IsAtRootLevel { get; }
         bool                                IsAtLeafFolder { get; }
         bool                                HasNextLevel { get; }
