@@ -36,9 +36,9 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Frame Padding="10" BackgroundColor="{x:Static settings:Settings.PictureHolderOutsideFrameBackground}" Margin="15,15,15,15">
+                        <Frame Padding="10" BackgroundColor="{x:Static settings:Settings.PictureHolderOutsideFrameBackground}" Margin="15,15,15,15" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
                             <StackLayout>
-                                <Frame WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" BackgroundColor="{x:Static settings:Settings.PictureHolderFrameBackground}" HorizontalOptions="FillAndExpand" CornerRadius="8" HasShadow="True">
+                                <Frame WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" BackgroundColor="{x:Static settings:Settings.PictureHolderFrameBackground}" HorizontalOptions="FillAndExpand" CornerRadius="8" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
                                     <ff:CachedImage Source="{Binding SensorEventImage, Converter={StaticResource tmpImagePlaceholderGeneratorConverter}}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" CacheType="All"/>
                                 </Frame>
                                 <StackLayout HorizontalOptions="FillAndExpand">

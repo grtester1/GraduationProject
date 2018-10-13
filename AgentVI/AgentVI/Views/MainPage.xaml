@@ -5,7 +5,8 @@
              xmlns:ViewModels="clr-namespace:AgentVI.ViewModels"
              x:Class="AgentVI.Views.MainPage"
              xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-             xmlns:settings="clr-namespace:AgentVI.Utils">
+             xmlns:settings="clr-namespace:AgentVI.Utils"
+             x:Name="MyMainPage">
 
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
@@ -16,8 +17,8 @@
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="12*"/>
             <RowDefinition Height="1"/>
             <RowDefinition Height="1.5*"/>
@@ -25,14 +26,15 @@
 
         <Image Grid.Row="0" Source="{x:Static settings:Settings.LogoPicturePath}" HorizontalOptions="Start" VerticalOptions="Fill" Aspect="AspectFit" Margin="{x:Static settings:Settings.HeaderLeftTopMargine}"/>
 
-        <Label Grid.Row="1" Text="{Binding AccountName}" HorizontalOptions="StartAndExpand" FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold" LineBreakMode="TailTruncation" Margin="{x:Static settings:Settings.HeaderMargine}"/>
+        <Label Grid.Row="1" Text="{Binding AccountName}" TextColor="{x:Static settings:Settings.AccountNameStringColor}" HorizontalOptions="StartAndExpand" FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold" LineBreakMode="TailTruncation" Margin="{x:Static settings:Settings.HeaderLeftTopMargine}"/>
 
-        <Frame Grid.Row="2" BackgroundColor="Yellow" HorizontalOptions="StartAndExpand" Margin="{x:Static settings:Settings.HeaderMargine}">
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="FilterStateIndicator_Tapped"/>
-            </Frame.GestureRecognizers>
-            <Label x:Name="FilterStateIndicatorListView" Text="{Binding SelectedFoldersNamesCacheStr}"/>
+        <Frame Grid.Row="2" Padding="0" BackgroundColor="{x:Static settings:Settings.FilterBarBackgroundColor}" BorderColor="{x:Static settings:Settings.FilterBarBorderColor}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="{x:Static settings:Settings.HeaderMargine}">
+            <StackLayout Orientation="Horizontal">
+                <Label HorizontalOptions="Start" VerticalOptions="Center" BindingContext="{Binding FilterIndicator}" Text="{Binding SelectedFoldersNamesCacheStr}"/>
+                <Button Text="BROWSE" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Clicked="OnFilterStateIndicatorClicked"/>
+            </StackLayout>
         </Frame>
+        
 
         <ContentView Grid.Row="3" x:Name="PlaceHolder" VerticalOptions="FillAndExpand"/>
         <BoxView Grid.Row="4" BackgroundColor="{x:Static settings:Settings.FooterSeparatorColor}"/>

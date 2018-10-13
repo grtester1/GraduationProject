@@ -52,7 +52,7 @@ namespace AgentVI.ViewModels
             }
         }
         private FilterIndicatorViewModel _filterIndicator;
-        internal FilterIndicatorViewModel FilterIndicator
+        public FilterIndicatorViewModel FilterIndicator
         {
             get => _filterIndicator;
             private set

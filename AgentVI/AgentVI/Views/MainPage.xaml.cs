@@ -65,10 +65,12 @@ namespace AgentVI.Views
         private void bindPageControllers()
         {
             BindingContext = mainPageVM;
-            FilterStateIndicatorListView.BindingContext = mainPageVM.FilterIndicator;
+            //FilterStateIndicatorLabel.BindingContext = mainPageVM.FilterIndicator;
+            //FilterStateIndicatorListView.BindingContext = mainPageVM.FilterIndicator;
+            //FilterStateIndicatorListView.BindingContext = mainPageVM.FilterIndicator;
         }
 
-        void FilterStateIndicator_Tapped(object i_Sender, EventArgs i_EventArgs)
+        private void OnFilterStateIndicatorClicked(object i_Sender, EventArgs i_EventArgs)
         {
             try
             {
@@ -102,6 +104,5 @@ namespace AgentVI.Views
             DependencyService.Get<IBackButtonPressed>().NativeOnBackButtonPressed();
             return true;
         }
-
     }
 }
