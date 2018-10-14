@@ -60,5 +60,8 @@ namespace AgentVI.Utils
 
         public static string DateTimeFormat { get; } = "dd/MM/yyyy hh:mm tt";
         public static string SearchBarPlaceHolderText { get; } = "Search...";
+
+        public static bool IsHealthFetchingEnabled { get; } = false;
+        public static bool IsFoldersHierarchyCachingEnabled { get; } = false;
     }
 }

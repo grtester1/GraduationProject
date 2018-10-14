@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AgentVI.Utils;
 using System.Threading.Tasks;
 
 namespace AgentVI.Services
@@ -55,7 +56,7 @@ namespace AgentVI.Services
                     RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders();
                     CurrentPath = new List<Folder>();
                     CurrentLevel = RootFolders;
-                    //fetchHealthArray();
+                    fetchHealthArray();
                     fetchNextLevel();    //keeps IsAtLeafFolder, NextLevel updated
                     updateFilteredEvents();                             //keeps FilteredEvents updated
                     OnFilterStateUpdated();
@@ -67,12 +68,15 @@ namespace AgentVI.Services
 
             private void fetchHealthArray()
             {
-                List<Sensor.Health> res = new List<Sensor.Health>();
-                foreach(Sensor sensor in FilteredSensorCollection)
+                if (Settings.IsHealthFetchingEnabled)
                 {
-                    res.AddRange(sensor.SensorHealthArray);
+                    List<Sensor.Health> res = new List<Sensor.Health>();
+                    foreach (Sensor sensor in FilteredSensorCollection)
+                    {
+                        res.AddRange(sensor.SensorHealthArray);
+                    }
+                    FilteredHealth = res;
                 }
-                FilteredHealth = res;
             }
 
             public void SelectRootLevel()
@@ -81,7 +85,7 @@ namespace AgentVI.Services
                 IsAtRootLevel = true;
                 CurrentPath = new List<Folder>();
                 CurrentLevel = RootFolders;
-                //fetchHealthArray();
+                fetchHealthArray();
                 fetchNextLevel();    //keeps IsAtLeafFolder, NextLevel updated
                 updateFilteredEvents();
                 OnFilterStateUpdated();
@@ -102,7 +106,7 @@ namespace AgentVI.Services
                 {
                     CurrentLevel = i_FolderSelected.Folders;
                 }
-                //fetchHealthArray();
+                fetchHealthArray();
                 fetchNextLevel();                                           //keeps IsAtLeafFolder, NextLevel updated
                 updateFilteredEvents();
                 if (i_FolderSelected.Depth >= 0)
