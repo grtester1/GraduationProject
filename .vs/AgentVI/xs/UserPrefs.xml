@@ -1,8 +1,14 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Models/HealthModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/EventDetailsPage.xaml.cs">
     <Files>
-      <File FileName="AgentVI/AgentVI/Models/HealthModel.cs" Line="21" Column="34" />
+      <File FileName="AgentVI/AgentVI/Models/SensorHealthModel.cs" Line="10" Column="46" />
+      <File FileName="AgentVI/AgentVI/ViewModels/SensorHealthListViewModel.cs" Line="67" Column="36" />
+      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml" Line="17" Column="50" />
+      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml.cs" Line="20" Column="35" />
+      <File FileName="AgentVI/AgentVI/Views/CameraEventsPage.xaml.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/EventDetailsPage.xaml.cs" Line="37" Column="64" />
+      <File FileName="AgentVI/AgentVI/Views/CameraEventsPage.xaml" Line="62" Column="65" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
