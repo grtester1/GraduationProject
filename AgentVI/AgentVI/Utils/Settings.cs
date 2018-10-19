@@ -38,6 +38,10 @@ namespace AgentVI.Utils
         public static string EventsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_active_24px.svg";
         public static string SensorsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.sensors_24px.svg";
         public static string SensorsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.sensors_active_24px.svg";
+        //
+        public static string HealthTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.health.svg";
+        public static string HealthTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.health_open.svg";
+        //
         public static string SettingsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_24px.svg";
         public static string SettingsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_active_24px.svg";
 
@@ -61,7 +65,7 @@ namespace AgentVI.Utils
         public static string DateTimeFormat { get; } = "dd/MM/yyyy hh:mm tt";
         public static string SearchBarPlaceHolderText { get; } = "Search...";
 
-        public static bool IsHealthFetchingEnabled { get; } = false;
+        public static bool IsHealthFetchingEnabled { get; } = true;
         public static bool IsFoldersHierarchyCachingEnabled { get; } = false;
     }
 }
