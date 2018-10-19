@@ -27,6 +27,9 @@ namespace AgentVI.Views
             tabsCollection = new Dictionary<EAppTab, SvgCachedImage>(){
                 { EAppTab.EventsPage, FooterBarEventsIcon },
                 { EAppTab.SensorsPage, FooterBarCamerasIcon},
+                //
+                { EAppTab.HealthPage, FooterBarHealthIcon},
+                //
                 { EAppTab.SettingsPage, FooterBarSettingsIcon }
             };
         }
@@ -92,7 +95,13 @@ namespace AgentVI.Views
             Task.Factory.StartNew(() => 
             mainPageVM.updateContentView(EAppTab.SensorsPage, mainPageVM.PagesCollection[EAppTab.SensorsPage].Item1));
         }
-
+        //
+        void FooterBarHealth_Clicked(object i_Sender, EventArgs i_EventArgs)
+        {
+            Task.Factory.StartNew(() =>
+            mainPageVM.updateContentView(EAppTab.HealthPage, mainPageVM.PagesCollection[EAppTab.HealthPage].Item1));
+        }
+        //
         void FooterBarSettings_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             Task.Factory.StartNew(() =>
