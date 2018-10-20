@@ -1,14 +1,16 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/EventDetailsPage.xaml.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/CameraHealthPage.xaml">
     <Files>
-      <File FileName="AgentVI/AgentVI/Models/SensorHealthModel.cs" Line="10" Column="46" />
-      <File FileName="AgentVI/AgentVI/ViewModels/SensorHealthListViewModel.cs" Line="67" Column="36" />
-      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml" Line="17" Column="50" />
-      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml.cs" Line="20" Column="35" />
-      <File FileName="AgentVI/AgentVI/Views/CameraEventsPage.xaml.cs" Line="1" Column="1" />
-      <File FileName="AgentVI/AgentVI/Views/EventDetailsPage.xaml.cs" Line="37" Column="64" />
-      <File FileName="AgentVI/AgentVI/Views/CameraEventsPage.xaml" Line="62" Column="65" />
+      <File FileName="AgentVI/AgentVI/Views/HealthPage.xaml.cs" Line="47" Column="16" />
+      <File FileName="AgentVI/AgentVI/Views/HealthPage.xaml" Line="37" Column="217" />
+      <File FileName="AgentVI/AgentVI/Views/EventsPage.xaml" Line="22" Column="219" />
+      <File FileName="AgentVI/AgentVI/ViewModels/HealthListViewModel.cs" Line="31" Column="10" />
+      <File FileName="AgentVI/AgentVI/Models/HealthModel.cs" Line="35" Column="45" />
+      <File FileName="AgentVI/AgentVI/Views/CameraEventsPage.xaml.cs" Line="55" Column="57" />
+      <File FileName="AgentVI/AgentVI/ViewModels/SensorHealthListViewModel.cs" Line="25" Column="48" />
+      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml" Line="22" Column="16" />
+      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml.cs" Line="28" Column="53" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
@@ -16,7 +18,7 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.538e301684d91edcec33c0ca6ed04035d6e4abdb" />
+  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.538e301684d91edcec33c0ca6ed04035d6e4abdb" automaticSigning="False" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
 </Properties>

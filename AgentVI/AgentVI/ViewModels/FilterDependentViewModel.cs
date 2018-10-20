@@ -29,7 +29,6 @@ namespace AgentVI.ViewModels
         }
         public ObservableCollection<T> ObservableCollection { get; set; }
 
-
         public FilterDependentViewModel()
         {
             ObservableCollection = new InfiniteScrollCollection<T>()

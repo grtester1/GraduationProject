@@ -21,6 +21,26 @@ namespace AgentVI.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private SensorHealthModel _selectedHealth { get; set; }
+        public SensorHealthModel SelectedHealth
+        {
+            get { return _selectedHealth; }
+            set
+            {
+                if(_selectedHealth != value)
+                {
+                    _selectedHealth = value;
+                    HandleSelectedItem();
+                }
+            }
+        }
+
+        private void HandleSelectedItem()
+        {
+            Page page = new Page();
+            page.DisplayAlert("ghggfgg", "ghghggf", "Ok");
+        }
+
         private SensorModel m_SensorModel;
         public SensorModel SensorModel
         {

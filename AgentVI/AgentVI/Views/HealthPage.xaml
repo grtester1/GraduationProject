@@ -32,9 +32,9 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Text="Time" TextColor="Navy" FontAttributes="Bold" FontSize="Medium"/>
                 <Label Grid.Column="1" Text="Description" TextColor="Navy" FontAttributes="Bold"/>
-                <Label Grid.Column="2" Text="Duration (HH:MM)" TextColor="Navy" FontAttributes="Bold" HorizontalTextAlignment="End" />
+                <Label Grid.Column="2" Text="Duration" TextColor="Navy" FontAttributes="Bold" HorizontalTextAlignment="End" />
             </Grid>
-            <ListView x:Name="healthListView" SeparatorColor="Black" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" HasUnevenRows="True" ItemsSource="{Binding ObservableCollection}" >
+            <ListView x:Name="healthListView" SeparatorColor="Black" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" HasUnevenRows="True" ItemsSource="{Binding ObservableCollection}" ItemSelected="onHealthTapped">
                 <ListView.Footer>
                     <Grid Padding="6" IsVisible="{Binding IsBusy}">
                         <Grid.Triggers>

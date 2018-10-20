@@ -35,7 +35,7 @@ namespace AgentVI.ViewModels
             FetchCollection();
         }
 
-
+        
 
 
         //The old HealthListViewModel.cs:
