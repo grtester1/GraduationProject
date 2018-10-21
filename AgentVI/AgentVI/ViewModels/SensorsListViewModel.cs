@@ -9,6 +9,7 @@ using AgentVI.Services;
 using AgentVI.Models;
 using Xamarin.Forms.Extended;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace AgentVI.ViewModels
 {

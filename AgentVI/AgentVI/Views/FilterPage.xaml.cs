@@ -6,6 +6,7 @@ using InnoviApiProxy;
 using AgentVI.Services;
 using AgentVI.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,15 +15,15 @@ using AgentVI.Models;
 
 namespace AgentVI.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FilterPage : CarouselPage
-	{
-        private FilterViewModel m_FilterViewModel;
-        private FilterIndicatorViewModel m_FilterIndicatorViewModel;
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class FilterPage : CarouselPage
+    {
+        private FilterViewModel filterVM { get; set; }
+        private FilterIndicatorViewModel filterIndicatorVM { get; set; }
 
         private ListView currentListView;
         private SearchBar currentSearchBar;
-        private System.Collections.IEnumerable unfilteredFoldersList;
+        private IEnumerable<FolderModel> unfilteredFoldersList;
 
         private FilterPage()
         {
@@ -30,11 +31,11 @@ namespace AgentVI.Views
             ServiceManager.Instance.FilterService.InitServiceModule();
         }
 
-        public FilterPage(FilterIndicatorViewModel i_FilterIndicatorViewModel):this()
+        public FilterPage(FilterIndicatorViewModel i_FilterIndicatorViewModel) : this()
         {
-            m_FilterIndicatorViewModel = i_FilterIndicatorViewModel;
-            m_FilterViewModel = new FilterViewModel();
-            BindingContext = m_FilterViewModel;
+            filterIndicatorVM = i_FilterIndicatorViewModel;
+            filterVM = new FilterViewModel();
+            BindingContext = filterVM;
             CurrentPageChanged += FilterPage_CurrentPageChanged;
         }
 
@@ -45,7 +46,7 @@ namespace AgentVI.Views
                 var selectedItem = currentListView.SelectedItem;
                 currentListView.ItemsSource = unfilteredFoldersList;
                 currentListView.SelectedItem = selectedItem;
-                
+
                 currentListView.Focus();
                 currentSearchBar.TextChanged -= filterSearchBar_TextChanged;
                 currentSearchBar.Text = String.Empty;
@@ -57,27 +58,30 @@ namespace AgentVI.Views
 
         protected override bool OnBackButtonPressed()
         {
-            m_FilterIndicatorViewModel.UpdateCurrentPath();
+            filterIndicatorVM.UpdateCurrentPath();
             return base.OnBackButtonPressed();
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void button_Clicked(object sender, EventArgs e)
         {
-            var menuItem = sender as Button;
-            var selectedFolder = (menuItem.CommandParameter as FolderModel).ProxyFolder;
-            await Task.Factory.StartNew(() =>m_FilterViewModel.FetchNextFilteringDepth(selectedFolder));
-            ConsiderSwipeRightSwipeUp();
+            Button menuItem = sender as Button;
+            Folder selectedFolder = (menuItem.CommandParameter as FolderModel).ProxyFolder;
+            await Task.Factory.StartNew(() =>
+            {
+                filterVM.FetchNextFilteringDepth(selectedFolder);
+            });
+            considerSwipeRightSwipeUp();
         }
 
-        private void Handle_FilterListItemSelected(object i_Sender, SelectedItemChangedEventArgs i_ItemEventArgs)
+        private void handle_FilterListItemSelected(object i_Sender, SelectedItemChangedEventArgs i_ItemEventArgs)
         {
-            m_FilterViewModel.CurrentlySelectedFolder = (i_ItemEventArgs.SelectedItem as FolderModel).ProxyFolder;
+            filterVM.CurrentlySelectedFolder = (i_ItemEventArgs.SelectedItem as FolderModel).ProxyFolder;
         }
 
         private void updateFilterLevelView(ListView i_ListView, int i_CurrenDepth)
         {
             Label filterDepthLabel = ((ListView)i_ListView).Parent.FindByName<Label>("filterNumLabel");
-            if(Int32.TryParse(filterDepthLabel.Text, out i_CurrenDepth))
+            if (Int32.TryParse(filterDepthLabel.Text, out i_CurrenDepth))
             {
                 using (Converters.FilterPageIDConverter a = new Converters.FilterPageIDConverter())
                 {
@@ -86,11 +90,11 @@ namespace AgentVI.Views
             }
         }
 
-        private void ConsiderSwipeRightSwipeUp()
+        private void considerSwipeRightSwipeUp()
         {
-            int numberOfPages = m_FilterViewModel.FilteringPagesContent.Count;
-            int numberOfSelectedFolders = m_FilterViewModel.SelectedFoldersCache.Count;
-            FilteringPageViewModel nextPage = m_FilterViewModel.FilteringPagesContent[numberOfPages - 1];
+            int numberOfPages = filterVM.FilteringPagesContent.Count;
+            int numberOfSelectedFolders = filterVM.SelectedFoldersCache.Count;
+            FilteringPageViewModel nextPage = filterVM.FilteringPagesContent[numberOfPages - 1];
 
             if (nextPage != null && numberOfPages != numberOfSelectedFolders)
             {
@@ -109,7 +113,7 @@ namespace AgentVI.Views
             {
                 currentSearchBar = i_Sender as SearchBar;
                 currentListView = currentSearchBar.Parent.FindByName<ListView>("filteredItemsListView");
-                unfilteredFoldersList = currentListView.ItemsSource;
+                unfilteredFoldersList = currentListView.ItemsSource.Cast<FolderModel>();
             }
             if (String.IsNullOrWhiteSpace(i_TextChangeEventArgs.NewTextValue))
                 currentListView.ItemsSource = unfilteredFoldersList;
@@ -117,17 +121,22 @@ namespace AgentVI.Views
                 currentListView.ItemsSource = unfilteredFoldersList.Cast<FolderModel>().Where(item => item.FolderName.StartsWith(i_TextChangeEventArgs.NewTextValue));
         }
 
-        private async void OnSelectionClickedButton(object sender, EventArgs e)
+        private async void onSelectionClickedButton(object sender, EventArgs e)
         {
-            Folder selectedFolder = m_FilterViewModel.CurrentlySelectedFolder;
-            await Task.Factory.StartNew(() => m_FilterViewModel.FetchNextFilteringDepth(selectedFolder));
+            Folder selectedFolder = filterVM.CurrentlySelectedFolder;
+
             if (selectedFolder == null)
             {
                 await DisplayAlert("Error", "Please reselect the item first", "Ok");
             }
             else
             {
-                OnBackButtonPressed();
+                await Task.Factory.StartNew(() =>
+                {
+                    filterVM.FetchNextFilteringDepth(selectedFolder);
+                    filterVM.TriggerFetchAppPages();
+                });
+                considerSwipeRightSwipeUp();
             }
         }
     }

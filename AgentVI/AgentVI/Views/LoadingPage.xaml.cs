@@ -47,6 +47,7 @@ namespace AgentVI.Views
 
                 if (loginResult.ErrorMessage == LoginResult.eErrorMessage.Empty)
                 {
+                    //Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(new Tester(loginResult)));
                     ServiceManager.Instance.LoginService.InitServiceModule(loginResult.User);
                     MainPage mainAppPage = null;
                     await Task.Factory.StartNew(() =>

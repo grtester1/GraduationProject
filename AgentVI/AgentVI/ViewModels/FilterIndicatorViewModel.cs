@@ -34,7 +34,7 @@ namespace AgentVI.ViewModels
             }
         }
 
-        public static string currenPathToString(ObservableCollection<Folder> i_FolderCollection)
+        public static string currenPathToString(IEnumerable<Folder> i_FolderCollection)
         {
             string separator = "/";
             string prefix = separator;

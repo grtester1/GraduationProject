@@ -30,13 +30,13 @@
 
         <Frame Grid.Row="2" Padding="0" BackgroundColor="{x:Static settings:Settings.FilterBarBackgroundColor}" BorderColor="{x:Static settings:Settings.FilterBarBorderColor}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="{x:Static settings:Settings.HeaderMargine}">
             <StackLayout Orientation="Horizontal">
-                <Label HorizontalOptions="Start" VerticalOptions="Center" BindingContext="{Binding FilterIndicator}" Text="{Binding SelectedFoldersNamesCacheStr}"/>
+                <Label HorizontalOptions="Start" VerticalOptions="Center" Margin="{x:Static settings:Settings.FilterTextMargines}" TextColor="{x:Static settings:Settings.FilterTextColor}" FontSize="{x:Static settings:Settings.FilterTextSize}" BindingContext="{Binding FilterIndicator}" Text="{Binding SelectedFoldersNamesCacheStr}"/>
                 <Button Text="BROWSE" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Clicked="OnFilterStateIndicatorClicked"/>
             </StackLayout>
         </Frame>
         
-
-        <ContentView Grid.Row="3" x:Name="PlaceHolder" VerticalOptions="FillAndExpand"/>
+        <ContentView Grid.Row="3" x:Name="PlaceHolder" Margin="{x:Static settings:Settings.ContentViewMargines}" VerticalOptions="FillAndExpand"/>
+        
         <BoxView Grid.Row="4" BackgroundColor="{x:Static settings:Settings.FooterSeparatorColor}"/>
 
         <Grid Grid.Row="5" BackgroundColor="{x:Static settings:Settings.FooterColor}">
@@ -46,7 +46,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
 
             <RelativeLayout Grid.Column="0" BackgroundColor="{x:Static settings:Settings.FooterColor}">
                 <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}"

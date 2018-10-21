@@ -6,6 +6,7 @@ using InnoviApiProxy;
 using System;
 using System.Linq;
 using AgentVI.Models;
+using System.Collections.ObjectModel;
 
 namespace AgentVI.ViewModels
 {

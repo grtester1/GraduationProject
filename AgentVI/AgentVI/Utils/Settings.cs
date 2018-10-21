@@ -7,19 +7,23 @@ namespace AgentVI.Utils
 {
     public static class Settings
     {
-        public static Thickness iOSPlatformPadding { get; } = new Thickness(5);
+        public static Thickness iOSPlatformPadding { get; } = new Thickness(0,30,0,0);
         public static Thickness PaddingForViewCellInListView { get; } = new Thickness(5);
         public static Thickness ListViewMargins { get; } = new Thickness(0,5,0,5);
         public static Thickness HeaderLeftTopMargine { get; } = new Thickness(5, 5, 5, 0);
         public static Thickness HeaderMargine { get; } = new Thickness(5, 0, 5, 0);
         public static Thickness ListviewGridMargines { get; } = new Thickness(30, 0, 30, 0);
+        public static Thickness ContentViewMargines { get; } = new Thickness(0, 5, 0, 5);
+        public static Thickness FilterTextMargines { get; } = new Thickness(5, 0, 5, 0);
+        public static Thickness PictureHolderFramePadding { get; } = new Thickness(5);
 
-        public static double GridElementSizeRequest { get; } = 200;
+        public static double GridElementSizeRequest { get; } = 140;
         
         public static double GenericTitleFontSize { get; } = 22;
         public static double HeaderTitleFontSize { get; } = 19;
-        public static double SensorEventNameFontSize { get; } = 18;
-        public static double SensorEventDetailsFontSize { get; } = 16;
+        public static double SensorEventNameFontSize { get; } = 15;
+        public static double SensorEventDetailsFontSize { get; } = 13;
+        public static double FilterTextSize { get; } = 15;
 
         public static Color FooterColor { get; } = Color.AliceBlue; //"#BABABA"
         public static Color FooterSeparatorColor { get; } = Color.FromHex("#DCDCDC");
@@ -27,7 +31,8 @@ namespace AgentVI.Utils
         public static Color PictureHolderOutsideFrameBackground { get; } = Color.FromHex("#434449");
         public static Color PictureHolderBorderColor { get; } = Color.FromHex("#4E5663");
         public static Color SensorEventHeaderFontColor { get; } = Color.FromHex("#478D8D"); //old: #C9CCDB
-        public static Color SensorEventDetailsFontColor { get; } = Color.FromHex("#387272"); //old: #B4B7C6
+        public static Color SensorEventDetailsFontColor { get; } = Color.FromHex("#B4B7C6"); //old: #387272
+        public static Color FilterTextColor { get; } = Color.Black;
         public static Color FilterBarBorderColor { get; } = Color.FromHex("#7F7F7F");
         public static Color FilterBarBackgroundColor { get; } = Color.Transparent;
         public static Color AccountNameStringColor { get; } = Color.FromHex("#00366C");
@@ -53,6 +58,7 @@ namespace AgentVI.Utils
         public static string BackButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.backButton.svg";
         public static string NextLevelButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.rightArrow.svg";
         public static string FolderIconSVGPath { get; } = "resource://AgentVI.Sources.Icons.folderIcon.svg";
+        public static string FilterBrowseIconSVGPath { get; } = "resource://AgentVI.Sources.Icons.folderIcon.svg";
         public static string DividerIconSVGPath { get; } = "resource://AgentVI.Sources.Icons.dividerIcon.svg";
 
         public static ImageSource BackgroundPicturePath { get; } = ImageSource.FromResource("AgentVI.Sources.background.png");

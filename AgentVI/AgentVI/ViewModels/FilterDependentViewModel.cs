@@ -17,6 +17,7 @@ namespace AgentVI.ViewModels
         private IEnumerator<T> collectionEnumerator;
         protected bool canLoadMore = false;
         protected bool IsFilterStateChanged { get; set; }
+        public ObservableCollection<T> ObservableCollection { get; set; }
         private bool _isBusy;
         public bool IsBusy
         {
@@ -27,7 +28,6 @@ namespace AgentVI.ViewModels
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<T> ObservableCollection { get; set; }
 
 
         public FilterDependentViewModel()
