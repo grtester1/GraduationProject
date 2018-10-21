@@ -39,6 +39,11 @@ namespace AgentVI.Views
             CurrentPageChanged += FilterPage_CurrentPageChanged;
         }
 
+        internal void ResetVMToRootLevel()
+        {
+            filterVM = new FilterViewModel();
+        }
+
         private void FilterPage_CurrentPageChanged(object sender, EventArgs e)
         {
             if (unfilteredFoldersList != null)
