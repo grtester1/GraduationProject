@@ -38,7 +38,7 @@ namespace AgentVI.Services
             public FilterServiceS()
             {
                 cacheLock = new object();
-                defaultCachingTimespan = new TimeSpan(0, 1, 0);
+                defaultCachingTimespan = new TimeSpan(0, 5, 0);
                 IsAtRootLevel = true;
                 CurrentAccount = null;
                 UserAccounts = null;
@@ -64,6 +64,7 @@ namespace AgentVI.Services
                     fetchHealthArray();
                     setFilteredEvents();                             //keeps FilteredEvents updated
                     OnFilterStateUpdated();
+                    Task.Factory.StartNew(() => fetchFoldersHierarchy());
                     Device.BeginInvokeOnMainThread(() =>
                     Device.StartTimer(defaultCachingTimespan, () =>
                     {
@@ -84,7 +85,6 @@ namespace AgentVI.Services
                 CurrentLevel = getRootFolders();
                 fetchHealthArray();
                 setFilteredEvents();
-                fetchFoldersHierarchy();
                 OnFilterStateUpdated();
             }
 

@@ -38,11 +38,11 @@ namespace AgentVI.ViewModels
         {
             string separator = "/";
             string prefix = separator;
-            StringBuilder resBuilder = new StringBuilder(prefix);
+            StringBuilder resBuilder = new StringBuilder();
 
             foreach(Folder folder in i_FolderCollection)
             {
-                resBuilder.Append(folder.Name).Append(separator);
+                resBuilder.Append(prefix).Append(folder.Name);
             }
 
             return resBuilder.ToString();
@@ -61,6 +61,12 @@ namespace AgentVI.ViewModels
         internal void UpdateCurrentPath()
         {
             SelectedFoldersNamesCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
+        }
+
+        internal void ResetHierarchyToRootLevel()
+        {
+            ServiceManager.Instance.FilterService.SelectRootLevel();
+            UpdateCurrentPath();
         }
     }
 }

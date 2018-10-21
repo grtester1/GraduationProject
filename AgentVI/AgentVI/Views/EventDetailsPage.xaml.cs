@@ -50,12 +50,12 @@ namespace AgentVI.Views
 
         private void quitClipLoading()
         {
-            SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = false;
+            //SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = false;
         }
 
         private void restartClipLoading()
         {
-            SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = true;
+            //SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = true;
         }
 
         private void onEventDetailsBackButtonTapped(object sender, EventArgs e)
@@ -68,9 +68,10 @@ namespace AgentVI.Views
         {
             await Task.Factory.StartNew(() =>
             {
-                SensorEventClipVideoPlayer.Source = new Converters.tmpVidPlaceholderGeneratorConverter()
-                                                    .Convert(eventDetailsViewModel.SensorEventClipPath, typeof(string), null, null)
-                                                    .ToString();
+                //SensorEventClipVideoPlayer.Source = new Converters.tmpVidPlaceholderGeneratorConverter()
+                //                                    .Convert(eventDetailsViewModel.SensorEventClipPath, typeof(string), null, null)
+                //                                    .ToString();
+                SensorEventClipVideoPlayer.Source = eventDetailsViewModel.SensorEventClipPath;
                 sensorNameLabel.Text = eventDetailsViewModel.SensorName;
                 sensorEventRuleNameLabel.Text = eventDetailsViewModel.SensorEventRuleName;
                 SensorEventDateTimeLabel.Text = eventDetailsViewModel.SensorEventDateTime;
@@ -88,6 +89,16 @@ namespace AgentVI.Views
         public void Refocus()
         {
             restartClipLoading();
+        }
+
+        private void SensorEventClipVideoPlayer_Navigating(object sender, WebNavigatingEventArgs e)
+        {
+
+        }
+
+        private void SensorEventClipVideoPlayer_Navigated(object sender, WebNavigatedEventArgs e)
+        {
+
         }
     }
 }
