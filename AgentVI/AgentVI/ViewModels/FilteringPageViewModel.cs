@@ -31,15 +31,31 @@ namespace AgentVI.ViewModels
         public override void PopulateCollection()
         {
             base.PopulateCollection();
-            enumerableCollection = ServiceManager.Instance.FilterService.
-                CurrentLevel.Select(folder => FolderModel.FactoryMethod(folder));
-            CurrentPath = FilterIndicatorViewModel.currenPathToString(new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath));
+            enumerableCollection = ServiceManager.Instance.FilterService.CurrentLevel as ObservableCollection<FolderModel>;
+            if (enumerableCollection == null)
+            {
+                enumerableCollection = ServiceManager.Instance.FilterService.CurrentLevel;
+            }
+            CurrentPath = FilterIndicatorViewModel.currenPathToString(ServiceManager.Instance.FilterService.CurrentPath);
             FetchCollection();
         }
 
-        public FilteringPageViewModel(int i_filterID):base()
+        public FilteringPageViewModel(int i_filterID) : base()
         {
             FilterID = i_filterID;
+        }
+
+        protected override void FetchCollection()
+        {
+            if (enumerableCollection is ObservableCollection<FolderModel>)
+            {
+                ObservableCollection = enumerableCollection as ObservableCollection<FolderModel>;
+                canLoadMore = false;
+            }
+            else
+            {
+                base.FetchCollection();
+            }
         }
 
         public override void OnFilterStateUpdated(object source, EventArgs e)

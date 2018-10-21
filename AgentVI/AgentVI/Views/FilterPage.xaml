@@ -42,7 +42,7 @@
                     </Grid>
                     <StackLayout x:Name="filterDataStackLayout" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                         <SearchBar x:Name="filterSearchBar" Placeholder="{x:Static settings:Settings.SearchBarPlaceHolderText}" HeightRequest="30" TextChanged="filterSearchBar_TextChanged"/>
-                        <ListView x:Name="filteredItemsListView" HasUnevenRows="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  ItemSelected="Handle_FilterListItemSelected" ItemsSource="{Binding ObservableCollection}" BackgroundColor="Transparent" SeparatorColor="Transparent">
+                        <ListView x:Name="filteredItemsListView" HasUnevenRows="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  ItemSelected="handle_FilterListItemSelected" ItemsSource="{Binding ObservableCollection}" BackgroundColor="Transparent" SeparatorColor="Transparent">
                             <ListView.Footer>
                                 <Grid Padding="6" IsVisible="{Binding IsBusy}">
                                     <Grid.Triggers>
@@ -62,14 +62,14 @@
                                         <StackLayout HeightRequest="40" Orientation="Horizontal" Padding="{x:Static settings:Settings.PaddingForViewCellInListView}">
                                             <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.FolderIconSVGPath}"/>
                                             <Label HorizontalOptions="StartAndExpand" VerticalOptions="Center" Text="{Binding FolderName}"/>
-                                            <Button WidthRequest="50" CommandParameter="{Binding}" Clicked="Button_Clicked" IsVisible="{Binding IsNextFiltrationLevelAvailable}"/>
+                                            <Button WidthRequest="50" CommandParameter="{Binding}" Clicked="button_Clicked" IsVisible="{Binding IsNextFiltrationLevelAvailable}"/>
                                         </StackLayout>
                                     </ViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
                     </StackLayout>
-                    <Button Grid.Row="2" Text="Apply Selection" VerticalOptions="FillAndExpand" TextColor="GhostWhite" BorderColor="WhiteSmoke" BackgroundColor="LightGreen" Clicked="OnSelectionClickedButton" HorizontalOptions="FillAndExpand"/>
+                    <Button Grid.Row="2" Text="Apply Selection" VerticalOptions="FillAndExpand" TextColor="GhostWhite" BorderColor="WhiteSmoke" BackgroundColor="LightGreen" Clicked="onSelectionClickedButton" HorizontalOptions="FillAndExpand"/>
                     <!--
                     ###CurrentLevelInFiltration
                     <StackLayout x:Name="filterNumStackLayout" Grid.Row="2" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">

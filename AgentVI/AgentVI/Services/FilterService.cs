@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using AgentVI.Utils;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using AgentVI.Models;
+using Xamarin.Forms;
 
 namespace AgentVI.Services
 {
@@ -19,34 +22,36 @@ namespace AgentVI.Services
             public Account CurrentAccount { get; private set; }
             public List<Account> UserAccounts { get; private set; }
             public IEnumerable<Sensor> FilteredSensorCollection { get; private set; }
-            public IEnumerable<Folder> CurrentLevel { get; private set; }
+            public IEnumerable<FolderModel> CurrentLevel { get; private set; }
             public IEnumerable<SensorEvent> FilteredEvents { get; private set; }
             public IEnumerable<Sensor.Health> FilteredHealth { get; private set; }
             public bool IsAtRootLevel { get; private set; }
-            public bool IsAtLeafFolder { get; private set; }
-            public bool HasNextLevel => !IsAtLeafFolder;
             public List<Folder> CurrentPath { get; private set; }
-            private Dictionary<Folder ,List<Folder>> NextLevel { get; set; }
             private IEnumerable<Folder> RootFolders { get; set; }
+            private Dictionary<Folder, ObservableCollection<FolderModel>> cachedHierarchy { get; set; }
+            private Dictionary<Folder, ObservableCollection<FolderModel>> _cachedHierarchy { get; set; }
+            private ObservableCollection<FolderModel> rootFoldersCache;
+            private readonly object cacheLock;
+            private readonly TimeSpan defaultCachingTimespan;
             public event EventHandler FilterStateUpdated;
 
             public FilterServiceS()
             {
+                cacheLock = new object();
+                defaultCachingTimespan = new TimeSpan(0, 1, 0);
                 IsAtRootLevel = true;
-                IsAtLeafFolder = false;
                 CurrentAccount = null;
                 UserAccounts = null;
                 FilteredSensorCollection = null;
                 RootFolders = null;
                 CurrentPath = new List<Folder>();
                 CurrentLevel = null;
-                NextLevel = new Dictionary<Folder,List<Folder>>();
             }
 
             public bool InitServiceModule(User i_User = null)
             {
                 bool res = false;
-                if(ServiceManager.Instance.LoginService != null &&
+                if (ServiceManager.Instance.LoginService != null &&
                     ServiceManager.Instance.LoginService.LoggedInUser != null)
                 {
                     UserAccounts = ServiceManager.Instance.LoginService.LoggedInUser.Accounts;
@@ -55,15 +60,177 @@ namespace AgentVI.Services
                     FilteredSensorCollection = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors();
                     RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders();
                     CurrentPath = new List<Folder>();
-                    CurrentLevel = RootFolders;
+                    CurrentLevel = foldersToFolderModels(RootFolders);
                     fetchHealthArray();
-                    fetchNextLevel();    //keeps IsAtLeafFolder, NextLevel updated
-                    updateFilteredEvents();                             //keeps FilteredEvents updated
+                    setFilteredEvents();                             //keeps FilteredEvents updated
                     OnFilterStateUpdated();
+                    Device.BeginInvokeOnMainThread(() =>
+                    Device.StartTimer(defaultCachingTimespan, () =>
+                    {
+                        Task.Factory.StartNew(() => fetchFoldersHierarchy());
+                        return true;
+                    }));
                     res = true;
                 }
 
                 return res;
+            }
+
+            public void SelectRootLevel()
+            {
+                FilteredSensorCollection = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors();
+                IsAtRootLevel = true;
+                CurrentPath = new List<Folder>();
+                CurrentLevel = getRootFolders();
+                fetchHealthArray();
+                setFilteredEvents();
+                fetchFoldersHierarchy();
+                OnFilterStateUpdated();
+            }
+
+            public void SelectFolder(Folder i_FolderSelected)
+            {
+                FilteredSensorCollection = i_FolderSelected.GetAllSensors();
+                updatePath(i_FolderSelected);                               //keeps CurrentPath, CurrentPathStr updated
+                CurrentLevel = getCurrentLevelFromSelectedFolder(i_FolderSelected);
+                fetchHealthArray();
+                setFilteredEvents();
+                if (i_FolderSelected.Depth >= 0)
+                {
+                    IsAtRootLevel = false;
+                }
+                //OnFilterStateUpdated();
+            }
+
+            public void TriggerFetchUpdate()
+            {
+                OnFilterStateUpdated();
+            }
+
+            public void SwitchAccount(Account i_SelectedAccount)
+            {
+                i_SelectedAccount.SetAsDefaultAccount();
+                CurrentAccount = i_SelectedAccount;
+                RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders();
+                CurrentPath = new List<Folder>();
+                SelectRootLevel();
+            }
+
+            protected virtual void OnFilterStateUpdated()
+            {
+                FilterStateUpdated?.Invoke(this, EventArgs.Empty);
+            }
+
+            private void setFilteredEvents()
+            {
+                if (IsAtRootLevel)
+                {
+                    FilteredEvents = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountEvents();
+                }
+                else
+                {
+                    FilteredEvents = CurrentPath[CurrentPath.Count - 1].FolderEvents;
+                }
+            }
+
+            private void updatePath(Folder i_FolderSelected)
+            {
+                if (i_FolderSelected.Depth == 0)
+                {
+                    CurrentPath = new List<Folder>() { i_FolderSelected };
+                }
+                else if (i_FolderSelected.Depth == CurrentPath.Count)
+                {
+                    CurrentPath.Add(i_FolderSelected);
+                }
+                else if (i_FolderSelected.Depth < CurrentPath.Count)
+                {
+                    CurrentPath.RemoveRange(i_FolderSelected.Depth, CurrentPath.Count - 1);
+                    CurrentPath.Add(i_FolderSelected);
+                }
+                else    //i_FolderSelected.Depth > CurrentPath.Count is impossible scenario! something bad happened!
+                {
+                    throw new Exception("Occured in FilterService.selectFolder");
+                }
+            }
+
+            private static IEnumerable<FolderModel> foldersToFolderModels(IEnumerable<Folder> i_Folders)
+            {
+                return i_Folders.Select<Folder, FolderModel>(currentFolder => FolderModel.FactoryMethod(currentFolder));
+            }
+
+            private IEnumerable<FolderModel> getRootFolders()
+            {
+                IEnumerable<FolderModel> res = null;
+
+                if(rootFoldersCache != null)
+                {
+                    res = rootFoldersCache;
+                }
+                else
+                {
+                    res = foldersToFolderModels(RootFolders);
+                }
+
+                return res;
+            }
+
+            private IEnumerable<FolderModel> getCurrentLevelFromSelectedFolder(Folder i_SelectedFolder)
+            {
+                IEnumerable<FolderModel> res = null;
+
+                if (cachedHierarchy != null)
+                {
+                    lock (cacheLock)
+                    {
+                        if (cachedHierarchy.ContainsKey(i_SelectedFolder))
+                        {
+                            res = cachedHierarchy[i_SelectedFolder];
+                        }
+                    }
+                }
+
+                if (cachedHierarchy == null || res == null)
+                {
+                    res = foldersToFolderModels(i_SelectedFolder.Folders);
+                }
+
+                return res;
+            }
+
+            private void fetchFoldersHierarchy()
+            {
+                InnoviObjectCollection<Folder> rootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders().Clone();
+                _cachedHierarchy = new Dictionary<Folder, ObservableCollection<FolderModel>>();
+                rootFoldersCache = new ObservableCollection<FolderModel>(foldersToFolderModels(rootFolders));
+                //<ImproveIt><begin> change to foreach loop - for now some issue arrises <begin><ImproveIt>
+                IEnumerator<Folder> rootFoldersEnumerator = rootFolders.GetEnumerator();
+                bool hasNext = true;
+                while(hasNext = rootFoldersEnumerator.MoveNext())
+                {
+                    _cachedHierarchy.Add(rootFoldersEnumerator.Current, new ObservableCollection<FolderModel>(
+                        foldersToFolderModels(rootFoldersEnumerator.Current.Folders)));
+                    fetchFoldersHierarchyHelper(rootFoldersEnumerator.Current);
+                }
+                lock(cacheLock)
+                {
+                    cachedHierarchy = _cachedHierarchy;
+                }
+                //<ImproveIt><end> change to foreach loop <end><ImproveIt>
+            }
+
+            private void fetchFoldersHierarchyHelper(Folder i_Folder)
+            {
+                foreach (Folder folder in i_Folder.Folders)
+                {
+                    ObservableCollection<FolderModel> folderFoldersCollection =
+                        new ObservableCollection<FolderModel>(foldersToFolderModels(folder.Folders));
+                    _cachedHierarchy.Add(folder, folderFoldersCollection);
+                    if (folderFoldersCollection != null)
+                    {
+                        fetchFoldersHierarchyHelper(folder);
+                    }
+                }
             }
 
             private void fetchHealthArray()
@@ -77,136 +244,6 @@ namespace AgentVI.Services
                     }
                     FilteredHealth = res;
                 }
-            }
-
-            public void SelectRootLevel()
-            {
-                FilteredSensorCollection = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors();
-                IsAtRootLevel = true;
-                CurrentPath = new List<Folder>();
-                CurrentLevel = RootFolders;
-                fetchHealthArray();
-                fetchNextLevel();    //keeps IsAtLeafFolder, NextLevel updated
-                updateFilteredEvents();
-                OnFilterStateUpdated();
-            }
-
-            public void SelectFolder(Folder i_FolderSelected)
-            {
-                FilteredSensorCollection = i_FolderSelected.GetAllSensors();
-                IsAtLeafFolder = i_FolderSelected.Folders.IsEmpty();
-                updatePath(i_FolderSelected);                               //keeps CurrentPath, CurrentPathStr updated
-                if (NextLevel != null &&
-                    NextLevel.ContainsKey(i_FolderSelected) &&
-                    NextLevel[i_FolderSelected] != null)  //Get Cached
-                {
-                    CurrentLevel = NextLevel[i_FolderSelected];
-                }
-                else
-                {
-                    CurrentLevel = i_FolderSelected.Folders;
-                }
-                fetchHealthArray();
-                fetchNextLevel();                                           //keeps IsAtLeafFolder, NextLevel updated
-                updateFilteredEvents();
-                if (i_FolderSelected.Depth >= 0)
-                {
-                    IsAtRootLevel = false;
-                }
-                OnFilterStateUpdated();
-            }
-
-            public void SelectFolderAndTriggerFetchUpdate(Folder i_FolderSelected)
-            {
-                SelectFolder(i_FolderSelected);
-                OnFilterStateUpdated();
-            }
-
-            public void SwitchAccount(Account i_SelectedAccount)
-            {
-                i_SelectedAccount.SetAsDefaultAccount();
-                CurrentAccount = i_SelectedAccount;
-                RootFolders = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountFolders();
-                CurrentPath = new List<Folder>();
-                SelectRootLevel();
-            }
-
-            private void fetchNextLevel()
-            {
-                List<Folder> listOfFoldersOfCurrentFolder;
-                NextLevel = new Dictionary<Folder, List<Folder>>();
-                List<Task> FetchingTasks = new List<Task>();
-
-                IsAtLeafFolder = true;
-                foreach(Folder folder in CurrentLevel)
-                {
-                    listOfFoldersOfCurrentFolder = folder.Folders.ToList();
-                    NextLevel.Add(folder, listOfFoldersOfCurrentFolder);
-                    if (listOfFoldersOfCurrentFolder != null)
-                    {
-                        IsAtLeafFolder = false;
-                    }
-                }
-                //bool hasNext;
-                //Folder currentFolder;
-                //List<Folder> listOfFoldersOfCurrentFolder;
-                //NextLevel = new Dictionary<int, Tuple<Folder, List<Folder>>>();
-                //List<Task> FetchingTasks = new List<Task>();
-
-                //IsAtLeafFolder = true;
-                //hasNext = CurrentLevel.MoveNext();
-                //do
-                //{
-                //    if (hasNext == true)
-                //    {
-                //        currentFolder = CurrentLevel.Current as Folder;
-                //        listOfFoldersOfCurrentFolder = currentFolder.Folders.ToList();
-                //        NextLevel.Add(currentFolder.folderId, new Tuple<Folder, List<Folder>>(currentFolder, listOfFoldersOfCurrentFolder));
-                //        if (listOfFoldersOfCurrentFolder != null)
-                //        {
-                //            IsAtLeafFolder = false;
-                //        }
-                //    }
-                //} while (hasNext = CurrentLevel.MoveNext());
-                //CurrentLevel.Reset();
-            }
-
-            private void updatePath(Folder i_FolderSelected)
-            {
-                if(i_FolderSelected.Depth==0)
-                {
-                    CurrentPath = new List<Folder>() { i_FolderSelected };
-                }
-                else if(i_FolderSelected.Depth == CurrentPath.Count)
-                {
-                    CurrentPath.Add(i_FolderSelected);
-                }
-                else if(i_FolderSelected.Depth < CurrentPath.Count)
-                {
-                    CurrentPath.RemoveRange(i_FolderSelected.Depth, CurrentPath.Count-1);
-                    CurrentPath.Add(i_FolderSelected);
-                }
-                else    //i_FolderSelected.Depth > CurrentPath.Count is impossible scenario! something bad happened!
-                {
-                    throw new Exception("Occured in FilterService.selectFolder");
-                }
-            }
-
-            private void updateFilteredEvents()
-            {
-                if(IsAtRootLevel)
-                {
-                    FilteredEvents = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountEvents();
-                }
-                else
-                {
-                    FilteredEvents = CurrentPath[CurrentPath.Count - 1].FolderEvents;
-                }
-            }
-
-            protected virtual void OnFilterStateUpdated()
-            {
-                FilterStateUpdated?.Invoke(this, EventArgs.Empty);
             }
         }
     }
