@@ -120,6 +120,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Custom\Controls\HeaderControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\CameraEventsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -135,10 +138,6 @@
     <EmbeddedResource Update="Views\WaitingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Custom\Controls\" />
   </ItemGroup>
 
   <ItemGroup>

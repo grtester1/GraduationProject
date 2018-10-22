@@ -4,6 +4,7 @@
              x:Class="AgentVI.Views.EventsPage"
              xmlns:converters="clr-namespace:AgentVI.Converters"
              xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:renderers="clr-namespace:AgentVI.Custom.Renderers"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:effects="clr-namespace:AgentVI.Custom.Effects"
              xmlns:settings="clr-namespace:AgentVI.Utils">
@@ -35,7 +36,7 @@
             </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
+                    <renderers:CustomViewCell SelectedBackgroundColor="{x:Static settings:Settings.CustomViewCellBackgroundColor}">
                         <Frame Padding="10" BackgroundColor="{x:Static settings:Settings.PictureHolderOutsideFrameBackground}" Margin="30,15,30,15" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
                             <StackLayout>
                                 <Frame Padding="{x:Static settings:Settings.PictureHolderFramePadding}" WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" BackgroundColor="{x:Static settings:Settings.PictureHolderFrameBackground}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="8" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
@@ -54,7 +55,7 @@
                                 </StackLayout>
                             </StackLayout>
                         </Frame>
-                    </ViewCell>
+                    </renderers:CustomViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -3,6 +3,7 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
                 xmlns:settings="clr-namespace:AgentVI.Utils"
+                xmlns:controls="clr-namespace:AgentVI.Custom.Controls"
                 xmlns:converters="clr-namespace:AgentVI.Converters;assembly=AgentVI"
                 xmlns:renderers="clr-namespace:AgentVI.Custom.Renderers"
                 xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
@@ -24,23 +25,18 @@
                 </ContentPage.Padding>
                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="3*"/>
                         <RowDefinition Height="18*"/>
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                            <ActivityIndicator x:Name="ActivityInd" IsRunning="True" IsVisible="{Binding Source={x:Reference MyFilterPage}, Path=BindingContext.IsFetching}"/>
-                            <Image Source="{x:Static settings:Settings.LogoPicturePath}" Aspect="AspectFit"/>
-                            <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.DividerIconSVGPath}"/>
-                            <Label Text="{Binding Source={x:Reference MyFilterPage}, Path=BindingContext.ActiveAccountName}" FontAttributes="Bold" FontSize="{x:Static settings:Settings.GenericTitleFontSize}" VerticalOptions="CenterAndExpand"/>
-                        </StackLayout>
-                        <Label Grid.Row="1" Text="{Binding CurrentPath}" HorizontalOptions="StartAndExpand" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" LineBreakMode="TailTruncation"/>
-                    </Grid>
+                    <StackLayout Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="{x:Static settings:Settings.HeaderMargine}">
+                        <controls:HeaderControl
+                                                AccountName="{Binding Source={x:Reference MyFilterPage}, Path=BindingContext.ActiveAccountName}"
+                                                AccountNameColor="{x:Static settings:Settings.AccountNameStringColor}"
+                                                AccountNameFontSize="{x:Static settings:Settings.HeaderTitleFontSize}"
+                                                LogoSource="{x:Static settings:Settings.LogoPicturePath}"/>
+                        <Label Text="{Binding CurrentPath}" HorizontalOptions="StartAndExpand" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" LineBreakMode="TailTruncation"/>
+                    </StackLayout>
                     <StackLayout x:Name="filterDataStackLayout" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                         <SearchBar x:Name="filterSearchBar" Placeholder="{x:Static settings:Settings.SearchBarPlaceHolderText}" HeightRequest="30" TextChanged="filterSearchBar_TextChanged"/>
                         <ListView x:Name="filteredItemsListView" HasUnevenRows="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  ItemSelected="handle_FilterListItemSelected" ItemsSource="{Binding ObservableCollection}" BackgroundColor="Transparent" SeparatorColor="Transparent">
@@ -59,7 +55,7 @@
                             </ListView.Behaviors>
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <renderers:CustomViewCell SelectedBackgroundColor="Transparent">
+                                    <renderers:CustomViewCell SelectedBackgroundColor="{x:Static settings:Settings.CustomViewCellBackgroundColor}">
                                         <StackLayout HeightRequest="40" Orientation="Horizontal" Padding="{x:Static settings:Settings.PaddingForViewCellInListView}">
                                             <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.FolderIconSVGPath}"/>
                                             <Label HorizontalOptions="StartAndExpand" VerticalOptions="Center" Text="{Binding FolderName}"/>
