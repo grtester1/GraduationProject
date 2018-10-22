@@ -28,8 +28,7 @@
                     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
-                            <RowDefinition Height="18*"/>
-                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="20*"/>
                         </Grid.RowDefinitions>
                         <StackLayout Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="{x:Static settings:Settings.HeaderMargine}">
                             <controls:HeaderControl
@@ -41,7 +40,7 @@
                         </StackLayout>
                         <StackLayout x:Name="filterDataStackLayout" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                             <SearchBar x:Name="filterSearchBar" Placeholder="{x:Static settings:Settings.SearchBarPlaceHolderText}" HeightRequest="30" TextChanged="filterSearchBar_TextChanged"/>
-                            <ListView x:Name="filteredItemsListView" HasUnevenRows="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  ItemSelected="handle_FilterListItemSelected" ItemsSource="{Binding ObservableCollection}" BackgroundColor="Transparent" SeparatorColor="Transparent">
+                            <ListView x:Name="filteredItemsListView" HasUnevenRows="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ItemTapped="handle_FilterListItemSelected"  ItemsSource="{Binding ObservableCollection}" BackgroundColor="Transparent" SeparatorColor="Transparent">
                                 <ListView.Footer>
                                     <Grid Padding="6" IsVisible="{Binding IsBusy}">
                                         <Grid.Triggers>
@@ -68,7 +67,6 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackLayout>
-                        <Button Grid.Row="2" Text="Apply Selection" VerticalOptions="FillAndExpand" TextColor="GhostWhite" BorderColor="WhiteSmoke" BackgroundColor="LightGreen" Clicked="onSelectionClickedButton" HorizontalOptions="FillAndExpand"/>
                         <!--
                     ###CurrentLevelInFiltration
                     <StackLayout x:Name="filterNumStackLayout" Grid.Row="2" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">

@@ -20,7 +20,7 @@
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-        <ListView SeparatorColor="Black" x:Name="eventListView" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" HorizontalOptions="CenterAndExpand" HasUnevenRows="True" ItemsSource="{Binding ObservableCollection}" ItemSelected="onEventTapped">
+        <ListView SeparatorColor="Black" x:Name="eventListView" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" HorizontalOptions="CenterAndExpand" HasUnevenRows="True" ItemsSource="{Binding ObservableCollection}" ItemTapped="onEventTapped">
             <ListView.Footer>
                 <Grid Padding="6" IsVisible="{Binding IsBusy}">
                     <Grid.Triggers>

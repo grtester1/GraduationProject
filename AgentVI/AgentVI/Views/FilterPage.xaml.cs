@@ -78,9 +78,16 @@ namespace AgentVI.Views
             considerSwipeRightSwipeUp();
         }
 
-        private void handle_FilterListItemSelected(object i_Sender, SelectedItemChangedEventArgs i_ItemEventArgs)
+        private async void handle_FilterListItemSelected(object i_Sender, ItemTappedEventArgs i_ItemEventArgs)
         {
-            filterVM.CurrentlySelectedFolder = (i_ItemEventArgs.SelectedItem as FolderModel).ProxyFolder;
+            filterVM.CurrentlySelectedFolder = (i_ItemEventArgs.Item as FolderModel).ProxyFolder;
+
+            await Task.Factory.StartNew(() =>
+            {
+                filterVM.FetchCurrentFilteringDepth(filterVM.CurrentlySelectedFolder);
+                filterVM.TriggerFetchAppPages();
+            });
+            considerSwipeRightSwipeUp();
         }
 
         private void updateFilterLevelView(ListView i_ListView, int i_CurrenDepth)
@@ -124,25 +131,6 @@ namespace AgentVI.Views
                 currentListView.ItemsSource = unfilteredFoldersList;
             else
                 currentListView.ItemsSource = unfilteredFoldersList.Cast<FolderModel>().Where(item => item.FolderName.StartsWith(i_TextChangeEventArgs.NewTextValue));
-        }
-
-        private async void onSelectionClickedButton(object sender, EventArgs e)
-        {
-            Folder selectedFolder = filterVM.CurrentlySelectedFolder;
-
-            if (selectedFolder == null)
-            {
-                await DisplayAlert("Error", "Please reselect the item first", "Ok");
-            }
-            else
-            {
-                await Task.Factory.StartNew(() =>
-                {
-                    filterVM.FetchNextFilteringDepth(selectedFolder);
-                    filterVM.TriggerFetchAppPages();
-                });
-                considerSwipeRightSwipeUp();
-            }
         }
     }
 }

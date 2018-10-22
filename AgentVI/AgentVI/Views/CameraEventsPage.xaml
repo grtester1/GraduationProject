@@ -63,7 +63,7 @@
                         <Button Text="Health" WidthRequest="80"/>
                     </StackLayout>
                 </StackLayout>
-                <ListView ItemSelected="cameraEventsListView_ItemSelected" Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
+                <ListView ItemTapped="cameraEventsListView_ItemSelected" Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
                     <ListView.Footer>
                         <Grid Padding="6" IsVisible="{Binding IsBusy}">
                             <Grid.Triggers>
