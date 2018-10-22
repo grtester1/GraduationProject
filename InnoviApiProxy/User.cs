@@ -20,6 +20,7 @@ namespace InnoviApiProxy
 
         private User() { }
 
+  
         private static void checkLoggedInStatus()
         {
             if (m_Instance != null)
