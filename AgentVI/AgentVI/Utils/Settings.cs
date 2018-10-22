@@ -36,7 +36,7 @@ namespace AgentVI.Utils
         public static Color FilterBarBorderColor { get; } = Color.FromHex("#7F7F7F");
         public static Color FilterBarBackgroundColor { get; } = Color.Transparent;
         public static Color AccountNameStringColor { get; } = Color.FromHex("#00366C");
-
+        public static Color CustomViewCellBackgroundColor { get; } = Color.Transparent;
 
 
         public static string EventsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_24px.svg";

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AgentVI.Views.CameraEventsPage"
              xmlns:converters="clr-namespace:AgentVI.Converters"
+             xmlns:renderers="clr-namespace:AgentVI.Custom.Renderers"
              xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
@@ -62,7 +63,7 @@
                         <Button Text="Health" WidthRequest="80"/>
                     </StackLayout>
                 </StackLayout>
-                <ListView ItemSelected="cameraEventsListView_ItemSelected" Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
+                <ListView ItemTapped="cameraEventsListView_ItemSelected" Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
                     <ListView.Footer>
                         <Grid Padding="6" IsVisible="{Binding IsBusy}">
                             <Grid.Triggers>
@@ -78,7 +79,7 @@
                     </ListView.Behaviors>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
+                            <renderers:CustomViewCell SelectedBackgroundColor="{x:Static settings:Settings.CustomViewCellBackgroundColor}">
                                 <Grid x:Name="SensorLayout" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5" HorizontalOptions="FillAndExpand">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="6*"/>
@@ -92,7 +93,7 @@
                                         <Label Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
                                     </StackLayout>
                                 </Grid>
-                            </ViewCell>
+                            </renderers:CustomViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

@@ -62,6 +62,14 @@ namespace AgentVI.ViewModels
             FilteringPagesContent.Add(currentFiltrationLevel);
         }
 
+        public void FetchCurrentFilteringDepth(Folder i_SelectedFolder)
+        {
+            IsFetching = true;
+            ServiceManager.Instance.FilterService.SelectFolder(i_SelectedFolder);
+            SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
+            IsFetching = false;
+        }
+
         public void FetchNextFilteringDepth(Folder i_SelectedFolder)
         {
             IsFetching = true;

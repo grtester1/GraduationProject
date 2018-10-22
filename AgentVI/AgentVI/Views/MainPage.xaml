@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:AgentVI"
+             xmlns:controls="clr-namespace:AgentVI.Custom.Controls"
              xmlns:ViewModels="clr-namespace:AgentVI.ViewModels"
              x:Class="AgentVI.Views.MainPage"
              xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
@@ -16,19 +17,21 @@
 
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.5*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="12*"/>
             <RowDefinition Height="1"/>
             <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
 
-        <Image Grid.Row="0" Source="{x:Static settings:Settings.LogoPicturePath}" HorizontalOptions="Start" VerticalOptions="Fill" Aspect="AspectFit" Margin="{x:Static settings:Settings.HeaderLeftTopMargine}"/>
+        <controls:HeaderControl Grid.Row="0"
+                                                AccountName="{Binding AccountName}"
+                                                AccountNameColor="{x:Static settings:Settings.AccountNameStringColor}"
+                                                AccountNameFontSize="{x:Static settings:Settings.HeaderTitleFontSize}"
+                                                LogoSource="{x:Static settings:Settings.LogoPicturePath}"
+                                                ControlMargine="{x:Static settings:Settings.HeaderMargine}"/>
 
-        <Label Grid.Row="1" Text="{Binding AccountName}" TextColor="{x:Static settings:Settings.AccountNameStringColor}" HorizontalOptions="StartAndExpand" FontSize="{x:Static settings:Settings.HeaderTitleFontSize}" FontAttributes="Bold" LineBreakMode="TailTruncation" Margin="{x:Static settings:Settings.HeaderLeftTopMargine}"/>
-
-        <Frame Grid.Row="2" Padding="0" BackgroundColor="{x:Static settings:Settings.FilterBarBackgroundColor}" BorderColor="{x:Static settings:Settings.FilterBarBorderColor}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="{x:Static settings:Settings.HeaderMargine}">
+        <Frame Grid.Row="1" Padding="0" BackgroundColor="{x:Static settings:Settings.FilterBarBackgroundColor}" BorderColor="{x:Static settings:Settings.FilterBarBorderColor}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="{x:Static settings:Settings.HeaderMargine}">
             <StackLayout Orientation="Horizontal">
                 <Button Text="RESET" HorizontalOptions="Start" VerticalOptions="Center" Clicked="ResetHierarchyButtonClicked"/>
                 <Label HorizontalOptions="Start" VerticalOptions="Center" Margin="{x:Static settings:Settings.FilterTextMargines}" TextColor="{x:Static settings:Settings.FilterTextColor}" FontSize="{x:Static settings:Settings.FilterTextSize}" BindingContext="{Binding FilterIndicator}" Text="{Binding SelectedFoldersNamesCacheStr}" LineBreakMode="TailTruncation"/>
@@ -36,11 +39,11 @@
             </StackLayout>
         </Frame>
         
-        <ContentView Grid.Row="3" x:Name="PlaceHolder" Margin="{x:Static settings:Settings.ContentViewMargines}" VerticalOptions="FillAndExpand"/>
+        <ContentView Grid.Row="2" x:Name="PlaceHolder" Margin="{x:Static settings:Settings.ContentViewMargines}" VerticalOptions="FillAndExpand"/>
         
-        <BoxView Grid.Row="4" BackgroundColor="{x:Static settings:Settings.FooterSeparatorColor}"/>
+        <BoxView Grid.Row="3" BackgroundColor="{x:Static settings:Settings.FooterSeparatorColor}"/>
 
-        <Grid Grid.Row="5" BackgroundColor="{x:Static settings:Settings.FooterColor}">
+        <Grid Grid.Row="4" BackgroundColor="{x:Static settings:Settings.FooterColor}">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
