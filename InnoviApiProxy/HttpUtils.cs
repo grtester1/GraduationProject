@@ -50,6 +50,27 @@ namespace InnoviApiProxy
             return responseJsonObject;
         }
 
+        internal static bool IsUrlFound(string i_Url)
+        {
+            bool isUrlFound = true;
+
+            verifyLoggedInStatus();
+            HttpClient client = BaseHttpClient();
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, i_Url);
+
+            Task<HttpResponseMessage> result = client.SendAsync(httpRequest);
+            HttpResponseMessage response = result.Result;
+            var statusCode = response.StatusCode;
+            
+            if(statusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                isUrlFound = false;
+            }
+
+         
+            return isUrlFound;
+        }
+
         private static void AddSensorNameToEvent(SensorEvent i_SensorEvent)
         {
             Cache sensorNameCache = Cache.Fetch();

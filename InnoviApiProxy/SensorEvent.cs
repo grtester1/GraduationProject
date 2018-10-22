@@ -25,6 +25,24 @@ namespace InnoviApiProxy
         public Sensor.eSensorEventTag Tag { get; private set; }
         [JsonProperty("behaviorType")]
         public eBehaviorType RuleName { get; private set; }
+        public bool IsClipAvailable
+        {
+            get
+            {
+                string path = ClipPath;
+                return HttpUtils.IsUrlFound(path);
+            }
+        }
+
+        public bool IsImageAvailable
+        {
+            get
+            {
+                string path = ImagePath;
+                return HttpUtils.IsUrlFound(path);
+            }
+        }
+
         protected override int Id => eventId.GetHashCode();
 
         public Sensor EventSensor
