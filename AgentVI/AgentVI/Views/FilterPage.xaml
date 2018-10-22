@@ -4,6 +4,7 @@
                 xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
                 xmlns:settings="clr-namespace:AgentVI.Utils"
                 xmlns:converters="clr-namespace:AgentVI.Converters;assembly=AgentVI"
+                xmlns:renderers="clr-namespace:AgentVI.Custom.Renderers"
                 xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
                 x:Class="AgentVI.Views.FilterPage"
                 ItemsSource="{Binding FilteringPagesContent}"
@@ -58,13 +59,13 @@
                             </ListView.Behaviors>
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <ViewCell>
+                                    <renderers:CustomViewCell SelectedBackgroundColor="Transparent">
                                         <StackLayout HeightRequest="40" Orientation="Horizontal" Padding="{x:Static settings:Settings.PaddingForViewCellInListView}">
                                             <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.FolderIconSVGPath}"/>
                                             <Label HorizontalOptions="StartAndExpand" VerticalOptions="Center" Text="{Binding FolderName}"/>
                                             <Button WidthRequest="50" CommandParameter="{Binding}" Clicked="button_Clicked" IsVisible="{Binding IsNextFiltrationLevelAvailable}"/>
                                         </StackLayout>
-                                    </ViewCell>
+                                    </renderers:CustomViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
