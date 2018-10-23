@@ -4,6 +4,7 @@
              x:Class="AgentVI.Views.LandscapeEventDetailsPage"
              xmlns:fadingLabel="clr-namespace:AgentVI.ViewModels"
              xmlns:converters="clr-namespace:AgentVI.Converters"
+             xmlns:renderers="clr-namespace:AgentVI.Custom.Renderers"
              xmlns:videoPlayer="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -12,7 +13,10 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <RelativeLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <videoPlayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" Source="{Binding SensorEventClip, Converter={StaticResource tmpVidPlaceholderGeneratorConverter}}" AutoPlay="True"
+            <!--<videoPlayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" Source="{Binding SensorEventClip, Converter={StaticResource tmpVidPlaceholderGeneratorConverter}}" AutoPlay="True"
+                                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>-->
+            <renderers:CustomWebView x:Name="SensorEventClipVideoPlayer" Source="{Binding SensorEventClip, Converter={StaticResource tmpVidPlaceholderGeneratorConverter}}"
                                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
             <StackLayout RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"

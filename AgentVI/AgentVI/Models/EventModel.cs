@@ -96,6 +96,18 @@ namespace AgentVI.Models
             }
         }
 
+        private SensorEvent m_SensorEvent;
+        public SensorEvent SensorEvent
+        {
+            get { return m_SensorEvent; }
+            private set
+            {
+                m_SensorEvent = value;
+                OnPropertyChanged("SensorEvent");
+            }
+        }
+
+
 
         internal static EventModel FactoryMethod(SensorEvent i_SensorEvent)
         {
@@ -108,7 +120,8 @@ namespace AgentVI.Models
                 SensorEventRuleName = i_SensorEvent.RuleName,
                 SensorEventObjectType = i_SensorEvent.ObjectType,
                 SensorEventTag = i_SensorEvent.Tag,
-                Sensor = i_SensorEvent.EventSensor
+                Sensor = i_SensorEvent.EventSensor,
+                SensorEvent = i_SensorEvent
             };
 
             return res;

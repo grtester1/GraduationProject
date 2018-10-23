@@ -37,7 +37,7 @@
                 </Grid.RowDefinitions>
                 <!--<vidplayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" HorizontalOptions="Fill" VerticalOptions="Fill" AutoPlay="True" Grid.Row="0"/>-->
                 <!--<WebView Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Source="{x:Static settings:Settings.tmptmptmp}"/>-->
-                <renderers:CustomWebView x:Name="SensorEventClipVideoPlayer" Grid.Row="0" VerticalOptions="FillAndExpand" Navigating="SensorEventClipVideoPlayer_Navigating" Navigated="SensorEventClipVideoPlayer_Navigated" HorizontalOptions="FillAndExpand"/>
+                <renderers:CustomWebView x:Name="SensorEventClipVideoPlayer" Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

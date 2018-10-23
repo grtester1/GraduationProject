@@ -38,6 +38,10 @@ namespace AgentVI.ViewModels
         {
             get => new EnumObjectTypeSVGConverter().Convert(EventModel.SensorEventObjectType, EventModel.SensorEventObjectType.GetType() , null, null).ToString();
         }
+        public bool IsClipAvailable
+        {
+            get => EventModel.SensorEvent.IsClipAvailable;
+        }
 
 
         public EventDetailsViewModel(EventModel i_EventModel)
