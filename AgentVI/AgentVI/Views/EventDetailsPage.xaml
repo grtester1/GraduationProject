@@ -10,6 +10,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:TimestampConverter x:Key="TimestampConverter"/>
+            <converters:tmpImagePlaceholderGeneratorConverter x:Key="tmpImagePlaceholderGeneratorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -35,9 +36,21 @@
                     <RowDefinition Height="3.5*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                <RelativeLayout Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <renderers:CustomWebView x:Name="SensorEventClipVideoPlayer" Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+                    <ffsvg:SvgCachedImage x:Name="IsEmptyFiller" IsVisible="{Binding IsClipAvailable}" Source="{x:Static settings:Settings.EmptyCollectionSVGPath}" Aspect="AspectFill"
+                                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"
+                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5}"
+                                          RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.2}"
+                                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.1}"/>
+                    <Label x:Name="IsEmptyText" IsVisible="{Binding IsClipAvailable}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                           Text="No Clip Available" FontSize="Small" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"/>
+                </RelativeLayout>
                 <!--<vidplayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" HorizontalOptions="Fill" VerticalOptions="Fill" AutoPlay="True" Grid.Row="0"/>-->
                 <!--<WebView Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Source="{x:Static settings:Settings.tmptmptmp}"/>-->
-                <renderers:CustomWebView x:Name="SensorEventClipVideoPlayer" Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+                
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

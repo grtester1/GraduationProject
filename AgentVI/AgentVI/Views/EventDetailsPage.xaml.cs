@@ -76,17 +76,20 @@ namespace AgentVI.Views
                 SensorEventDateTimeLabel.Text = eventDetailsViewModel.SensorEventDateTime;
                 SensorEventRuleNameImage.Source = eventDetailsViewModel.SensorEventObjectType;
                 SensorEventBehaviorLabel.Text = eventDetailsViewModel.SensorEventBehavior;
-                checkLockOrientation();
+                IsEmptyText.IsVisible = IsEmptyFiller.IsVisible = !checkLockOrientation();
             });
             OnPropertyChanged();
         }
 
-        private void checkLockOrientation()
+        private bool checkLockOrientation()
         {
+            bool res = true;
             if (!eventDetailsViewModel.IsClipAvailable)
             {
+                res = false;
                 CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
             }
+            return res;
         }
 
         private void eventsRouter(object sender, UpdatedContentEventArgs e)
