@@ -35,18 +35,17 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <renderers:CustomViewCell SelectedBackgroundColor="{x:Static settings:Settings.CustomViewCellBackgroundColor}">
-                        <Grid RowSpacing="0" Margin="{x:Static settings:Settings.ListviewGridMargines}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="6*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="0" x:Name="SensorName" Text= "{Binding SensorName}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="Center"/>
-                            <Frame Grid.Row="1" WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0" CornerRadius="8" HasShadow="True">
-                                <ff:CachedImage Source="{Binding SensorImage}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" CacheType="All"/>
-                            </Frame>
-                            <Button Grid.Row="2" BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding SensorHealthStatus, Converter={StaticResource EnumStatusColorConverter}}" HorizontalOptions="StartAndExpand"/>
-                        </Grid>
+                        <Frame Padding="{x:Static settings:Settings.PictureHolderOutsideFramePaddings}" BackgroundColor="{x:Static settings:Settings.PictureHolderOutsideFrameBackground}" Margin="{x:Static settings:Settings.PictureHolderOutsideFrameMargines}" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
+                            <StackLayout>
+                                <Frame Padding="{x:Static settings:Settings.PictureHolderFramePadding}" WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" BackgroundColor="{x:Static settings:Settings.PictureHolderFrameBackground}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="8" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
+                                    <ff:CachedImage Source="{Binding SensorImage}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit" CacheType="All"/>
+                                </Frame>
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <Label x:Name="SensorName" Text= "{Binding SensorName}" FontFamily="serif" TextColor="{x:Static settings:Settings.SensorEventHeaderFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="Start" VerticalOptions="Center"/>
+                                    <Button BorderRadius="10" HeightRequest="20" WidthRequest="20" HorizontalOptions="EndAndExpand" BackgroundColor="{Binding SensorHealthStatus, Converter={StaticResource EnumStatusColorConverter}}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
                     </renderers:CustomViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

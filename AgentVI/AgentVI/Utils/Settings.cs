@@ -16,6 +16,8 @@ namespace AgentVI.Utils
         public static Thickness ContentViewMargines { get; } = new Thickness(0, 5, 0, 5);
         public static Thickness FilterTextMargines { get; } = new Thickness(5, 0, 5, 0);
         public static Thickness PictureHolderFramePadding { get; } = new Thickness(5);
+        public static Thickness PictureHolderOutsideFrameMargines { get; } = new Thickness(30, 15, 30, 15);
+        public static Thickness PictureHolderOutsideFramePaddings { get; } = new Thickness(10);
 
         public static double GridElementSizeRequest { get; } = 140;
         
