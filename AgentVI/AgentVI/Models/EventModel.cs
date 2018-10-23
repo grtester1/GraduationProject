@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using InnoviApiProxy;
 using Xamarin.Forms;
+using AgentVI.Utils;
 
 namespace AgentVI.Models
 {

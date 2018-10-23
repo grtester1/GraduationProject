@@ -18,6 +18,10 @@ namespace AgentVI.ViewModels
         {
             get => EventModel.SensorEventRuleName.convertEnumToString();
         }
+        public string SensorEventBehavior
+        {
+            get => EventModel.SensorEventRuleName.BehaviorToString();
+        }
         public string SensorEventDateTime
         {
             get => new TimestampConverter().Convert(EventModel.SensorEventDateTime,typeof(String), null, null).ToString();
