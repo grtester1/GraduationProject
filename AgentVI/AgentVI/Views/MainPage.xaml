@@ -38,9 +38,9 @@
                 <Button Text="BROWSE" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Clicked="OnFilterStateIndicatorClicked"/>
             </StackLayout>
         </Frame>
-        
+
         <ContentView Grid.Row="2" x:Name="PlaceHolder" Margin="{x:Static settings:Settings.ContentViewMargines}" VerticalOptions="FillAndExpand"/>
-        
+
         <BoxView Grid.Row="3" BackgroundColor="{x:Static settings:Settings.FooterSeparatorColor}"/>
 
         <Grid Grid.Row="4" BackgroundColor="{x:Static settings:Settings.FooterColor}">
@@ -49,46 +49,44 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <RelativeLayout Grid.Column="0" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-                <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}"
-                                                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.1}"
-                                                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.2}"
-                                                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1.3}"
+            <ffsvg:SvgCachedImage Grid.Column="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"               
+                    
                                                     x:Name="FooterBarEventsIcon"
                                                     Source="{x:Static settings:Settings.EventsTabSVGPath}">
-                    <ffsvg:SvgCachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="FooterBarEvents_Clicked"/>
-                    </ffsvg:SvgCachedImage.GestureRecognizers>
-                </ffsvg:SvgCachedImage>
-            </RelativeLayout>
+                <ffsvg:SvgCachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="FooterBarEvents_Clicked"/>
+                </ffsvg:SvgCachedImage.GestureRecognizers>
+            </ffsvg:SvgCachedImage>
 
-            <RelativeLayout Grid.Column="1" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-                <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=-0.02}"
-                                                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1.1}"
-                                                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.15}"
-                                                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1.2}"
+            <ffsvg:SvgCachedImage Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                      
                                                     x:Name="FooterBarCamerasIcon"
                                                     Source="{x:Static settings:Settings.SensorsTabSVGPath}">
-                    <ffsvg:SvgCachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="FooterBarCameras_Clicked"/>
-                    </ffsvg:SvgCachedImage.GestureRecognizers>
-                </ffsvg:SvgCachedImage>
-            </RelativeLayout>
+                <ffsvg:SvgCachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="FooterBarCameras_Clicked"/>
+                </ffsvg:SvgCachedImage.GestureRecognizers>
+            </ffsvg:SvgCachedImage>
 
-            <RelativeLayout Grid.Column="2" BackgroundColor="{x:Static settings:Settings.FooterColor}">
-                <ffsvg:SvgCachedImage                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.06}"
-                                                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.85}"
-                                                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
-                                                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+            <ffsvg:SvgCachedImage Grid.Column="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                  
+                                                    x:Name="FooterBarHealthIcon"
+                                                    Source="{x:Static settings:Settings.HealthTabSVGPath}">
+                <ffsvg:SvgCachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="FooterBarHealth_Clicked"/>
+                </ffsvg:SvgCachedImage.GestureRecognizers>
+            </ffsvg:SvgCachedImage>
+
+            <ffsvg:SvgCachedImage Grid.Column="3" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                  
                                                     x:Name="FooterBarSettingsIcon"
                                                     Source="{x:Static settings:Settings.SettingsTabSVGPath}">
-                    <ffsvg:SvgCachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="FooterBarSettings_Clicked"/>
-                    </ffsvg:SvgCachedImage.GestureRecognizers>
-                </ffsvg:SvgCachedImage>
-            </RelativeLayout>
+                <ffsvg:SvgCachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="FooterBarSettings_Clicked"/>
+                </ffsvg:SvgCachedImage.GestureRecognizers>
+            </ffsvg:SvgCachedImage>
         </Grid>
     </Grid>
 </ContentPage>
