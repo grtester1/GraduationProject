@@ -19,7 +19,6 @@ namespace AgentVI.Views
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            //Task.Factory.StartNew(setNextPage);
         }
 
         protected override async void OnAppearing()

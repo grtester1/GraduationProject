@@ -30,7 +30,9 @@ namespace AgentVI.Views
         {
             try
             {
+                loginPageViewModel.IsBusyLoading = true;
                 await Task.Factory.StartNew(() => loginPageViewModel.TryLogin());
+                loginPageViewModel.IsBusyLoading = false;
                 await Navigation.PushAsync(new LoadingPage());
             }
             catch (ArgumentException e)
@@ -40,6 +42,10 @@ namespace AgentVI.Views
             catch (Exception e)
             {
                 await DisplayAlert("Critical!", e.Message, "Contact Developer");
+            }
+            finally
+            {
+                loginPageViewModel.IsBusyLoading = false;
             }
         }
 
