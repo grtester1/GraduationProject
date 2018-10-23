@@ -4,6 +4,7 @@
              x:Class="AgentVI.Views.EventsPage"
              xmlns:converters="clr-namespace:AgentVI.Converters"
              xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:renderers="clr-namespace:AgentVI.Custom.Renderers"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:effects="clr-namespace:AgentVI.Custom.Effects"
              xmlns:settings="clr-namespace:AgentVI.Utils">
@@ -19,7 +20,7 @@
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-        <ListView SeparatorColor="Black" x:Name="eventListView" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" HorizontalOptions="CenterAndExpand" HasUnevenRows="True" ItemsSource="{Binding ObservableCollection}" ItemSelected="onEventTapped">
+        <ListView SeparatorColor="Black" x:Name="eventListView" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" HorizontalOptions="CenterAndExpand" HasUnevenRows="True" ItemsSource="{Binding ObservableCollection}" ItemTapped="onEventTapped">
             <ListView.Footer>
                 <Grid Padding="6" IsVisible="{Binding IsBusy}">
                     <Grid.Triggers>
@@ -35,11 +36,11 @@
             </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Frame Padding="10" BackgroundColor="{x:Static settings:Settings.PictureHolderOutsideFrameBackground}" Margin="15,15,15,15" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
+                    <renderers:CustomViewCell SelectedBackgroundColor="{x:Static settings:Settings.CustomViewCellBackgroundColor}">
+                        <Frame Padding="10" BackgroundColor="{x:Static settings:Settings.PictureHolderOutsideFrameBackground}" Margin="30,15,30,15" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
                             <StackLayout>
-                                <Frame WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" BackgroundColor="{x:Static settings:Settings.PictureHolderFrameBackground}" HorizontalOptions="FillAndExpand" CornerRadius="8" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
-                                    <ff:CachedImage Source="{Binding SensorEventImage, Converter={StaticResource tmpImagePlaceholderGeneratorConverter}}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" CacheType="All"/>
+                                <Frame Padding="{x:Static settings:Settings.PictureHolderFramePadding}" WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" BackgroundColor="{x:Static settings:Settings.PictureHolderFrameBackground}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="8" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
+                                    <ff:CachedImage Source="{Binding SensorEventImage, Converter={StaticResource tmpImagePlaceholderGeneratorConverter}}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit" CacheType="All"/>
                                 </Frame>
                                 <StackLayout HorizontalOptions="FillAndExpand">
                                     <Label Text="{Binding SensorName}" FontFamily="serif" TextColor="{x:Static settings:Settings.SensorEventHeaderFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand">
@@ -54,7 +55,7 @@
                                 </StackLayout>
                             </StackLayout>
                         </Frame>
-                    </ViewCell>
+                    </renderers:CustomViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

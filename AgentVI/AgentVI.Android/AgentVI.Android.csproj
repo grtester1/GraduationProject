@@ -99,6 +99,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Custom\Effects\UnderlineEffect.cs" />
+    <Compile Include="Custom\Renderers\CustomViewCellRenderer.cs" />
+    <Compile Include="Custom\Renderers\CustomWebViewRenderer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

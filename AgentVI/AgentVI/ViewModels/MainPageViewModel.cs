@@ -10,6 +10,7 @@ using AgentVI.Views;
 using Plugin.DeviceOrientation;
 using Plugin.DeviceOrientation.Abstractions;
 using EContentUpdateType = AgentVI.Utils.UpdatedContentEventArgs.EContentUpdateType;
+using System.Threading.Tasks;
 
 namespace AgentVI.ViewModels
 {
@@ -31,6 +32,19 @@ namespace AgentVI.ViewModels
             updateReporter("Account initialized.", report);
 
             initPagesCollectionHelper(report, i_AppTabs);
+        }
+
+        internal async void ResetHierarchyToRootLevel()
+        {
+            OnContentViewUpdateEvent(this, new UpdatedContentEventArgs(EContentUpdateType.Buffering));
+
+            await Task.Factory.StartNew(() =>
+            {
+                FilterPage = new FilterPage(FilterIndicator);
+                FilterIndicator.UpdateCurrentPath();
+            });
+
+            OnContentViewUpdateEvent(this, new UpdatedContentEventArgs(EContentUpdateType.Pop));
         }
 
         private void initPagesCollectionHelper(ProgressReportModel i_Report, Dictionary<EAppTab, SvgCachedImage> i_AppTabs)

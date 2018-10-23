@@ -17,6 +17,7 @@ namespace AgentVI.ViewModels
         private IEnumerator<T> collectionEnumerator;
         protected bool canLoadMore = false;
         protected bool IsFilterStateChanged { get; set; }
+        public ObservableCollection<T> ObservableCollection { get; set; }
         private bool _isBusy;
         public bool IsBusy
         {
@@ -27,7 +28,6 @@ namespace AgentVI.ViewModels
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<T> ObservableCollection { get; set; }
 
 
         public FilterDependentViewModel()
@@ -59,13 +59,19 @@ namespace AgentVI.ViewModels
                 collectionEnumerator = enumerableCollection.GetEnumerator();
             }
 
-            while(hasNext = collectionEnumerator.MoveNext() && canLoadMore)
+            try
             {
-                ObservableCollection.Add(collectionEnumerator.Current);
-                if(fetchedItems++ == pageSize)
+                while (hasNext = collectionEnumerator.MoveNext() && canLoadMore)
                 {
-                    break;
+                    ObservableCollection.Add(collectionEnumerator.Current);
+                    if (fetchedItems++ == pageSize)
+                    {
+                        break;
+                    }
                 }
+            }catch(ArgumentOutOfRangeException)
+            {
+                hasNext = false;
             }
 
             if(hasNext == false)
@@ -82,6 +88,7 @@ namespace AgentVI.ViewModels
         public virtual void PopulateCollection()
         {
             ObservableCollection.Clear();
+            IsFilterStateChanged = true;
             canLoadMore = true;
         }
 

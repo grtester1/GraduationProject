@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:settings="clr-namespace:AgentVI.Utils"
+             x:Class="AgentVI.Custom.Controls.HeaderControl"
+             HorizontalOptions="FillAndExpand"
+             VerticalOptions="FillAndExpand"
+      RowSpacing="0"
+      Padding="0,0,0,0">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" x:Name="logoImage" Aspect="AspectFit" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+    </Grid>
+    <Label Grid.Row="1" x:Name="accountLabel" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
+</Grid>

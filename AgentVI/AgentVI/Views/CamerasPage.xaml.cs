@@ -48,19 +48,16 @@ namespace AgentVI.Views
             ((ListView)sender).IsRefreshing = false;
         }
 
-        private async void onSensorTapped(object sender, EventArgs e)
+        private async void onSensorTapped(object sender, ItemTappedEventArgs e)
         {
             RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Buffering));
             UpdatedContentEventArgs updatedContentEventArgs = null;
             CameraEventsPage cameraEventsPageBuf = null;
-            Sensor sensorBuffer = null;
+            SensorModel sensorBuffer = e.Item as SensorModel;
 
             await Task.Factory.StartNew(() =>
             {
-                Label labelObj = (sender as Grid).FindByName<Label>("SensorName");
-                IEnumerable<SensorModel> sensorEnumerable = SensorsListVM.ObservableCollection.Where(sensor => sensor.SensorName == labelObj.Text);
-                sensorBuffer = sensorEnumerable.First().Sensor;
-                cameraEventsPageBuf = new CameraEventsPage(sensorBuffer);
+                cameraEventsPageBuf = new CameraEventsPage(sensorBuffer.Sensor);
                 cameraEventsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
 
             });

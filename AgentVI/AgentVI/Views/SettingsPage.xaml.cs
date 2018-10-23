@@ -46,16 +46,11 @@ namespace AgentVI.Views
             }
         }
 
-        async void OnLogoutButtonClicked(object sender, EventArgs e)
+        private void OnLogoutButtonClicked(object sender, EventArgs e)
         {
             ServiceManager.Instance.LoginService.DeleteCredentials();
 			InnoviApiService.Logout();
-            //await Navigation.PushAsync(new LoginPage());
-            //Navigation.InsertPageBefore(new LoginPage(), this);
-            //await Navigation.PopAsync();
-            //await Navigation.PopToRootAsync();
-            //await Navigation.PushAsync(new LoginPage());
-            //await Navigation.PushModalAsync(new LoginPage());
+            Device.BeginInvokeOnMainThread(() => Application.Current.MainPage = new NavigationPage(new LoadingPage()));
         }
 
         void arm_Toggled(object sender, EventArgs e)

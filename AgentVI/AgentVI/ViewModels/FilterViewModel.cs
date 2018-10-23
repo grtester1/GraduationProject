@@ -48,7 +48,8 @@ namespace AgentVI.ViewModels
                 OnPropertyChanged();
             }
         }
-        public Folder CurrentlySelectedFolder{ get; set; }
+        public Folder CurrentlySelectedFolder { get; set; }
+
 
         public FilterViewModel()
         {
@@ -61,28 +62,42 @@ namespace AgentVI.ViewModels
             FilteringPagesContent.Add(currentFiltrationLevel);
         }
 
-        public void FetchNextFilteringDepth(Folder i_selectedFolder)
+        public void FetchCurrentFilteringDepth(Folder i_SelectedFolder)
         {
             IsFetching = true;
-            for (int i = FilteringPagesContent.Count - 1; i > i_selectedFolder.Depth; i--)
-            {
-                FilteringPagesContent.RemoveAt(i);
-            }
-            ServiceManager.Instance.FilterService.SelectFolder(i_selectedFolder);
-            if (i_selectedFolder.Folders != null && !i_selectedFolder.Folders.IsEmpty())
-            {
-                FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(i_selectedFolder.Depth + 1);
-                currentFiltrationLevel.PopulateCollection();
-                FilteringPagesContent.Add(currentFiltrationLevel);
-            }
-
+            ServiceManager.Instance.FilterService.SelectFolder(i_SelectedFolder);
             SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
             IsFetching = false;
         }
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void FetchNextFilteringDepth(Folder i_SelectedFolder)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            IsFetching = true;
+            for (int i = FilteringPagesContent.Count - 1; i > i_SelectedFolder.Depth; i--)
+            {
+                FilteringPagesContent.RemoveAt(i);
+            }
+            ServiceManager.Instance.FilterService.SelectFolder(i_SelectedFolder);
+            if (i_SelectedFolder.Folders != null && !i_SelectedFolder.Folders.IsEmpty())
+            {
+                FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(i_SelectedFolder.Depth + 1);
+                currentFiltrationLevel.PopulateCollection();
+                FilteringPagesContent.Add(currentFiltrationLevel);
+            }
+            SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
+            IsFetching = false;
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string i_PropertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(i_PropertyName));
+        }
+
+        public void TriggerFetchAppPages()
+        {
+            IsFetching = true;
+            ServiceManager.Instance.FilterService.TriggerFetchUpdate();
+            IsFetching = false;
         }
     }
 }

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="AgentVI.Views.CamerasPage"
+             xmlns:renderers="clr-namespace:AgentVI.Custom.Renderers"
              xmlns:converters="clr-namespace:AgentVI.Converters;assembly=AgentVI"
              xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
@@ -17,7 +18,7 @@
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-        <ListView SeparatorColor="Black" x:Name="cameraListView" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
+        <ListView SeparatorColor="Black" x:Name="cameraListView" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True" ItemTapped="onSensorTapped">
             <ListView.Footer>
                 <Grid Padding="6" IsVisible="{Binding IsBusy}">
                     <Grid.Triggers>
@@ -33,7 +34,7 @@
             </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
+                    <renderers:CustomViewCell SelectedBackgroundColor="{x:Static settings:Settings.CustomViewCellBackgroundColor}">
                         <Grid RowSpacing="0" Margin="{x:Static settings:Settings.ListviewGridMargines}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -45,11 +46,8 @@
                                 <ff:CachedImage Source="{Binding SensorImage}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" CacheType="All"/>
                             </Frame>
                             <Button Grid.Row="2" BorderRadius="10" HeightRequest="20" WidthRequest="20" BackgroundColor="{Binding SensorHealthStatus, Converter={StaticResource EnumStatusColorConverter}}" HorizontalOptions="StartAndExpand"/>
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="onSensorTapped"/>
-                            </Grid.GestureRecognizers>
                         </Grid>
-                    </ViewCell>
+                    </renderers:CustomViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

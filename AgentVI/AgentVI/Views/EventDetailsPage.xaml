@@ -2,8 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vidplayer="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
+             xmlns:vidplayer2="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
              xmlns:converters="clr-namespace:AgentVI.Converters"
              xmlns:settings="clr-namespace:AgentVI.Utils"
+             xmlns:renderers="clr-namespace:AgentVI.Custom.Renderers"
              xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              x:Class="AgentVI.Views.EventDetailsPage">
     <ContentPage.Resources>
@@ -31,10 +33,12 @@
             </StackLayout>
             <Grid Grid.Row="1" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="3.5*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <vidplayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" HorizontalOptions="Fill" VerticalOptions="Fill" AutoPlay="True" Grid.Row="0"/>
+                <!--<vidplayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" HorizontalOptions="Fill" VerticalOptions="Fill" AutoPlay="True" Grid.Row="0"/>-->
+                <!--<WebView Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Source="{x:Static settings:Settings.tmptmptmp}"/>-->
+                <renderers:CustomWebView x:Name="SensorEventClipVideoPlayer" Grid.Row="0" VerticalOptions="FillAndExpand" Navigating="SensorEventClipVideoPlayer_Navigating" Navigated="SensorEventClipVideoPlayer_Navigated" HorizontalOptions="FillAndExpand"/>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

@@ -15,7 +15,17 @@ namespace InnoviApiProxy
             m_Delegate = i_Delegate;
         }
 
-        public object Clone()
+        object ICloneable.Clone()
+        {
+            return CloneImplementation();
+        }
+
+        public virtual InnoviObjectCollection<InnoviElement> Clone()
+        {
+            return CloneImplementation();
+        }
+
+        protected virtual InnoviObjectCollection<InnoviElement> CloneImplementation()
         {
             return new InnoviObjectCollection<InnoviElement>(m_Delegate, m_FilterItemId);
         }

@@ -68,9 +68,6 @@ namespace AgentVI.Views
         private void bindPageControllers()
         {
             BindingContext = mainPageVM;
-            //FilterStateIndicatorLabel.BindingContext = mainPageVM.FilterIndicator;
-            //FilterStateIndicatorListView.BindingContext = mainPageVM.FilterIndicator;
-            //FilterStateIndicatorListView.BindingContext = mainPageVM.FilterIndicator;
         }
 
         private void OnFilterStateIndicatorClicked(object i_Sender, EventArgs i_EventArgs)
@@ -112,6 +109,11 @@ namespace AgentVI.Views
         {
             DependencyService.Get<IBackButtonPressed>().NativeOnBackButtonPressed();
             return true;
+        }
+
+        private void ResetHierarchyButtonClicked(object sender, EventArgs e)
+        {
+            mainPageVM.ResetHierarchyToRootLevel();
         }
     }
 }
