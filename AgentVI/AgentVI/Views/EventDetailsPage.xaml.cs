@@ -76,7 +76,12 @@ namespace AgentVI.Views
                 SensorEventDateTimeLabel.Text = eventDetailsViewModel.SensorEventDateTime;
                 SensorEventRuleNameImage.Source = eventDetailsViewModel.SensorEventObjectType;
                 SensorEventBehaviorLabel.Text = eventDetailsViewModel.SensorEventBehavior;
-                IsEmptyText.IsVisible = IsEmptyFiller.IsVisible = !checkLockOrientation();
+                bool isEventClipAvailable = checkLockOrientation();
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    SensorEventClipVideoPlayer.IsVisible = isEventClipAvailable;
+                }
+                );
             });
             OnPropertyChanged();
         }

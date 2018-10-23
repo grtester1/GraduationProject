@@ -18,7 +18,7 @@
         <RelativeLayout VerticalOptions="FillAndExpand">
             <ffsvg:SvgCachedImage x:Name="IsEmptyFiller" IsVisible="{Binding IsEmptyFolder}"
                                   Source="{x:Static settings:Settings.EmptyCollectionSVGPath}"
-                                  Aspect="AspectFill"
+                                  Aspect="AspectFit"
                                                 RelativeLayout.WidthConstraint="{ConstraintExpression
                                                                                 Type=RelativeToParent,
                                                                                 Property=Width, Factor=0.5}"
