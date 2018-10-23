@@ -59,13 +59,19 @@ namespace AgentVI.ViewModels
                 collectionEnumerator = enumerableCollection.GetEnumerator();
             }
 
-            while(hasNext = collectionEnumerator.MoveNext() && canLoadMore)
+            try
             {
-                ObservableCollection.Add(collectionEnumerator.Current);
-                if(fetchedItems++ == pageSize)
+                while (hasNext = collectionEnumerator.MoveNext() && canLoadMore)
                 {
-                    break;
+                    ObservableCollection.Add(collectionEnumerator.Current);
+                    if (fetchedItems++ == pageSize)
+                    {
+                        break;
+                    }
                 }
+            }catch(ArgumentOutOfRangeException)
+            {
+                hasNext = false;
             }
 
             if(hasNext == false)
@@ -82,6 +88,7 @@ namespace AgentVI.ViewModels
         public virtual void PopulateCollection()
         {
             ObservableCollection.Clear();
+            IsFilterStateChanged = true;
             canLoadMore = true;
         }
 

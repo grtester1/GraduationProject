@@ -125,11 +125,11 @@ namespace AgentVI.Services
             {
                 if (IsAtRootLevel)
                 {
-                    FilteredEvents = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountEvents();
+                    FilteredEvents = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountEvents().Clone();
                 }
                 else
                 {
-                    FilteredEvents = CurrentPath[CurrentPath.Count - 1].FolderEvents;
+                    FilteredEvents = CurrentPath[CurrentPath.Count - 1].FolderEvents.Clone();
                 }
             }
 
