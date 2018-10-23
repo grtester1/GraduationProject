@@ -80,19 +80,17 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <renderers:CustomViewCell SelectedBackgroundColor="{x:Static settings:Settings.CustomViewCellBackgroundColor}">
-                                <Grid x:Name="SensorLayout" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5" HorizontalOptions="FillAndExpand">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="6*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Frame Padding="0" WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand" Margin="30,0,30,0" CornerRadius="8" HasShadow="True" Grid.Row="0">
-                                        <ff:CachedImage Source="{Binding SensorEventImage, Converter={StaticResource tmpImagePlaceholderGeneratorConverter}}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" CacheType="All"/>
-                                    </Frame>
-                                    <StackLayout Orientation="Horizontal" Grid.Row="1" HorizontalOptions="FillAndExpand">
-                                        <Label Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventHeaderFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="Start"/>
-                                        <Label Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
+                                <Frame Padding="{x:Static settings:Settings.PictureHolderOutsideFramePaddings}" BackgroundColor="{x:Static settings:Settings.PictureHolderOutsideFrameBackground}" Margin="{x:Static settings:Settings.PictureHolderOutsideFrameMargines}" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
+                                    <StackLayout>
+                                        <Frame Padding="{x:Static settings:Settings.PictureHolderFramePadding}" WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" BackgroundColor="{x:Static settings:Settings.PictureHolderFrameBackground}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="8" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
+                                            <ff:CachedImage Source="{Binding SensorEventImage, Converter={StaticResource tmpImagePlaceholderGeneratorConverter}}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit" CacheType="All"/>
+                                        </Frame>
+                                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                            <Label Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="Start" FontFamily="serif"/>
+                                            <Label Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" HorizontalOptions="EndAndExpand" FontFamily="serif"/>
+                                        </StackLayout>
                                     </StackLayout>
-                                </Grid>
+                                </Frame>
                             </renderers:CustomViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
