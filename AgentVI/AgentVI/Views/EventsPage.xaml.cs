@@ -19,6 +19,10 @@ namespace AgentVI.Views
     {
         private EventsListViewModel SensorsEventsListVM = null;
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
+        public Command<EventModel> Command => new Command<EventModel>(val =>
+        {
+            onSensorNameTapped(val);
+        });
 
         public EventsPage()
         {
@@ -66,6 +70,22 @@ namespace AgentVI.Views
             });
             await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Push, eventDetailsPageBuf));
 
+            RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
+        }
+
+        private async void onSensorNameTapped(EventModel val)
+        {
+            RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Buffering));
+            UpdatedContentEventArgs updatedContentEventArgs = null;
+            CameraEventsPage cameraEventsPageBuf = null;
+            Sensor sensorBuffer = val.Sensor;
+
+            await Task.Factory.StartNew(() =>
+            {
+                cameraEventsPageBuf = new CameraEventsPage(sensorBuffer);
+                cameraEventsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
+            });
+            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Push, cameraEventsPageBuf));
             RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
         }
 

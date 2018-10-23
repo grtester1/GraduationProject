@@ -7,6 +7,7 @@
              xmlns:renderers="clr-namespace:AgentVI.Custom.Renderers"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:effects="clr-namespace:AgentVI.Custom.Effects"
+             x:Name="this"
              xmlns:settings="clr-namespace:AgentVI.Utils">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -47,6 +48,9 @@
                                         <Label.Effects>
                                             <effects:UnderlineEffect/>
                                         </Label.Effects>
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=Command}" CommandParameter="{Binding .}"/>
+                                        </Label.GestureRecognizers>
                                     </Label>
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                         <Label Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="Start" FontFamily="serif"/>
