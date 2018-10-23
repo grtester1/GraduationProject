@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vidplayer="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
-             xmlns:vidplayer2="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
              xmlns:converters="clr-namespace:AgentVI.Converters"
              xmlns:settings="clr-namespace:AgentVI.Utils"
              xmlns:renderers="clr-namespace:AgentVI.Custom.Renderers"
@@ -11,6 +10,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:TimestampConverter x:Key="TimestampConverter"/>
+            <converters:tmpImagePlaceholderGeneratorConverter x:Key="tmpImagePlaceholderGeneratorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -36,9 +36,16 @@
                     <RowDefinition Height="3.5*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <!--<vidplayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" HorizontalOptions="Fill" VerticalOptions="Fill" AutoPlay="True" Grid.Row="0"/>-->
-                <!--<WebView Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Source="{x:Static settings:Settings.tmptmptmp}"/>-->
-                <renderers:CustomWebView x:Name="SensorEventClipVideoPlayer" Grid.Row="0" VerticalOptions="FillAndExpand" Navigating="SensorEventClipVideoPlayer_Navigating" Navigated="SensorEventClipVideoPlayer_Navigated" HorizontalOptions="FillAndExpand"/>
+                <AbsoluteLayout Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <ffsvg:SvgCachedImage IsVisible="True" Source="{x:Static settings:Settings.EmptyCollectionSVGPath}" Aspect="AspectFit"
+                                          AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,0.9"/>
+                    <Label IsVisible="True" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                           Text="No Clip Available" FontSize="Small"
+                           AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5, 1, -1, -1"/>
+                    <!--<vidplayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" HorizontalOptions="Fill" VerticalOptions="Fill" AutoPlay="True" Grid.Row="0"/>-->
+                    <renderers:CustomWebView x:Name="SensorEventClipVideoPlayer" Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                             AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                </AbsoluteLayout>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -49,7 +56,7 @@
                     <Label Grid.Row="1" x:Name="sensorEventRuleNameLabel" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
                     <StackLayout Orientation="Horizontal" Grid.Row="2" HorizontalOptions="StartAndExpand">
                         <ffsvg:SvgCachedImage x:Name="SensorEventRuleNameImage" HeightRequest="25" WidthRequest="25" Margin="0,0,5,0"/>
-                        <Label x:Name="SensorEventTagLabel" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontAttributes="Bold"/>
+                        <Label x:Name="SensorEventBehaviorLabel" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontAttributes="Bold"/>
                     </StackLayout>
                 </Grid>
             </Grid>

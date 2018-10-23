@@ -8,7 +8,6 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Plugin.DeviceOrientation;
 using Plugin.DeviceOrientation.Abstractions;
-using System.Net.Sockets;
 
 namespace AgentVI.Views
 {
@@ -76,9 +75,26 @@ namespace AgentVI.Views
                 sensorEventRuleNameLabel.Text = eventDetailsViewModel.SensorEventRuleName;
                 SensorEventDateTimeLabel.Text = eventDetailsViewModel.SensorEventDateTime;
                 SensorEventRuleNameImage.Source = eventDetailsViewModel.SensorEventObjectType;
-                SensorEventTagLabel.Text = eventDetailsViewModel.SensorEventTag;
+                SensorEventBehaviorLabel.Text = eventDetailsViewModel.SensorEventBehavior;
+                bool isEventClipAvailable = checkLockOrientation();
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    SensorEventClipVideoPlayer.IsVisible = isEventClipAvailable;
+                }
+                );
             });
             OnPropertyChanged();
+        }
+
+        private bool checkLockOrientation()
+        {
+            bool res = true;
+            if (!eventDetailsViewModel.IsClipAvailable)
+            {
+                res = false;
+                CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
+            }
+            return res;
         }
 
         private void eventsRouter(object sender, UpdatedContentEventArgs e)
@@ -89,16 +105,6 @@ namespace AgentVI.Views
         public void Refocus()
         {
             restartClipLoading();
-        }
-
-        private void SensorEventClipVideoPlayer_Navigating(object sender, WebNavigatingEventArgs e)
-        {
-
-        }
-
-        private void SensorEventClipVideoPlayer_Navigated(object sender, WebNavigatedEventArgs e)
-        {
-
         }
     }
 }

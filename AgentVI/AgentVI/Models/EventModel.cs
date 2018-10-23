@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using InnoviApiProxy;
 using Xamarin.Forms;
+using AgentVI.Utils;
 
 namespace AgentVI.Models
 {
@@ -84,6 +85,30 @@ namespace AgentVI.Models
             }
         }
 
+        private Sensor m_Sensor;
+        public Sensor Sensor
+        {
+            get { return m_Sensor; }
+            private set
+            {
+                m_Sensor = value;
+                OnPropertyChanged("Sensor");
+            }
+        }
+
+        private SensorEvent m_SensorEvent;
+        public SensorEvent SensorEvent
+        {
+            get { return m_SensorEvent; }
+            private set
+            {
+                m_SensorEvent = value;
+                OnPropertyChanged("SensorEvent");
+            }
+        }
+
+
+
         internal static EventModel FactoryMethod(SensorEvent i_SensorEvent)
         {
             EventModel res = new EventModel()
@@ -94,7 +119,9 @@ namespace AgentVI.Models
                 SensorEventImage = i_SensorEvent.ImagePath,
                 SensorEventRuleName = i_SensorEvent.RuleName,
                 SensorEventObjectType = i_SensorEvent.ObjectType,
-                SensorEventTag = i_SensorEvent.Tag
+                SensorEventTag = i_SensorEvent.Tag,
+                Sensor = i_SensorEvent.EventSensor,
+                SensorEvent = i_SensorEvent
             };
 
             return res;

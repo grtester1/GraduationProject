@@ -25,26 +25,27 @@ namespace AgentVI.Utils
         public static double SensorEventDetailsFontSize { get; } = 13;
         public static double FilterTextSize { get; } = 15;
 
-        public static Color FooterColor { get; } = Color.AliceBlue; //"#BABABA"
+        public static Color FooterColor { get; } = Color.FromHex("#DDDDDD");
         public static Color FooterSeparatorColor { get; } = Color.FromHex("#DCDCDC");
         public static Color PictureHolderFrameBackground { get; } = Color.FromHex("#2C2D30");
         public static Color PictureHolderOutsideFrameBackground { get; } = Color.FromHex("#434449");
         public static Color PictureHolderBorderColor { get; } = Color.FromHex("#4E5663");
-        public static Color SensorEventHeaderFontColor { get; } = Color.FromHex("#478D8D"); //old: #C9CCDB
-        public static Color SensorEventDetailsFontColor { get; } = Color.FromHex("#B4B7C6"); //old: #387272
+        public static Color SensorEventHeaderFontColor { get; } = Color.FromHex("#478D8D");
+        public static Color SensorEventDetailsFontColor { get; } = Color.FromHex("#B4B7C6");
         public static Color FilterTextColor { get; } = Color.Black;
         public static Color FilterBarBorderColor { get; } = Color.FromHex("#7F7F7F");
         public static Color FilterBarBackgroundColor { get; } = Color.Transparent;
         public static Color AccountNameStringColor { get; } = Color.FromHex("#00366C");
         public static Color CustomViewCellBackgroundColor { get; } = Color.Transparent;
 
-
-        public static string EventsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_24px.svg";
+        public static string EventsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_inactive_24px.svg";
         public static string EventsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_active_24px.svg";
-        public static string SensorsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.sensors_24px.svg";
+        public static string SensorsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.sensors_inactive_24px.svg";
         public static string SensorsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.sensors_active_24px.svg";
-        public static string SettingsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_24px.svg";
+        public static string SettingsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_inactive_24px.svg";
         public static string SettingsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_active_24px.svg";
+        public static string HealthTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.health_inactive_24px.svg";
+        public static string HealthTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.health_active_24px.svg";
 
         public static string ObjectTypeBicycleSVGPath { get; } = "resource://AgentVI.Sources.Icons.object_bicycle_24px.svg";
         public static string ObjectTypeBusSVGPath { get; } = "resource://AgentVI.Sources.Icons.object_bus_24px.svg";
