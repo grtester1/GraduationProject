@@ -6,6 +6,7 @@
              xmlns:infScroll="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              xmlns:renderers="clr-namespace:AgentVI.Custom.Renderers"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              xmlns:effects="clr-namespace:AgentVI.Custom.Effects"
              x:Name="this"
              xmlns:settings="clr-namespace:AgentVI.Utils">
@@ -21,47 +22,49 @@
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-        <ListView SeparatorColor="Black" x:Name="eventListView" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" HorizontalOptions="CenterAndExpand" HasUnevenRows="True" ItemsSource="{Binding ObservableCollection}" ItemTapped="onEventTapped">
-            <ListView.Footer>
-                <Grid Padding="6" IsVisible="{Binding IsBusy}">
-                    <Grid.Triggers>
-                        <Trigger TargetType="Grid" Property="IsVisible" Value="False">
-                            <Setter Property="HeightRequest" Value="0"/>
-                        </Trigger>
-                    </Grid.Triggers>
-                    <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
-                </Grid>
-            </ListView.Footer>
-            <ListView.Behaviors>
-                <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
-            </ListView.Behaviors>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <renderers:CustomViewCell SelectedBackgroundColor="{x:Static settings:Settings.CustomViewCellBackgroundColor}">
-                        <Frame Padding="{x:Static settings:Settings.PictureHolderOutsideFramePaddings}" BackgroundColor="{x:Static settings:Settings.PictureHolderOutsideFrameBackground}" Margin="{x:Static settings:Settings.PictureHolderOutsideFrameMargines}" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
-                            <StackLayout>
-                                <Frame Padding="{x:Static settings:Settings.PictureHolderFramePadding}" WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" BackgroundColor="{x:Static settings:Settings.PictureHolderFrameBackground}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="8" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
-                                    <ff:CachedImage Source="{Binding SensorEventImage, Converter={StaticResource tmpImagePlaceholderGeneratorConverter}}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit" CacheType="All"/>
-                                </Frame>
-                                <StackLayout HorizontalOptions="FillAndExpand">
-                                    <Label Text="{Binding SensorName}" FontFamily="serif" TextColor="{x:Static settings:Settings.SensorEventHeaderFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand">
-                                        <Label.Effects>
-                                            <effects:UnderlineEffect/>
-                                        </Label.Effects>
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=Command}" CommandParameter="{Binding .}"/>
-                                        </Label.GestureRecognizers>
-                                    </Label>
-                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                        <Label Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="Start" FontFamily="serif"/>
-                                        <Label Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" HorizontalOptions="EndAndExpand" FontFamily="serif"/>
+        <AbsoluteLayout VerticalOptions="FillAndExpand">
+            <ListView SeparatorColor="Black" x:Name="eventListView" IsPullToRefreshEnabled="true" Refreshing="OnRefresh" HorizontalOptions="CenterAndExpand" HasUnevenRows="True" ItemsSource="{Binding ObservableCollection}" ItemTapped="onEventTapped" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <ListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0"/>
+                            </Trigger>
+                        </Grid.Triggers>
+                        <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                    </Grid>
+                </ListView.Footer>
+                <ListView.Behaviors>
+                    <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <renderers:CustomViewCell SelectedBackgroundColor="{x:Static settings:Settings.CustomViewCellBackgroundColor}">
+                            <Frame Padding="{x:Static settings:Settings.PictureHolderOutsideFramePaddings}" BackgroundColor="{x:Static settings:Settings.PictureHolderOutsideFrameBackground}" Margin="{x:Static settings:Settings.PictureHolderOutsideFrameMargines}" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
+                                <StackLayout>
+                                    <Frame Padding="{x:Static settings:Settings.PictureHolderFramePadding}" WidthRequest="{x:Static settings:Settings.GridElementSizeRequest}" HeightRequest="{x:Static settings:Settings.GridElementSizeRequest}" BackgroundColor="{x:Static settings:Settings.PictureHolderFrameBackground}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="8" HasShadow="True" BorderColor="{x:Static settings:Settings.PictureHolderBorderColor}">
+                                        <ff:CachedImage Source="{Binding SensorEventImage, Converter={StaticResource tmpImagePlaceholderGeneratorConverter}}" LoadingPlaceholder="{x:Static settings:Settings.LoadingAnimationPath}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit" CacheType="All"/>
+                                    </Frame>
+                                    <StackLayout HorizontalOptions="FillAndExpand">
+                                        <Label Text="{Binding SensorName}" FontFamily="serif" TextColor="{x:Static settings:Settings.SensorEventHeaderFontColor}" FontSize="{x:Static settings:Settings.SensorEventNameFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand">
+                                            <Label.Effects>
+                                                <effects:UnderlineEffect/>
+                                            </Label.Effects>
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=Command}" CommandParameter="{Binding .}"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                            <Label Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="Start" FontFamily="serif"/>
+                                            <Label Text="{Binding SensorEventDateTime, Converter={StaticResource TimestampConverter}}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" HorizontalOptions="EndAndExpand" FontFamily="serif"/>
+                                        </StackLayout>
                                     </StackLayout>
                                 </StackLayout>
-                            </StackLayout>
-                        </Frame>
-                    </renderers:CustomViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                            </Frame>
+                        </renderers:CustomViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

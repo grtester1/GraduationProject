@@ -28,6 +28,28 @@ namespace AgentVI.ViewModels
                 OnPropertyChanged();
             }
         }
+        private bool _isEmptyFolder = true;
+        public bool IsEmptyFolder
+        {
+            get => _isEmptyFolder;
+            set
+            {
+                _isEmptyFolder = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void updateFolderState()
+        {
+            if (ObservableCollection.Count == 0)
+            {
+                IsEmptyFolder = true;
+            }
+            else
+            {
+                IsEmptyFolder = false;
+            }
+        }
 
 
         public FilterDependentViewModel()
@@ -78,6 +100,8 @@ namespace AgentVI.ViewModels
             {
                 canLoadMore = false;
             }
+
+            updateFolderState();
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

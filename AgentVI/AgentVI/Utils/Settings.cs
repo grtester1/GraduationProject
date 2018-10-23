@@ -26,6 +26,8 @@ namespace AgentVI.Utils
         public static double SensorEventNameFontSize { get; } = 15;
         public static double SensorEventDetailsFontSize { get; } = 13;
         public static double FilterTextSize { get; } = 15;
+        public static double EmptyPageFillerFontSize { get; } = 22;
+        public static double EmptyPageFillerFontSmallSize { get; } = 15;
 
         public static Color FooterColor { get; } = Color.FromHex("#DDDDDD");
         public static Color FooterSeparatorColor { get; } = Color.FromHex("#DCDCDC");
@@ -67,6 +69,11 @@ namespace AgentVI.Utils
         public static ImageSource BackgroundPicturePath { get; } = ImageSource.FromResource("AgentVI.Sources.background.png");
         public static ImageSource LogoPicturePath { get; } = ImageSource.FromResource("AgentVI.Sources.innovi_logo.png");
 
+
+        public static string EmptyFillerTextMessageSensors = "No sensors for selected folder";
+        public static string EmptyFillerTextMessageEvents = "No events for selected folder";
+        public static string EmptyFillerTextMessageSensorEvents = "No events for selected sensor";
+        public static string EmptyFillerTextMessageClip = "Clip isn't available";
         public static string DateTimeFormat { get; } = "dd/MM/yyyy hh:mm tt";
         public static string SearchBarPlaceHolderText { get; } = "Search...";
 
