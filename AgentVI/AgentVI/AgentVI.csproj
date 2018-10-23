@@ -33,7 +33,6 @@
     <None Remove="Sources\Icons\health_inactive_24px.svg" />
     <None Remove="Sources\Icons\rightArrow.svg" />
     <None Remove="Sources\Icons\sensors_24px.svg" />
-    <None Remove="Sources\Icons\sensors_active_24px%29.svg" />
     <None Remove="Sources\Icons\sensors_active_24px.svg" />
     <None Remove="Sources\Icons\sensors_inactive_24px.svg" />
     <None Remove="Sources\Icons\settings_24px.svg" />
@@ -73,7 +72,6 @@
     <EmbeddedResource Include="Sources\Icons\health_inactive_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\rightArrow.svg" />
     <EmbeddedResource Include="Sources\Icons\sensors_24px.svg" />
-    <EmbeddedResource Include="Sources\Icons\sensors_active_24px).svg" />
     <EmbeddedResource Include="Sources\Icons\sensors_active_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\sensors_inactive_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\settings_24px.svg" />

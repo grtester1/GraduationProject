@@ -25,7 +25,7 @@ namespace AgentVI.Utils
         public static double SensorEventDetailsFontSize { get; } = 13;
         public static double FilterTextSize { get; } = 15;
 
-        public static Color FooterColor { get; } = Color.AliceBlue;
+        public static Color FooterColor { get; } = Color.FromHex("#DDDDDD");
         public static Color FooterSeparatorColor { get; } = Color.FromHex("#DCDCDC");
         public static Color PictureHolderFrameBackground { get; } = Color.FromHex("#2C2D30");
         public static Color PictureHolderOutsideFrameBackground { get; } = Color.FromHex("#434449");
