@@ -33,9 +33,15 @@
 
         <Frame Grid.Row="1" Padding="0" BackgroundColor="{x:Static settings:Settings.FilterBarBackgroundColor}" BorderColor="{x:Static settings:Settings.FilterBarBorderColor}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="{x:Static settings:Settings.HeaderMargine}">
             <StackLayout Orientation="Horizontal">
-                <Button Text="RESET" HorizontalOptions="Start" VerticalOptions="Center" Clicked="ResetHierarchyButtonClicked"/>
+                <AbsoluteLayout HorizontalOptions="Start" VerticalOptions="Center" Padding="5" WidthRequest="30">
+                    <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.ResetButtonSVGPath}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                    <Button Clicked="ResetHierarchyButtonClicked" BackgroundColor="Transparent" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                </AbsoluteLayout>
                 <Label HorizontalOptions="Start" VerticalOptions="Center" Margin="{x:Static settings:Settings.FilterTextMargines}" TextColor="{x:Static settings:Settings.FilterTextColor}" FontSize="{x:Static settings:Settings.FilterTextSize}" BindingContext="{Binding FilterIndicator}" Text="{Binding SelectedFoldersNamesCacheStr}" LineBreakMode="TailTruncation"/>
-                <Button Text="BROWSE" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Clicked="OnFilterStateIndicatorClicked"/>
+                <AbsoluteLayout HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5" WidthRequest="30">
+                    <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BrowseButtonSVGPath}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                    <Button WidthRequest="30" BackgroundColor="Transparent" Clicked="OnFilterStateIndicatorClicked" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                </AbsoluteLayout>
             </StackLayout>
         </Frame>
 

@@ -87,7 +87,7 @@ namespace AgentVI.Views
                 filterVM.FetchCurrentFilteringDepth(filterVM.CurrentlySelectedFolder);
                 filterVM.TriggerFetchAppPages();
             });
-            considerSwipeRightSwipeUp();
+            OnBackButtonPressed();
         }
 
         private void updateFilterLevelView(ListView i_ListView, int i_CurrenDepth)
@@ -131,6 +131,11 @@ namespace AgentVI.Views
                 currentListView.ItemsSource = unfilteredFoldersList;
             else
                 currentListView.ItemsSource = unfilteredFoldersList.Cast<FolderModel>().Where(item => item.FolderName.StartsWith(i_TextChangeEventArgs.NewTextValue));
+        }
+
+        private void onBackButtonTapped(object sender, EventArgs e)
+        {
+            OnBackButtonPressed();
         }
     }
 }
