@@ -50,7 +50,7 @@ namespace AgentVI.Models
             private set
             {
                 m_Sensor = value;
-                OnPropertyChanged("Sensor");
+                OnPropertyChanged(nameof(Sensor));
             }
         }
 
@@ -61,7 +61,7 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorName = value;
-                OnPropertyChanged("SensorName");
+                OnPropertyChanged(nameof(SensorName));
             }
         }
 
@@ -72,7 +72,7 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorHealth = value;
-                OnPropertyChanged("SensorHealth");
+                OnPropertyChanged(nameof(SensorHealth));
             }
         }
         
@@ -83,7 +83,7 @@ namespace AgentVI.Models
             private set
             {
                 m_ensorHealthHistory = value;
-                OnPropertyChanged("SensorHealthHistory");
+                OnPropertyChanged(nameof(SensorHealthHistory));
             }
         }
 
@@ -94,7 +94,7 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorHealthStatus = value;
-                OnPropertyChanged("SensorHealthStatus");
+                OnPropertyChanged(nameof(SensorHealthStatus));
             }
         }
 
@@ -105,7 +105,7 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorImage = value;
-                OnPropertyChanged("SensorImage");
+                OnPropertyChanged(nameof(SensorImage));
             }
         }
 

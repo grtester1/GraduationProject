@@ -15,7 +15,8 @@ namespace AgentVI.Converters
 
             if (value != null)
             {
-                res = "https://api.innovi.io/eventClip?accountId=6&eventId=00000084-0000-0000-0000-000000338819";
+                res = (string)value;
+                //res = "https://api.innovi.io/eventClip?accountId=6&eventId=00000084-0000-0000-0000-000000338819";
                 //res = "https://vjs.zencdn.net/v/oceans.mp4";
             }
 

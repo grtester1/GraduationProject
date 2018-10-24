@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using InnoviApiProxy;
 using Xamarin.Forms;
+using AgentVI.Utils;
 
 namespace AgentVI.Models
 {
@@ -14,7 +15,7 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorName = value;
-                OnPropertyChanged("SensorName");
+                OnPropertyChanged(nameof(SensorName));
             }
         }
 
@@ -25,7 +26,7 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEventRuleName = value;
-                OnPropertyChanged("SensorEventRuleName");
+                OnPropertyChanged(nameof(SensorEventRuleName));
             }
         }
 
@@ -36,7 +37,7 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEventDateTime = value;
-                OnPropertyChanged("SensorEventDateTime");
+                OnPropertyChanged(nameof(SensorEventDateTime));
             }
         }
 
@@ -47,7 +48,7 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEventImage = value;
-                OnPropertyChanged("SensorEventImage");
+                OnPropertyChanged(nameof(SensorEventImage));
             }
         }
 
@@ -58,7 +59,7 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEventClip = value;
-                OnPropertyChanged("SensorEventClip");
+                OnPropertyChanged(nameof(SensorEventClip));
             }
         }
 
@@ -69,7 +70,7 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEventObjectType = value;
-                OnPropertyChanged("SensorEventObjectType");
+                OnPropertyChanged(nameof(SensorEventObjectType));
             }
         }
 
@@ -80,9 +81,33 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEventTag = value;
-                OnPropertyChanged("SensorEventTag");
+                OnPropertyChanged(nameof(SensorEventTag));
             }
         }
+
+        private Sensor m_Sensor;
+        public Sensor Sensor
+        {
+            get { return m_Sensor; }
+            private set
+            {
+                m_Sensor = value;
+                OnPropertyChanged(nameof(Sensor));
+            }
+        }
+
+        private SensorEvent m_SensorEvent;
+        public SensorEvent SensorEvent
+        {
+            get { return m_SensorEvent; }
+            private set
+            {
+                m_SensorEvent = value;
+                OnPropertyChanged(nameof(SensorEvent));
+            }
+        }
+
+
 
         internal static EventModel FactoryMethod(SensorEvent i_SensorEvent)
         {
@@ -94,7 +119,9 @@ namespace AgentVI.Models
                 SensorEventImage = i_SensorEvent.ImagePath,
                 SensorEventRuleName = i_SensorEvent.RuleName,
                 SensorEventObjectType = i_SensorEvent.ObjectType,
-                SensorEventTag = i_SensorEvent.Tag
+                SensorEventTag = i_SensorEvent.Tag,
+                Sensor = i_SensorEvent.EventSensor,
+                SensorEvent = i_SensorEvent
             };
 
             return res;

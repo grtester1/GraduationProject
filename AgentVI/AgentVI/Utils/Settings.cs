@@ -16,6 +16,8 @@ namespace AgentVI.Utils
         public static Thickness ContentViewMargines { get; } = new Thickness(0, 5, 0, 5);
         public static Thickness FilterTextMargines { get; } = new Thickness(5, 0, 5, 0);
         public static Thickness PictureHolderFramePadding { get; } = new Thickness(5);
+        public static Thickness PictureHolderOutsideFrameMargines { get; } = new Thickness(30, 15, 30, 15);
+        public static Thickness PictureHolderOutsideFramePaddings { get; } = new Thickness(10);
 
         public static double GridElementSizeRequest { get; } = 140;
         
@@ -24,31 +26,30 @@ namespace AgentVI.Utils
         public static double SensorEventNameFontSize { get; } = 15;
         public static double SensorEventDetailsFontSize { get; } = 13;
         public static double FilterTextSize { get; } = 15;
+        public static double EmptyPageFillerFontSize { get; } = 22;
+        public static double EmptyPageFillerFontSmallSize { get; } = 15;
 
-        public static Color FooterColor { get; } = Color.AliceBlue; //"#BABABA"
+        public static Color FooterColor { get; } = Color.FromHex("#DDDDDD");
         public static Color FooterSeparatorColor { get; } = Color.FromHex("#DCDCDC");
         public static Color PictureHolderFrameBackground { get; } = Color.FromHex("#2C2D30");
         public static Color PictureHolderOutsideFrameBackground { get; } = Color.FromHex("#434449");
         public static Color PictureHolderBorderColor { get; } = Color.FromHex("#4E5663");
-        public static Color SensorEventHeaderFontColor { get; } = Color.FromHex("#478D8D"); //old: #C9CCDB
-        public static Color SensorEventDetailsFontColor { get; } = Color.FromHex("#B4B7C6"); //old: #387272
+        public static Color SensorEventHeaderFontColor { get; } = Color.FromHex("#478D8D");
+        public static Color SensorEventDetailsFontColor { get; } = Color.FromHex("#B4B7C6");
         public static Color FilterTextColor { get; } = Color.Black;
         public static Color FilterBarBorderColor { get; } = Color.FromHex("#7F7F7F");
         public static Color FilterBarBackgroundColor { get; } = Color.Transparent;
         public static Color AccountNameStringColor { get; } = Color.FromHex("#00366C");
         public static Color CustomViewCellBackgroundColor { get; } = Color.Transparent;
 
-
-        public static string EventsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_24px.svg";
+        public static string EventsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_inactive_24px.svg";
         public static string EventsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_active_24px.svg";
-        public static string SensorsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.sensors_24px.svg";
+        public static string SensorsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.sensors_inactive_24px.svg";
         public static string SensorsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.sensors_active_24px.svg";
-        //
-        public static string HealthTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.health.svg";
-        public static string HealthTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.health_open.svg";
-        //
-        public static string SettingsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_24px.svg";
+        public static string SettingsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_inactive_24px.svg";
         public static string SettingsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.settings_active_24px.svg";
+        public static string HealthTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.health_inactive_24px.svg";
+        public static string HealthTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.health_active_24px.svg";
 
         public static string ObjectTypeBicycleSVGPath { get; } = "resource://AgentVI.Sources.Icons.object_bicycle_24px.svg";
         public static string ObjectTypeBusSVGPath { get; } = "resource://AgentVI.Sources.Icons.object_bus_24px.svg";
@@ -59,8 +60,11 @@ namespace AgentVI.Utils
 
         public static string LoadingAnimationPath { get; } = "resource://AgentVI.Sources.LoadingAnimation.gif";
         public static string EmptyCollectionSVGPath { get; } = "resource://AgentVI.Sources.EmptyPageFiller.svg";
-        public static string BackButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.backButton.svg";
+        public static string BackButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.leftArrow.svg";
         public static string NextLevelButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.rightArrow.svg";
+        public static string UpButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.upArrow.svg";
+        public static string ResetButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.reset.svg";
+        public static string BrowseButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.browseIcon.svg";
         public static string FolderIconSVGPath { get; } = "resource://AgentVI.Sources.Icons.folderIcon.svg";
         public static string FilterBrowseIconSVGPath { get; } = "resource://AgentVI.Sources.Icons.folderIcon.svg";
         public static string DividerIconSVGPath { get; } = "resource://AgentVI.Sources.Icons.dividerIcon.svg";
@@ -68,6 +72,11 @@ namespace AgentVI.Utils
         public static ImageSource BackgroundPicturePath { get; } = ImageSource.FromResource("AgentVI.Sources.background.png");
         public static ImageSource LogoPicturePath { get; } = ImageSource.FromResource("AgentVI.Sources.innovi_logo.png");
 
+
+        public static string EmptyFillerTextMessageSensors = "No sensors for selected folder";
+        public static string EmptyFillerTextMessageEvents = "No events for selected folder";
+        public static string EmptyFillerTextMessageSensorEvents = "No events for selected sensor";
+        public static string EmptyFillerTextMessageClip = "Clip isn't available";
         public static string DateTimeFormat { get; } = "dd/MM/yyyy hh:mm tt";
         public static string SearchBarPlaceHolderText { get; } = "Search...";
 

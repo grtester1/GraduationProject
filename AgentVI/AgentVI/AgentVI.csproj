@@ -25,15 +25,23 @@
     <None Remove="Sources\background.png" />
     <None Remove="Sources\EmptyPageFiller.svg" />
     <None Remove="Sources\Icons\backButton.svg" />
+    <None Remove="Sources\Icons\browseIcon.svg" />
     <None Remove="Sources\Icons\dividerIcon.svg" />
     <None Remove="Sources\Icons\events_24px.svg" />
     <None Remove="Sources\Icons\events_active_24px.svg" />
+    <None Remove="Sources\Icons\events_inactive_24px.svg" />
     <None Remove="Sources\Icons\folderIcon.svg" />
+    <None Remove="Sources\Icons\health_inactive_24px.svg" />
+    <None Remove="Sources\Icons\leftArrow.svg" />
+    <None Remove="Sources\Icons\reset.svg" />
     <None Remove="Sources\Icons\rightArrow.svg" />
     <None Remove="Sources\Icons\sensors_24px.svg" />
     <None Remove="Sources\Icons\sensors_active_24px.svg" />
+    <None Remove="Sources\Icons\sensors_inactive_24px.svg" />
     <None Remove="Sources\Icons\settings_24px.svg" />
     <None Remove="Sources\Icons\settings_active_24px.svg" />
+    <None Remove="Sources\Icons\settings_inactive_24px.svg" />
+    <None Remove="Sources\Icons\upArrow.svg" />
     <None Remove="Sources\innovi_logo.png" />
     <None Remove="Sources\LoadingAnimation.gif" />
     <None Remove="Sources\Icons\folder_24px.svg" />
@@ -60,15 +68,23 @@
     <EmbeddedResource Include="Sources\background.png" />
     <EmbeddedResource Include="Sources\EmptyPageFiller.svg" />
     <EmbeddedResource Include="Sources\Icons\backButton.svg" />
+    <EmbeddedResource Include="Sources\Icons\browseIcon.svg" />
     <EmbeddedResource Include="Sources\Icons\dividerIcon.svg" />
     <EmbeddedResource Include="Sources\Icons\events_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\events_active_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\events_inactive_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\folderIcon.svg" />
+    <EmbeddedResource Include="Sources\Icons\health_inactive_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\leftArrow.svg" />
+    <EmbeddedResource Include="Sources\Icons\reset.svg" />
     <EmbeddedResource Include="Sources\Icons\rightArrow.svg" />
     <EmbeddedResource Include="Sources\Icons\sensors_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\sensors_active_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\sensors_inactive_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\settings_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\settings_active_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\settings_inactive_24px.svg" />
+    <EmbeddedResource Include="Sources\Icons\upArrow.svg" />
     <EmbeddedResource Include="Sources\innovi_logo.png" />
     <EmbeddedResource Include="Sources\LoadingAnimation.gif" />
     <EmbeddedResource Include="Sources\Icons\folder_24px.svg" />
@@ -127,6 +143,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\EventDetailsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\HealthStatPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\LandscapeEventDetailsPage.xaml">

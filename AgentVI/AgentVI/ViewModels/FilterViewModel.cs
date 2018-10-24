@@ -35,7 +35,7 @@ namespace AgentVI.ViewModels
             set
             {
                 _selectedFoldersCache = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedFoldersCache));
             }
         }
         private ObservableCollection<FilteringPageViewModel> _filteringPagesContent;
@@ -45,7 +45,7 @@ namespace AgentVI.ViewModels
             private set
             {
                 _filteringPagesContent = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(FilteringPagesContent));
             }
         }
         public Folder CurrentlySelectedFolder { get; set; }

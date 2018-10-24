@@ -23,7 +23,7 @@ namespace AgentVI.ViewModels
                 if (_currentPath == null || String.IsNullOrEmpty(_currentPath))
                 {
                     _currentPath = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(CurrentPath));
                 }
             }
         }

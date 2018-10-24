@@ -18,6 +18,10 @@ namespace AgentVI.ViewModels
         {
             get => EventModel.SensorEventRuleName.convertEnumToString();
         }
+        public string SensorEventBehavior
+        {
+            get => EventModel.SensorEventRuleName.BehaviorToString();
+        }
         public string SensorEventDateTime
         {
             get => new TimestampConverter().Convert(EventModel.SensorEventDateTime,typeof(String), null, null).ToString();
@@ -33,6 +37,10 @@ namespace AgentVI.ViewModels
         public string SensorEventObjectType
         {
             get => new EnumObjectTypeSVGConverter().Convert(EventModel.SensorEventObjectType, EventModel.SensorEventObjectType.GetType() , null, null).ToString();
+        }
+        public bool IsClipAvailable
+        {
+            get => EventModel.SensorEvent.IsClipAvailable;
         }
 
 
