@@ -28,7 +28,7 @@
                 <Label x:Name="sensorNameLabel" VerticalOptions="Center" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" FontAttributes="Bold" TextColor="Navy" LineBreakMode="TailTruncation"/>
                 <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
                     <Button Text="Live" WidthRequest="70"/>
-                    <Button Text="Health" WidthRequest="80"/>
+                    <Button Text="Health" WidthRequest="80" Clicked="onHealthButtonClicked"/>
                 </StackLayout>
             </StackLayout>
             <Grid Grid.Row="1" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">

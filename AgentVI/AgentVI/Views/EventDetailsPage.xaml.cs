@@ -1,4 +1,9 @@
-﻿using AgentVI.Interfaces;
+﻿#if DPROXY
+using DummyProxy;
+#else
+using InnoviApiProxy;
+#endif
+using AgentVI.Interfaces;
 using AgentVI.Models;
 using AgentVI.Utils;
 using AgentVI.ViewModels;
@@ -17,7 +22,7 @@ namespace AgentVI.Views
         private EventDetailsViewModel eventDetailsViewModel = null;
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
         private LandscapeEventDetailsPage landscapeEventDetailsPage = null;
-
+        private Sensor sensor = null;
 
         public EventDetailsPage()
         {
@@ -32,10 +37,16 @@ namespace AgentVI.Views
                 landscapeEventDetailsPage = new LandscapeEventDetailsPage(i_EventModel);
                 landscapeEventDetailsPage.RaiseContentViewUpdateEvent += eventsRouter;
             });
+            sensor = i_EventModel.Sensor;
             eventDetailsViewModel = new EventDetailsViewModel(i_EventModel);
             CrossDeviceOrientation.Current.UnlockOrientation();
             CrossDeviceOrientation.Current.OrientationChanged += handleOrientationChanged;
             bindUnbindableUIFields();
+        }
+
+        private void onHealthButtonClicked(object sender, EventArgs e)
+        {
+            (Application.Current.MainPage as NavigationPage).PushAsync(new CameraHealthPage(SensorModel.FactoryMethod(sensor)));
         }
 
         private void handleOrientationChanged(object sender, OrientationChangedEventArgs e)

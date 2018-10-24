@@ -1,22 +1,30 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/EventDetailsPage.xaml.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/EventDetailsPage.xaml">
     <Files>
-      <File FileName="AgentVI/AgentVI/Models/SensorHealthModel.cs" Line="10" Column="46" />
-      <File FileName="AgentVI/AgentVI/ViewModels/SensorHealthListViewModel.cs" Line="67" Column="36" />
-      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml" Line="17" Column="50" />
-      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml.cs" Line="20" Column="35" />
-      <File FileName="AgentVI/AgentVI/Views/CameraEventsPage.xaml.cs" Line="1" Column="1" />
-      <File FileName="AgentVI/AgentVI/Views/EventDetailsPage.xaml.cs" Line="37" Column="64" />
-      <File FileName="AgentVI/AgentVI/Views/CameraEventsPage.xaml" Line="62" Column="65" />
+      <File FileName="AgentVI/AgentVI/Models/SensorHealthModel.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/ViewModels/SensorHealthListViewModel.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml" Line="32" Column="54" />
+      <File FileName="AgentVI/AgentVI/Views/WaitingPage.xaml" Line="10" Column="15" />
+      <File FileName="AgentVI/AgentVI/Views/WaitingPage.xaml.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/SettingsPage.xaml.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/Models/EventModel.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/Models/SensorModel.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml" Line="57" Column="15" />
+      <File FileName="AgentVI/AgentVI/Views/CamerasPage.xaml.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/CameraEventsPage.xaml" Line="82" Column="15" />
+      <File FileName="AgentVI/AgentVI/Views/CameraEventsPage.xaml.cs" Line="71" Column="121" />
+      <File FileName="AgentVI/AgentVI/Views/EventDetailsPage.xaml.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/EventDetailsPage.xaml" Line="65" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.AgentVI.Android AndroidDesignerPreferredTheme="Theme.DeviceDefault.NoActionBar.Fullscreen" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.538e301684d91edcec33c0ca6ed04035d6e4abdb" />
+  <MonoDevelop.Ide.ItemProperties.AgentVI.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
 </Properties>
