@@ -25,7 +25,29 @@ namespace AgentVI.ViewModels
             set
             {
                 _isBusy = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+        private bool _isEmptyFolder = true;
+        public bool IsEmptyFolder
+        {
+            get => _isEmptyFolder;
+            set
+            {
+                _isEmptyFolder = value;
+                OnPropertyChanged(nameof(IsEmptyFolder));
+            }
+        }
+
+        private void updateFolderState()
+        {
+            if (ObservableCollection.Count == 0)
+            {
+                IsEmptyFolder = true;
+            }
+            else
+            {
+                IsEmptyFolder = false;
             }
         }
 
@@ -78,6 +100,8 @@ namespace AgentVI.ViewModels
             {
                 canLoadMore = false;
             }
+
+            updateFolderState();
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -49,12 +49,12 @@ namespace AgentVI.Views
 
         private void quitClipLoading()
         {
-            //SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = false;
+            SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = false;
         }
 
         private void restartClipLoading()
         {
-            //SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = true;
+            SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = true;
         }
 
         private void onEventDetailsBackButtonTapped(object sender, EventArgs e)
