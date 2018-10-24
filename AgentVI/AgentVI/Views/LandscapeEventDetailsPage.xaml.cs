@@ -23,6 +23,12 @@ namespace AgentVI.Views
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            onAreaTapped(null, null);
+        }
+
         public LandscapeEventDetailsPage(EventModel i_EventModel):this()
         {
             CrossDeviceOrientation.Current.UnlockOrientation();
@@ -53,6 +59,14 @@ namespace AgentVI.Views
         public void Refocus()
         {
             restartClipLoading();
+        }
+
+        private async void onAreaTapped(object sender, EventArgs e)
+        {
+            await firstLineLabel.FadeTo(100, 400);
+            await secondLineLabel.FadeTo(100, 400);
+            await firstLineLabel.FadeTo(0, 400);
+            await secondLineLabel.FadeTo(0, 400);
         }
     }
 }

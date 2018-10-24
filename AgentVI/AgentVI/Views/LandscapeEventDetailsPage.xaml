@@ -18,11 +18,15 @@
                                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>-->
             <renderers:CustomWebView x:Name="SensorEventClipVideoPlayer" Source="{Binding SensorEventClip, Converter={StaticResource tmpVidPlaceholderGeneratorConverter}}"
                                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-                                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+                                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+            </renderers:CustomWebView>
             <StackLayout RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0}">
-                <Label Text="{Binding FirstLineOverlay}" TextColor="White"/>
-                <Label Text="{Binding SecondLineOverlay}" TextColor="White"/>
+                <Label x:Name="firstLineLabel" Text="{Binding FirstLineOverlay}" TextColor="White"/>
+                <Label x:Name="secondLineLabel" Text="{Binding SecondLineOverlay}" TextColor="White"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="onAreaTapped"/>
+                </StackLayout.GestureRecognizers>
             </StackLayout>
         </RelativeLayout>
     </ContentPage.Content>
