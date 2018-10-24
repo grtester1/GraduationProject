@@ -25,7 +25,7 @@ namespace AgentVI.ViewModels
             set
             {
                 _isBusy = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsBusy));
             }
         }
         private bool _isEmptyFolder = true;
@@ -35,7 +35,7 @@ namespace AgentVI.ViewModels
             set
             {
                 _isEmptyFolder = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsEmptyFolder));
             }
         }
 

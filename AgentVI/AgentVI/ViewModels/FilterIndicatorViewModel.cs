@@ -19,7 +19,7 @@ namespace AgentVI.ViewModels
             private set
             {
                 _selectedFoldersNamesCacheStr = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedFoldersNamesCacheStr));
             }
         }
         private ObservableCollection<Folder> _selectedFoldersNamesCache = null;
@@ -30,7 +30,7 @@ namespace AgentVI.ViewModels
             {
                 _selectedFoldersNamesCache = new ObservableCollection<Folder>(value);
                 SelectedFoldersNamesCacheStr = currenPathToString(_selectedFoldersNamesCache);
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedFoldersNamesCache));
             }
         }
 
