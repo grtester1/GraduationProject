@@ -23,6 +23,7 @@ namespace AgentVI.Views
     {
         private SensorEventsListViewModel SensorEventsListVM = null;
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
+        private Sensor sensor = null;
 
         public CameraEventsPage()
         {
@@ -31,6 +32,7 @@ namespace AgentVI.Views
 
         public CameraEventsPage(Sensor i_Sensor) : this()
         {
+            sensor = i_Sensor;
             SensorEventsListVM = new SensorEventsListViewModel(i_Sensor);
             SensorEventsListVM.PopulateCollection();
             cameraEventsListView.BindingContext = SensorEventsListVM;
@@ -61,6 +63,14 @@ namespace AgentVI.Views
         {
             RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Pop));
         }
+
+
+
+        private void onHealthButtonClicked(object sender, EventArgs e)
+        {
+            (Application.Current.MainPage as NavigationPage).PushAsync(new CameraHealthPage(SensorModel.FactoryMethod(sensor)));
+        }
+
 
         private async void cameraEventsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {

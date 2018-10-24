@@ -84,8 +84,8 @@
                     <TapGestureRecognizer Tapped="FooterBarHealth_Clicked"/>
                 </ffsvg:SvgCachedImage.GestureRecognizers>
             </ffsvg:SvgCachedImage>
-
-            <ffsvg:SvgCachedImage Grid.Column="3" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+          
+          <ffsvg:SvgCachedImage Grid.Column="3" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
                                   
                                                     x:Name="FooterBarSettingsIcon"
                                                     Source="{x:Static settings:Settings.SettingsTabSVGPath}">

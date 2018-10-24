@@ -8,7 +8,7 @@
   - [Team:](#grad-project)
     - [Amikam Goldfarb (Team leader | Client-side Frontend and Android development)](#grad-project)
     - [Nadav Ramot     (Client-side backend development leader)](#grad-project)
-    - [Gil Ronen       (iOS development leader)](#grad-project)
+    - [Gil Ronen       (Client-side Frontend and iOS development leader)](#grad-project)
   - [Mentors:](#grad-project)
     - [Guy Ronen](#grad-project)
     - [Innovi AgentVI Company](#grad-project)

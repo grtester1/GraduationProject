@@ -59,7 +59,7 @@ namespace AgentVI.ViewModels
 
             updateReporter("Fetching Settings...", i_Report);
             PagesCollection.Add(EAppTab.SettingsPage, new Tuple<ContentPage, SvgCachedImage>(new SettingsPage(), i_AppTabs[EAppTab.SettingsPage]));
-            PagesCollection.Add(EAppTab.HealthPage, new Tuple<ContentPage, SvgCachedImage>(new HealthStatPage(), i_AppTabs[EAppTab.HealthPage]));
+            PagesCollection.Add(EAppTab.HealthPage, new Tuple<ContentPage, SvgCachedImage>(new HealthPage(), i_AppTabs[EAppTab.HealthPage]));
 
             updateReporter("Fetching Events...", i_Report);
             EventsPage eventsPageBuf = new EventsPage();
