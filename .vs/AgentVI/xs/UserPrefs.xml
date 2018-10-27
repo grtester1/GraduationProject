@@ -1,12 +1,10 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/EventDetailsPage.xaml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Views/SettingsPage.xaml">
     <Files>
-      <File FileName="AgentVI/AgentVI/Models/SensorHealthModel.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/Models/SensorHealthModel.cs" Line="6" Column="25" />
       <File FileName="AgentVI/AgentVI/ViewModels/SensorHealthListViewModel.cs" Line="1" Column="1" />
-      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml" Line="32" Column="54" />
-      <File FileName="AgentVI/AgentVI/Views/WaitingPage.xaml" Line="10" Column="15" />
-      <File FileName="AgentVI/AgentVI/Views/WaitingPage.xaml.cs" Line="1" Column="1" />
+      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml" Line="42" Column="15" />
       <File FileName="AgentVI/AgentVI/Views/SettingsPage.xaml.cs" Line="1" Column="1" />
       <File FileName="AgentVI/AgentVI/Models/EventModel.cs" Line="1" Column="1" />
       <File FileName="AgentVI/AgentVI/Models/SensorModel.cs" Line="1" Column="1" />
@@ -17,6 +15,7 @@
       <File FileName="AgentVI/AgentVI/Views/CameraEventsPage.xaml.cs" Line="71" Column="121" />
       <File FileName="AgentVI/AgentVI/Views/EventDetailsPage.xaml.cs" Line="1" Column="1" />
       <File FileName="AgentVI/AgentVI/Views/EventDetailsPage.xaml" Line="65" Column="15" />
+      <File FileName="AgentVI/AgentVI/Views/SettingsPage.xaml" Line="17" Column="86" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
