@@ -19,7 +19,8 @@ namespace AgentVI.Models
             {
                 HealthTime = (ulong)i_Health.StatusTimeStamp,
                 HealthDescription = i_Health.DetailedDescription,
-                HealthDuration = getHealthDurationTime(i_Health.Duration)
+                HealthDuration = getHealthDurationTime(i_Health.Duration),
+                CameraName = i_Health.SensorName
             };
 
             return res;
@@ -28,6 +29,7 @@ namespace AgentVI.Models
         public ulong HealthTime { get; set; }
         public string HealthDescription { get; set; }
         public string HealthDuration { get; set; }
+        public string CameraName { get; set; }
 
         private static string getHealthDurationTime(long i_duration)
         {

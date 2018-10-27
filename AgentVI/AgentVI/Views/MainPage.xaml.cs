@@ -28,7 +28,7 @@ namespace AgentVI.Views
                 { EAppTab.EventsPage, FooterBarEventsIcon },
                 { EAppTab.SensorsPage, FooterBarCamerasIcon},
                 { EAppTab.SettingsPage, FooterBarSettingsIcon },
-                {EAppTab.HealthPage, FooterBarHealthIcon }
+                { EAppTab.HealthPage, FooterBarHealthIcon }
             };
         }
 

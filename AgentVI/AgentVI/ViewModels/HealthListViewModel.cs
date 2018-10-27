@@ -34,5 +34,22 @@ namespace AgentVI.ViewModels
                                                  FilteredHealth.Select(health => HealthModel.FactoryMethod(health));
             FetchCollection();
         }
+
+        public void PopulateCollection(Sensor i_Sensor)
+        {
+            base.PopulateCollection();
+
+            List<HealthModel> healthModelList = new List<HealthModel>();
+            List<Sensor.Health> healthProxyList = i_Sensor.SensorHealthArray;
+
+            foreach (Sensor.Health health in healthProxyList)
+            {
+                healthModelList.Add(HealthModel.FactoryMethod(health));
+            }
+
+            enumerableCollection = healthModelList;
+
+            FetchCollection();
+        }
     }
 }

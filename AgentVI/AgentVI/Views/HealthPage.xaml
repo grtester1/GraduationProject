@@ -19,6 +19,7 @@
     </ContentPage.Padding>
     <ContentPage.Content>
         <StackLayout Margin="20">
+            <Label Margin="20" x:Name="cameraNameHeader" FontAttributes="Bold" HorizontalOptions="Center" FontSize="Large"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.2*" />

@@ -20,13 +20,30 @@ namespace AgentVI.Views
     public partial class HealthPage : ContentPage
     {
         private HealthListViewModel HealthPageVM = null;
+        private bool isHealthForSpecificSensor = false;
+        private Sensor sensor = null;
 
-        public HealthPage()
+        public HealthPage(Sensor i_sensor)
         {
             InitializeComponent();
             HealthPageVM = new HealthListViewModel();
-            initOnFilterStateUpdatedEventHandler();
-            HealthPageVM.PopulateCollection();
+            sensor = i_sensor;
+
+            if (i_sensor != null)
+            {
+                isHealthForSpecificSensor = true;
+                HealthPageVM.PopulateCollection(i_sensor);
+                string cameraName = i_sensor.Name;
+                cameraNameHeader.Text = "Health for " + cameraName;
+                Title = cameraName;
+            }
+            else
+            {
+                isHealthForSpecificSensor = false;
+                initOnFilterStateUpdatedEventHandler();
+                HealthPageVM.PopulateCollection();
+            }
+
             healthListView.BindingContext = HealthPageVM;
         }
 
@@ -38,20 +55,43 @@ namespace AgentVI.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            HealthPageVM.PopulateCollection();
+            if(isHealthForSpecificSensor)
+            {
+                HealthPageVM.PopulateCollection(sensor);
+            }
+            else
+            {
+                HealthPageVM.PopulateCollection();
+            }
         }
 
         private async void OnRefresh(object sender, EventArgs e)
         {
-            try
+            if (isHealthForSpecificSensor)
             {
-                await Task.Factory.StartNew(() => HealthPageVM.PopulateCollection());
-                ((ListView)sender).IsRefreshing = false;
+                try
+                {
+                    await Task.Factory.StartNew(() => HealthPageVM.PopulateCollection(sensor));
+                    ((ListView)sender).IsRefreshing = false; //end the refresh state
+                }
+                catch (AggregateException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
-            catch (AggregateException ex)
+            else
             {
-                Console.WriteLine(ex.Message);
+                try
+                {
+                    await Task.Factory.StartNew(() => HealthPageVM.PopulateCollection());
+                    ((ListView)sender).IsRefreshing = false; //end the refresh state
+                }
+                catch (AggregateException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
+
         }
     }
 }

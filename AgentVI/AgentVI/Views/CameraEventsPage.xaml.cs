@@ -68,7 +68,7 @@ namespace AgentVI.Views
 
         private void onHealthButtonClicked(object sender, EventArgs e)
         {
-            (Application.Current.MainPage as NavigationPage).PushAsync(new CameraHealthPage(SensorModel.FactoryMethod(sensor)));
+            (Application.Current.MainPage as NavigationPage).PushAsync(new HealthPage(sensor));
         }
 
 

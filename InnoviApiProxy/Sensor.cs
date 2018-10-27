@@ -61,6 +61,8 @@ namespace InnoviApiProxy
 
                     healthObject.Status = status;
                     healthObject.DetailedDescription = detailedDescription;
+
+                    healthObject.SensorName = Name;
                 }
 
                 foreach (Health healthObject in healthArray)
@@ -193,6 +195,8 @@ namespace InnoviApiProxy
             public string DetailedDescription { get; internal set; }
 
             public long Duration { get; internal set; }
+
+            public string SensorName { get; internal set; }
         }
 
         private void setHealthStatusFields(eStatusDescription i_StatusDescription, out eSensorStatus o_Status, out string o_DetailedDescription)
