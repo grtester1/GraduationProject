@@ -17,12 +17,9 @@ using System.Collections;
 
 namespace AgentVI.Views
 {
-    public partial class HealthPage : ContentPage//, INotifyContentViewChanged
+    public partial class HealthPage : ContentPage
     {
         private HealthListViewModel HealthPageVM = null;
-        //public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
-
-
 
         public HealthPage()
         {
@@ -32,21 +29,6 @@ namespace AgentVI.Views
             HealthPageVM.PopulateCollection();
             healthListView.BindingContext = HealthPageVM;
         }
-
-        /*
-        public HealthPage(SensorModel i_sensor) : this()
-        {
-            HealthPageVM = new HealthListViewModel(i_sensor);
-            cameraNameHeader.Text = "Health for " + i_sensor.SensorName;
-            Title = i_sensor.SensorName;
-            listView.ItemsSource = HealthPageVM.HealthsList;
-        }*/
-
-
-
-
-
-
 
         private void initOnFilterStateUpdatedEventHandler()
         {
@@ -71,30 +53,5 @@ namespace AgentVI.Views
                 Console.WriteLine(ex.Message);
             }
         }
-
-  
-
-        //The old HealthPage.xaml.cs:
-        //---------------------------
-        /*
-        public HealthPage()
-        {
-            InitializeComponent();
-        }
-
-        public HealthPage(SensorModel i_sensor) : this()
-        {
-            HealthPageVM = new HealthListViewModel(i_sensor);
-            cameraNameHeader.Text = "Health for " + i_sensor.SensorName;
-            Title = i_sensor.SensorName;
-            listView.ItemsSource = HealthPageVM.HealthsList;
-        }
-
-        private async void OnRefresh(object sender, EventArgs e)
-        {
-            await System.Threading.Tasks.Task.Factory.StartNew(() => HealthPageVM.UpdateHealthList());
-            ((ListView)sender).IsRefreshing = false; //end the refresh state
-        }
-        */
     }
 }

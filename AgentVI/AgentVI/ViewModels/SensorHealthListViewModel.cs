@@ -106,10 +106,9 @@ namespace AgentVI.ViewModels
             return durationTimeText.ToString();
         }
 
-        public void UpdateHealthList() //need to implement!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        public void UpdateHealthList()
         {
-            //HealthsList.Clear();
-            //HealthsList = GetHealthSensorList(SensorModel);
+
         }
 
         private void OnPropertyChanged(string propertyName)

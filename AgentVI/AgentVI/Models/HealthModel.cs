@@ -64,14 +64,5 @@ namespace AgentVI.Models
 
             return durationTimeText.ToString();
         }
-
-
-        //The old HealthModel.cs:
-        //---------------------------
-        /*
-        public long HealthTime { get; set; }
-        public string HealthDescription { get; set; }
-        public string HealthDuration { get; set; }
-        */
     }
 }

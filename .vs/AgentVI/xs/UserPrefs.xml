@@ -1,16 +1,16 @@
 ﻿<Properties StartupConfiguration="{18CC41FE-3417-4175-B88D-4C202B45CB63}|Default">
   <MonoDevelop.Ide.ItemProperties.NadavTest PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="InnoviApiProxy/Sensor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgentVI/AgentVI/Models/HealthModel.cs">
     <Files>
       <File FileName="AgentVI/AgentVI/Models/SensorHealthModel.cs" Line="7" Column="2" />
-      <File FileName="AgentVI/AgentVI/ViewModels/SensorHealthListViewModel.cs" Line="70" Column="10" />
+      <File FileName="AgentVI/AgentVI/Models/HealthModel.cs" Line="27" Column="9" />
+      <File FileName="AgentVI/AgentVI/ViewModels/SensorHealthListViewModel.cs" Line="21" Column="6" />
       <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml" Line="42" Column="15" />
-      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml.cs" Line="1" Column="1" />
-      <File FileName="AgentVI/AgentVI/Models/HealthModel.cs" Line="24" Column="24" />
-      <File FileName="AgentVI/AgentVI/ViewModels/HealthListViewModel.cs" Line="36" Column="10" />
-      <File FileName="AgentVI/AgentVI/Views/HealthPage.xaml" Line="72" Column="15" />
-      <File FileName="AgentVI/AgentVI/Views/HealthPage.xaml.cs" Line="32" Column="47" />
-      <File FileName="InnoviApiProxy/Sensor.cs" Line="73" Column="22" />
+      <File FileName="AgentVI/AgentVI/Views/CameraHealthPage.xaml.cs" Line="33" Column="89" />
+      <File FileName="AgentVI/AgentVI/ViewModels/HealthListViewModel.cs" Line="15" Column="30" />
+      <File FileName="AgentVI/AgentVI/Views/HealthPage.xaml" Line="64" Column="27" />
+      <File FileName="AgentVI/AgentVI/Views/HealthPage.xaml.cs" Line="29" Column="47" />
+      <File FileName="InnoviApiProxy/Sensor.cs" Line="208" Column="58" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />

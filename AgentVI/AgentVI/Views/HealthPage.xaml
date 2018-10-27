@@ -12,17 +12,12 @@
             <converters:TimestampConverter x:Key="TimestampConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    <!--//-->
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
                     iOS="{x:Static settings:Settings.iOSPlatformPadding}">
         </OnPlatform>
     </ContentPage.Padding>
-    <!--//-->
-    <!--//-->
     <ContentPage.Content>
-        <!--//-->
         <StackLayout Margin="20">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -66,7 +61,5 @@
                 </ListView.ItemTemplate>
             </ListView>            
         </StackLayout>
-        <!--//-->
     </ContentPage.Content>
-    <!--//-->
 </ContentPage>
