@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-
+using System.Linq;
 
 namespace InnoviApiProxy
 {
@@ -63,11 +63,23 @@ namespace InnoviApiProxy
                     healthObject.DetailedDescription = detailedDescription;
                 }
 
+                foreach (Health healthObject in healthArray)
+                {
+                    if (healthObject != healthArray.Last())
+                    {
+                        long currentTime = healthObject.StatusTimeStamp;
+                        long nextTime = healthArray[healthArray.IndexOf(healthObject) + 1].StatusTimeStamp;
+                        healthObject.Duration = nextTime - currentTime;
+                    }
+                    else
+                    {
+                        healthObject.Duration = DateTime.Now.Ticks - healthObject.StatusTimeStamp;
+                    }
+                }
+
                 return healthArray;
             }
-
         }
-       
 
         public InnoviObjectCollection<SensorEvent> SensorEvents
         {
@@ -179,6 +191,8 @@ namespace InnoviApiProxy
             public eStatusDescription Description { get; private set; }
 
             public string DetailedDescription { get; internal set; }
+
+            public long Duration { get; internal set; }
         }
 
         private void setHealthStatusFields(eStatusDescription i_StatusDescription, out eSensorStatus o_Status, out string o_DetailedDescription)
