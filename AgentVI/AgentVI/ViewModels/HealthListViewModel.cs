@@ -32,6 +32,7 @@ namespace AgentVI.ViewModels
             base.PopulateCollection();
             enumerableCollection = ServiceManager.Instance.FilterService.
                                                  FilteredHealth.Select(health => HealthModel.FactoryMethod(health));
+            enumerableCollection.Reverse();
             FetchCollection();
         }
 
