@@ -73,10 +73,6 @@ namespace InnoviApiProxy
                         long nextTime = healthArray[healthArray.IndexOf(healthObject) + 1].StatusTimeStamp;
                         healthObject.Duration = nextTime - currentTime;
                     }
-                    else
-                    {
-                        healthObject.Duration = DateTime.Now.Ticks - healthObject.StatusTimeStamp;
-                    }
                 }
 
                 return healthArray;

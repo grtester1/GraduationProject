@@ -34,11 +34,13 @@ namespace AgentVI.Views
                 isHealthForSpecificSensor = true;
                 HealthPageVM.PopulateCollection(i_sensor);
                 string cameraName = i_sensor.Name;
+                cameraNameHeader.IsVisible = true;
                 cameraNameHeader.Text = "Health for " + cameraName;
                 Title = cameraName;
             }
             else
             {
+                cameraNameHeader.IsVisible = false;
                 isHealthForSpecificSensor = false;
                 initOnFilterStateUpdatedEventHandler();
                 HealthPageVM.PopulateCollection();
@@ -55,7 +57,7 @@ namespace AgentVI.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if(isHealthForSpecificSensor)
+            if (isHealthForSpecificSensor)
             {
                 HealthPageVM.PopulateCollection(sensor);
             }

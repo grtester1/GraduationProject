@@ -32,6 +32,7 @@ namespace AgentVI.ViewModels
             base.PopulateCollection();
             enumerableCollection = ServiceManager.Instance.FilterService.
                                                  FilteredHealth.Select(health => HealthModel.FactoryMethod(health));
+            enumerableCollection.OrderBy(health => health.HealthTime);
             FetchCollection();
         }
 
@@ -47,8 +48,8 @@ namespace AgentVI.ViewModels
                 healthModelList.Add(HealthModel.FactoryMethod(health));
             }
 
+            healthModelList.Reverse();
             enumerableCollection = healthModelList;
-
             FetchCollection();
         }
     }

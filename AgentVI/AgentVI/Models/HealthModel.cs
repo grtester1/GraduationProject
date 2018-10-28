@@ -18,7 +18,7 @@ namespace AgentVI.Models
             HealthModel res = new HealthModel()
             {
                 HealthTime = (ulong)i_Health.StatusTimeStamp,
-                HealthDescription = i_Health.DetailedDescription,
+                HealthDescription = getNoEmptyDescription(i_Health.DetailedDescription),
                 HealthDuration = getHealthDurationTime(i_Health.Duration),
                 CameraName = i_Health.SensorName
             };
@@ -30,6 +30,16 @@ namespace AgentVI.Models
         public string HealthDescription { get; set; }
         public string HealthDuration { get; set; }
         public string CameraName { get; set; }
+
+        private static string getNoEmptyDescription(string i_description)
+        {
+            string description = i_description;
+            if (string.IsNullOrEmpty(description))
+            {
+                description = "OK";
+            }
+            return description;
+        }
 
         private static string getHealthDurationTime(long i_duration)
         {
