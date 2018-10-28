@@ -8,6 +8,8 @@ namespace InnoviApiProxy
 {
     public class Sensor : InnoviObject
     {
+        private List<string> m_LiveViewTestLinks;
+
         [JsonProperty("id")]
         internal int sensorId { get; private set; }
         [JsonProperty]
@@ -42,9 +44,20 @@ namespace InnoviApiProxy
         public bool IsOptimizationEnabled { get; private set; }
         [JsonProperty]
         public uint AlarmInterval { get; private set; }
-        public string LiveViewStream { get; internal set; } = string.Empty;
         protected override int Id => sensorId;
 
+        // This property returns static data as this functionality is not covered by the API at this point
+        public string LiveView
+        {
+            get
+            {
+                Random random = new Random();
+                int liveViewListSize = m_LiveViewTestLinks.Count;
+                int index = random.Next(liveViewListSize);
+
+                return m_LiveViewTestLinks[index];
+            }
+        }
 
         public List<Health> SensorHealthArray
         {
@@ -167,7 +180,13 @@ namespace InnoviApiProxy
 
         }
 
-        internal Sensor() { }
+        internal Sensor()
+        {
+            m_LiveViewTestLinks = new List<string>();
+            m_LiveViewTestLinks.Add("http://96.70.163.66/mjpg/video.mjpg");
+            m_LiveViewTestLinks.Add("http://166.161.110.55/-wvhttp-01-/GetOneShot?image_size=640x480&frame_count=1000000000");
+            m_LiveViewTestLinks.Add("http://24.221.30.55:8080/-wvhttp-01-/GetOneShot?image_size=640x480&frame_count=1000000000");
+        }
 
         public class Health
         {
