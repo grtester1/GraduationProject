@@ -144,7 +144,7 @@ namespace AgentVI.ViewModels
                     Tuple<ContentPage, IBindableVM> stackTop = contentViewStack.Pop();
                     try
                     {
-                        (stackTop as IFocusable).Refocus();
+                        (stackTop.Item1 as IFocusable).Refocus();
                     }
                     catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
                 }

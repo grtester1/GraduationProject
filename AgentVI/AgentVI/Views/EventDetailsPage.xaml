@@ -28,7 +28,8 @@
                                     LabelFontColor="Navy"
                                     LabelFontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"
                                     LabelText="{Binding SensorName}"
-                                    BackButtonTapped="onEventDetailsBackButtonTapped"/>
+                                    BackButtonTapped="onEventDetailsBackButtonTapped"
+                                    DropdownMenuPage="{Binding DropdownMenu}"/>
             <Grid Grid.Row="1" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3.5*"/>
@@ -44,6 +45,7 @@
                     <renderers:CustomWebView x:Name="SensorEventClipVideoPlayer"
                                              Source="{Binding SensorEventClipPath}"
                                              IsVisible="{Binding IsClipAvailable}"
+                                             IsEnabled="{Binding IsClipAvailable}"
                                              Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
                                              AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
                 </AbsoluteLayout>

@@ -52,12 +52,12 @@ namespace AgentVI.Views
         
         private void quitClipLoading()
         {
-            SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = false;
+            landscapeEventDetailsPageVM.IsPlayerVisible = false;
         }
 
         private void restartClipLoading()
         {
-            SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = true;
+            landscapeEventDetailsPageVM.IsPlayerVisible = true;
         }
 
         public void Refocus()

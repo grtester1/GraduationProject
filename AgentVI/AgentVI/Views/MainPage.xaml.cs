@@ -71,6 +71,7 @@ namespace AgentVI.Views
         {
             try
             {
+                BindingContext = mainPageVM;
                 await Navigation.PushModalAsync(mainPageVM.FilterPage);
             }catch(InvalidOperationException ex)
             {

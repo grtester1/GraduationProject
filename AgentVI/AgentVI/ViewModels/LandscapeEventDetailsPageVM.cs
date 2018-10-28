@@ -23,6 +23,7 @@ namespace AgentVI.ViewModels
         public string SecondLineOverlay { get => new TimestampConverter()
                                                   .Convert(EventModel.SensorEventDateTime, typeof(ulong), null, null).ToString();
                                         }
+        public bool IsPlayerVisible { get; set; } = true;
 
         private LandscapeEventDetailsPageVM()
         {

@@ -73,7 +73,10 @@ namespace AgentVI.Views
                 eventDetailsPageBuf = new EventDetailsPage(selectedSensorEvent);
                 eventDetailsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
             });
-            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Push, eventDetailsPageBuf));
+            await Task.Factory.StartNew(() =>
+            updatedContentEventArgs = new UpdatedContentEventArgs(
+                UpdatedContentEventArgs.EContentUpdateType.Push, eventDetailsPageBuf, eventDetailsPageBuf.BindableViewModel
+                ));
             RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
         }
 

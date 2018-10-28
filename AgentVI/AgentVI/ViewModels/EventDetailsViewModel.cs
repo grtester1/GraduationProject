@@ -2,15 +2,18 @@
 using AgentVI.Converters;
 using AgentVI.Utils;
 using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using AgentVI.Interfaces;
+using AgentVI.Views;
+using System.Windows.Input;
+using Xamarin.Forms;
+using Rg.Plugins.Popup.Extensions;
 
 namespace AgentVI.ViewModels
 {
     public class EventDetailsViewModel : IBindableVM
     {
-        private EventModel EventModel { get; set; }
+        public event EventHandler<UpdatedContentEventArgs> EventRouter;
+        public DropdownMenuPage DropdownMenu { get; private set; }
         public string SensorName
         {
             get => EventModel.SensorName;
@@ -39,15 +42,27 @@ namespace AgentVI.ViewModels
         {
             get => new EnumObjectTypeSVGConverter().Convert(EventModel.SensorEventObjectType, EventModel.SensorEventObjectType.GetType() , null, null).ToString();
         }
+        public bool IsPlayerVisible { get; set; } = true;
         public bool IsClipAvailable
         {
-            get => EventModel.SensorEvent.IsClipAvailable;
+            get => EventModel.SensorEvent.IsClipAvailable && IsPlayerVisible;
         }
+        private EventModel EventModel { get; set; }
 
 
         public EventDetailsViewModel(EventModel i_EventModel)
         {
             EventModel = i_EventModel;
+            DropdownMenu = DropdownMenuPage.FactoryMethod()
+                .AddActionItem(new Tuple<string, Action>(
+                    "Live", () => EventRouter?.Invoke(this, new UpdatedContentEventArgs(
+                                                                UpdatedContentEventArgs.EContentUpdateType.Push,
+                                                                new HealthStatPage()))))
+                .AddActionItem(new Tuple<string, Action>(
+                    "Health", () => EventRouter?.Invoke(this, new UpdatedContentEventArgs(
+                                                                UpdatedContentEventArgs.EContentUpdateType.Push,
+                                                                new HealthStatPage()))))
+                .Build();
         }
     }
 }

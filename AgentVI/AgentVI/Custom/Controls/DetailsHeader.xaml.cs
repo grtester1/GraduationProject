@@ -120,15 +120,18 @@ namespace AgentVI.Custom.Controls
             BackButtonTapped?.Invoke(sender, e);
         }
 
-        private async void onContextMenuTapped(object sender, EventArgs e)
+        private void onContextMenuTapped(object sender, EventArgs e)
         {
-            if(DropdownMenuPage != default(PopupPage) && DropdownMenuPage != null)
+            VisualElement buttonClicked = sender as VisualElement;
+            Point elementCoordinates = buttonClicked.getCoordinates();
+            
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                Point elementCoordinates = (sender as FFImageLoading.Svg.Forms.SvgCachedImage).getCoordinates();
-                DropdownMenuPage.TranslationX = elementCoordinates.X;
-                DropdownMenuPage.TranslationY = elementCoordinates.Y;
                 await Navigation.PushPopupAsync(DropdownMenuPage);
+                DropdownMenuPage.TranslationX = elementCoordinates.X - 4.5*buttonClicked.Width;
+                DropdownMenuPage.TranslationY = elementCoordinates.Y + buttonClicked.Height/2;
             }
+            );
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

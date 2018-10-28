@@ -26,7 +26,6 @@ namespace AgentVI.Views
             InitializeComponent();
         }
 
-
         public EventDetailsPage(EventModel i_EventModel) : this()
         {
             Task.Factory.StartNew(() =>
@@ -35,6 +34,7 @@ namespace AgentVI.Views
                 landscapeEventDetailsPage.RaiseContentViewUpdateEvent += eventsRouter;
             });
             eventDetailsViewModel = new EventDetailsViewModel(i_EventModel);
+            eventDetailsViewModel.EventRouter += eventsRouter;
             CrossDeviceOrientation.Current.UnlockOrientation();
             CrossDeviceOrientation.Current.OrientationChanged += handleOrientationChanged;
             checkLockOrientation();
@@ -54,41 +54,18 @@ namespace AgentVI.Views
 
         private void quitClipLoading()
         {
-            SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = false;
+            eventDetailsViewModel.IsPlayerVisible = false;
         }
 
         private void restartClipLoading()
         {
-            SensorEventClipVideoPlayer.IsVisible = SensorEventClipVideoPlayer.IsEnabled = true;
+            eventDetailsViewModel.IsPlayerVisible = true;
         }
 
         private void onEventDetailsBackButtonTapped(object sender, EventArgs e)
         {
             RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Pop));
             CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
-        }
-
-        private async void bindUnbindableUIFields()
-        {
-            await Task.Factory.StartNew(() =>
-            {
-                //SensorEventClipVideoPlayer.Source = new Converters.tmpVidPlaceholderGeneratorConverter()
-                //                                    .Convert(eventDetailsViewModel.SensorEventClipPath, typeof(string), null, null)
-                //                                    .ToString();
-                SensorEventClipVideoPlayer.Source = eventDetailsViewModel.SensorEventClipPath;
-                //sensorNameLabel.Text = eventDetailsViewModel.SensorName;
-                sensorEventRuleNameLabel.Text = eventDetailsViewModel.SensorEventRuleName;
-                SensorEventDateTimeLabel.Text = eventDetailsViewModel.SensorEventDateTime;
-                SensorEventRuleNameImage.Source = eventDetailsViewModel.SensorEventObjectType;
-                SensorEventBehaviorLabel.Text = eventDetailsViewModel.SensorEventBehavior;
-                bool isEventClipAvailable = checkLockOrientation();
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    SensorEventClipVideoPlayer.IsVisible = isEventClipAvailable;
-                }
-                );
-            });
-            OnPropertyChanged();
         }
 
         private bool checkLockOrientation()
