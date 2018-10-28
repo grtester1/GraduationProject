@@ -1,4 +1,5 @@
 ﻿using AgentVI.Converters;
+using AgentVI.Interfaces;
 using AgentVI.Models;
 using AgentVI.Services;
 using InnoviApiProxy;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace AgentVI.ViewModels
 {
-    public class LandscapeEventDetailsPageVM
+    public class LandscapeEventDetailsPageVM : IBindableVM
     {
         private EventModel EventModel { get; set; }
         public string SensorEventClip { get => EventModel.SensorEventClip; }

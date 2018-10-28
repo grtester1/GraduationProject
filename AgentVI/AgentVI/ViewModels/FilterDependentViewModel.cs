@@ -6,10 +6,11 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms.Extended;
 using System.Threading.Tasks;
+using AgentVI.Interfaces;
 
 namespace AgentVI.ViewModels
 {
-    public abstract class FilterDependentViewModel<T> : INotifyPropertyChanged
+    public abstract class FilterDependentViewModel<T> : INotifyPropertyChanged, IBindableVM
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected IEnumerable<T> enumerableCollection;

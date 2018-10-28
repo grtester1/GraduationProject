@@ -13,11 +13,14 @@ using AgentVI.Models;
 using AgentVI.Utils;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Rg.Plugins.Popup.Extensions;
 
 namespace AgentVI.Views
 {
-    public partial class CamerasPage : ContentPage, INotifyContentViewChanged
+    public partial class CamerasPage : ContentPage, INotifyContentViewChanged, IBindable
     {
+        public IBindableVM BindableViewModel => SensorsListVM;
+        public ContentPage ContentPage => this;
         private SensorsListViewModel SensorsListVM = null;
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
 
@@ -61,7 +64,10 @@ namespace AgentVI.Views
                 cameraEventsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
 
             });
-            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Push, cameraEventsPageBuf));
+            await Task.Factory.StartNew(() => 
+            updatedContentEventArgs = new UpdatedContentEventArgs(
+            UpdatedContentEventArgs.EContentUpdateType.Push, cameraEventsPageBuf, cameraEventsPageBuf.BindableViewModel
+            ));
             RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
         }
 

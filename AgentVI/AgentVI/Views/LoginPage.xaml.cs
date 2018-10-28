@@ -10,12 +10,15 @@ using AgentVI.Utils;
 using AgentVI.ViewModels;
 using AgentVI.Services;
 using System.Threading.Tasks;
+using AgentVI.Interfaces;
 
 namespace AgentVI.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginPage : ContentPage
+    public partial class LoginPage : ContentPage, IBindable
     {
+        public IBindableVM BindableViewModel => loginPageViewModel;
+        public ContentPage ContentPage => this;
         private LoginPageViewModel loginPageViewModel { get; set; }
 
         public LoginPage()

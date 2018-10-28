@@ -12,8 +12,10 @@ using Xamarin.Forms.Xaml;
 namespace AgentVI.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LandscapeEventDetailsPage : ContentPage, INotifyContentViewChanged, IFocusable
+	public partial class LandscapeEventDetailsPage : ContentPage, INotifyContentViewChanged, IFocusable, IBindable
     {
+        public IBindableVM BindableViewModel => landscapeEventDetailsPageVM;
+        public ContentPage ContentPage => this;
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
         private LandscapeEventDetailsPageVM landscapeEventDetailsPageVM = null;
 
@@ -42,7 +44,9 @@ namespace AgentVI.Views
             if (e.Orientation == DeviceOrientations.Portrait)
             {
                 quitClipLoading();
-                RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.PopAsync));
+                RaiseContentViewUpdateEvent?.Invoke(
+                    this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.PopAsync)
+                    );
             }
         }
         

@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Octane.Xam.VideoPlayer" Version="2.2.0" />
     <PackageReference Include="Plugin.DeviceOrientation" Version="1.0.7" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.4.168" />
     <PackageReference Include="Unity" Version="5.8.11" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.3.840" />
     <PackageReference Include="Xamarin.FFImageLoading.Svg" Version="2.4.3.840" />
@@ -26,6 +27,7 @@
     <None Remove="Sources\EmptyPageFiller.svg" />
     <None Remove="Sources\Icons\backButton.svg" />
     <None Remove="Sources\Icons\browseIcon.svg" />
+    <None Remove="Sources\Icons\contextMenu.svg" />
     <None Remove="Sources\Icons\dividerIcon.svg" />
     <None Remove="Sources\Icons\events_24px.svg" />
     <None Remove="Sources\Icons\events_active_24px.svg" />
@@ -69,6 +71,7 @@
     <EmbeddedResource Include="Sources\EmptyPageFiller.svg" />
     <EmbeddedResource Include="Sources\Icons\backButton.svg" />
     <EmbeddedResource Include="Sources\Icons\browseIcon.svg" />
+    <EmbeddedResource Include="Sources\Icons\contextMenu.svg" />
     <EmbeddedResource Include="Sources\Icons\dividerIcon.svg" />
     <EmbeddedResource Include="Sources\Icons\events_24px.svg" />
     <EmbeddedResource Include="Sources\Icons\events_active_24px.svg" />
@@ -136,10 +139,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Custom\Controls\DetailsHeader.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Custom\Controls\HeaderControl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\CameraEventsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\DropdownMenuPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\EventDetailsPage.xaml">

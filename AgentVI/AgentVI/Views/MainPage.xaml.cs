@@ -37,7 +37,7 @@ namespace AgentVI.Views
             mainPageVM = new MainPageViewModel(i_ProgressReporter, tabsCollection);
             mainPageVM.RaiseContentViewUpdateEvent += OnMainNavigationPushPopRequest;
             FooterBarEvents_Clicked(null, null);
-            bindPageControllers();
+            BindingContext = mainPageVM;
         }
 
         private void OnMainNavigationPushPopRequest(object sender, UpdatedContentEventArgs e)
@@ -58,49 +58,70 @@ namespace AgentVI.Views
                         break;
                     default:
                         PlaceHolder.Content = e.UpdatedContent.Content;
+                        if(e.UpdatedVM != null)
+                        {
+                            BindingContext = e.UpdatedVM;
+                        }
                         break;
                 }
             });
         }
 
-        private void bindPageControllers()
-        {
-            BindingContext = mainPageVM;
-        }
-
-        private void OnFilterStateIndicatorClicked(object i_Sender, EventArgs i_EventArgs)
+        private async void OnFilterStateIndicatorClicked(object i_Sender, EventArgs i_EventArgs)
         {
             try
             {
-                Navigation.PushModalAsync(mainPageVM.FilterPage);
+                await Navigation.PushModalAsync(mainPageVM.FilterPage);
             }catch(InvalidOperationException ex)
             {
                 Console.WriteLine("Tapped twice the button before it was opened. No action needed");
             }
         }
 
-        void FooterBarEvents_Clicked(object i_Sender, EventArgs i_EventArgs)
+        private void FooterBarEvents_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             Task.Factory.StartNew(() =>
-            mainPageVM.updateContentView(EAppTab.EventsPage, mainPageVM.PagesCollection[EAppTab.EventsPage].Item1));
+            mainPageVM.updateContentView(
+                EAppTab.EventsPage,
+                mainPageVM.PagesCollection[EAppTab.EventsPage].Item1.ContentPage,
+                mainPageVM.PagesCollection[EAppTab.EventsPage].Item1.BindableViewModel
+            )
+            );
         }
 
-        void FooterBarCameras_Clicked(object i_Sender, EventArgs i_EventArgs)
+        private void FooterBarCameras_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             Task.Factory.StartNew(() => 
-            mainPageVM.updateContentView(EAppTab.SensorsPage, mainPageVM.PagesCollection[EAppTab.SensorsPage].Item1));
+            mainPageVM.updateContentView(
+                EAppTab.SensorsPage,
+                mainPageVM.PagesCollection[EAppTab.SensorsPage].Item1.ContentPage,
+                mainPageVM.PagesCollection[EAppTab.SensorsPage].Item1.BindableViewModel
+                )
+                );
         }
 
-        void FooterBarHealth_Clicked(object i_Sender, EventArgs i_EventArgs)
+        private void FooterBarHealth_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             Task.Factory.StartNew(() =>
-            mainPageVM.updateContentView(EAppTab.HealthPage, mainPageVM.PagesCollection[EAppTab.HealthPage].Item1));
+            mainPageVM.updateContentView
+            (
+                EAppTab.HealthPage,
+                mainPageVM.PagesCollection[EAppTab.HealthPage].Item1.ContentPage,
+                mainPageVM.PagesCollection[EAppTab.HealthPage].Item1.BindableViewModel
+                )
+                );
         }
 
-        void FooterBarSettings_Clicked(object i_Sender, EventArgs i_EventArgs)
+        private void FooterBarSettings_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             Task.Factory.StartNew(() =>
-            mainPageVM.updateContentView(EAppTab.SettingsPage, mainPageVM.PagesCollection[EAppTab.SettingsPage].Item1));
+            mainPageVM.updateContentView
+            (
+                EAppTab.SettingsPage,
+                mainPageVM.PagesCollection[EAppTab.SettingsPage].Item1.ContentPage,
+                mainPageVM.PagesCollection[EAppTab.SettingsPage].Item1.BindableViewModel
+                )
+                );
         }
 
         protected override bool OnBackButtonPressed()

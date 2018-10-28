@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AgentVI.Utils;
 using AgentVI.Services;
+using AgentVI.Interfaces;
 
 namespace AgentVI.ViewModels
 {
@@ -15,13 +16,14 @@ namespace AgentVI.ViewModels
     {
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
         public event PropertyChangedEventHandler PropertyChanged;
-        internal Dictionary<EAppTab, Tuple<ContentPage, SvgCachedImage>> PagesCollection { get; private set; }
+        internal Dictionary<EAppTab, Tuple<IBindable, SvgCachedImage>> PagesCollection { get; private set; }
         internal Page FilterPage { get; private set; }
         internal ContentPage currentPageInContentView { get; set; }
+        internal IBindableVM currentPageVMInContentView { get; set; }
         private WaitingPage waitingPage { get; set; }
 
         private IProgress<ProgressReportModel> progressReporter;
-        private Stack<ContentPage> contentViewStack;
+        private Stack<System.Tuple<ContentPage, IBindableVM>> contentViewStack;
 
         private readonly object contentViewUpdateLock = new object();
         private const short k_NumberOfInitializations = 8;

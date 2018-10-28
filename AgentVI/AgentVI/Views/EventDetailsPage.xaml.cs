@@ -12,12 +12,14 @@ using Plugin.DeviceOrientation.Abstractions;
 namespace AgentVI.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class EventDetailsPage : ContentPage, INotifyContentViewChanged, IFocusable
+	public partial class EventDetailsPage : ContentPage, INotifyContentViewChanged, IFocusable, IBindable
     {
-        private EventDetailsViewModel eventDetailsViewModel = null;
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
+        public IBindableVM BindableViewModel => eventDetailsViewModel;
+        public ContentPage ContentPage => this;
+        private EventDetailsViewModel eventDetailsViewModel = null;
         private LandscapeEventDetailsPage landscapeEventDetailsPage = null;
-
+        
 
         public EventDetailsPage()
         {
@@ -35,7 +37,7 @@ namespace AgentVI.Views
             eventDetailsViewModel = new EventDetailsViewModel(i_EventModel);
             CrossDeviceOrientation.Current.UnlockOrientation();
             CrossDeviceOrientation.Current.OrientationChanged += handleOrientationChanged;
-            bindUnbindableUIFields();
+            checkLockOrientation();
         }
 
         private void handleOrientationChanged(object sender, OrientationChangedEventArgs e)
@@ -43,7 +45,10 @@ namespace AgentVI.Views
             if(e.Orientation == DeviceOrientations.Landscape)
             {
                 quitClipLoading();
-                RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.PushAsync, landscapeEventDetailsPage));
+                RaiseContentViewUpdateEvent?.Invoke(
+                    this, new UpdatedContentEventArgs(
+                    UpdatedContentEventArgs.EContentUpdateType.PushAsync, landscapeEventDetailsPage, landscapeEventDetailsPage.BindableViewModel
+                    ));
             }
         }
 
@@ -71,7 +76,7 @@ namespace AgentVI.Views
                 //                                    .Convert(eventDetailsViewModel.SensorEventClipPath, typeof(string), null, null)
                 //                                    .ToString();
                 SensorEventClipVideoPlayer.Source = eventDetailsViewModel.SensorEventClipPath;
-                sensorNameLabel.Text = eventDetailsViewModel.SensorName;
+                //sensorNameLabel.Text = eventDetailsViewModel.SensorName;
                 sensorEventRuleNameLabel.Text = eventDetailsViewModel.SensorEventRuleName;
                 SensorEventDateTimeLabel.Text = eventDetailsViewModel.SensorEventDateTime;
                 SensorEventRuleNameImage.Source = eventDetailsViewModel.SensorEventObjectType;

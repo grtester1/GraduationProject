@@ -14,10 +14,11 @@ using System.Text;
 using AgentVI.Utils;
 using Xamarin.Forms;
 using AgentVI.Services;
+using AgentVI.Interfaces;
 
 namespace AgentVI.ViewModels
 {
-    public class LoginPageViewModel : INotifyPropertyChanged
+    public class LoginPageViewModel : INotifyPropertyChanged, IBindableVM
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public string AccessToken { get; private set; }

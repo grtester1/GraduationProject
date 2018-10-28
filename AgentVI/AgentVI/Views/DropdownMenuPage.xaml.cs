@@ -1,5 +1,4 @@
-﻿using AgentVI.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace AgentVI.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class HealthStatPage : ContentPage, IBindable, IBindableVM
+	public partial class DropdownMenuPage : Rg.Plugins.Popup.Pages.PopupPage
 	{
-        public IBindableVM BindableViewModel => this;
-        public ContentPage ContentPage => this;
-
-        public HealthStatPage ()
+		public DropdownMenuPage ()
 		{
 			InitializeComponent ();
 		}

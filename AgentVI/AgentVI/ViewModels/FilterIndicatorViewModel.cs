@@ -1,4 +1,5 @@
-﻿using AgentVI.Services;
+﻿using AgentVI.Interfaces;
+using AgentVI.Services;
 using InnoviApiProxy;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace AgentVI.ViewModels
 {
-    public class FilterIndicatorViewModel : INotifyPropertyChanged
+    public class FilterIndicatorViewModel : INotifyPropertyChanged, IBindableVM
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private string _selectedFoldersNamesCacheStr = null;

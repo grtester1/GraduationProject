@@ -35,6 +35,7 @@ namespace AgentVI.Droid
             CachedImageRenderer.Init(true);
             FormsVideoPlayer.Init();
             CrossCurrentActivity.Current.Activity = this;
+            Rg.Plugins.Popup.Popup.Init(this, bundle);
             LoadApplication(new App());
         }
 

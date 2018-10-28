@@ -13,7 +13,8 @@ namespace AgentVI.ViewModels
     public class SensorEventsListViewModel : FilterDependentViewModel<EventModel>
     {
         public Sensor SensorSource { get; private set; }
-        
+        public string SensorName => SensorSource.Name;
+
         public SensorEventsListViewModel(Sensor i_Sensor) :base()
         {
             SensorSource = i_Sensor;

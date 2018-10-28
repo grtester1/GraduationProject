@@ -15,8 +15,10 @@ using System.Collections;
 
 namespace AgentVI.Views
 {
-    public partial class EventsPage : ContentPage, INotifyContentViewChanged
+    public partial class EventsPage : ContentPage, INotifyContentViewChanged, IBindable
     {
+        public IBindableVM BindableViewModel => SensorsEventsListVM;
+        public ContentPage ContentPage => this;
         private EventsListViewModel SensorsEventsListVM = null;
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
         public Command<EventModel> Command => new Command<EventModel>(val =>
@@ -68,7 +70,11 @@ namespace AgentVI.Views
                 eventDetailsPageBuf = new EventDetailsPage(selectedEvent);
                 eventDetailsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
             });
-            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Push, eventDetailsPageBuf));
+            await Task.Factory.StartNew(() =>
+            updatedContentEventArgs = new UpdatedContentEventArgs(
+                UpdatedContentEventArgs.EContentUpdateType.Push, eventDetailsPageBuf,
+                eventDetailsPageBuf.BindableViewModel
+                ));
 
             RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
         }
@@ -85,7 +91,10 @@ namespace AgentVI.Views
                 cameraEventsPageBuf = new CameraEventsPage(sensorBuffer);
                 cameraEventsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
             });
-            await Task.Factory.StartNew(() => updatedContentEventArgs = new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Push, cameraEventsPageBuf));
+            await Task.Factory.StartNew(() => 
+            updatedContentEventArgs = new UpdatedContentEventArgs(
+                UpdatedContentEventArgs.EContentUpdateType.Push, cameraEventsPageBuf, cameraEventsPageBuf.BindableViewModel
+                ));
             RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
         }
 

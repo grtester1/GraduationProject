@@ -4,10 +4,11 @@ using AgentVI.Utils;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using AgentVI.Interfaces;
 
 namespace AgentVI.ViewModels
 {
-    public class EventDetailsViewModel
+    public class EventDetailsViewModel : IBindableVM
     {
         private EventModel EventModel { get; set; }
         public string SensorName

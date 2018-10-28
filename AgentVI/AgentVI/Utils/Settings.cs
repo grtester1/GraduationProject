@@ -60,6 +60,7 @@ namespace AgentVI.Utils
 
         public static string LoadingAnimationPath { get; } = "resource://AgentVI.Sources.LoadingAnimation.gif";
         public static string EmptyCollectionSVGPath { get; } = "resource://AgentVI.Sources.EmptyPageFiller.svg";
+        public static string ContextMenuSVGPath { get; } = "resource://AgentVI.Sources.Icons.contextMenu.svg";
         public static string BackButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.leftArrow.svg";
         public static string NextLevelButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.rightArrow.svg";
         public static string UpButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.upArrow.svg";

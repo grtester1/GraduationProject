@@ -11,10 +11,11 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AgentVI.Services;
 using Xamarin.Forms;
+using AgentVI.Interfaces;
 
 namespace AgentVI.ViewModels
 {
-    public class FilterViewModel : INotifyPropertyChanged
+    public class FilterViewModel : INotifyPropertyChanged, IBindableVM
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private bool _isFetching = false;

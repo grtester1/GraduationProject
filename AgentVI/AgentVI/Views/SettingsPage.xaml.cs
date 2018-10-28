@@ -7,11 +7,14 @@ using System;
 using System.Collections.Generic;
 using AgentVI.Services;
 using Xamarin.Forms;
+using AgentVI.Interfaces;
 
 namespace AgentVI.Views
 {
-    public partial class SettingsPage : ContentPage
+    public partial class SettingsPage : ContentPage, IBindable, IBindableVM
     {
+        public IBindableVM BindableViewModel => this;
+        public ContentPage ContentPage => this;
 		string numOfCameras = "<nums>";
 		string siteName = "<Site name>";
 		string networkDatacomSolutions = "<Network Datacom Solutions>";

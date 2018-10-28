@@ -5,8 +5,10 @@
              xmlns:converters="clr-namespace:AgentVI.Converters"
              xmlns:settings="clr-namespace:AgentVI.Utils"
              xmlns:renderers="clr-namespace:AgentVI.Custom.Renderers"
+             xmlns:controls="clr-namespace:AgentVI.Custom.Controls"
              xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-             x:Class="AgentVI.Views.EventDetailsPage">
+             x:Class="AgentVI.Views.EventDetailsPage"
+             x:Name="this">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:TimestampConverter x:Key="TimestampConverter"/>
@@ -19,18 +21,14 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="11*"/>
             </Grid.RowDefinitions>
-            <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
-                <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BackButtonSVGPath}" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30">
-                    <ffsvg:SvgCachedImage.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="onEventDetailsBackButtonTapped"/>
-                    </ffsvg:SvgCachedImage.GestureRecognizers>
-                </ffsvg:SvgCachedImage>
-                <Label x:Name="sensorNameLabel" VerticalOptions="Center" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" FontAttributes="Bold" TextColor="Navy" LineBreakMode="TailTruncation"/>
-                <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
-                    <Button Text="Live" WidthRequest="70"/>
-                    <Button Text="Health" WidthRequest="80"/>
-                </StackLayout>
-            </StackLayout>
+            <controls:DetailsHeader
+                                    Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+                                    BackButtonImageSource="{x:Static settings:Settings.BackButtonSVGPath}"
+                                    ContextMenuButtonImageSource="{x:Static settings:Settings.ContextMenuSVGPath}"
+                                    LabelFontColor="Navy"
+                                    LabelFontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"
+                                    LabelText="{Binding SensorName}"
+                                    BackButtonTapped="onEventDetailsBackButtonTapped"/>
             <Grid Grid.Row="1" RowSpacing="0" Margin="{x:Static settings:Settings.ListViewMargins}" Padding="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3.5*"/>
@@ -43,7 +41,10 @@
                            Text="{x:Static settings:Settings.EmptyFillerTextMessageClip}" FontSize="{x:Static settings:Settings.EmptyPageFillerFontSmallSize}"
                            AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5, 1, -1, -1"/>
                     <!--<vidplayer:VideoPlayer x:Name="SensorEventClipVideoPlayer" HorizontalOptions="Fill" VerticalOptions="Fill" AutoPlay="True" Grid.Row="0"/>-->
-                    <renderers:CustomWebView x:Name="SensorEventClipVideoPlayer" Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                    <renderers:CustomWebView x:Name="SensorEventClipVideoPlayer"
+                                             Source="{Binding SensorEventClipPath}"
+                                             IsVisible="{Binding IsClipAvailable}"
+                                             Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
                                              AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
                 </AbsoluteLayout>
                 <Grid Grid.Row="1">
@@ -52,11 +53,11 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" x:Name="SensorEventDateTimeLabel" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
-                    <Label Grid.Row="1" x:Name="sensorEventRuleNameLabel" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                    <Label Grid.Row="0" x:Name="SensorEventDateTimeLabel" Text="{Binding SensorEventDateTime}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                    <Label Grid.Row="1" x:Name="sensorEventRuleNameLabel" Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
                     <StackLayout Orientation="Horizontal" Grid.Row="2" HorizontalOptions="StartAndExpand">
-                        <ffsvg:SvgCachedImage x:Name="SensorEventRuleNameImage" HeightRequest="25" WidthRequest="25" Margin="0,0,5,0"/>
-                        <Label x:Name="SensorEventBehaviorLabel" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontAttributes="Bold"/>
+                        <ffsvg:SvgCachedImage x:Name="SensorEventRuleNameImage" Source="{Binding SensorEventObjectType}" HeightRequest="25" WidthRequest="25" Margin="0,0,5,0"/>
+                        <Label x:Name="SensorEventBehaviorLabel" Text="{Binding SensorEventBehavior}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontAttributes="Bold"/>
                     </StackLayout>
                 </Grid>
             </Grid>

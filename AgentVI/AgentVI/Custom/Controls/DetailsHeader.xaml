@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+             x:Class="AgentVI.Custom.Controls.DetailsHeader">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="10*"/>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+        <ffsvg:SvgCachedImage x:Name="backButton" Grid.Column="0" Aspect="AspectFit">
+            <ffsvg:SvgCachedImage.GestureRecognizers>
+                <TapGestureRecognizer Tapped="onBackButtonTapped"/>
+            </ffsvg:SvgCachedImage.GestureRecognizers>
+        </ffsvg:SvgCachedImage>
+    <Label Grid.Column="1" x:Name="sensorNameLabel" VerticalOptions="Center" HorizontalOptions="Start" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
+    <ffsvg:SvgCachedImage x:Name="contextMenuButton" Grid.Column="2" Aspect="AspectFit">
+        <ffsvg:SvgCachedImage.GestureRecognizers>
+            <TapGestureRecognizer Tapped="onContextMenuTapped"/>
+        </ffsvg:SvgCachedImage.GestureRecognizers>
+    </ffsvg:SvgCachedImage>
+</Grid>

@@ -19,8 +19,10 @@ using AgentVI.Models;
 namespace AgentVI.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CameraEventsPage : ContentPage, INotifyContentViewChanged
+    public partial class CameraEventsPage : ContentPage, INotifyContentViewChanged, IBindable
     {
+        public IBindableVM BindableViewModel => SensorEventsListVM;
+        public ContentPage ContentPage => this;
         private SensorEventsListViewModel SensorEventsListVM = null;
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
 
@@ -34,9 +36,6 @@ namespace AgentVI.Views
             SensorEventsListVM = new SensorEventsListViewModel(i_Sensor);
             SensorEventsListVM.PopulateCollection();
             cameraEventsListView.BindingContext = SensorEventsListVM;
-            sensorNameLabel.Text = SensorEventsListVM.SensorSource.Name;
-            IsEmptyFiller.IsVisible = SensorEventsListVM.IsEmptyFolder;
-            IsEmptyText.IsVisible = SensorEventsListVM.IsEmptyFolder;
         }
 
         protected override void OnAppearing()

@@ -65,23 +65,28 @@ namespace AgentVI.Custom.Controls
 
             if(propertyName == AccountNameProperty.PropertyName)
             {
-                accountLabel.Text = AccountName;
+                if(AccountName != null)
+                    accountLabel.Text = AccountName;
             }
             if(propertyName == AccountNameColorProperty.PropertyName)
             {
-                accountLabel.TextColor = AccountNameColor;
+                if(AccountNameColor != default(Color))
+                    accountLabel.TextColor = AccountNameColor;
             }
             if(propertyName == AccountNameFontSizeProperty.PropertyName)
             {
-                accountLabel.FontSize = AccountNameFontSize;
+                if(AccountNameFontSize != 0)
+                    accountLabel.FontSize = AccountNameFontSize;
             }
             if(propertyName == LogoSourceProperty.PropertyName)
             {
-                logoImage.Source = LogoSource;
+                if(LogoSource != null)
+                    logoImage.Source = LogoSource;
             }
             if(propertyName == ControlMargineProperty.PropertyName)
             {
-                this.Margin = ControlMargine;
+                if(ControlMargine != default(Thickness))
+                    this.Margin = ControlMargine;
             }
         }
     }

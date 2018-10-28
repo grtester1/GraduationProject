@@ -3,7 +3,6 @@ using AgentVI.Services;
 using AgentVI.Utils;
 using FFImageLoading.Svg.Forms;
 using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 using AgentVI.Interfaces;
 using AgentVI.Views;
@@ -11,10 +10,12 @@ using Plugin.DeviceOrientation;
 using Plugin.DeviceOrientation.Abstractions;
 using EContentUpdateType = AgentVI.Utils.UpdatedContentEventArgs.EContentUpdateType;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+
 
 namespace AgentVI.ViewModels
 {
-    public partial class MainPageViewModel : INotifyContentViewChanged
+    public partial class MainPageViewModel : INotifyContentViewChanged, IBindableVM
     {
         internal MainPageViewModel(IProgress<ProgressReportModel> i_ProgressReporter, Dictionary<EAppTab, SvgCachedImage> i_AppTabs)
         {
@@ -50,28 +51,28 @@ namespace AgentVI.ViewModels
         private void initPagesCollectionHelper(ProgressReportModel i_Report, Dictionary<EAppTab, SvgCachedImage> i_AppTabs)
         {
             updateReporter("Initializing app pages...", i_Report);
-            PagesCollection = new Dictionary<EAppTab, Tuple<ContentPage, SvgCachedImage>>();
+            PagesCollection = new Dictionary<EAppTab, Tuple<IBindable, SvgCachedImage>>();
 
             updateReporter("Fetching Cameras...", i_Report);
             CamerasPage camerasPageInstance = new CamerasPage();
             camerasPageInstance.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
-            PagesCollection.Add(EAppTab.SensorsPage, new Tuple<ContentPage, SvgCachedImage>(camerasPageInstance, i_AppTabs[EAppTab.SensorsPage]));
+            PagesCollection.Add(EAppTab.SensorsPage, new Tuple<IBindable, SvgCachedImage>(camerasPageInstance, i_AppTabs[EAppTab.SensorsPage]));
 
             updateReporter("Fetching Settings...", i_Report);
-            PagesCollection.Add(EAppTab.SettingsPage, new Tuple<ContentPage, SvgCachedImage>(new SettingsPage(), i_AppTabs[EAppTab.SettingsPage]));
-            PagesCollection.Add(EAppTab.HealthPage, new Tuple<ContentPage, SvgCachedImage>(new HealthStatPage(), i_AppTabs[EAppTab.HealthPage]));
+            PagesCollection.Add(EAppTab.SettingsPage, new Tuple<IBindable, SvgCachedImage>(new SettingsPage(), i_AppTabs[EAppTab.SettingsPage]));
+            PagesCollection.Add(EAppTab.HealthPage, new Tuple<IBindable, SvgCachedImage>(new HealthStatPage(), i_AppTabs[EAppTab.HealthPage]));
 
             updateReporter("Fetching Events...", i_Report);
             EventsPage eventsPageBuf = new EventsPage();
             eventsPageBuf.RaiseContentViewUpdateEvent += OnContentViewUpdateEvent;
-            PagesCollection.Add(EAppTab.EventsPage, new Tuple<ContentPage, SvgCachedImage>(eventsPageBuf, i_AppTabs[EAppTab.EventsPage]));
+            PagesCollection.Add(EAppTab.EventsPage, new Tuple<IBindable, SvgCachedImage>(eventsPageBuf, i_AppTabs[EAppTab.EventsPage]));
         }
 
-        private void addToContentViewStack(ContentPage i_updatedContent)
+        private void addToContentViewStack(Tuple<ContentPage,IBindableVM> i_updatedContent)
         {
             if (contentViewStack == null)
             {
-                contentViewStack = new Stack<ContentPage>();
+                contentViewStack = new Stack<Tuple<ContentPage, IBindableVM>>();
             }
             contentViewStack.Push(i_updatedContent);
         }
@@ -84,11 +85,13 @@ namespace AgentVI.ViewModels
 
         private void popFromControlViewStack()
         {
-            ContentPage stackTop = contentViewStack.Pop();
+            Tuple<ContentPage, IBindableVM> stackTop = contentViewStack.Pop();
             if (stackTop != null)
             {
-                currentPageInContentView = stackTop;
-                RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Pop, currentPageInContentView));
+                currentPageInContentView = stackTop.Item1;
+                currentPageVMInContentView = stackTop.Item2;
+                RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Pop,
+                    currentPageInContentView, currentPageVMInContentView));
             }
             else
             {
@@ -112,7 +115,10 @@ namespace AgentVI.ViewModels
             {
                 if (e == null || e.ContentUpdateType == EContentUpdateType.Buffering)
                 {
-                    addToContentViewStack(currentPageInContentView);
+                    addToContentViewStack
+                        (
+                        new Tuple<ContentPage, IBindableVM>(currentPageInContentView,currentPageVMInContentView)
+                        );
                     RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Buffering, waitingPage));
                 }
                 else if (e.ContentUpdateType == EContentUpdateType.Pop)
@@ -121,7 +127,10 @@ namespace AgentVI.ViewModels
                 }
                 else if (e.ContentUpdateType == EContentUpdateType.PushAsync)
                 {
-                    addToContentViewStack(currentPageInContentView);
+                    addToContentViewStack
+                        (
+                        new Tuple<ContentPage, IBindableVM>(currentPageInContentView, currentPageVMInContentView)
+                        );
                     try
                     {
                         (e.UpdatedContent as IFocusable).Refocus();
@@ -132,7 +141,7 @@ namespace AgentVI.ViewModels
                 else if (e.ContentUpdateType == EContentUpdateType.PopAsync)
                 {
                     RaiseContentViewUpdateEvent?.Invoke(null, e);
-                    ContentPage stackTop = contentViewStack.Pop();
+                    Tuple<ContentPage, IBindableVM> stackTop = contentViewStack.Pop();
                     try
                     {
                         (stackTop as IFocusable).Refocus();
@@ -142,15 +151,17 @@ namespace AgentVI.ViewModels
                 else                                        //UpdatedContentEventArgs.EContentUpdateType.Push
                 {
                     currentPageInContentView = e.UpdatedContent;
+                    currentPageVMInContentView = e.UpdatedVM;
                     RaiseContentViewUpdateEvent?.Invoke(null, e);
                 }
             }
         }
 
-        internal void updateContentView(EAppTab i_AppTab ,ContentPage i_UpdatedContent)
+        internal void updateContentView(EAppTab i_AppTab ,ContentPage i_UpdatedContent, IBindableVM i_UpdatedVM)
         {
             currentPageInContentView = i_UpdatedContent;
-            RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Push, i_UpdatedContent));
+            currentPageVMInContentView = i_UpdatedVM;
+            RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Push, i_UpdatedContent, i_UpdatedVM));
 
             if(i_AppTab != EAppTab.None)
             {
@@ -162,7 +173,7 @@ namespace AgentVI.ViewModels
         private void markSelectedTab(EAppTab i_SelectedTab)
         {
             PagesCollection[i_SelectedTab].Item2.Source = MainPageViewModel.EnumToSVGPath(i_SelectedTab, ESelection.Active);
-            foreach (KeyValuePair<EAppTab, Tuple<ContentPage, SvgCachedImage>> kvPair in PagesCollection)
+            foreach (KeyValuePair<EAppTab, Tuple<IBindable, SvgCachedImage>> kvPair in PagesCollection)
             {
                 if (kvPair.Key != i_SelectedTab)
                 {

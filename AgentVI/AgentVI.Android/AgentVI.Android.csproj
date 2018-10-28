@@ -80,6 +80,9 @@
     <PackageReference Include="Plugin.DeviceOrientation">
       <Version>1.0.7</Version>
     </PackageReference>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.1.4.168</Version>
+    </PackageReference>
     <PackageReference Include="Unity">
       <Version>5.8.11</Version>
     </PackageReference>
