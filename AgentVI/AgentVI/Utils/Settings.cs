@@ -29,12 +29,12 @@ namespace AgentVI.Utils
         public static double EmptyPageFillerFontSize { get; } = 22;
         public static double EmptyPageFillerFontSmallSize { get; } = 15;
 
-        public static Color FooterColor { get; } = Color.FromHex("#DDDDDD");
+        public static Color FooterColor { get; } = Color.FromHex("#003F7F");
         public static Color FooterSeparatorColor { get; } = Color.FromHex("#DCDCDC");
         public static Color PictureHolderFrameBackground { get; } = Color.FromHex("#2C2D30");
         public static Color PictureHolderOutsideFrameBackground { get; } = Color.FromHex("#434449");
         public static Color PictureHolderBorderColor { get; } = Color.FromHex("#4E5663");
-        public static Color SensorEventHeaderFontColor { get; } = Color.FromHex("#478D8D");
+        public static Color SensorEventHeaderFontColor { get; } = Color.FromHex("#EFE4B0");
         public static Color SensorEventDetailsFontColor { get; } = Color.FromHex("#B4B7C6");
         public static Color FilterTextColor { get; } = Color.Black;
         public static Color FilterBarBorderColor { get; } = Color.FromHex("#7F7F7F");

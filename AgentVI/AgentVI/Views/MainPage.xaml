@@ -19,9 +19,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="12*"/>
+            <RowDefinition Height="12.5*"/>
             <RowDefinition Height="1"/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <controls:HeaderControl Grid.Row="0"
