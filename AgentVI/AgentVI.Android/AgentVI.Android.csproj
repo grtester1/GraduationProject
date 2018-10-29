@@ -106,8 +106,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Custom\Effects\SwitchChangeColorEffect.cs" />
     <Compile Include="Custom\Effects\UnderlineEffect.cs" />
+    <Compile Include="Custom\Renderers\CustomSwitchRenderer.cs" />
     <Compile Include="Custom\Renderers\CustomViewCellRenderer.cs" />
     <Compile Include="Custom\Renderers\CustomWebViewRenderer.cs" />
     <Compile Include="MainActivity.cs" />
