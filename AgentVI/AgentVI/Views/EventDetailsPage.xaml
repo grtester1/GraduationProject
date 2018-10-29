@@ -25,7 +25,7 @@
                                     Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
                                     BackButtonImageSource="{x:Static settings:Settings.BackButtonSVGPath}"
                                     ContextMenuButtonImageSource="{x:Static settings:Settings.ContextMenuSVGPath}"
-                                    LabelFontColor="Navy"
+                                    LabelFontColor="{x:Static settings:Settings.FolderNameAndSensorHeaderName}"
                                     LabelFontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"
                                     LabelText="{Binding SensorName}"
                                     BackButtonTapped="onEventDetailsBackButtonTapped"
@@ -55,13 +55,13 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="66*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" x:Name="SensorEventDateTimeLabel" Text="{Binding SensorEventDateTime}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                    <Label Grid.Row="0" x:Name="SensorEventDateTimeLabel" Text="{Binding SensorEventDateTime}" TextColor="Black" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
                     <BoxView Grid.Row="1" BackgroundColor="{x:Static settings:Settings.FooterSeparatorColor}" Color="{x:Static settings:Settings.FooterSeparatorColor}" HorizontalOptions="FillAndExpand"/>
                     <StackLayout Grid.Row="2" HorizontalOptions="StartAndExpand">
-                        <Label x:Name="sensorEventRuleNameLabel" Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                        <Label x:Name="sensorEventRuleNameLabel" Text="{Binding SensorEventRuleName}" TextColor="{x:Static settings:Settings.BehaviorTypeAndDescriptionTextColor}" FontSize="{x:Static settings:Settings.BehaviorDescriptionHeaderFontSize}"  FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                            <ffsvg:SvgCachedImage x:Name="SensorEventRuleNameImage" Source="{Binding SensorEventObjectType}" HeightRequest="25" WidthRequest="25" Margin="0,0,5,0"/>
-                            <Label x:Name="SensorEventBehaviorLabel" Text="{Binding SensorEventBehavior}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" TextColor="{x:Static settings:Settings.SensorEventDetailsFontColor}" FontAttributes="Bold"/>
+                            <ffsvg:SvgCachedImage x:Name="SensorEventRuleNameImage" Source="{Binding SensorEventObjectType}" HeightRequest="37" WidthRequest="37" Margin="0,0,5,0"/>
+                            <Label x:Name="SensorEventBehaviorLabel" Text="{Binding SensorEventBehavior}" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" TextColor="{x:Static settings:Settings.BehaviorTypeAndDescriptionTextColor}" FontAttributes="Bold"/>
                         </StackLayout>
                     </StackLayout>
                 </Grid>

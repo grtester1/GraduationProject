@@ -25,6 +25,7 @@ namespace AgentVI.Utils
         public static double HeaderTitleFontSize { get; } = 19;
         public static double SensorEventNameFontSize { get; } = 15;
         public static double SensorEventDetailsFontSize { get; } = 13;
+        public static double BehaviorDescriptionHeaderFontSize { get; } = 15;
         public static double FilterTextSize { get; } = 15;
         public static double EmptyPageFillerFontSize { get; } = 22;
         public static double EmptyPageFillerFontSmallSize { get; } = 15;
@@ -41,6 +42,12 @@ namespace AgentVI.Utils
         public static Color FilterBarBackgroundColor { get; } = Color.Transparent;
         public static Color AccountNameStringColor { get; } = Color.FromHex("#00366C");
         public static Color CustomViewCellBackgroundColor { get; } = Color.Transparent;
+        public static Color FolderNameAndSensorHeaderName { get; } = Color.FromHex("#1A333F");
+        public static Color LogoutButtonBackgroundColor { get; } = Color.FromHex("#0067CE");
+        public static Color LoginButtonBackgroundColor { get; } = Color.FromHex("#2FC0FF");
+        public static Color ForgotMyPasswordTextColor { get; } = Color.FromHex("#0089C4");
+        public static Color BehaviorTypeAndDescriptionTextColor { get; } = Color.FromHex("#00274F");
+        public static Color VisualColoredControllersColor { get; } = Color.Navy;
 
         public static string EventsTabSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_inactive_24px.svg";
         public static string EventsTabSelectedSVGPath { get; } = "resource://AgentVI.Sources.Icons.events_active_24px.svg";
@@ -64,7 +71,7 @@ namespace AgentVI.Utils
         public static string BackButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.leftArrow.svg";
         public static string NextLevelButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.rightArrow.svg";
         public static string UpButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.upArrow.svg";
-        public static string ResetButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.reset.svg";
+        public static string ResetButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.rootIcon.svg";
         public static string BrowseButtonSVGPath { get; } = "resource://AgentVI.Sources.Icons.browseIcon.svg";
         public static string FolderIconSVGPath { get; } = "resource://AgentVI.Sources.Icons.folderIcon.svg";
         public static string FilterBrowseIconSVGPath { get; } = "resource://AgentVI.Sources.Icons.folderIcon.svg";

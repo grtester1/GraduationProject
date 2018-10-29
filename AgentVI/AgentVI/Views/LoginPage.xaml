@@ -4,6 +4,7 @@
              xmlns:settings="clr-namespace:AgentVI.Utils"
              x:Class="AgentVI.Views.LoginPage">
     <RelativeLayout>
+        <!--
         <Image x:Name="backgroundPicture" Source="{x:Static settings:Settings.BackgroundPicturePath}" Aspect="AspectFill"
                                                 RelativeLayout.WidthConstraint="{ConstraintExpression
                                                                                 Type=RelativeToParent,
@@ -11,6 +12,7 @@
                                                 RelativeLayout.HeightConstraint="{ConstraintExpression
                                                                                 Type=RelativeToParent,
                                                                                 Property=Height}"/>
+        -->
         <Image x:Name="logoPicture" Source="{x:Static settings:Settings.LogoPicturePath}"
                                                 RelativeLayout.WidthConstraint="{ConstraintExpression
                                                                                 Type=RelativeToParent,
@@ -38,11 +40,11 @@
                                                     Type=RelativeToParent,
                                                     Property=Width,
                                                     Factor=0.15}">
-            <ActivityIndicator IsRunning="True" IsEnabled="True" IsVisible="{Binding IsBusyLoading}" VerticalOptions="CenterAndExpand" />
+            <ActivityIndicator IsRunning="True" IsEnabled="True" IsVisible="{Binding IsBusyLoading}" VerticalOptions="CenterAndExpand" Color="{x:Static settings:Settings.VisualColoredControllersColor}"/>
             <Entry x:Name="usernameEntry" Text="{Binding ConnectingUsername, Mode=TwoWay}" Placeholder="Username" Completed="onUsernameEntryCompleted" FontAttributes="Italic" Keyboard="Email"/>
             <Entry x:Name="passwordEntry" Text="{Binding ConnectingPassword, Mode=TwoWay}" Placeholder="Password" Completed="onPasswordEntryCompleted" FontAttributes="Italic" IsPassword="True"/>
-            <Button Clicked="onLoginButtonClicked" BackgroundColor="WhiteSmoke" Text="Login" Margin="0,8" TextColor="Navy"/>
-            <Label Text="Forgot Password?" HorizontalOptions="Center" FontAttributes="Italic" Margin="0,7">
+            <Button Clicked="onLoginButtonClicked" BackgroundColor="{x:Static settings:Settings.LoginButtonBackgroundColor}" Text="Login" FontAttributes="Bold" Margin="0,8" TextColor="Black"/>
+            <Label Text="Forgot Password?" TextColor="{x:Static settings:Settings.ForgotMyPasswordTextColor}" HorizontalOptions="Center" FontAttributes="Italic" Margin="0,7">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Tapped="onForgotPasswordButtonTapped"/>
                 </Label.GestureRecognizers>

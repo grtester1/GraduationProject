@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:settings="clr-namespace:AgentVI.Utils"
              x:Class="AgentVI.Views.WaitingPage">
     <ContentPage.Content>
         <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <ActivityIndicator IsEnabled="True" IsRunning="True" IsVisible="True" Color="NavajoWhite" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ActivityIndicator IsEnabled="True" IsRunning="True" IsVisible="True" Color="{x:Static settings:Settings.VisualColoredControllersColor}" HorizontalOptions="Center" VerticalOptions="Center"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

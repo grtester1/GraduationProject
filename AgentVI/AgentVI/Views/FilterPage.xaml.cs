@@ -135,7 +135,15 @@ namespace AgentVI.Views
 
         private void onBackButtonTapped(object sender, EventArgs e)
         {
-            OnBackButtonPressed();
+            if (filterVM.CurrentPageNumber == 0)
+            {
+                OnBackButtonPressed();
+            }
+            else
+            {
+                SelectedItem = filterVM.FilteringPagesContent[filterVM.GetPreviousPageIndex()];
+                OnBindingContextChanged();
+            }
         }
     }
 }

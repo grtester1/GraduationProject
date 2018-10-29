@@ -50,7 +50,7 @@ namespace AgentVI.ViewModels
             }
         }
         public Folder CurrentlySelectedFolder { get; set; }
-
+        public int CurrentPageNumber { get; private set; }
 
         public FilterViewModel()
         {
@@ -73,6 +73,7 @@ namespace AgentVI.ViewModels
 
         public void FetchNextFilteringDepth(Folder i_SelectedFolder)
         {
+            CurrentPageNumber++;
             IsFetching = true;
             for (int i = FilteringPagesContent.Count - 1; i > i_SelectedFolder.Depth; i--)
             {
@@ -99,6 +100,11 @@ namespace AgentVI.ViewModels
             IsFetching = true;
             ServiceManager.Instance.FilterService.TriggerFetchUpdate();
             IsFetching = false;
+        }
+
+        public int GetPreviousPageIndex()
+        {
+            return --CurrentPageNumber;
         }
     }
 }

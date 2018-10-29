@@ -24,7 +24,7 @@
                     </OnPlatform>
                 </ContentPage.Padding>
                 <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                    <ActivityIndicator AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1" IsRunning="True" IsVisible="{Binding Source={x:Reference MyFilterPage}, Path=BindingContext.IsFetching}"/>
+                    <ActivityIndicator AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1" IsRunning="True" IsVisible="{Binding Source={x:Reference MyFilterPage}, Path=BindingContext.IsFetching}" Color="{x:Static settings:Settings.VisualColoredControllersColor}"/>
                     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
@@ -36,17 +36,21 @@
                                                 AccountNameColor="{x:Static settings:Settings.AccountNameStringColor}"
                                                 AccountNameFontSize="{x:Static settings:Settings.HeaderTitleFontSize}"
                                                 LogoSource="{x:Static settings:Settings.LogoPicturePath}"/>
-                            <Label Text="{Binding CurrentPath}" HorizontalOptions="StartAndExpand" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" LineBreakMode="TailTruncation"/>
-                        </StackLayout>
-                        <StackLayout x:Name="filterDataStackLayout" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                            <StackLayout Orientation="Horizontal">
-                                <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.UpButtonSVGPath}" WidthRequest="30" HeightRequest="30">
+                            <Grid HorizontalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="9*"/>
+                                </Grid.ColumnDefinitions>
+                                <ffsvg:SvgCachedImage Grid.Column="0" Source="{x:Static settings:Settings.BackButtonSVGPath}" WidthRequest="30" HeightRequest="30">
                                     <ffsvg:SvgCachedImage.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="onBackButtonTapped"/>
                                     </ffsvg:SvgCachedImage.GestureRecognizers>
                                 </ffsvg:SvgCachedImage>
-                                <SearchBar x:Name="filterSearchBar" Placeholder="{x:Static settings:Settings.SearchBarPlaceHolderText}" HeightRequest="30" TextChanged="filterSearchBar_TextChanged"/>
-                            </StackLayout>
+                                <Label Grid.Column="1" Text="{Binding CurrentPath}" HorizontalOptions="StartAndExpand" FontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}" LineBreakMode="TailTruncation"/>
+                            </Grid>
+                        </StackLayout>
+                        <StackLayout x:Name="filterDataStackLayout" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <SearchBar x:Name="filterSearchBar" Placeholder="{x:Static settings:Settings.SearchBarPlaceHolderText}" HeightRequest="30" TextChanged="filterSearchBar_TextChanged"/>
                             <ListView x:Name="filteredItemsListView" HasUnevenRows="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ItemTapped="handle_FilterListItemSelected"  ItemsSource="{Binding ObservableCollection}" BackgroundColor="Transparent" SeparatorColor="Transparent">
                                 <ListView.Footer>
                                     <Grid Padding="6" IsVisible="{Binding IsBusy}">
@@ -64,14 +68,19 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <renderers:CustomViewCell SelectedBackgroundColor="{x:Static settings:Settings.CustomViewCellBackgroundColor}">
-                                            <StackLayout HeightRequest="40" Orientation="Horizontal" Padding="{x:Static settings:Settings.PaddingForViewCellInListView}">
-                                                <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.FolderIconSVGPath}"/>
-                                                <Label HorizontalOptions="StartAndExpand" VerticalOptions="Center" Text="{Binding FolderName}"/>
-                                                <AbsoluteLayout WidthRequest="50">
-                                                    <Button WidthRequest="50" BackgroundColor="Transparent" CommandParameter="{Binding}" Clicked="button_Clicked" IsVisible="{Binding IsNextFiltrationLevelAvailable}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
-                                                    <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.NextLevelButtonSVGPath}" WidthRequest="50" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" IsVisible="{Binding IsNextFiltrationLevelAvailable}"/>
+                                            <Grid Padding="{x:Static settings:Settings.PaddingForViewCellInListView}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="8*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <ffsvg:SvgCachedImage Grid.Column="0" Source="{x:Static settings:Settings.FolderIconSVGPath}"/>
+                                                <Label Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Text="{Binding FolderName}" TextColor="{x:Static settings:Settings.FolderNameAndSensorHeaderName}"/>
+                                                <AbsoluteLayout Grid.Column="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                                    <Button BackgroundColor="Transparent" CommandParameter="{Binding}" Clicked="button_Clicked" IsVisible="{Binding IsNextFiltrationLevelAvailable}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                                                    <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.NextLevelButtonSVGPath}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" IsVisible="{Binding IsNextFiltrationLevelAvailable}"/>
                                                 </AbsoluteLayout>
-                                            </StackLayout>
+                                            </Grid>
                                         </renderers:CustomViewCell>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>

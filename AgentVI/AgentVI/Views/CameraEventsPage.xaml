@@ -37,7 +37,7 @@
                                     Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
                                     BackButtonImageSource="{x:Static settings:Settings.BackButtonSVGPath}"
                                     ContextMenuButtonImageSource="{x:Static settings:Settings.ContextMenuSVGPath}"
-                                    LabelFontColor="Navy"
+                                    LabelFontColor="{x:Static settings:Settings.FolderNameAndSensorHeaderName}"
                                     LabelFontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"
                                     LabelText="{Binding SensorName}"
                                     BackButtonTapped="onCameraEventBackButtonTapped"/>

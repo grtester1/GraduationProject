@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="AgentVI.Views.SettingsPage"
-             xmlns:settings="clr-namespace:AgentVI.Utils">
+             xmlns:settings="clr-namespace:AgentVI.Utils"
+             xmlns:effects="clr-namespace:AgentVI.Custom.Effects"
+             x:Class="AgentVI.Views.SettingsPage">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
                     iOS="{x:Static settings:Settings.iOSPlatformPadding}">
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-      <StackLayout Spacing="70" Margin="40, 100">
+        <StackLayout Spacing="70" Margin="40, 100">
                 
                 <StackLayout HeightRequest="50" >
                     
                     <StackLayout Orientation="Horizontal">
                         <Label FontSize="Medium" Text="Arm / Disarm" TextColor="Navy"
                                HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="200"/>
-                        <Switch Toggled="arm_Toggled" x:Name="ArmDisarmSwitch" 
-                               HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
+                    <Switch Toggled="arm_Toggled" x:Name="ArmDisarmSwitch" 
+                               HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"
+                            effects:SwitchChangeColorEffect.ThumbColor="White"/>
                     </StackLayout>
                     
                     <StackLayout Orientation="Horizontal">
@@ -32,8 +34,8 @@
                     <StackLayout Orientation="Horizontal">
                         <Label FontSize="Medium" Text="Notifications" TextColor="Navy"
                                HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="200"/>
-                        <Switch Toggled="Notifications_Toggled" x:Name="NotificationsSwitch" 
-                               HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
+                    <Switch Toggled="Notifications_Toggled" x:Name="NotificationsSwitch"
+                               HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"/>
                     </StackLayout>
                     
                     <StackLayout Orientation="Horizontal">

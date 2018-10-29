@@ -4,6 +4,7 @@
              xmlns:settings="clr-namespace:AgentVI.Utils"
              x:Class="AgentVI.Views.LoadingPage">
     <RelativeLayout>
+        <!--
         <Image x:Name="backgroundPicture" Source="{x:Static settings:Settings.BackgroundPicturePath}" Aspect="AspectFill"
                                                 RelativeLayout.WidthConstraint="{ConstraintExpression
                                                                                 Type=RelativeToParent,
@@ -11,6 +12,7 @@
                                                 RelativeLayout.HeightConstraint="{ConstraintExpression
                                                                                 Type=RelativeToParent,
                                                                                 Property=Height}"/>
+            -->
         <Image x:Name="logoPicture" Source="{x:Static settings:Settings.LogoPicturePath}"
                                                 RelativeLayout.WidthConstraint="{ConstraintExpression
                                                                                 Type=RelativeToParent,
@@ -39,6 +41,7 @@
                                                     Type=RelativeToParent,
                                                     Property=Width,
                                                     Factor=0.15}"
+                     ProgressColor="{x:Static settings:Settings.VisualColoredControllersColor}"
                 WidthRequest="300"
                 HeightRequest="20" />
 
