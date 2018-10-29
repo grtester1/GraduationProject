@@ -32,7 +32,7 @@ namespace AgentVI.Droid.Custom.Renderers
 
             if(Control != null)
             {
-                this.Control.SetHintTextColor(Android.Content.Res.ColorStateList.ValueOf(m_UnderlineColor));
+                this.Control.Background.Mutate().SetColorFilter(m_UnderlineColor, PorterDuff.Mode.SrcAtop);
             }
         }
 
