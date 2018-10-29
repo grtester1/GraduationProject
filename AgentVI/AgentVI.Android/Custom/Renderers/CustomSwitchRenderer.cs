@@ -17,10 +17,12 @@ namespace AgentVI.Droid.Custom.Renderers
 {
     public class CustomSwitchRenderer : SwitchRenderer
     {
-        private Color blue = Color.Blue;
-        private Color yellow = Color.Yellow;
+        private Color ThumbOnColor = Color.Blue;
+        private Color ThumbOffColor = Color.Rgb(231, 231, 231);
+        private Color TrackOnColor = Color.Blue;
+        private Color TrackOffColor = Color.Gray;
 
-        CustomSwitchRenderer(Context i_Context) : base(i_Context)
+        public CustomSwitchRenderer(Context context) : base(context)
         {
 
         }
@@ -34,16 +36,32 @@ namespace AgentVI.Droid.Custom.Renderers
 
                 if (this.Control.Checked)
                 {
-                    this.Control.ThumbDrawable.SetColorFilter(yellow, PorterDuff.Mode.SrcAtop);
-                    this.Control.TrackDrawable.SetColorFilter(yellow, PorterDuff.Mode.SrcAtop);
+                    this.Control.ThumbDrawable.SetColorFilter(ThumbOnColor, PorterDuff.Mode.SrcAtop);
+                    this.Control.TrackDrawable.SetColorFilter(TrackOnColor, PorterDuff.Mode.SrcAtop);
 
                 }
                 else
                 {
-                    this.Control.ThumbDrawable.SetColorFilter(blue, PorterDuff.Mode.SrcAtop);
-                    this.Control.TrackDrawable.SetColorFilter(blue, PorterDuff.Mode.SrcAtop);
+                    this.Control.ThumbDrawable.SetColorFilter(ThumbOffColor, PorterDuff.Mode.SrcAtop);
+                    this.Control.TrackDrawable.SetColorFilter(TrackOffColor, PorterDuff.Mode.SrcAtop);
                 }
 
+                this.Control.CheckedChange += OnCheckedChange;
+
+            }
+        }
+
+        private void OnCheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        {
+            if(this.Control.Checked)
+            {
+                this.Control.ThumbDrawable.SetColorFilter(ThumbOnColor, PorterDuff.Mode.SrcAtop);
+                this.Control.TrackDrawable.SetColorFilter(TrackOnColor, PorterDuff.Mode.SrcAtop);
+            }
+            else
+            {
+                this.Control.ThumbDrawable.SetColorFilter(ThumbOffColor, PorterDuff.Mode.SrcAtop);
+                this.Control.TrackDrawable.SetColorFilter(TrackOffColor, PorterDuff.Mode.SrcAtop);
             }
         }
     }
