@@ -14,7 +14,7 @@ namespace AgentVI.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected IEnumerable<T> enumerableCollection;
-        private const int pageSize = 10;
+        private const int pageSize = 2;
         private IEnumerator<T> collectionEnumerator;
         protected bool canLoadMore = false;
         protected bool IsFilterStateChanged { get; set; }

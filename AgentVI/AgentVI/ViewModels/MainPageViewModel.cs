@@ -113,46 +113,52 @@ namespace AgentVI.ViewModels
         {
             lock (contentViewUpdateLock)
             {
-                if (e == null || e.ContentUpdateType == EContentUpdateType.Buffering)
+                try
                 {
-                    addToContentViewStack
-                        (
-                        new Tuple<ContentPage, IBindableVM>(currentPageInContentView,currentPageVMInContentView)
-                        );
-                    RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Buffering, waitingPage));
-                }
-                else if (e.ContentUpdateType == EContentUpdateType.Pop)
-                {
-                    popFromControlViewStack();
-                }
-                else if (e.ContentUpdateType == EContentUpdateType.PushAsync)
-                {
-                    addToContentViewStack
-                        (
-                        new Tuple<ContentPage, IBindableVM>(currentPageInContentView, currentPageVMInContentView)
-                        );
-                    try
+                    if (e == null || e.ContentUpdateType == EContentUpdateType.Buffering)
                     {
-                        (e.UpdatedContent as IFocusable).Refocus();
+                        addToContentViewStack
+                            (
+                            new Tuple<ContentPage, IBindableVM>(currentPageInContentView, currentPageVMInContentView)
+                            );
+                        RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Buffering, waitingPage));
                     }
-                    catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
-                    RaiseContentViewUpdateEvent?.Invoke(null, e);
-                }
-                else if (e.ContentUpdateType == EContentUpdateType.PopAsync)
-                {
-                    RaiseContentViewUpdateEvent?.Invoke(null, e);
-                    Tuple<ContentPage, IBindableVM> stackTop = contentViewStack.Pop();
-                    try
+                    else if (e.ContentUpdateType == EContentUpdateType.Pop)
                     {
-                        (stackTop.Item1 as IFocusable).Refocus();
+                        popFromControlViewStack();
                     }
-                    catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
-                }
-                else                                        //UpdatedContentEventArgs.EContentUpdateType.Push
+                    else if (e.ContentUpdateType == EContentUpdateType.PushAsync)
+                    {
+                        addToContentViewStack
+                            (
+                            new Tuple<ContentPage, IBindableVM>(currentPageInContentView, currentPageVMInContentView)
+                            );
+                        try
+                        {
+                            (e.UpdatedContent as IFocusable).Refocus();
+                        }
+                        catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
+                        RaiseContentViewUpdateEvent?.Invoke(null, e);
+                    }
+                    else if (e.ContentUpdateType == EContentUpdateType.PopAsync)
+                    {
+                        RaiseContentViewUpdateEvent?.Invoke(null, e);
+                        Tuple<ContentPage, IBindableVM> stackTop = contentViewStack.Pop();
+                        try
+                        {
+                            (stackTop.Item1 as IFocusable).Refocus();
+                        }
+                        catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
+                    }
+                    else                                        //UpdatedContentEventArgs.EContentUpdateType.Push
+                    {
+                        currentPageInContentView = e.UpdatedContent;
+                        currentPageVMInContentView = e.UpdatedVM;
+                        RaiseContentViewUpdateEvent?.Invoke(null, e);
+                    }
+                }catch(AggregateException ae)
                 {
-                    currentPageInContentView = e.UpdatedContent;
-                    currentPageVMInContentView = e.UpdatedVM;
-                    RaiseContentViewUpdateEvent?.Invoke(null, e);
+                    Console.WriteLine("Aggregate Exception Catched!");
                 }
             }
         }
