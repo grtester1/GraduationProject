@@ -11,10 +11,10 @@ using AgentVI.Interfaces;
 
 namespace AgentVI.Views
 {
-    public partial class SettingsPage : ContentPage, IBindable, IBindableVM
+    public partial class SettingsPage : ContentPage//, IBindable, IBindableVM
     {
-        public IBindableVM BindableViewModel => this;
-        public ContentPage ContentPage => this;
+        //public IBindableVM BindableViewModel => this;
+        //public ContentPage ContentPage => this;
 		string numOfCameras = "<nums>";
 		string siteName = "<Site name>";
 		string networkDatacomSolutions = "<Network Datacom Solutions>";

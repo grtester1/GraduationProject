@@ -15,7 +15,6 @@ namespace AgentVI.ViewModels
     public partial class MainPageViewModel : IBindableVM ,INotifyPropertyChanged
     {
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
-        public event PropertyChangedEventHandler PropertyChanged;
         internal Dictionary<EAppTab, Tuple<IBindable, SvgCachedImage>> PagesCollection { get; private set; }
         internal Page FilterPage { get; private set; }
         internal ContentPage currentPageInContentView { get; set; }
@@ -53,16 +52,6 @@ namespace AgentVI.ViewModels
                 OnPropertyChanged(nameof(LoginContext));
             }
         }
-        private FilterIndicatorViewModel _filterIndicator;
-        public FilterIndicatorViewModel FilterIndicator
-        {
-            get => _filterIndicator;
-            private set
-            {
-                _filterIndicator = value;
-                OnPropertyChanged(nameof(FilterIndicator));
-            }
-        }
         private View _contentView;
         internal View ContentView
         {
@@ -72,11 +61,6 @@ namespace AgentVI.ViewModels
                 _contentView = value;
                 OnPropertyChanged(nameof(ContentView));
             }
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 

@@ -11,10 +11,10 @@ using Xamarin.Forms.Xaml;
 namespace AgentVI.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class HealthStatPage : ContentPage, IBindable, IBindableVM
+	public partial class HealthStatPage : ContentPage//, IBindable, IBindableVM
 	{
-        public IBindableVM BindableViewModel => this;
-        public ContentPage ContentPage => this;
+        //public IBindableVM BindableViewModel => this;
+        //public ContentPage ContentPage => this;
 
         public HealthStatPage ()
 		{
