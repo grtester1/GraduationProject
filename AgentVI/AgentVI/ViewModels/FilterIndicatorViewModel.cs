@@ -12,17 +12,6 @@ namespace AgentVI.ViewModels
 {
     public class FilterIndicatorViewModel : IBindableVM, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        private string _selectedFoldersNamesCacheStr = null;
-        public string SelectedFoldersNamesCacheStr
-        {
-            get => _selectedFoldersNamesCacheStr;
-            private set
-            {
-                _selectedFoldersNamesCacheStr = value;
-                OnPropertyChanged(nameof(SelectedFoldersNamesCacheStr));
-            }
-        }
         private ObservableCollection<Folder> _selectedFoldersNamesCache = null;
         public ObservableCollection<Folder> SelectedFoldersNamesCache
         {
@@ -30,18 +19,10 @@ namespace AgentVI.ViewModels
             set
             {
                 _selectedFoldersNamesCache = new ObservableCollection<Folder>(value);
-                //SelectedFoldersNamesCacheStr = currenPathToString(_selectedFoldersNamesCache);
                 OnPropertyChanged(nameof(SelectedFoldersNamesCache));
             }
         }
-
         
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public FilterIndicatorViewModel()
         {
             SelectedFoldersNamesCache = new ObservableCollection<Folder>();

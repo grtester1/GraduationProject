@@ -12,7 +12,6 @@ namespace AgentVI.ViewModels
 {
     public abstract class FilterDependentViewModel<T> : IBindableVM, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         protected IEnumerable<T> enumerableCollection;
         private const int pageSize = 2;
         private IEnumerator<T> collectionEnumerator;
@@ -103,11 +102,6 @@ namespace AgentVI.ViewModels
             }
 
             updateFolderState();
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public virtual void PopulateCollection()

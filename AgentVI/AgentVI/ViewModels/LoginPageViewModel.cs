@@ -20,7 +20,6 @@ namespace AgentVI.ViewModels
 {
     public class LoginPageViewModel : IBindableVM, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         public string AccessToken { get; private set; }
         public string UserEmail { get; private set; }
         public string Username { get; private set; }
@@ -98,11 +97,6 @@ namespace AgentVI.ViewModels
             AccessToken = InnoviApiService.AccessToken;
             UserEmail = ServiceManager.Instance.LoginService.LoggedInUser.UserEmail;
             Username = ServiceManager.Instance.LoginService.LoggedInUser.Username;
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

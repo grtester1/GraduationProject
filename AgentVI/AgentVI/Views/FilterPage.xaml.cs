@@ -85,7 +85,6 @@ namespace AgentVI.Views
             await Task.Factory.StartNew(() =>
             {
                 filterVM.FetchCurrentFilteringDepth(filterVM.CurrentlySelectedFolder);
-                //filterVM.TriggerFetchAppPages();
             });
             OnBackButtonPressed();
         }

@@ -17,7 +17,6 @@ namespace AgentVI.ViewModels
 {
     public class FilterViewModel : IBindableVM, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private bool _isFetching = false;
         public bool IsFetching
         {
@@ -89,19 +88,6 @@ namespace AgentVI.ViewModels
             SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
             IsFetching = false;
         }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string i_PropertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(i_PropertyName));
-        }
-
-        /*
-        public void TriggerFetchAppPages()
-        {
-            IsFetching = true;
-            ServiceManager.Instance.FilterService.TriggerFetchUpdate();
-            IsFetching = false;
-        }*/
 
         public int GetPreviousPageIndex()
         {
