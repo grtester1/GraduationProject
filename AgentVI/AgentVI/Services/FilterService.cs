@@ -108,7 +108,7 @@ namespace AgentVI.Services
                 }
                 if (i_TriggerOnFilterUpdatedEvent)
                 {
-                    Task.Factory.StartNew(OnFilterStateUpdated);
+                    OnFilterStateUpdated();
                 }
             }
 
