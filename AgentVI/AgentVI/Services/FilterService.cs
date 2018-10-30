@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using AgentVI.Models;
 using Xamarin.Forms;
+using System.Text;
 
 namespace AgentVI.Services
 {
@@ -27,6 +28,7 @@ namespace AgentVI.Services
             public IEnumerable<Sensor.Health> FilteredHealth { get; private set; }
             public bool IsAtRootLevel { get; private set; }
             public List<Folder> CurrentPath { get; private set; }
+            public string CurrentStringPath => currenPathToString(CurrentPath);
             private IEnumerable<Folder> RootFolders { get; set; }
             private Dictionary<Folder, ObservableCollection<FolderModel>> cachedHierarchy { get; set; }
             private Dictionary<Folder, ObservableCollection<FolderModel>> _cachedHierarchy { get; set; }
@@ -34,6 +36,8 @@ namespace AgentVI.Services
             private readonly object cacheLock;
             private readonly TimeSpan defaultCachingTimespan;
             public event EventHandler FilterStateUpdated;
+
+            
 
             public FilterServiceS()
             {
@@ -77,7 +81,7 @@ namespace AgentVI.Services
                 return res;
             }
 
-            public void SelectRootLevel()
+            public void SelectRootLevel(bool i_TriggerOnFilterUpdatedEvent = false)
             {
                 FilteredSensorCollection = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors();
                 IsAtRootLevel = true;
@@ -85,10 +89,13 @@ namespace AgentVI.Services
                 CurrentLevel = getRootFolders();
                 fetchHealthArray();
                 setFilteredEvents();
-                OnFilterStateUpdated();
+                if (i_TriggerOnFilterUpdatedEvent)
+                {
+                    OnFilterStateUpdated();
+                }
             }
 
-            public void SelectFolder(Folder i_FolderSelected)
+            public void SelectFolder(Folder i_FolderSelected, bool i_TriggerOnFilterUpdatedEvent = false)
             {
                 FilteredSensorCollection = i_FolderSelected.GetAllSensors();
                 updatePath(i_FolderSelected);                               //keeps CurrentPath, CurrentPathStr updated
@@ -99,12 +106,10 @@ namespace AgentVI.Services
                 {
                     IsAtRootLevel = false;
                 }
-                //OnFilterStateUpdated();
-            }
-
-            public void TriggerFetchUpdate()
-            {
-                OnFilterStateUpdated();
+                if (i_TriggerOnFilterUpdatedEvent)
+                {
+                    Task.Factory.StartNew(OnFilterStateUpdated);
+                }
             }
 
             public void SwitchAccount(Account i_SelectedAccount)
@@ -244,6 +249,31 @@ namespace AgentVI.Services
                     }
                     FilteredHealth = res;
                 }
+            }
+
+            private string currenPathToString(IEnumerable<Folder> i_FolderCollection)
+            {
+                string res;
+                string separator = "/";
+                string prefix = separator;
+
+                if (i_FolderCollection != null)
+                {
+                    StringBuilder resBuilder = new StringBuilder();
+
+                    foreach (Folder folder in i_FolderCollection)
+                    {
+                        resBuilder.Append(prefix).Append(folder.Name);
+                    }
+
+                    res = resBuilder.ToString();
+                }
+                else
+                {
+                    res = prefix;
+                }
+
+                return res;
             }
         }
     }

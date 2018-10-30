@@ -56,7 +56,7 @@ namespace AgentVI.ViewModels
         {
             IsFetching = false;
             FilteringPagesContent = new ObservableCollection<FilteringPageViewModel>();
-            ServiceManager.Instance.FilterService.SelectRootLevel();
+            ServiceManager.Instance.FilterService.SelectRootLevel(true);
             SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
             FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(0);
             currentFiltrationLevel.PopulateCollection();
@@ -66,7 +66,7 @@ namespace AgentVI.ViewModels
         public void FetchCurrentFilteringDepth(Folder i_SelectedFolder)
         {
             IsFetching = true;
-            ServiceManager.Instance.FilterService.SelectFolder(i_SelectedFolder);
+            ServiceManager.Instance.FilterService.SelectFolder(i_SelectedFolder, true);
             SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
             IsFetching = false;
         }
@@ -95,16 +95,34 @@ namespace AgentVI.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(i_PropertyName));
         }
 
+        /*
         public void TriggerFetchAppPages()
         {
             IsFetching = true;
             ServiceManager.Instance.FilterService.TriggerFetchUpdate();
             IsFetching = false;
-        }
+        }*/
 
         public int GetPreviousPageIndex()
         {
-            return --CurrentPageNumber;
+            IsFetching = true;
+            if(CurrentPageNumber == 0)
+            {
+                ServiceManager.Instance.FilterService.SelectRootLevel(true);
+            }
+            else
+            {
+                if (--CurrentPageNumber != 0)
+                {
+                    ServiceManager.Instance.FilterService.SelectFolder(SelectedFoldersCache[--CurrentPageNumber], false);
+                }
+                else
+                {
+                    ServiceManager.Instance.FilterService.SelectRootLevel();
+                }
+            }
+            IsFetching = false;
+            return CurrentPageNumber;
         }
     }
 }

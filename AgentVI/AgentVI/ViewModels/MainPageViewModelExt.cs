@@ -52,6 +52,16 @@ namespace AgentVI.ViewModels
                 OnPropertyChanged(nameof(LoginContext));
             }
         }
+        private FilterIndicatorViewModel _filterIndicator;
+        public FilterIndicatorViewModel FilterIndicator
+        {
+            get => _filterIndicator;
+            protected set
+            {
+                _filterIndicator = value;
+                OnPropertyChanged(nameof(FilterIndicator));
+            }
+        }
         private View _contentView;
         internal View ContentView
         {

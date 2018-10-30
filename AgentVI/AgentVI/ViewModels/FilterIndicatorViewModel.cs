@@ -30,24 +30,12 @@ namespace AgentVI.ViewModels
             set
             {
                 _selectedFoldersNamesCache = new ObservableCollection<Folder>(value);
-                SelectedFoldersNamesCacheStr = currenPathToString(_selectedFoldersNamesCache);
+                //SelectedFoldersNamesCacheStr = currenPathToString(_selectedFoldersNamesCache);
                 OnPropertyChanged(nameof(SelectedFoldersNamesCache));
             }
         }
 
-        public static string currenPathToString(IEnumerable<Folder> i_FolderCollection)
-        {
-            string separator = "/";
-            string prefix = separator;
-            StringBuilder resBuilder = new StringBuilder();
-
-            foreach(Folder folder in i_FolderCollection)
-            {
-                resBuilder.Append(prefix).Append(folder.Name);
-            }
-
-            return resBuilder.ToString();
-        }
+        
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -66,7 +54,7 @@ namespace AgentVI.ViewModels
 
         internal void ResetHierarchyToRootLevel()
         {
-            ServiceManager.Instance.FilterService.SelectRootLevel();
+            ServiceManager.Instance.FilterService.SelectRootLevel(true);
             UpdateCurrentPath();
         }
     }

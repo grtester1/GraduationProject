@@ -1,4 +1,5 @@
 ﻿using AgentVI.Interfaces;
+using AgentVI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,11 @@ using Xamarin.Forms.Xaml;
 namespace AgentVI.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class HealthStatPage : ContentPage//, IBindable, IBindableVM
+	public partial class HealthStatPage : ContentPage, IBindable
 	{
-        //public IBindableVM BindableViewModel => this;
-        //public ContentPage ContentPage => this;
+        public IBindableVM BindableViewModel => HealthStatVM;
+        public ContentPage ContentPage => this;
+        public HealthStatViewModel HealthStatVM { get; private set; }
 
         public HealthStatPage ()
 		{

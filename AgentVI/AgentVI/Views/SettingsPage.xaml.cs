@@ -8,14 +8,16 @@ using System.Collections.Generic;
 using AgentVI.Services;
 using Xamarin.Forms;
 using AgentVI.Interfaces;
+using AgentVI.ViewModels;
 
 namespace AgentVI.Views
 {
-    public partial class SettingsPage : ContentPage//, IBindable, IBindableVM
+    public partial class SettingsPage : ContentPage, IBindable
     {
-        //public IBindableVM BindableViewModel => this;
-        //public ContentPage ContentPage => this;
-		string numOfCameras = "<nums>";
+        public IBindableVM BindableViewModel => SettingsVM;
+        public ContentPage ContentPage => this;
+        public SettingsViewModel SettingsVM { get; private set; }
+        string numOfCameras = "<nums>";
 		string siteName = "<Site name>";
 		string networkDatacomSolutions = "<Network Datacom Solutions>";
 		                                                                                                           

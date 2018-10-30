@@ -12,9 +12,8 @@ namespace AgentVI.Services
 {
     public interface IFilterService : IServiceModule
     {
-        void                                SelectRootLevel();
-        void                                SelectFolder(Folder i_FolderSelected);
-        void                                TriggerFetchUpdate();
+        void                                SelectRootLevel(bool i_TriggerOnFilterUpdatedEvent = false);
+        void                                SelectFolder(Folder i_FolderSelected, bool i_TriggerOnFilterUpdatedEvent = false);
         void                                SwitchAccount(Account i_SelectedAccount);
         event EventHandler                  FilterStateUpdated;
         Account                             CurrentAccount { get; }
@@ -27,5 +26,6 @@ namespace AgentVI.Services
         //bool                                IsAtLeafFolder { get; }
         //bool                                HasNextLevel { get; }
         List<Folder>                        CurrentPath { get; }
+        string                              CurrentStringPath { get; }
     }
 }

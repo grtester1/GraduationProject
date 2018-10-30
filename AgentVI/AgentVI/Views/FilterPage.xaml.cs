@@ -85,7 +85,7 @@ namespace AgentVI.Views
             await Task.Factory.StartNew(() =>
             {
                 filterVM.FetchCurrentFilteringDepth(filterVM.CurrentlySelectedFolder);
-                filterVM.TriggerFetchAppPages();
+                //filterVM.TriggerFetchAppPages();
             });
             OnBackButtonPressed();
         }
@@ -133,15 +133,18 @@ namespace AgentVI.Views
                 currentListView.ItemsSource = unfilteredFoldersList.Cast<FolderModel>().Where(item => item.FolderName.StartsWith(i_TextChangeEventArgs.NewTextValue));
         }
 
-        private void onBackButtonTapped(object sender, EventArgs e)
+        private async void onBackButtonTapped(object sender, EventArgs e)
         {
+            int currentPage = 0;
             if (filterVM.CurrentPageNumber == 0)
             {
+                await Task.Factory.StartNew(() => currentPage = filterVM.GetPreviousPageIndex());
                 OnBackButtonPressed();
             }
             else
             {
-                SelectedItem = filterVM.FilteringPagesContent[filterVM.GetPreviousPageIndex()];
+                await Task.Factory.StartNew(() => currentPage = filterVM.GetPreviousPageIndex());
+                SelectedItem = filterVM.FilteringPagesContent[currentPage];
                 OnBindingContextChanged();
             }
         }

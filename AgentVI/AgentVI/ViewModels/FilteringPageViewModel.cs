@@ -36,7 +36,7 @@ namespace AgentVI.ViewModels
             {
                 enumerableCollection = ServiceManager.Instance.FilterService.CurrentLevel;
             }
-            CurrentPath = FilterIndicatorViewModel.currenPathToString(ServiceManager.Instance.FilterService.CurrentPath);
+            CurrentPath = ServiceManager.Instance.FilterService.CurrentStringPath;
             FetchCollection();
         }
 

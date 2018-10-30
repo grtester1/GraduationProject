@@ -37,7 +37,7 @@
                     <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.ResetButtonSVGPath}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
                     <Button Clicked="ResetHierarchyButtonClicked" BackgroundColor="Transparent" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
                 </AbsoluteLayout>
-                <Label HorizontalOptions="Start" VerticalOptions="Center" Margin="{x:Static settings:Settings.FilterTextMargines}" TextColor="{x:Static settings:Settings.FilterTextColor}" FontSize="{x:Static settings:Settings.FilterTextSize}" BindingContext="{Binding FilterIndicator}" Text="{Binding SelectedFoldersNamesCacheStr}" LineBreakMode="TailTruncation"/>
+                <Label HorizontalOptions="Start" VerticalOptions="Center" Margin="{x:Static settings:Settings.FilterTextMargines}" TextColor="{x:Static settings:Settings.FilterTextColor}" FontSize="{x:Static settings:Settings.FilterTextSize}" Text="{Binding FiltrationPath}" LineBreakMode="TailTruncation"/>
                 <AbsoluteLayout HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5" WidthRequest="30">
                     <ffsvg:SvgCachedImage Source="{x:Static settings:Settings.BrowseButtonSVGPath}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
                     <Button WidthRequest="30" BackgroundColor="Transparent" Clicked="OnFilterStateIndicatorClicked" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>

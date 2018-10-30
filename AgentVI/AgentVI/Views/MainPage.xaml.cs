@@ -40,6 +40,12 @@ namespace AgentVI.Views
             BindingContext = mainPageVM;
         }
 
+        protected override void OnAppearing()
+        {
+            mainPageVM.FiltrationPath = null;
+            base.OnAppearing();
+        }
+
         private void OnMainNavigationPushPopRequest(object sender, UpdatedContentEventArgs e)
         {
             Device.BeginInvokeOnMainThread(() =>

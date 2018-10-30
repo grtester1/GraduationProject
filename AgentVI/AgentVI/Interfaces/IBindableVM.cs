@@ -8,16 +8,26 @@ namespace AgentVI.Interfaces
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private FilterIndicatorViewModel _filterIndicator;
-        public FilterIndicatorViewModel FilterIndicator
+        private string _filtrationPath;
+        public string FiltrationPath
         {
-            get => _filterIndicator;
-            protected set
+            get
             {
-                _filterIndicator = value;
-                OnPropertyChanged(nameof(FilterIndicator));
+                if(Services.ServiceManager.Instance.LoginService.LoggedInUser != null &&
+                    Services.ServiceManager.Instance.FilterService != null)
+                return Services.ServiceManager.Instance.FilterService.CurrentStringPath;
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            set
+            {
+                _filtrationPath = value;
+                OnPropertyChanged(nameof(FiltrationPath));
             }
         }
+
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
