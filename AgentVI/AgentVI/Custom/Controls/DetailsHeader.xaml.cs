@@ -128,7 +128,7 @@ namespace AgentVI.Custom.Controls
             Device.BeginInvokeOnMainThread(async () =>
             {
                 await Navigation.PushPopupAsync(DropdownMenuPage);
-                DropdownMenuPage.TranslationX = elementCoordinates.X - 4.5*buttonClicked.Width;
+                DropdownMenuPage.TranslationX = elementCoordinates.X - 4*buttonClicked.Width;
                 DropdownMenuPage.TranslationY = elementCoordinates.Y + buttonClicked.Height/2;
             }
             );

@@ -12,7 +12,7 @@ using AgentVI.Interfaces;
 
 namespace AgentVI.ViewModels
 {
-    public partial class MainPageViewModel : INotifyPropertyChanged
+    public partial class MainPageViewModel : IBindableVM ,INotifyPropertyChanged
     {
         public event EventHandler<UpdatedContentEventArgs> RaiseContentViewUpdateEvent;
         public event PropertyChangedEventHandler PropertyChanged;

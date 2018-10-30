@@ -10,7 +10,7 @@ using System.Text;
 
 namespace AgentVI.ViewModels
 {
-    public class FilterIndicatorViewModel : INotifyPropertyChanged, IBindableVM
+    public class FilterIndicatorViewModel : IBindableVM, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private string _selectedFoldersNamesCacheStr = null;

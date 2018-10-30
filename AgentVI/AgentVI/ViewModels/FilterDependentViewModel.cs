@@ -10,7 +10,7 @@ using AgentVI.Interfaces;
 
 namespace AgentVI.ViewModels
 {
-    public abstract class FilterDependentViewModel<T> : INotifyPropertyChanged, IBindableVM
+    public abstract class FilterDependentViewModel<T> : IBindableVM, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected IEnumerable<T> enumerableCollection;

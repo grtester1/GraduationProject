@@ -17,7 +17,7 @@ namespace AgentVI.Droid.Custom.Renderers
 {
     public class CustomSwitchRenderer : SwitchRenderer
     {
-        private Color ThumbOnColor = Color.Blue;
+        private Color ThumbOnColor = Color.Rgb(47, 192, 255);
         private Color ThumbOffColor = Color.Rgb(231, 231, 231);
         private Color TrackOnColor = Color.Blue;
         private Color TrackOffColor = Color.Gray;

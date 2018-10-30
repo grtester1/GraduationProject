@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AgentVI.Interfaces
 {
-    public interface IBindableVM
+    public abstract class IBindableVM
     {
 
     }

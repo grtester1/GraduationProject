@@ -29,20 +29,48 @@ namespace AgentVI.Views
 
         public DropdownMenuPage Build()
         {
-            foreach(Tuple<string, Action> actionItem in actionItems)
+            double widthRequest = 100;
+            BoxView separator = new BoxView()
             {
-                dropdownLayout.Children.Add(new Button()
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                HeightRequest = 1,
+                WidthRequest = widthRequest,
+                BackgroundColor = Color.Black,
+                Color = Color.Black
+            };
+
+            foreach (Tuple<string, Action> actionItem in actionItems)
+            {
+                Label menuActionItem = new Label()
                 {
                     Text = actionItem.Item1,
-                    WidthRequest = 100,
+                    WidthRequest = widthRequest,
+                    FontSize = AgentVI.Utils.Settings.ActionMenuItemFontSize
+                };
+
+                menuActionItem.GestureRecognizers.Add(new TapGestureRecognizer()
+                {
                     Command = new Command(() =>
                     {
                         Navigation.PopAllPopupAsync();
                         actionItem.Item2.Invoke();
                     })
                 });
-            }
 
+                dropdownLayout.Children.Add(menuActionItem);
+                //dropdownLayout.Children.Add(separator);
+
+                //dropdownLayout.Children.Add(new Button()
+                //{
+                //    Text = actionItem.Item1,
+                //    WidthRequest = 100,
+                //    Command = new Command(() =>
+                //    {
+                //        Navigation.PopAllPopupAsync();
+                //        actionItem.Item2.Invoke();
+                //    })
+                //});
+            }
             return this;
         }
 

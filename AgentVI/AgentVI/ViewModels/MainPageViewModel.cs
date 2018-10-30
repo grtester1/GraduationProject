@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 namespace AgentVI.ViewModels
 {
-    public partial class MainPageViewModel : INotifyContentViewChanged, IBindableVM
+    public partial class MainPageViewModel : IBindableVM, INotifyContentViewChanged
     {
         internal MainPageViewModel(IProgress<ProgressReportModel> i_ProgressReporter, Dictionary<EAppTab, SvgCachedImage> i_AppTabs)
         {

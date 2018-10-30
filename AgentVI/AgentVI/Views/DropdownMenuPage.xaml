@@ -17,7 +17,7 @@
             EasingOut="SinIn"
             HasBackgroundAnimation="False"/>
     </pages:PopupPage.Animation>
-    <Frame VerticalOptions="Start" HorizontalOptions="Start" BorderColor="LightGray" CornerRadius="8">
-        <StackLayout x:Name="dropdownLayout" VerticalOptions="Start" HorizontalOptions="Start" Padding="0" Spacing="0"/>
+    <Frame VerticalOptions="Start" HorizontalOptions="Start" BorderColor="LightGray" Padding="10">
+        <StackLayout x:Name="dropdownLayout" VerticalOptions="Start" HorizontalOptions="Start" Padding="0" Spacing="7"/>
     </Frame>
 </pages:PopupPage>

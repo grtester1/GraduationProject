@@ -18,7 +18,7 @@ using AgentVI.Interfaces;
 
 namespace AgentVI.ViewModels
 {
-    public class LoginPageViewModel : INotifyPropertyChanged, IBindableVM
+    public class LoginPageViewModel : IBindableVM, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public string AccessToken { get; private set; }

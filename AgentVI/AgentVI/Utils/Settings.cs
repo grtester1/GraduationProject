@@ -29,6 +29,7 @@ namespace AgentVI.Utils
         public static double FilterTextSize { get; } = 15;
         public static double EmptyPageFillerFontSize { get; } = 22;
         public static double EmptyPageFillerFontSmallSize { get; } = 15;
+        public static double ActionMenuItemFontSize { get; } = 20;
 
         public static Color FooterColor { get; } = Color.FromHex("#003F7F");
         public static Color FooterSeparatorColor { get; } = Color.FromHex("#DCDCDC");
