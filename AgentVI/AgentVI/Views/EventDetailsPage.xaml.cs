@@ -26,14 +26,14 @@ namespace AgentVI.Views
             InitializeComponent();
         }
 
-        public EventDetailsPage(EventModel i_EventModel) : this()
+        public EventDetailsPage(EventModel i_EventModel, bool i_IsLive = false) : this()
         {
             Task.Factory.StartNew(() =>
             {
-                landscapeEventDetailsPage = new LandscapeEventDetailsPage(i_EventModel);
+                landscapeEventDetailsPage = new LandscapeEventDetailsPage(i_EventModel, i_IsLive);
                 landscapeEventDetailsPage.RaiseContentViewUpdateEvent += eventsRouter;
             });
-            eventDetailsViewModel = new EventDetailsViewModel(i_EventModel);
+            eventDetailsViewModel = new EventDetailsViewModel(i_EventModel, i_IsLive);
             eventDetailsViewModel.EventRouter += eventsRouter;
             CrossDeviceOrientation.Current.UnlockOrientation();
             CrossDeviceOrientation.Current.OrientationChanged += handleOrientationChanged;
@@ -62,9 +62,11 @@ namespace AgentVI.Views
             eventDetailsViewModel.IsPlayerVisible = true;
         }
 
-        private void onEventDetailsBackButtonTapped(object sender, EventArgs e)
+        private async void onEventDetailsBackButtonTapped(object sender, EventArgs e)
         {
-            RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Pop));
+            await Task.Factory.StartNew(() => RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Buffering)));
+            await Task.Factory.StartNew(()=> RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Pop)));
+            await Task.Factory.StartNew(()=> RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Pop)));
             CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
         }
 

@@ -31,11 +31,11 @@ namespace AgentVI.Views
             onAreaTapped(null, null);
         }
 
-        public LandscapeEventDetailsPage(EventModel i_EventModel):this()
+        public LandscapeEventDetailsPage(EventModel i_EventModel, bool i_IsLive = false) :this()
         {
             CrossDeviceOrientation.Current.UnlockOrientation();
             CrossDeviceOrientation.Current.OrientationChanged += handleOrientationChanged;
-            landscapeEventDetailsPageVM = new LandscapeEventDetailsPageVM(i_EventModel);
+            landscapeEventDetailsPageVM = new LandscapeEventDetailsPageVM(i_EventModel, i_IsLive);
             BindingContext = landscapeEventDetailsPageVM;
         }
 

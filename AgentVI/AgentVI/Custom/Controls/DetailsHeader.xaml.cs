@@ -101,7 +101,14 @@ namespace AgentVI.Custom.Controls
         public PopupPage DropdownMenuPage
         {
             get => (PopupPage)GetValue(DropdownMenuPageProperty);
-            set => SetValue(DropdownMenuPageProperty, value);
+            set
+            {
+                if (value == null)
+                {
+                    contextMenuButton.IsVisible = false;
+                }
+                SetValue(DropdownMenuPageProperty, value);
+            }
         }
 
         public DetailsHeader ()

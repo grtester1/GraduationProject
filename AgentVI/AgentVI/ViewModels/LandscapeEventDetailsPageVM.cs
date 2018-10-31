@@ -12,7 +12,7 @@ namespace AgentVI.ViewModels
     public class LandscapeEventDetailsPageVM : IBindableVM
     {
         private EventModel EventModel { get; set; }
-        public string SensorEventClip { get => EventModel.SensorEventClip; }
+        public string SensorEventClip => isLive ? EventModel.Sensor.LiveView : EventModel.SensorEventClip;
         public string FirstLineOverlay { get => new StringBuilder().Append(getActiveAccountName())
                                                                     .Append(",")
                                                                     .Append(getLeafNameOfCurrentFiltrationPath())
@@ -24,14 +24,17 @@ namespace AgentVI.ViewModels
                                                   .Convert(EventModel.SensorEventDateTime, typeof(ulong), null, null).ToString();
                                         }
         public bool IsPlayerVisible { get; set; } = true;
+        private bool isLive;
+
 
         private LandscapeEventDetailsPageVM()
         {
 
         }
 
-        public LandscapeEventDetailsPageVM(EventModel i_EventModel):this()
+        public LandscapeEventDetailsPageVM(EventModel i_EventModel, bool i_IsLive = false):this()
         {
+            isLive = i_IsLive;
             EventModel = i_EventModel;
         }
 
