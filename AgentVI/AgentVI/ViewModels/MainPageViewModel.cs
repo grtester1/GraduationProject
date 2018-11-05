@@ -85,18 +85,22 @@ namespace AgentVI.ViewModels
 
         private void popFromControlViewStack()
         {
+            Console.WriteLine("###Logger###   -   in MainPageViewModel.popFromControlViewStack main thread @ begin retrieving current saved page");
             Tuple<ContentPage, IBindableVM> stackTop = contentViewStack.Pop();
             if (stackTop != null)
             {
                 currentPageInContentView = stackTop.Item1;
                 currentPageVMInContentView = stackTop.Item2;
+                Console.WriteLine("###Logger###   -   in MainPageViewModel.popFromControlViewStack main thread @ before popping invoke");
                 RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Pop,
                     currentPageInContentView, currentPageVMInContentView));
+                Console.WriteLine("###Logger###   -   in MainPageViewModel.popFromControlViewStack main thread @ after popping invoke");
             }
             else
             {
                 throw new Exception("MainPage.PopFromControlViewStack called unexpectedely");
             }
+            Console.WriteLine("###Logger###   -   in MainPageViewModel.popFromControlViewStack main thread @ end retrieving current saved page");
         }
 
         private void updateReporter(string i_StageCompleted, ProgressReportModel i_Report)
@@ -111,17 +115,25 @@ namespace AgentVI.ViewModels
 
         private void OnContentViewUpdateEvent(object sender, UpdatedContentEventArgs e)
         {
+            Console.WriteLine("###Logger###   -   begin MainPageViewModel.OnContentViewUpdateEvent main thread");
             lock (contentViewUpdateLock)
             {
+                Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ start lock");
                 try
                 {
                     if (e == null || e.ContentUpdateType == EContentUpdateType.Buffering)
                     {
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin buffering");
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin saving current page");
                         addToContentViewStack
                             (
                             new Tuple<ContentPage, IBindableVM>(currentPageInContentView, currentPageVMInContentView)
                             );
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end saving current page");
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ before buffering invoke");
                         RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Buffering, waitingPage));
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ after buffering invoke");
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end buffering");
                     }
                     else if (e.ContentUpdateType == EContentUpdateType.Pop)
                     {
@@ -152,15 +164,24 @@ namespace AgentVI.ViewModels
                     }
                     else                                        //UpdatedContentEventArgs.EContentUpdateType.Push
                     {
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin pushing page on NavigationStack");
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin setting ContentView");
                         currentPageInContentView = e.UpdatedContent;
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end setting ContentView View");
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin setting ContentView VM");
                         currentPageVMInContentView = e.UpdatedVM;
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end setting ContentView VM");
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ before invoke push on ContentView");
                         RaiseContentViewUpdateEvent?.Invoke(null, e);
+                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ after invoke push on ContentView");
                     }
                 }catch(AggregateException ae)
                 {
                     Console.WriteLine("Aggregate Exception Catched!");
                 }
+                Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end lock");
             }
+            Console.WriteLine("###Logger###   -   end MainPageViewModel.OnContentViewUpdateEvent main thread");
         }
 
         internal void updateContentView(EAppTab i_AppTab ,ContentPage i_UpdatedContent, IBindableVM i_UpdatedVM)

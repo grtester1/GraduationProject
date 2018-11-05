@@ -13,7 +13,7 @@ namespace AgentVI.ViewModels
     public abstract class FilterDependentViewModel<T> : IBindableVM, INotifyPropertyChanged
     {
         protected IEnumerable<T> enumerableCollection;
-        private const int pageSize = 2;
+        private const int pageSize = 10;
         private IEnumerator<T> collectionEnumerator;
         protected bool canLoadMore = false;
         protected bool IsFilterStateChanged { get; set; }
