@@ -103,10 +103,6 @@ namespace AgentVI.Custom.Controls
             get => (PopupPage)GetValue(DropdownMenuPageProperty);
             set
             {
-                if (value == null)
-                {
-                    contextMenuButton.IsVisible = false;
-                }
                 SetValue(DropdownMenuPageProperty, value);
             }
         }
@@ -129,16 +125,19 @@ namespace AgentVI.Custom.Controls
 
         private void onContextMenuTapped(object sender, EventArgs e)
         {
-            VisualElement buttonClicked = sender as VisualElement;
-            Point elementCoordinates = buttonClicked.getCoordinates();
-            
-            Device.BeginInvokeOnMainThread(async () =>
+            if (DropdownMenuPage != null)
             {
-                await Navigation.PushPopupAsync(DropdownMenuPage);
-                DropdownMenuPage.TranslationX = elementCoordinates.X - 4*buttonClicked.Width;
-                DropdownMenuPage.TranslationY = elementCoordinates.Y + buttonClicked.Height/2;
+                VisualElement buttonClicked = sender as VisualElement;
+                Point elementCoordinates = buttonClicked.getCoordinates();
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await Navigation.PushPopupAsync(DropdownMenuPage);
+                    DropdownMenuPage.TranslationX = elementCoordinates.X - 4 * buttonClicked.Width;
+                    DropdownMenuPage.TranslationY = elementCoordinates.Y + buttonClicked.Height / 2;
+                }
+                );
             }
-            );
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

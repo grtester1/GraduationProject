@@ -11,7 +11,15 @@ namespace NadavTest
             LoginResult loginResult = InnoviApiService.Login("ramot.n@gmail.com", "password");
             User user = loginResult.User;
 
-            InnoviObjectCollection<Folder> lazyFolders =  user.GetDefaultAccountFolders();
+            InnoviObjectCollection<SensorEvent> efdf = user.GetDefaultAccountEvents();
+
+            foreach (SensorEvent event1 in efdf)
+            {
+                string asds = event1.ClipPath;
+                bool something = event1.IsClipAvailable;
+            }
+
+                InnoviObjectCollection<Folder> lazyFolders =  user.GetDefaultAccountFolders();
 
             foreach (Folder folder in lazyFolders)
             {

@@ -28,21 +28,33 @@ namespace AgentVI.Views
 
         public EventDetailsPage(EventModel i_EventModel, bool i_IsLive = false) : this()
         {
+            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ begin ctr");
             Task.Factory.StartNew(() =>
             {
+                Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage thread 1@ begin thread");
+                Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage thread 1@ before LandscapeEventDetailsPage ctr");
                 landscapeEventDetailsPage = new LandscapeEventDetailsPage(i_EventModel, i_IsLive);
+                Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage thread 1@ after LandscapeEventDetailsPage ctr");
                 landscapeEventDetailsPage.RaiseContentViewUpdateEvent += eventsRouter;
+                Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage thread 1@ end thread");
             });
+            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ before EventDetailsViewModel");
             eventDetailsViewModel = new EventDetailsViewModel(i_EventModel, i_IsLive);
+            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ after EventDetailsViewModel");
             eventDetailsViewModel.EventRouter += eventsRouter;
+            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ before UnlockOrientation");
             CrossDeviceOrientation.Current.UnlockOrientation();
+            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ after UnlockOrientation");
             CrossDeviceOrientation.Current.OrientationChanged += handleOrientationChanged;
+            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ before checklockorientation");
             checkLockOrientation();
+            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ after checklockorientation");
+            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ after ctr");
         }
 
         private void handleOrientationChanged(object sender, OrientationChangedEventArgs e)
         {
-            if(e.Orientation == DeviceOrientations.Landscape)
+            if (e.Orientation == DeviceOrientations.Landscape)
             {
                 quitClipLoading();
                 RaiseContentViewUpdateEvent?.Invoke(
@@ -72,12 +84,14 @@ namespace AgentVI.Views
 
         private bool checkLockOrientation()
         {
+            Console.WriteLine("###Logger###   -   in EventDetailsPage.checkLockOrientation main thread @ entering");
             bool res = true;
             if (!eventDetailsViewModel.IsClipAvailable)
             {
                 res = false;
                 CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
             }
+            Console.WriteLine("###Logger###   -   in EventDetailsPage.checkLockOrientation main thread @ exiting");
             return res;
         }
 

@@ -13,11 +13,36 @@ namespace AgentVI.ViewModels
     public abstract class FilterDependentViewModel<T> : IBindableVM, INotifyPropertyChanged
     {
         protected IEnumerable<T> enumerableCollection;
-        private const int pageSize = 2;
+        private const int pageSize = 10;
         private IEnumerator<T> collectionEnumerator;
         protected bool canLoadMore = false;
         protected bool IsFilterStateChanged { get; set; }
         public ObservableCollection<T> ObservableCollection { get; set; }
+        private bool _isStillLoading = true;
+        public bool IsStillLoading
+        {
+            get => _isStillLoading;
+            set
+            {
+                _isStillLoading = value;
+                if (!_isStillLoading && IsEmptyFolder)
+                    IsEmptyView = true;
+                else
+                    IsEmptyView = false;
+                OnPropertyChanged(nameof(IsStillLoading));
+            }
+        }
+        private bool _isEmptyView = false;
+        public bool IsEmptyView
+        {
+            get => _isEmptyView;
+            set
+            {
+                _isEmptyView = value;
+                OnPropertyChanged(nameof(IsEmptyView));
+            }
+        }
+
         private bool _isBusy;
         public bool IsBusy
         {
@@ -25,6 +50,7 @@ namespace AgentVI.ViewModels
             set
             {
                 _isBusy = value;
+                updateIsStillLoading();
                 OnPropertyChanged(nameof(IsBusy));
             }
         }
@@ -35,8 +61,14 @@ namespace AgentVI.ViewModels
             set
             {
                 _isEmptyFolder = value;
+                updateIsStillLoading();
                 OnPropertyChanged(nameof(IsEmptyFolder));
             }
+        }
+
+        private void updateIsStillLoading()
+        {
+            IsStillLoading = IsBusy && IsEmptyFolder;
         }
 
         private void updateFolderState()
@@ -72,9 +104,11 @@ namespace AgentVI.ViewModels
 
         protected virtual void FetchCollection()
         {
+            Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ begin FetchCollection");
             bool hasNext = true;
             int fetchedItems = 0;
 
+            IsBusy = true;
             if(collectionEnumerator == null || IsFilterStateChanged)
             {
                 IsFilterStateChanged = false;
@@ -86,6 +120,8 @@ namespace AgentVI.ViewModels
                 while (hasNext = collectionEnumerator.MoveNext() && canLoadMore)
                 {
                     ObservableCollection.Add(collectionEnumerator.Current);
+                    if (IsEmptyFolder)
+                        IsEmptyFolder = !IsEmptyFolder;
                     if (fetchedItems++ == pageSize)
                     {
                         break;
@@ -102,6 +138,8 @@ namespace AgentVI.ViewModels
             }
 
             updateFolderState();
+            IsBusy = false;
+            Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ end FetchCollection");
         }
 
         public virtual void PopulateCollection()
