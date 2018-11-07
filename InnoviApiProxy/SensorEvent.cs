@@ -37,6 +37,7 @@ namespace InnoviApiProxy
             {
                 if (m_IsClipAvailableFetchNeeded)
                 {
+                    m_IsClipAvailableFetchNeeded = false;
                     string path = ClipPath;
                     m_IsClipAvailable = HttpUtils.IsUrlFound(path);
                     m_ClipAvailabilityCheckTimer.Elapsed += onTimerElapsed;
