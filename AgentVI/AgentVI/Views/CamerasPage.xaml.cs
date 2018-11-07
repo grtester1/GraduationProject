@@ -53,6 +53,7 @@ namespace AgentVI.Views
 
         private async void onSensorTapped(object sender, ItemTappedEventArgs e)
         {
+            Console.WriteLine("###Logger###   -   begin CamerasPage.onSensorTapped main thread ");
             RaiseContentViewUpdateEvent?.Invoke(this, new UpdatedContentEventArgs(UpdatedContentEventArgs.EContentUpdateType.Buffering));
             UpdatedContentEventArgs updatedContentEventArgs = null;
             CameraEventsPage cameraEventsPageBuf = null;
@@ -60,15 +61,16 @@ namespace AgentVI.Views
 
             await Task.Factory.StartNew(() =>
             {
+                Console.WriteLine("###Logger###   -   begin CamerasPage.onSensorTapped new thread 1 ");
                 cameraEventsPageBuf = new CameraEventsPage(sensorBuffer.Sensor);
                 cameraEventsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
-
+                updatedContentEventArgs = new UpdatedContentEventArgs(
+                    UpdatedContentEventArgs.EContentUpdateType.Push, cameraEventsPageBuf,
+                    cameraEventsPageBuf.BindableViewModel);
+                Console.WriteLine("###Logger###   -   end CamerasPage.onSensorTapped new thread 1 ");
             });
-            await Task.Factory.StartNew(() => 
-            updatedContentEventArgs = new UpdatedContentEventArgs(
-            UpdatedContentEventArgs.EContentUpdateType.Push, cameraEventsPageBuf, cameraEventsPageBuf.BindableViewModel
-            ));
             RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
+            Console.WriteLine("###Logger###   -   end CamerasPage.onSensorTapped main thread ");
         }
 
         private void eventsRouter(object sender, UpdatedContentEventArgs e)

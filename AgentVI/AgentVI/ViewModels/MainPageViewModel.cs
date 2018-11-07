@@ -170,6 +170,14 @@ namespace AgentVI.ViewModels
                         Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end setting ContentView View");
                         Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin setting ContentView VM");
                         currentPageVMInContentView = e.UpdatedVM;
+                        Task.Factory.StartNew(() =>
+                        {
+                            try
+                            {
+                                (currentPageInContentView as IPopulableView).PopulateView();
+                            }
+                            catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
+                        });
                         Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end setting ContentView VM");
                         Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ before invoke push on ContentView");
                         RaiseContentViewUpdateEvent?.Invoke(null, e);

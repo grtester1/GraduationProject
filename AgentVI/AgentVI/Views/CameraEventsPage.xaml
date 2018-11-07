@@ -17,17 +17,20 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <AbsoluteLayout VerticalOptions="FillAndExpand">
-            <ffsvg:SvgCachedImage x:Name="IsEmptyFiller" IsVisible="{Binding IsEmptyFolder}"
+            <ffsvg:SvgCachedImage x:Name="IsEmptyFiller" IsVisible="{Binding IsEmptyView}"
                                   Source="{x:Static settings:Settings.EmptyCollectionSVGPath}"
                                   Aspect="AspectFit"
                                   AbsoluteLayout.LayoutFlags="All"
                                   AbsoluteLayout.LayoutBounds="0.5,0.4,0.6,0.6"/>
-            <Label x:Name="IsEmptyText" IsVisible="{Binding IsEmptyFolder}"
+            <Label x:Name="IsEmptyText" IsVisible="{Binding IsEmptyView}"
                    HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                    Text="{x:Static settings:Settings.EmptyFillerTextMessageSensorEvents}"
                    FontSize="{x:Static settings:Settings.EmptyPageFillerFontSize}"
                    AbsoluteLayout.LayoutFlags="PositionProportional"
                    AbsoluteLayout.LayoutBounds="0.5,0.9,-1,-1"/>
+            <ActivityIndicator IsVisible="{Binding IsStillLoading}" IsRunning="True" IsEnabled="True"
+                               AbsoluteLayout.LayoutFlags="PositionProportional"
+                               AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"/>
             <Grid VerticalOptions="FillAndExpand" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -42,16 +45,6 @@
                                     LabelText="{Binding SensorName}"
                                     BackButtonTapped="onCameraEventBackButtonTapped"/>
                 <ListView ItemTapped="cameraEventsListView_ItemSelected" Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
-                    <ListView.Footer>
-                        <Grid Padding="6" IsVisible="{Binding IsBusy}">
-                            <Grid.Triggers>
-                                <Trigger TargetType="Grid" Property="IsVisible" Value="False">
-                                    <Setter Property="HeightRequest" Value="0"/>
-                                </Trigger>
-                            </Grid.Triggers>
-                            <ProgressBar Progress="0.5" IsEnabled="True" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
-                        </Grid>
-                    </ListView.Footer>
                     <ListView.Behaviors>
                         <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>
                     </ListView.Behaviors>

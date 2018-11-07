@@ -111,6 +111,7 @@ namespace AgentVI.Models
 
         internal static EventModel FactoryMethod(SensorEvent i_SensorEvent)
         {
+            Console.WriteLine("###Logger###   -   in EventModel.FactoryMethod main thread @ begin");
             EventModel res = new EventModel()
             {
                 SensorName = i_SensorEvent.SensorName,
@@ -123,7 +124,7 @@ namespace AgentVI.Models
                 Sensor = i_SensorEvent.EventSensor,
                 SensorEvent = i_SensorEvent
             };
-
+            Console.WriteLine("###Logger###   -   in EventModel.FactoryMethod main thread @ end");
             return res;
         }
 
