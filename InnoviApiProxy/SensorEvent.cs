@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using System.Timers;
 
 namespace InnoviApiProxy
 {
     public class SensorEvent : InnoviObject
     {
+        private bool m_IsClipAvailable = false;
+
+        private bool m_IsClipAvailableFetchNeeded = true;
+        private static int m_TimerInterval = 5000;
+        Timer m_ClipAvailabilityCheckTimer = new Timer(m_TimerInterval);
         [JsonProperty("id")]
         private string eventId { get; set; }
         [JsonProperty]
@@ -29,8 +35,14 @@ namespace InnoviApiProxy
         {
             get
             {
-                string path = ClipPath;
-                return HttpUtils.IsUrlFound(path);
+                if (m_IsClipAvailableFetchNeeded)
+                {
+                    string path = ClipPath;
+                    m_IsClipAvailable = HttpUtils.IsUrlFound(path);
+                    m_ClipAvailabilityCheckTimer.Elapsed += onTimerElapsed;
+                }
+                
+                return m_IsClipAvailable;
             }
         }
 
@@ -71,7 +83,15 @@ namespace InnoviApiProxy
             }
         }
 
-        internal SensorEvent() { }
+        private void onTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            m_IsClipAvailableFetchNeeded = true;
+            m_ClipAvailabilityCheckTimer.Elapsed -= onTimerElapsed;
+        }
+        internal SensorEvent()
+        {
+            
+        }
 
         public enum eBehaviorType
         {
