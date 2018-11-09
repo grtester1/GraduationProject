@@ -24,10 +24,23 @@ namespace AgentVI.Interfaces
             set
             {
                 _filtrationPath = value;
+                IsRootSelectedAndResetClickable =   value != null
+                                                    && value.CompareTo(string.Empty) != 0
+                                                    && value.Length != 0;
                 OnPropertyChanged(nameof(FiltrationPath));
             }
         }
 
+        private bool _IsRootSelectedAndResetClickable;
+        public bool IsRootSelectedAndResetClickable
+        {
+            get => _IsRootSelectedAndResetClickable;
+            private set
+            {
+                IsRootSelectedAndResetClickable = value;
+                OnPropertyChanged(nameof(IsRootSelectedAndResetClickable));
+            }
+        }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
