@@ -6,7 +6,7 @@ using AgentVI.Utils;
 
 namespace AgentVI.Models
 {
-    public class EventModel : INotifyPropertyChanged
+    public class EventModel
     {
         private string m_SensorName;
         public string SensorName
@@ -15,7 +15,6 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorName = value;
-                OnPropertyChanged(nameof(SensorName));
             }
         }
 
@@ -26,7 +25,6 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEventRuleName = value;
-                OnPropertyChanged(nameof(SensorEventRuleName));
             }
         }
 
@@ -37,7 +35,6 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEventDateTime = value;
-                OnPropertyChanged(nameof(SensorEventDateTime));
             }
         }
 
@@ -48,7 +45,6 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEventImage = value;
-                OnPropertyChanged(nameof(SensorEventImage));
             }
         }
 
@@ -59,7 +55,6 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEventClip = value;
-                OnPropertyChanged(nameof(SensorEventClip));
             }
         }
 
@@ -70,7 +65,6 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEventObjectType = value;
-                OnPropertyChanged(nameof(SensorEventObjectType));
             }
         }
 
@@ -81,20 +75,34 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEventTag = value;
-                OnPropertyChanged(nameof(SensorEventTag));
+            }
+        }
+
+
+        private Lazy<Sensor> m_SensorLazyHelper;
+        private Lazy<Sensor> SensorLazyHelper
+        {
+            get
+            {
+                return m_SensorLazyHelper;
+            }
+            set
+            {
+                m_SensorLazyHelper = value;
+                Sensor = null;
             }
         }
 
         private Sensor m_Sensor;
         public Sensor Sensor
         {
-            get { return m_Sensor; }
+            get { return m_SensorLazyHelper.Value; }
             private set
             {
                 m_Sensor = value;
-                OnPropertyChanged(nameof(Sensor));
             }
         }
+
 
         private SensorEvent m_SensorEvent;
         public SensorEvent SensorEvent
@@ -103,7 +111,6 @@ namespace AgentVI.Models
             private set
             {
                 m_SensorEvent = value;
-                OnPropertyChanged(nameof(SensorEvent));
             }
         }
 
@@ -121,18 +128,11 @@ namespace AgentVI.Models
                 SensorEventRuleName = i_SensorEvent.RuleName,
                 SensorEventObjectType = i_SensorEvent.ObjectType,
                 SensorEventTag = i_SensorEvent.Tag,
-                Sensor = i_SensorEvent.EventSensor,
+                SensorLazyHelper = new Lazy<Sensor>(() => i_SensorEvent.EventSensor),
                 SensorEvent = i_SensorEvent
             };
             Console.WriteLine("###Logger###   -   in EventModel.FactoryMethod main thread @ end");
             return res;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

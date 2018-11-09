@@ -119,6 +119,7 @@ namespace AgentVI.ViewModels
             {
                 while (hasNext = collectionEnumerator.MoveNext() && canLoadMore)
                 {
+                    Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ Adding " + collectionEnumerator.Current.GetType());
                     ObservableCollection.Add(collectionEnumerator.Current);
                     if (IsEmptyFolder)
                         IsEmptyFolder = !IsEmptyFolder;
