@@ -7,7 +7,7 @@ namespace AgentVI.Models
     public class ProgressReportModel
     {
         public float PercentageComplete { get; private set; } = 0;
-        public List<String> CompletedLoadingStages { get; set; } = new List<String>();
+        public List<string> CompletedLoadingStages { get; set; } = new List<string>();
         private int progressResolution;
 
         public ProgressReportModel(int i_ProgressResolution)
@@ -22,7 +22,7 @@ namespace AgentVI.Models
             PercentageComplete += (float)1/progressResolution;
         }
 
-        public ProgressReportModel AddStage(String i_StageCompleted)
+        public ProgressReportModel AddStage(string i_StageCompleted)
         {
             CompletedLoadingStages.Add(i_StageCompleted);
 

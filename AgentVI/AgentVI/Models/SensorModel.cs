@@ -1,19 +1,30 @@
 ﻿#if DPROXY
 using DummyProxy;
+using Sensor = DummyProxy.Sensor;
+using eSensorStatus = DummyProxy.Sensor.eSensorStatus;
+using Health = DummyProxy.Sensor.Health;
 #else
-using AgentVI.Converters;
 using InnoviApiProxy;
+using Sensor = InnoviApiProxy.Sensor;
+using eSensorStatus = InnoviApiProxy.Sensor.eSensorStatus;
+using Health = InnoviApiProxy.Sensor.Health;
 #endif
-using System;
+using AgentVI.Converters;
 using System.Collections.Generic;
-using System.ComponentModel;
-using Xamarin.Forms;
-using static InnoviApiProxy.Sensor;
+using System;
 
 namespace AgentVI.Models
 {
-    public class SensorModel : INotifyPropertyChanged
+    public class SensorModel
     {
+        public Sensor Sensor { get; private set; }
+        public string SensorName { get; private set; }
+        public eSensorStatus SensorHealth { get; private set; }
+        private Lazy<List<Health>> SensorHealthHistoryLazyHelper { get; set; }
+        public List<Health> SensorHealthHistory => SensorHealthHistoryLazyHelper.Value;
+        public ESensorColorHealth SensorHealthStatus { get; private set; }
+        public string SensorImage { get; private set; }
+
         private SensorModel()
         {
 
@@ -26,11 +37,17 @@ namespace AgentVI.Models
                 Sensor = i_Sensor,
                 SensorName = i_Sensor.Name,
                 SensorHealth = i_Sensor.Status,
-                SensorHealthHistory = i_Sensor.SensorHealthArray,
+                SensorHealthHistoryLazyHelper = new Lazy<List<Health>>(() => i_Sensor.SensorHealthArray),
                 SensorImage = i_Sensor.ReferenceImage
             };
 
             return res.UpdateSensorsHealthStatus();
+        }
+
+        private SensorModel UpdateSensorsHealthStatus()
+        {
+            SensorHealthStatus = GetEnumForValue(SensorHealth);
+            return this;
         }
 
         public enum ESensorColorHealth
@@ -41,73 +58,6 @@ namespace AgentVI.Models
             Yellow,
             Green
         };
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private Sensor m_Sensor;
-        public Sensor Sensor
-        {
-            get { return m_Sensor; }
-            private set
-            {
-                m_Sensor = value;
-                OnPropertyChanged(nameof(Sensor));
-            }
-        }
-
-        private string m_SensorName;
-        public string SensorName
-        {
-            get { return m_SensorName; }
-            private set
-            {
-                m_SensorName = value;
-                OnPropertyChanged(nameof(SensorName));
-            }
-        }
-
-        private eSensorStatus m_SensorHealth;
-        public eSensorStatus SensorHealth
-        {
-            get { return m_SensorHealth; }
-            private set
-            {
-                m_SensorHealth = value;
-                OnPropertyChanged(nameof(SensorHealth));
-            }
-        }
-        
-        private List<Health> m_ensorHealthHistory;
-        public List<Health> SensorHealthHistory
-        {
-            get { return m_ensorHealthHistory; }
-            private set
-            {
-                m_ensorHealthHistory = value;
-                OnPropertyChanged(nameof(SensorHealthHistory));
-            }
-        }
-
-        private ESensorColorHealth m_SensorHealthStatus;
-        public  ESensorColorHealth SensorHealthStatus
-        {
-            get { return m_SensorHealthStatus; }
-            private set
-            {
-                m_SensorHealthStatus = value;
-                OnPropertyChanged(nameof(SensorHealthStatus));
-            }
-        }
-
-        private string m_SensorImage;
-        public  string SensorImage
-        {
-            get { return m_SensorImage; }
-            private set
-            {
-                m_SensorImage = value;
-                OnPropertyChanged(nameof(SensorImage));
-            }
-        }
 
         private ESensorColorHealth GetEnumForValue(eSensorStatus i_value)
         {
@@ -136,17 +86,6 @@ namespace AgentVI.Models
             }
 
             return res;
-        }
-
-        private SensorModel UpdateSensorsHealthStatus()
-        {
-            SensorHealthStatus = GetEnumForValue(SensorHealth);
-            return this;
-        }
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
