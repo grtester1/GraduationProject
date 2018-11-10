@@ -134,25 +134,31 @@ namespace AgentVI.Views
 
         private async void onBackButtonTapped(object sender, EventArgs e)
         {
-            Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ begin");
-            int currentPage = 0;
-            if (filterVM.CurrentPageNumber == 0)
+            try
             {
-                Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ before first Task");
-                await Task.Factory.StartNew(() => currentPage = filterVM.GetPreviousPageIndex());
-                Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ after first Task");
-                OnBackButtonPressed();
-            }
-            else
+                Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ begin");
+                int currentPage = 0;
+                if (filterVM.CurrentPageNumber == 0)
+                {
+                    Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ before first Task");
+                    await Task.Factory.StartNew(() => currentPage = filterVM.GetPreviousPageIndex());
+                    Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ after first Task");
+                    OnBackButtonPressed();
+                }
+                else
+                {
+                    Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ before second Task");
+                    await Task.Factory.StartNew(() => currentPage = filterVM.GetPreviousPageIndex());
+                    Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ after(1) second Task");
+                    SelectedItem = filterVM.FilteringPagesContent[currentPage];
+                    Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ after(2) second Task");
+                    OnBindingContextChanged();
+                }
+                Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ end");
+            }catch(AggregateException ex)
             {
-                Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ before second Task");
-                await Task.Factory.StartNew(() => currentPage = filterVM.GetPreviousPageIndex());
-                Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ after(1) second Task");
-                SelectedItem = filterVM.FilteringPagesContent[currentPage];
-                Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ after(2) second Task");
-                OnBindingContextChanged();
+                Console.WriteLine(ex.Message);
             }
-            Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ end");
         }
     }
 }

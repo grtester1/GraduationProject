@@ -11,22 +11,13 @@ namespace AgentVI.Interfaces
         private string _filtrationPath;
         public string FiltrationPath
         {
-            get
-            {
-                if(Services.ServiceManager.Instance.LoginService.LoggedInUser != null &&
-                    Services.ServiceManager.Instance.FilterService != null)
-                return Services.ServiceManager.Instance.FilterService.CurrentStringPath;
-                else
-                {
-                    return string.Empty;
-                }
-            }
+            get => getCurrentFiltrationStringRep();
             set
             {
-                _filtrationPath = value;
-                IsRootSelectedAndResetClickable =   value != null
-                                                    && value.CompareTo(string.Empty) != 0
-                                                    && value.Length != 0;
+                _filtrationPath = getCurrentFiltrationStringRep();
+                IsRootSelectedAndResetClickable = _filtrationPath != null
+                                                    && _filtrationPath.CompareTo(string.Empty) != 0
+                                                    && _filtrationPath.Length != 0;
                 OnPropertyChanged(nameof(FiltrationPath));
             }
         }
@@ -37,7 +28,7 @@ namespace AgentVI.Interfaces
             get => _IsRootSelectedAndResetClickable;
             private set
             {
-                IsRootSelectedAndResetClickable = value;
+                _IsRootSelectedAndResetClickable = value;
                 OnPropertyChanged(nameof(IsRootSelectedAndResetClickable));
             }
         }
@@ -45,6 +36,22 @@ namespace AgentVI.Interfaces
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private string getCurrentFiltrationStringRep()
+        {
+            string res = null;
+            if (Services.ServiceManager.Instance.LoginService.LoggedInUser != null &&
+                Services.ServiceManager.Instance.FilterService != null)
+            {
+                res = Services.ServiceManager.Instance.FilterService.CurrentStringPath;
+            }
+            else
+            {
+                res = string.Empty;
+            }
+
+            return res;
         }
     }
 }

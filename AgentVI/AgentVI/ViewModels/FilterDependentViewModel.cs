@@ -109,18 +109,24 @@ namespace AgentVI.ViewModels
             int fetchedItems = 0;
 
             IsBusy = true;
-            if(collectionEnumerator == null || IsFilterStateChanged)
+            Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 1");
+            if (collectionEnumerator == null || IsFilterStateChanged)
             {
+                Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 2");
                 IsFilterStateChanged = false;
+                Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 3");
                 collectionEnumerator = enumerableCollection.GetEnumerator();
+                Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 4");
             }
 
             try
             {
+                Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 5");
                 while (hasNext = collectionEnumerator.MoveNext() && canLoadMore)
                 {
-                    Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ Adding " + collectionEnumerator.Current.GetType());
+                    Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 6. 1");
                     ObservableCollection.Add(collectionEnumerator.Current);
+                    Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 7. 2");
                     if (IsEmptyFolder)
                         IsEmptyFolder = !IsEmptyFolder;
                     if (fetchedItems++ == pageSize)
@@ -131,6 +137,7 @@ namespace AgentVI.ViewModels
             }catch(ArgumentOutOfRangeException)
             {
                 hasNext = false;
+                Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ !8!");
             }
 
             if(hasNext == false)

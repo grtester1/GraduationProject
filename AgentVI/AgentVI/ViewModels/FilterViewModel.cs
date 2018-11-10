@@ -91,24 +91,32 @@ namespace AgentVI.ViewModels
 
         public int GetPreviousPageIndex()
         {
-            IsFetching = true;
-            if(CurrentPageNumber == 0)
+            try
             {
-                ServiceManager.Instance.FilterService.SelectRootLevel(true);
-            }
-            else
-            {
-                if (--CurrentPageNumber != 0)
+                IsFetching = true;
+                if (CurrentPageNumber == 0)
                 {
-                    ServiceManager.Instance.FilterService.SelectFolder(SelectedFoldersCache[--CurrentPageNumber], false);
+                    ServiceManager.Instance.FilterService.SelectRootLevel(true);
                 }
                 else
                 {
-                    ServiceManager.Instance.FilterService.SelectRootLevel();
+                    if (--CurrentPageNumber != 0)
+                    {
+                        ServiceManager.Instance.FilterService.SelectFolder(SelectedFoldersCache[--CurrentPageNumber], false);
+                    }
+                    else
+                    {
+                        ServiceManager.Instance.FilterService.SelectRootLevel();
+                    }
                 }
+                IsFetching = false;
+                return CurrentPageNumber;
             }
-            IsFetching = false;
-            return CurrentPageNumber;
+            catch (AggregateException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
+            }
         }
     }
 }
