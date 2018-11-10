@@ -19,7 +19,7 @@ namespace AgentVI.ViewModels
         protected bool IsFilterStateChanged { get; set; }
         public ObservableCollection<T> ObservableCollection { get; set; }
         private bool _isStillLoading = true;
-        public bool IsStillLoading
+        public override bool IsStillLoading
         {
             get => _isStillLoading;
             set
@@ -33,7 +33,7 @@ namespace AgentVI.ViewModels
             }
         }
         private bool _isEmptyView = false;
-        public bool IsEmptyView
+        public override bool IsEmptyView
         {
             get => _isEmptyView;
             set
@@ -104,29 +104,21 @@ namespace AgentVI.ViewModels
 
         protected virtual void FetchCollection()
         {
-            Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ begin FetchCollection");
             bool hasNext = true;
             int fetchedItems = 0;
 
             IsBusy = true;
-            Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 1");
             if (collectionEnumerator == null || IsFilterStateChanged)
             {
-                Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 2");
                 IsFilterStateChanged = false;
-                Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 3");
                 collectionEnumerator = enumerableCollection.GetEnumerator();
-                Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 4");
             }
 
             try
             {
-                Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 5");
                 while (hasNext = collectionEnumerator.MoveNext() && canLoadMore)
                 {
-                    Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 6. 1");
                     ObservableCollection.Add(collectionEnumerator.Current);
-                    Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ 7. 2");
                     if (IsEmptyFolder)
                         IsEmptyFolder = !IsEmptyFolder;
                     if (fetchedItems++ == pageSize)
@@ -137,7 +129,6 @@ namespace AgentVI.ViewModels
             }catch(ArgumentOutOfRangeException)
             {
                 hasNext = false;
-                Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ !8!");
             }
 
             if(hasNext == false)
@@ -147,7 +138,6 @@ namespace AgentVI.ViewModels
 
             updateFolderState();
             IsBusy = false;
-            Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ end FetchCollection");
         }
 
         public virtual void PopulateCollection()

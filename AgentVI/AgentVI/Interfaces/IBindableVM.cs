@@ -1,6 +1,10 @@
-﻿using AgentVI.ViewModels;
+﻿using AgentVI.Utils;
+using AgentVI.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Xamarin.Forms;
 
 namespace AgentVI.Interfaces
 {
@@ -33,9 +37,30 @@ namespace AgentVI.Interfaces
             }
         }
 
+        private bool _IsStillLoading = false;
+        public virtual bool IsStillLoading
+        {
+            get => _IsStillLoading;
+            set => _IsStillLoading = false;
+        }
+
+        private bool _IsEmptyView = false;
+        public virtual bool IsEmptyView
+        {
+            get => false;
+            set => _IsEmptyView = false;
+        }
+
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected static void HandleExceptionVisibility(Exception ex)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            App.Current.MainPage.DisplayAlert(Settings.ErrorTitleAlertText, ex.Message, Settings.ErrorButtonAlertText)
+            );
         }
 
         private string getCurrentFiltrationStringRep()

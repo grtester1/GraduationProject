@@ -83,44 +83,32 @@ namespace AgentVI.Services
 
             public void SelectRootLevel(bool i_TriggerOnFilterUpdatedEvent = false)
             {
-                try
+                FilteredSensorCollection = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors();
+                IsAtRootLevel = true;
+                CurrentPath = new List<Folder>();
+                CurrentLevel = getRootFolders();
+                fetchHealthArray();
+                setFilteredEvents();
+                if (i_TriggerOnFilterUpdatedEvent)
                 {
-                    FilteredSensorCollection = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountSensors();
-                    IsAtRootLevel = true;
-                    CurrentPath = new List<Folder>();
-                    CurrentLevel = getRootFolders();
-                    fetchHealthArray();
-                    setFilteredEvents();
-                    if (i_TriggerOnFilterUpdatedEvent)
-                    {
-                        OnFilterStateUpdated();
-                    }
-                }catch(AggregateException ex)
-                {
-                    Console.WriteLine(ex.Message);
+                    OnFilterStateUpdated();
                 }
             }
 
             public void SelectFolder(Folder i_FolderSelected, bool i_TriggerOnFilterUpdatedEvent = false)
             {
-                try
+                FilteredSensorCollection = i_FolderSelected.GetAllSensors();
+                updatePath(i_FolderSelected);                               //keeps CurrentPath, CurrentPathStr updated
+                CurrentLevel = getCurrentLevelFromSelectedFolder(i_FolderSelected);
+                fetchHealthArray();
+                setFilteredEvents();
+                if (i_FolderSelected.Depth >= 0)
                 {
-                    FilteredSensorCollection = i_FolderSelected.GetAllSensors();
-                    updatePath(i_FolderSelected);                               //keeps CurrentPath, CurrentPathStr updated
-                    CurrentLevel = getCurrentLevelFromSelectedFolder(i_FolderSelected);
-                    fetchHealthArray();
-                    setFilteredEvents();
-                    if (i_FolderSelected.Depth >= 0)
-                    {
-                        IsAtRootLevel = false;
-                    }
-                    if (i_TriggerOnFilterUpdatedEvent)
-                    {
-                        OnFilterStateUpdated();
-                    }
-                }catch(AggregateException ex)
+                    IsAtRootLevel = false;
+                }
+                if (i_TriggerOnFilterUpdatedEvent)
                 {
-                    Console.WriteLine(ex.Message);
+                    OnFilterStateUpdated();
                 }
             }
 
@@ -167,7 +155,7 @@ namespace AgentVI.Services
                 }
                 else    //i_FolderSelected.Depth > CurrentPath.Count is impossible scenario! something bad happened!
                 {
-                    throw new Exception("Occured in FilterService.selectFolder");
+                    throw new Exception("Corrupted hierarchy navigation.");
                 }
             }
 

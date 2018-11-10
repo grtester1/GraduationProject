@@ -41,8 +41,14 @@ namespace AgentVI.ViewModels
 
             await Task.Factory.StartNew(() =>
             {
-                FilterPage = new FilterPage(FilterIndicator);
-                FilterIndicator.UpdateCurrentPath();
+                try
+                {
+                    FilterPage = new FilterPage(FilterIndicator);
+                    FilterIndicator.UpdateCurrentPath();
+                }catch(AggregateException ex)
+                {
+                    HandleExceptionVisibility(ex.InnerException);
+                }
             });
 
             OnContentViewUpdateEvent(this, new UpdatedContentEventArgs(EContentUpdateType.Pop));
@@ -119,73 +125,67 @@ namespace AgentVI.ViewModels
             lock (contentViewUpdateLock)
             {
                 Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ start lock");
-                try
+                if (e == null || e.ContentUpdateType == EContentUpdateType.Buffering)
                 {
-                    if (e == null || e.ContentUpdateType == EContentUpdateType.Buffering)
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin buffering");
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin saving current page");
+                    addToContentViewStack
+                        (
+                        new Tuple<ContentPage, IBindableVM>(currentPageInContentView, currentPageVMInContentView)
+                        );
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end saving current page");
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ before buffering invoke");
+                    RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Buffering, waitingPage));
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ after buffering invoke");
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end buffering");
+                }
+                else if (e.ContentUpdateType == EContentUpdateType.Pop)
+                {
+                    popFromControlViewStack();
+                }
+                else if (e.ContentUpdateType == EContentUpdateType.PushAsync)
+                {
+                    addToContentViewStack
+                        (
+                        new Tuple<ContentPage, IBindableVM>(currentPageInContentView, currentPageVMInContentView)
+                        );
+                    try
                     {
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin buffering");
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin saving current page");
-                        addToContentViewStack
-                            (
-                            new Tuple<ContentPage, IBindableVM>(currentPageInContentView, currentPageVMInContentView)
-                            );
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end saving current page");
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ before buffering invoke");
-                        RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Buffering, waitingPage));
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ after buffering invoke");
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end buffering");
+                        (e.UpdatedContent as IFocusable).Refocus();
                     }
-                    else if (e.ContentUpdateType == EContentUpdateType.Pop)
+                    catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
+                    RaiseContentViewUpdateEvent?.Invoke(null, e);
+                }
+                else if (e.ContentUpdateType == EContentUpdateType.PopAsync)
+                {
+                    RaiseContentViewUpdateEvent?.Invoke(null, e);
+                    Tuple<ContentPage, IBindableVM> stackTop = contentViewStack.Pop();
+                    try
                     {
-                        popFromControlViewStack();
+                        (stackTop.Item1 as IFocusable).Refocus();
                     }
-                    else if (e.ContentUpdateType == EContentUpdateType.PushAsync)
+                    catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
+                }
+                else                                        //UpdatedContentEventArgs.EContentUpdateType.Push
+                {
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin pushing page on NavigationStack");
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin setting ContentView");
+                    currentPageInContentView = e.UpdatedContent;
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end setting ContentView View");
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin setting ContentView VM");
+                    currentPageVMInContentView = e.UpdatedVM;
+                    Task.Factory.StartNew(() =>
                     {
-                        addToContentViewStack
-                            (
-                            new Tuple<ContentPage, IBindableVM>(currentPageInContentView, currentPageVMInContentView)
-                            );
                         try
                         {
-                            (e.UpdatedContent as IFocusable).Refocus();
+                            (currentPageInContentView as IPopulableView).PopulateView();
                         }
                         catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
-                        RaiseContentViewUpdateEvent?.Invoke(null, e);
-                    }
-                    else if (e.ContentUpdateType == EContentUpdateType.PopAsync)
-                    {
-                        RaiseContentViewUpdateEvent?.Invoke(null, e);
-                        Tuple<ContentPage, IBindableVM> stackTop = contentViewStack.Pop();
-                        try
-                        {
-                            (stackTop.Item1 as IFocusable).Refocus();
-                        }
-                        catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
-                    }
-                    else                                        //UpdatedContentEventArgs.EContentUpdateType.Push
-                    {
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin pushing page on NavigationStack");
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin setting ContentView");
-                        currentPageInContentView = e.UpdatedContent;
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end setting ContentView View");
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ begin setting ContentView VM");
-                        currentPageVMInContentView = e.UpdatedVM;
-                        Task.Factory.StartNew(() =>
-                        {
-                            try
-                            {
-                                (currentPageInContentView as IPopulableView).PopulateView();
-                            }
-                            catch (NullReferenceException ex) { Console.WriteLine(ex.Message); }
-                        });
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end setting ContentView VM");
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ before invoke push on ContentView");
-                        RaiseContentViewUpdateEvent?.Invoke(null, e);
-                        Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ after invoke push on ContentView");
-                    }
-                }catch(AggregateException ae)
-                {
-                    Console.WriteLine("Aggregate Exception Catched!");
+                    });
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end setting ContentView VM");
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ before invoke push on ContentView");
+                    RaiseContentViewUpdateEvent?.Invoke(null, e);
+                    Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ after invoke push on ContentView");
                 }
                 Console.WriteLine("###Logger###   -   in MainPageViewModel.OnContentViewUpdateEvent main thread @ end lock");
             }

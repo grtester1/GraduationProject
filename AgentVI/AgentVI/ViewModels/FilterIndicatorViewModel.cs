@@ -35,7 +35,13 @@ namespace AgentVI.ViewModels
 
         internal void ResetHierarchyToRootLevel()
         {
-            ServiceManager.Instance.FilterService.SelectRootLevel(true);
+            try
+            {
+                ServiceManager.Instance.FilterService.SelectRootLevel(true);
+            }catch(AggregateException ex)
+            {
+                HandleExceptionVisibility(ex.InnerException);
+            }
             UpdateCurrentPath();
         }
     }
