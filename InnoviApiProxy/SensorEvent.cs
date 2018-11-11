@@ -62,7 +62,7 @@ namespace InnoviApiProxy
         {
             get
             {
-                return HttpUtils.GetSensorByID(SensorId);
+                return  HttpUtils.GetSensorByID(SensorId);
             }
         }
 

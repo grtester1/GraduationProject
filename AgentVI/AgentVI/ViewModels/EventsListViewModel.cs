@@ -23,8 +23,10 @@ namespace AgentVI.ViewModels
         public override void PopulateCollection()
         {
             base.PopulateCollection();
-            enumerableCollection = ServiceManager.Instance.FilterService.
-                FilteredEvents.Select(sensorEvent => EventModel.FactoryMethod(sensorEvent));
+            enumerableCollection = ServiceManager.Instance.FilterService.FilteredEvents.Select(sensorEvent =>
+            {
+                return EventModel.FactoryMethod(sensorEvent);
+            });
             FetchCollection();
         }
     }

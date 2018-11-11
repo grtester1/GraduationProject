@@ -28,8 +28,10 @@ namespace AgentVI.ViewModels
         public override void PopulateCollection()
         {
             base.PopulateCollection();
-            enumerableCollection = SensorSource.SensorEvents.
-                Select(sensorEvent => EventModel.FactoryMethod(sensorEvent));
+            enumerableCollection = SensorSource.SensorEvents.Select(sensorEvent =>
+            {
+                return EventModel.FactoryMethod(sensorEvent);
+            });
             FetchCollection();
         }
     }

@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using Xamarin.Forms.Extended;
 using System.Threading.Tasks;
 using AgentVI.Interfaces;
+using System.Threading;
 
 namespace AgentVI.ViewModels
 {
@@ -116,7 +117,13 @@ namespace AgentVI.ViewModels
 
             try
             {
-                while (hasNext = collectionEnumerator.MoveNext() && canLoadMore)
+                var task = Task.Run(() => collectionEnumerator.MoveNext());
+                if (task.Wait(TimeSpan.FromMilliseconds(5000)))
+                    hasNext = task.Result;
+                else
+                    hasNext = false;
+
+                while (hasNext && canLoadMore)
                 {
                     ObservableCollection.Add(collectionEnumerator.Current);
                     if (IsEmptyFolder)
@@ -125,13 +132,15 @@ namespace AgentVI.ViewModels
                     {
                         break;
                     }
+                    hasNext = collectionEnumerator.MoveNext();
                 }
-            }catch(ArgumentOutOfRangeException)
+            }
+            catch (ArgumentOutOfRangeException)
             {
                 hasNext = false;
             }
 
-            if(hasNext == false)
+            if (hasNext == false)
             {
                 canLoadMore = false;
             }

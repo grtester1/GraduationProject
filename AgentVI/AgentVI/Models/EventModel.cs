@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using InnoviApiProxy;
 
 namespace AgentVI.Models
@@ -12,13 +13,22 @@ namespace AgentVI.Models
         public string SensorEventClip { get; private set; }
         public SensorEvent.eObjectType SensorEventObjectType { get; private set; }
         public Sensor.eSensorEventTag SensorEventTag { get; private set; }
-        private Lazy<Sensor> SensorLazyHelper { get; set; }
-        public Sensor Sensor => SensorLazyHelper.Value;
+        private Sensor m_SensorHolder;
+        private Lazy<Sensor> _SensorLazyHelper;
+        private Lazy<Sensor> SensorLazyHelper
+        {
+            get => _SensorLazyHelper;
+            set
+            {
+                _SensorLazyHelper = value;
+                Task.Factory.StartNew(() => m_SensorHolder = _SensorLazyHelper.Value);
+            }
+        }
+        public Sensor Sensor => m_SensorHolder == null ? SensorLazyHelper.Value : m_SensorHolder;
         public SensorEvent SensorEvent { get; private set; }
 
         internal static EventModel FactoryMethod(SensorEvent i_SensorEvent)
         {
-            Console.WriteLine("###Logger###   -   in EventModel.FactoryMethod main thread @ begin");
             EventModel res = new EventModel()
             {
                 SensorName = i_SensorEvent.SensorName,
@@ -31,7 +41,6 @@ namespace AgentVI.Models
                 SensorLazyHelper = new Lazy<Sensor>(() => i_SensorEvent.EventSensor),
                 SensorEvent = i_SensorEvent
             };
-            Console.WriteLine("###Logger###   -   in EventModel.FactoryMethod main thread @ end");
             return res;
         }
     }
