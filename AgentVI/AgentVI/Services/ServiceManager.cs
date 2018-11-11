@@ -4,16 +4,23 @@ using System.Text;
 
 namespace AgentVI.Services
 {
-    public partial class ServiceManager
+    public sealed partial class ServiceManager
     {
+        private static readonly object padlock = new object();
         private static ServiceManager _Instance = null;
         public static ServiceManager Instance
         {
             get
             {
-                if (_Instance == null)
+                if(_Instance == null)
                 {
-                    _Instance = new ServiceManager();
+                    lock (padlock)
+                    {
+                        if (_Instance == null)
+                        {
+                            _Instance = new ServiceManager();
+                        }
+                    }
                 }
                 return _Instance;
             }
