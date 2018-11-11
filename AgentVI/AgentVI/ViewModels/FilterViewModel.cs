@@ -55,7 +55,14 @@ namespace AgentVI.ViewModels
         {
             IsFetching = false;
             FilteringPagesContent = new ObservableCollection<FilteringPageViewModel>();
-            ServiceManager.Instance.FilterService.SelectRootLevel(true);
+            try
+            {
+                ServiceManager.Instance.FilterService.SelectRootLevel(true);
+            }catch(AggregateException ex)
+            {
+                HandleExceptionVisibility(ex.InnerException);
+            }
+            
             SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
             FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(0);
             currentFiltrationLevel.PopulateCollection();
@@ -64,26 +71,38 @@ namespace AgentVI.ViewModels
 
         public void FetchCurrentFilteringDepth(Folder i_SelectedFolder)
         {
-            IsFetching = true;
-            ServiceManager.Instance.FilterService.SelectFolder(i_SelectedFolder, true);
-            SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
-            IsFetching = false;
+            try
+            {
+                IsFetching = true;
+                ServiceManager.Instance.FilterService.SelectFolder(i_SelectedFolder, true);
+                SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
+                IsFetching = false;
+            }catch(AggregateException ex)
+            {
+                HandleExceptionVisibility(ex.InnerException);
+            }
         }
 
         public void FetchNextFilteringDepth(Folder i_SelectedFolder)
         {
             CurrentPageNumber++;
             IsFetching = true;
-            for (int i = FilteringPagesContent.Count - 1; i > i_SelectedFolder.Depth; i--)
+            try
             {
-                FilteringPagesContent.RemoveAt(i);
-            }
-            ServiceManager.Instance.FilterService.SelectFolder(i_SelectedFolder);
-            if (i_SelectedFolder.Folders != null && !i_SelectedFolder.Folders.IsEmpty())
+                for (int i = FilteringPagesContent.Count - 1; i > i_SelectedFolder.Depth; i--)
+                {
+                    FilteringPagesContent.RemoveAt(i);
+                }
+                ServiceManager.Instance.FilterService.SelectFolder(i_SelectedFolder);
+                if (i_SelectedFolder.Folders != null && !i_SelectedFolder.Folders.IsEmpty())
+                {
+                    FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(i_SelectedFolder.Depth + 1);
+                    currentFiltrationLevel.PopulateCollection();
+                    FilteringPagesContent.Add(currentFiltrationLevel);
+                }
+            }catch(AggregateException ex)
             {
-                FilteringPageViewModel currentFiltrationLevel = new FilteringPageViewModel(i_SelectedFolder.Depth + 1);
-                currentFiltrationLevel.PopulateCollection();
-                FilteringPagesContent.Add(currentFiltrationLevel);
+                HandleExceptionVisibility(ex.InnerException);
             }
             SelectedFoldersCache = new ObservableCollection<Folder>(ServiceManager.Instance.FilterService.CurrentPath);
             IsFetching = false;
@@ -92,20 +111,26 @@ namespace AgentVI.ViewModels
         public int GetPreviousPageIndex()
         {
             IsFetching = true;
-            if(CurrentPageNumber == 0)
+            try
             {
-                ServiceManager.Instance.FilterService.SelectRootLevel(true);
-            }
-            else
-            {
-                if (--CurrentPageNumber != 0)
+                if (CurrentPageNumber == 0)
                 {
-                    ServiceManager.Instance.FilterService.SelectFolder(SelectedFoldersCache[--CurrentPageNumber], false);
+                    ServiceManager.Instance.FilterService.SelectRootLevel(true);
                 }
                 else
                 {
-                    ServiceManager.Instance.FilterService.SelectRootLevel();
+                    if (--CurrentPageNumber != 0)
+                    {
+                        ServiceManager.Instance.FilterService.SelectFolder(SelectedFoldersCache[--CurrentPageNumber], false);
+                    }
+                    else
+                    {
+                        ServiceManager.Instance.FilterService.SelectRootLevel();
+                    }
                 }
+            }catch(AggregateException ex)
+            {
+                HandleExceptionVisibility(ex.InnerException);
             }
             IsFetching = false;
             return CurrentPageNumber;

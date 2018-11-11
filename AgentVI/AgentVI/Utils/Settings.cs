@@ -88,8 +88,9 @@ namespace AgentVI.Utils
         public static string EmptyFillerTextMessageClip = "Clip isn't available";
         public static string DateTimeFormat { get; } = "dd/MM/yyyy hh:mm tt";
         public static string SearchBarPlaceHolderText { get; } = "Search...";
+        public static string ErrorTitleAlertText { get; } = "Error";
+        public static string ErrorButtonAlertText { get; } = "Retry";
 
         public static bool IsHealthFetchingEnabled { get; } = false;
-        public static bool IsFoldersHierarchyCachingEnabled { get; } = false;
     }
 }

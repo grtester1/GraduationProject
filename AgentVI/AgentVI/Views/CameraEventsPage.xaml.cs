@@ -48,14 +48,8 @@ namespace AgentVI.Views
 
         private async void OnRefresh(object sender, EventArgs e)
         {
-            try
-            {
-                await Task.Factory.StartNew(() => SensorEventsListVM.PopulateCollection());
-                ((ListView)sender).IsRefreshing = false;
-            }catch(AggregateException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            await Task.Factory.StartNew(() => SensorEventsListVM.PopulateCollection());
+            ((ListView)sender).IsRefreshing = false;
         }
 
         private void onCameraEventBackButtonTapped(object sender, EventArgs e)

@@ -48,16 +48,10 @@ namespace AgentVI.Views
 
         private async void OnRefresh(object sender, EventArgs e)
         {
-            try
-            {
-                await Task.Factory.StartNew(() => SensorsEventsListVM.PopulateCollection());
-                ((ListView)sender).IsRefreshing = false;
-            }catch(AggregateException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            await Task.Factory.StartNew(() => SensorsEventsListVM.PopulateCollection());
+            ((ListView)sender).IsRefreshing = false;
         }
-
+        
         private async void onEventTapped(object sender, ItemTappedEventArgs e)
         {
             Console.WriteLine("###Logger###   -   begin EventsPage.onEventTapped main thread ");

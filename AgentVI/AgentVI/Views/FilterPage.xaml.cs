@@ -12,6 +12,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Threading.Tasks;
 using AgentVI.Models;
+using AgentVI.Utils;
 
 namespace AgentVI.Views
 {
@@ -67,26 +68,26 @@ namespace AgentVI.Views
             return base.OnBackButtonPressed();
         }
 
+        //arrow button clicked
         private async void button_Clicked(object sender, EventArgs e)
         {
             Button menuItem = sender as Button;
             Folder selectedFolder = (menuItem.CommandParameter as FolderModel).ProxyFolder;
-            await Task.Factory.StartNew(() =>
-            {
-                filterVM.FetchNextFilteringDepth(selectedFolder);
-            });
+            await Task.Factory.StartNew(() => filterVM.FetchNextFilteringDepth(selectedFolder));
             considerSwipeRightSwipeUp();
         }
 
         private async void handle_FilterListItemSelected(object i_Sender, ItemTappedEventArgs i_ItemEventArgs)
         {
-            filterVM.CurrentlySelectedFolder = (i_ItemEventArgs.Item as FolderModel).ProxyFolder;
-
-            await Task.Factory.StartNew(() =>
+            try
             {
-                filterVM.FetchCurrentFilteringDepth(filterVM.CurrentlySelectedFolder);
-            });
-            OnBackButtonPressed();
+                filterVM.CurrentlySelectedFolder = (i_ItemEventArgs.Item as FolderModel).ProxyFolder;
+                await Task.Factory.StartNew(() => filterVM.FetchCurrentFilteringDepth(filterVM.CurrentlySelectedFolder));
+                OnBackButtonPressed();
+            }catch(AggregateException ex)
+            {
+                Device.BeginInvokeOnMainThread(() => DisplayAlert(Settings.ErrorTitleAlertText, ex.InnerException.Message, Settings.ErrorButtonAlertText));
+            }
         }
 
         private void updateFilterLevelView(ListView i_ListView, int i_CurrenDepth)
@@ -134,18 +135,25 @@ namespace AgentVI.Views
 
         private async void onBackButtonTapped(object sender, EventArgs e)
         {
+            Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ begin");
             int currentPage = 0;
             if (filterVM.CurrentPageNumber == 0)
             {
+                Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ before first Task");
                 await Task.Factory.StartNew(() => currentPage = filterVM.GetPreviousPageIndex());
+                Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ after first Task");
                 OnBackButtonPressed();
             }
             else
             {
+                Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ before second Task");
                 await Task.Factory.StartNew(() => currentPage = filterVM.GetPreviousPageIndex());
+                Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ after(1) second Task");
                 SelectedItem = filterVM.FilteringPagesContent[currentPage];
+                Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ after(2) second Task");
                 OnBindingContextChanged();
             }
+            Console.WriteLine("###Logger###   -   in FilterPage.onBackButtonTapped main thread @ end");
         }
     }
 }

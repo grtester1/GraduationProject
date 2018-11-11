@@ -155,7 +155,7 @@ namespace AgentVI.Services
                 }
                 else    //i_FolderSelected.Depth > CurrentPath.Count is impossible scenario! something bad happened!
                 {
-                    throw new Exception("Occured in FilterService.selectFolder");
+                    throw new Exception("Corrupted hierarchy navigation.");
                 }
             }
 

@@ -1,117 +1,34 @@
 ﻿using System;
-using System.ComponentModel;
+using System.Threading.Tasks;
 using InnoviApiProxy;
-using Xamarin.Forms;
-using AgentVI.Utils;
 
 namespace AgentVI.Models
 {
-    public class EventModel : INotifyPropertyChanged
+    public class EventModel
     {
-        private string m_SensorName;
-        public string SensorName
+        public string SensorName { get; private set; }
+        public SensorEvent.eBehaviorType SensorEventRuleName { get; private set; }
+        public ulong SensorEventDateTime { get; private set; }
+        public string SensorEventImage { get; private set; }
+        public string SensorEventClip { get; private set; }
+        public SensorEvent.eObjectType SensorEventObjectType { get; private set; }
+        public Sensor.eSensorEventTag SensorEventTag { get; private set; }
+        private Sensor m_SensorHolder;
+        private Lazy<Sensor> _SensorLazyHelper;
+        private Lazy<Sensor> SensorLazyHelper
         {
-            get { return m_SensorName; }
-            private set
+            get => _SensorLazyHelper;
+            set
             {
-                m_SensorName = value;
-                OnPropertyChanged(nameof(SensorName));
+                _SensorLazyHelper = value;
+                Task.Factory.StartNew(() => m_SensorHolder = _SensorLazyHelper.Value);
             }
         }
-
-        private SensorEvent.eBehaviorType m_SensorEventRuleName;
-        public SensorEvent.eBehaviorType SensorEventRuleName
-        {
-            get { return m_SensorEventRuleName; }
-            private set
-            {
-                m_SensorEventRuleName = value;
-                OnPropertyChanged(nameof(SensorEventRuleName));
-            }
-        }
-
-        private ulong m_SensorEventDateTime;
-        public ulong SensorEventDateTime
-        {
-            get { return m_SensorEventDateTime; }
-            private set
-            {
-                m_SensorEventDateTime = value;
-                OnPropertyChanged(nameof(SensorEventDateTime));
-            }
-        }
-
-        private string m_SensorEventImage;
-        public string SensorEventImage
-        {
-            get { return m_SensorEventImage; }
-            private set
-            {
-                m_SensorEventImage = value;
-                OnPropertyChanged(nameof(SensorEventImage));
-            }
-        }
-
-        private string m_SensorEventClip;
-        public string SensorEventClip
-        {
-            get { return m_SensorEventClip; }
-            private set
-            {
-                m_SensorEventClip = value;
-                OnPropertyChanged(nameof(SensorEventClip));
-            }
-        }
-
-        private SensorEvent.eObjectType m_SensorEventObjectType;
-        public SensorEvent.eObjectType SensorEventObjectType
-        {
-            get { return m_SensorEventObjectType; }
-            private set
-            {
-                m_SensorEventObjectType = value;
-                OnPropertyChanged(nameof(SensorEventObjectType));
-            }
-        }
-
-        private Sensor.eSensorEventTag m_SensorEventTag;
-        public Sensor.eSensorEventTag SensorEventTag
-        {
-            get { return m_SensorEventTag; }
-            private set
-            {
-                m_SensorEventTag = value;
-                OnPropertyChanged(nameof(SensorEventTag));
-            }
-        }
-
-        private Sensor m_Sensor;
-        public Sensor Sensor
-        {
-            get { return m_Sensor; }
-            private set
-            {
-                m_Sensor = value;
-                OnPropertyChanged(nameof(Sensor));
-            }
-        }
-
-        private SensorEvent m_SensorEvent;
-        public SensorEvent SensorEvent
-        {
-            get { return m_SensorEvent; }
-            private set
-            {
-                m_SensorEvent = value;
-                OnPropertyChanged(nameof(SensorEvent));
-            }
-        }
-
-
+        public Sensor Sensor => m_SensorHolder == null ? SensorLazyHelper.Value : m_SensorHolder;
+        public SensorEvent SensorEvent { get; private set; }
 
         internal static EventModel FactoryMethod(SensorEvent i_SensorEvent)
         {
-            Console.WriteLine("###Logger###   -   in EventModel.FactoryMethod main thread @ begin");
             EventModel res = new EventModel()
             {
                 SensorName = i_SensorEvent.SensorName,
@@ -121,18 +38,10 @@ namespace AgentVI.Models
                 SensorEventRuleName = i_SensorEvent.RuleName,
                 SensorEventObjectType = i_SensorEvent.ObjectType,
                 SensorEventTag = i_SensorEvent.Tag,
-                Sensor = i_SensorEvent.EventSensor,
+                SensorLazyHelper = new Lazy<Sensor>(() => i_SensorEvent.EventSensor),
                 SensorEvent = i_SensorEvent
             };
-            Console.WriteLine("###Logger###   -   in EventModel.FactoryMethod main thread @ end");
             return res;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

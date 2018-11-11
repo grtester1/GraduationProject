@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using Xamarin.Forms.Extended;
 using System.Threading.Tasks;
 using AgentVI.Interfaces;
+using System.Threading;
 
 namespace AgentVI.ViewModels
 {
@@ -19,7 +20,7 @@ namespace AgentVI.ViewModels
         protected bool IsFilterStateChanged { get; set; }
         public ObservableCollection<T> ObservableCollection { get; set; }
         private bool _isStillLoading = true;
-        public bool IsStillLoading
+        public override bool IsStillLoading
         {
             get => _isStillLoading;
             set
@@ -33,7 +34,7 @@ namespace AgentVI.ViewModels
             }
         }
         private bool _isEmptyView = false;
-        public bool IsEmptyView
+        public override bool IsEmptyView
         {
             get => _isEmptyView;
             set
@@ -104,12 +105,11 @@ namespace AgentVI.ViewModels
 
         protected virtual void FetchCollection()
         {
-            Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ begin FetchCollection");
             bool hasNext = true;
             int fetchedItems = 0;
 
             IsBusy = true;
-            if(collectionEnumerator == null || IsFilterStateChanged)
+            if (collectionEnumerator == null || IsFilterStateChanged)
             {
                 IsFilterStateChanged = false;
                 collectionEnumerator = enumerableCollection.GetEnumerator();
@@ -117,7 +117,13 @@ namespace AgentVI.ViewModels
 
             try
             {
-                while (hasNext = collectionEnumerator.MoveNext() && canLoadMore)
+                var task = Task.Run(() => collectionEnumerator.MoveNext());
+                if (task.Wait(TimeSpan.FromMilliseconds(5000)))
+                    hasNext = task.Result;
+                else
+                    hasNext = false;
+
+                while (hasNext && canLoadMore)
                 {
                     ObservableCollection.Add(collectionEnumerator.Current);
                     if (IsEmptyFolder)
@@ -126,20 +132,21 @@ namespace AgentVI.ViewModels
                     {
                         break;
                     }
+                    hasNext = collectionEnumerator.MoveNext();
                 }
-            }catch(ArgumentOutOfRangeException)
+            }
+            catch (ArgumentOutOfRangeException)
             {
                 hasNext = false;
             }
 
-            if(hasNext == false)
+            if (hasNext == false)
             {
                 canLoadMore = false;
             }
 
             updateFolderState();
             IsBusy = false;
-            Console.WriteLine("###Logger###   -   in FilterDependentVM.FetchCollection main thread @ end FetchCollection");
         }
 
         public virtual void PopulateCollection()
