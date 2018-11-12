@@ -11,6 +11,7 @@ namespace AgentVI.Interfaces
     public abstract class IBindableVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler<UpdatedContentEventArgs> EventsRouter;
 
         private string _filtrationPath;
         public string FiltrationPath
@@ -61,6 +62,11 @@ namespace AgentVI.Interfaces
             Device.BeginInvokeOnMainThread(() =>
             App.Current.MainPage.DisplayAlert(Settings.ErrorTitleAlertText, ex.Message, Settings.ErrorButtonAlertText)
             );
+        }
+
+        protected void eventsRouter(object sender, UpdatedContentEventArgs e)
+        {
+            EventsRouter?.Invoke(this, e);
         }
 
         private string getCurrentFiltrationStringRep()

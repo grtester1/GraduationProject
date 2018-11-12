@@ -33,17 +33,14 @@ namespace AgentVI.Views
 
         public CameraEventsPage(Sensor i_Sensor) : this()
         {
-            Console.WriteLine("###Logger###   -   in CameraEventsPage.CameraEventsPage main thread @ begin ctr");
             SensorEventsListVM = new SensorEventsListViewModel(i_Sensor);
+            SensorEventsListVM.EventsRouter += eventsRouter;
             cameraEventsListView.BindingContext = SensorEventsListVM;
-            Console.WriteLine("###Logger###   -   in CameraEventsPage.CameraEventsPage main thread @ end ctr");
         }
 
         public void PopulateView()
         {
-            Console.WriteLine("###Logger###   -   in CameraEventsPage.PopulateView main thread @ begin populating");
             SensorEventsListVM?.PopulateCollection();
-            Console.WriteLine("###Logger###   -   in CameraEventsPage.PopulateView main thread @ end populating");
         }
 
         private async void OnRefresh(object sender, EventArgs e)

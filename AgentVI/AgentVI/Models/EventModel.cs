@@ -13,6 +13,11 @@ namespace AgentVI.Models
         public string SensorEventClip { get; private set; }
         public SensorEvent.eObjectType SensorEventObjectType { get; private set; }
         public Sensor.eSensorEventTag SensorEventTag { get; private set; }
+        private Lazy<bool> IsSensorClipAvailableLazyHelper { get; set; }
+        public bool IsClipAvailable
+        {
+            get => IsSensorClipAvailableLazyHelper.Value;
+        }
         private Sensor m_SensorHolder;
         private Lazy<Sensor> _SensorLazyHelper;
         private Lazy<Sensor> SensorLazyHelper
@@ -39,6 +44,7 @@ namespace AgentVI.Models
                 SensorEventObjectType = i_SensorEvent.ObjectType,
                 SensorEventTag = i_SensorEvent.Tag,
                 SensorLazyHelper = new Lazy<Sensor>(() => i_SensorEvent.EventSensor),
+                IsSensorClipAvailableLazyHelper = new Lazy<bool>(() => i_SensorEvent.IsClipAvailable),
                 SensorEvent = i_SensorEvent
             };
             return res;

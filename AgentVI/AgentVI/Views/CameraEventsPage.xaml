@@ -43,7 +43,8 @@
                                     LabelFontColor="{x:Static settings:Settings.FolderNameAndSensorHeaderName}"
                                     LabelFontSize="{x:Static settings:Settings.SensorEventDetailsFontSize}"
                                     LabelText="{Binding SensorName}"
-                                    BackButtonTapped="onCameraEventBackButtonTapped"/>
+                                    BackButtonTapped="onCameraEventBackButtonTapped"
+                                    DropdownMenuPage="{Binding DropdownMenu}"/>
                 <ListView ItemTapped="cameraEventsListView_ItemSelected" Grid.Row="1" SeparatorColor="Black" x:Name="cameraEventsListView" HorizontalOptions="CenterAndExpand" IsPullToRefreshEnabled="True" Refreshing="OnRefresh" ItemsSource="{Binding ObservableCollection}" HasUnevenRows="True">
                     <ListView.Behaviors>
                         <infScroll:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}"/>

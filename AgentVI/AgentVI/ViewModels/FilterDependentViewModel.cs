@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace AgentVI.ViewModels
 {
-    public abstract class FilterDependentViewModel<T> : IBindableVM, INotifyPropertyChanged
+    public abstract class FilterDependentViewModel<T> : IBindableVM
     {
         protected IEnumerable<T> enumerableCollection;
         private const int pageSize = 10;

@@ -48,10 +48,8 @@ namespace AgentVI.Views
 
         private void OnMainNavigationPushPopRequest(object sender, UpdatedContentEventArgs e)
         {
-            Console.WriteLine("###Logger###   -   in MainPage.OnMainNavigationPushPopRequest main thread @ before execution on UI thread");
             Device.BeginInvokeOnMainThread(() =>
             {
-                Console.WriteLine("###Logger###   -   in MainPage.OnMainNavigationPushPopRequest UI thread @ begin execution on UI thread");
                 ArgumentException exceptionIns = new ArgumentException("MainPage.OnMainNavigationPushPopRequest was used incorrectly");
 
                 if (e == null || e.ContentUpdateType == EContentUpdateType.None)
@@ -65,20 +63,14 @@ namespace AgentVI.Views
                         Navigation.PopAsync();
                         break;
                     default:
-                        Console.WriteLine("###Logger###   -   in MainPage.OnMainNavigationPushPopRequest UI thread @ begin setting ContentView");
                         PlaceHolder.Content = e.UpdatedContent.Content;
-                        Console.WriteLine("###Logger###   -   in MainPage.OnMainNavigationPushPopRequest UI thread @ end setting ContentView");
                         if (e.UpdatedVM != null)
                         {
-                            Console.WriteLine("###Logger###   -   in MainPage.OnMainNavigationPushPopRequest UI thread @ begin setting Binding");
                             BindingContext = e.UpdatedVM;
-                            Console.WriteLine("###Logger###   -   in MainPage.OnMainNavigationPushPopRequest UI thread @ end setting Binding");
                         }
                         break;
                 }
-                Console.WriteLine("###Logger###   -   in MainPage.OnMainNavigationPushPopRequest main thread @ end execution on UI thread");
             });
-            Console.WriteLine("###Logger###   -   in MainPage.OnMainNavigationPushPopRequest main thread @ after execution on UI thread");
         }
 
         private async void OnFilterStateIndicatorClicked(object i_Sender, EventArgs i_EventArgs)
@@ -87,7 +79,7 @@ namespace AgentVI.Views
             {
                 BindingContext = mainPageVM;
                 await Navigation.PushModalAsync(mainPageVM.FilterPage);
-            }catch(InvalidOperationException ex)
+            }catch(InvalidOperationException)
             {
                 Console.WriteLine("Tapped twice the button before it was opened. No action needed");
             }

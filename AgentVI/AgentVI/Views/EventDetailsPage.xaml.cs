@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Plugin.DeviceOrientation;
 using Plugin.DeviceOrientation.Abstractions;
+using InnoviApiProxy;
 
 namespace AgentVI.Views
 {
@@ -21,35 +22,43 @@ namespace AgentVI.Views
         private LandscapeEventDetailsPage landscapeEventDetailsPage = null;
         
 
-        public EventDetailsPage()
+        private EventDetailsPage()
         {
             InitializeComponent();
         }
 
-        public EventDetailsPage(EventModel i_EventModel, bool i_IsLive = false) : this()
+        public EventDetailsPage(EventModel i_EventModel) : this()
         {
-            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ begin ctr");
             Task.Factory.StartNew(() =>
             {
-                Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage thread 1@ begin thread");
-                Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage thread 1@ before LandscapeEventDetailsPage ctr");
-                landscapeEventDetailsPage = new LandscapeEventDetailsPage(i_EventModel, i_IsLive);
-                Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage thread 1@ after LandscapeEventDetailsPage ctr");
+                landscapeEventDetailsPage = new LandscapeEventDetailsPage(i_EventModel);
                 landscapeEventDetailsPage.RaiseContentViewUpdateEvent += eventsRouter;
-                Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage thread 1@ end thread");
             });
-            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ before EventDetailsViewModel");
-            eventDetailsViewModel = new EventDetailsViewModel(i_EventModel, i_IsLive);
-            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ after EventDetailsViewModel");
-            eventDetailsViewModel.EventRouter += eventsRouter;
-            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ before UnlockOrientation");
-            CrossDeviceOrientation.Current.UnlockOrientation();
-            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ after UnlockOrientation");
-            CrossDeviceOrientation.Current.OrientationChanged += handleOrientationChanged;
-            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ before checklockorientation");
-            checkLockOrientation();
-            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ after checklockorientation");
-            Console.WriteLine("###Logger###   -   in EventDetailsPage.EventDetailsPage main thread @ after ctr");
+            eventDetailsViewModel = new EventDetailsViewModel(i_EventModel, true);
+            eventDetailsViewModel.EventsRouter += eventsRouter;
+            initOrientationState();
+        }
+
+        public EventDetailsPage(Sensor i_StreamingSensor) : this()
+        {
+            Task.Factory.StartNew(() =>
+            {
+                landscapeEventDetailsPage = new LandscapeEventDetailsPage(i_StreamingSensor);
+                landscapeEventDetailsPage.RaiseContentViewUpdateEvent += eventsRouter;
+            });
+            eventDetailsViewModel = new EventDetailsViewModel(i_StreamingSensor);
+            eventDetailsViewModel.EventsRouter += eventsRouter;
+            initOrientationState();
+        }
+
+        private void initOrientationState()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                CrossDeviceOrientation.Current.UnlockOrientation();
+                CrossDeviceOrientation.Current.OrientationChanged += handleOrientationChanged;
+                checkLockOrientation();
+            });
         }
 
         private void handleOrientationChanged(object sender, OrientationChangedEventArgs e)
@@ -84,14 +93,12 @@ namespace AgentVI.Views
 
         private bool checkLockOrientation()
         {
-            Console.WriteLine("###Logger###   -   in EventDetailsPage.checkLockOrientation main thread @ entering");
             bool res = true;
             if (!eventDetailsViewModel.IsClipAvailable)
             {
                 res = false;
                 CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
             }
-            Console.WriteLine("###Logger###   -   in EventDetailsPage.checkLockOrientation main thread @ exiting");
             return res;
         }
 

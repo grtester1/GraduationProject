@@ -54,7 +54,6 @@ namespace AgentVI.Views
         
         private async void onEventTapped(object sender, ItemTappedEventArgs e)
         {
-            Console.WriteLine("###Logger###   -   begin EventsPage.onEventTapped main thread ");
             RaiseContentViewUpdateEvent?.Invoke(this, null);
             UpdatedContentEventArgs updatedContentEventArgs = null;
             EventDetailsPage eventDetailsPageBuf = null;
@@ -62,19 +61,14 @@ namespace AgentVI.Views
 
             await Task.Factory.StartNew(() =>
             {
-                Console.WriteLine("###Logger###   -   begin EventsPage.onEventTapped new thread 1 ");
                 eventDetailsPageBuf = new EventDetailsPage(selectedEvent);
                 eventDetailsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
                 updatedContentEventArgs = new UpdatedContentEventArgs(
                     UpdatedContentEventArgs.EContentUpdateType.Push, eventDetailsPageBuf,
                     eventDetailsPageBuf.BindableViewModel);
-                Console.WriteLine("###Logger###   -   end EventsPage.onEventTapped new thread 1 ");
             });
 
-            Console.WriteLine("###Logger###   -   in EventsPage.onEventTapped main thread @ start eventDetailsPage invoke");
             RaiseContentViewUpdateEvent?.Invoke(this, updatedContentEventArgs);
-            Console.WriteLine("###Logger###   -   in EventsPage.onEventTapped main thread @ after eventDetailsPage invoke");
-            Console.WriteLine("###Logger###   -   end EventsPage.onEventTapped main thread ");
         }
 
         private async void onSensorNameTapped(EventModel val)

@@ -8,59 +8,66 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Rg.Plugins.Popup.Extensions;
 using System.Threading.Tasks;
+using InnoviApiProxy;
 
 namespace AgentVI.ViewModels
 {
     public class EventDetailsViewModel : IBindableVM
     {
-        public event EventHandler<UpdatedContentEventArgs> EventRouter;
         public DropdownMenuPage DropdownMenu { get; private set; }
-        public string SensorName => EventModel.SensorName;
-        public string SensorEventRuleName => EventModel.SensorEventRuleName.convertEnumToString();
-        public string SensorEventBehavior=> EventModel.SensorEventRuleName.BehaviorToString();
-        public string SensorEventDateTime => new TimestampConverter().Convert(EventModel.SensorEventDateTime, typeof(String), null, null).ToString();
-        public string SensorEventTag=> EventModel.SensorEventTag.convertEnumToString();
-        public string SensorEventClipPath => isLive ? EventModel.Sensor.LiveView : EventModel.SensorEventClip;
-        public string SensorEventObjectType => new EnumObjectTypeSVGConverter().Convert(EventModel.SensorEventObjectType, EventModel.SensorEventObjectType.GetType(), null, null).ToString();
+        public string SensorName => isLive ? StreamingSensor.Name : EventModel.SensorName;
+        public string SensorEventRuleName => isLive ? string.Empty : EventModel.SensorEventRuleName.convertEnumToString();
+        public string SensorEventBehavior=> isLive ? string.Empty : EventModel.SensorEventRuleName.BehaviorToString();
+        public string SensorEventDateTime => isLive ? string.Empty : new TimestampConverter().Convert(EventModel.SensorEventDateTime, typeof(String), null, null).ToString();
+        public string SensorEventTag=> isLive ? string.Empty : EventModel.SensorEventTag.convertEnumToString();
+        public string SensorEventClipPath => isLive ? StreamingSensor.LiveView : EventModel.SensorEventClip;
+        public string SensorEventObjectType => isLive? string.Empty : new EnumObjectTypeSVGConverter().Convert(EventModel.SensorEventObjectType, EventModel.SensorEventObjectType.GetType(), null, null).ToString();
+        public bool IsClipAvailable => isLive ? true : EventModel.IsClipAvailable && IsPlayerVisible;
         public bool IsPlayerVisible { get; set; } = true;
-        public bool IsClipAvailable => EventModel.SensorEvent.IsClipAvailable && IsPlayerVisible;
         private EventModel EventModel { get; set; }
+        private Sensor StreamingSensor { get; set; }
         private bool isLive;
 
-        public EventDetailsViewModel(EventModel i_EventModel, bool i_IsLive = false)
+        public EventDetailsViewModel(EventModel i_EventModel, bool i_IsLiveAvailable = false)
         {
-            isLive = i_IsLive;
             EventModel = i_EventModel;
-            DropdownMenuPage dropdownMenuPage = null;
-            if (!i_IsLive)
+            isLive = false;
+            DropdownMenu = null;
+            if (i_IsLiveAvailable)
             {
-                dropdownMenuPage = DropdownMenuPage.FactoryMethod();
-                dropdownMenuPage.AddActionItem(new Tuple<string, Action>(
+                DropdownMenu = buildDropdownMenu(i_EventModel.Sensor);
+            }
+        }
+
+        public EventDetailsViewModel(Sensor i_StreamingSensor)
+        {
+            StreamingSensor = i_StreamingSensor;
+            isLive = true;
+            DropdownMenu = null;
+        }
+
+        private DropdownMenuPage buildDropdownMenu(Sensor i_StreamingSensor)
+        {
+            return DropdownMenuPage.FactoryMethod()
+                .AddActionItem(new Tuple<string, Action>(
                     "Live", async () =>
                     {
-                        EventRouter?.Invoke(this, null);
+                        eventsRouter(this, null);
                         EventDetailsPage eventDetailsPageBuf = null;
                         await Task.Factory.StartNew(() =>
                         {
-                            eventDetailsPageBuf = new EventDetailsPage(EventModel, true);
+                            eventDetailsPageBuf = new EventDetailsPage(i_StreamingSensor);
                             eventDetailsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
                         });
-                        EventRouter?.Invoke(this, new UpdatedContentEventArgs(
+                        eventsRouter(this, new UpdatedContentEventArgs(
                                                                     UpdatedContentEventArgs.EContentUpdateType.Push,
                                                                     eventDetailsPageBuf, eventDetailsPageBuf.BindableViewModel));
                     }))
                 .AddActionItem(new Tuple<string, Action>(
-                    "Health", () => EventRouter?.Invoke(this, new UpdatedContentEventArgs(
+                    "Health", () => eventsRouter(this, new UpdatedContentEventArgs(
                                                                 UpdatedContentEventArgs.EContentUpdateType.Push,
                                                                 new HealthStatPage()))))
                 .Build();
-            }
-            DropdownMenu = dropdownMenuPage;
-        }
-
-        private void eventsRouter(object sender, UpdatedContentEventArgs e)
-        {
-            EventRouter?.Invoke(this, e);
         }
     }
 }

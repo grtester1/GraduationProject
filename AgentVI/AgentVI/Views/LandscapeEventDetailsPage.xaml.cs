@@ -2,6 +2,7 @@
 using AgentVI.Models;
 using AgentVI.Utils;
 using AgentVI.ViewModels;
+using InnoviApiProxy;
 using Plugin.DeviceOrientation;
 using Plugin.DeviceOrientation.Abstractions;
 using System;
@@ -29,13 +30,19 @@ namespace AgentVI.Views
         {
             base.OnAppearing();
             onAreaTapped(null, null);
-        }
-
-        public LandscapeEventDetailsPage(EventModel i_EventModel, bool i_IsLive = false) :this()
-        {
             CrossDeviceOrientation.Current.UnlockOrientation();
             CrossDeviceOrientation.Current.OrientationChanged += handleOrientationChanged;
-            landscapeEventDetailsPageVM = new LandscapeEventDetailsPageVM(i_EventModel, i_IsLive);
+        }
+
+        public LandscapeEventDetailsPage(EventModel i_EventModel) :this()
+        {
+            landscapeEventDetailsPageVM = new LandscapeEventDetailsPageVM(i_EventModel);
+            BindingContext = landscapeEventDetailsPageVM;
+        }
+
+        public LandscapeEventDetailsPage(Sensor i_StreamingSensor) : this()
+        {
+            landscapeEventDetailsPageVM = new LandscapeEventDetailsPageVM(i_StreamingSensor);
             BindingContext = landscapeEventDetailsPageVM;
         }
 
