@@ -15,7 +15,7 @@ using System.Collections;
 
 namespace AgentVI.Views
 {
-    public partial class EventsPage : ContentPage, INotifyContentViewChanged, IBindable
+    public partial class EventsPage : ContentPage, INotifyContentViewChanged, IBindable, IPopulableView
     {
         public IBindableVM BindableViewModel => SensorsEventsListVM;
         public ContentPage ContentPage => this;
@@ -31,19 +31,17 @@ namespace AgentVI.Views
             InitializeComponent();
             SensorsEventsListVM = new EventsListViewModel();
             initOnFilterStateUpdatedEventHandler();
-            SensorsEventsListVM.PopulateCollection();
             eventListView.BindingContext = SensorsEventsListVM;
+        }
+
+        public async void PopulateView()
+        {
+            await Task.Factory.StartNew(() => SensorsEventsListVM?.PopulateCollection());
         }
 
         private void initOnFilterStateUpdatedEventHandler()
         {
             ServiceManager.Instance.FilterService.FilterStateUpdated += SensorsEventsListVM.OnFilterStateUpdated;
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            SensorsEventsListVM.PopulateCollection();
         }
 
         private async void OnRefresh(object sender, EventArgs e)
@@ -57,10 +55,10 @@ namespace AgentVI.Views
             RaiseContentViewUpdateEvent?.Invoke(this, null);
             UpdatedContentEventArgs updatedContentEventArgs = null;
             EventDetailsPage eventDetailsPageBuf = null;
-            EventModel selectedEvent = e.Item as EventModel;
 
             await Task.Factory.StartNew(() =>
             {
+                EventModel selectedEvent = e.Item as EventModel;
                 eventDetailsPageBuf = new EventDetailsPage(selectedEvent);
                 eventDetailsPageBuf.RaiseContentViewUpdateEvent += eventsRouter;
                 updatedContentEventArgs = new UpdatedContentEventArgs(

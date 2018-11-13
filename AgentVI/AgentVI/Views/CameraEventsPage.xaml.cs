@@ -38,9 +38,9 @@ namespace AgentVI.Views
             cameraEventsListView.BindingContext = SensorEventsListVM;
         }
 
-        public void PopulateView()
+        public async void PopulateView()
         {
-            SensorEventsListVM?.PopulateCollection();
+            await Task.Factory.StartNew(() => SensorEventsListVM?.PopulateCollection());
         }
 
         private async void OnRefresh(object sender, EventArgs e)

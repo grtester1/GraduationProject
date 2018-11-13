@@ -175,7 +175,7 @@ namespace AgentVI.ViewModels
         {
             currentPageInContentView = i_UpdatedContent;
             currentPageVMInContentView = i_UpdatedVM;
-            RaiseContentViewUpdateEvent?.Invoke(null, new UpdatedContentEventArgs(EContentUpdateType.Push, i_UpdatedContent, i_UpdatedVM));
+            OnContentViewUpdateEvent(null, new UpdatedContentEventArgs(EContentUpdateType.Push, i_UpdatedContent, i_UpdatedVM));
 
             if(i_AppTab != EAppTab.None)
             {

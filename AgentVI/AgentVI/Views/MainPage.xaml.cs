@@ -36,14 +36,15 @@ namespace AgentVI.Views
         {
             mainPageVM = new MainPageViewModel(i_ProgressReporter, tabsCollection);
             mainPageVM.RaiseContentViewUpdateEvent += OnMainNavigationPushPopRequest;
-            FooterBarEvents_Clicked(null, null);
+            //FooterBarEvents_Clicked(null, null);
             BindingContext = mainPageVM;
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
-            mainPageVM.FiltrationPath = null;
             base.OnAppearing();
+            mainPageVM.FiltrationPath = null;
+            await FooterBarEvents_Clicked(null, null);
         }
 
         private void OnMainNavigationPushPopRequest(object sender, UpdatedContentEventArgs e)
@@ -85,9 +86,9 @@ namespace AgentVI.Views
             }
         }
 
-        private void FooterBarEvents_Clicked(object i_Sender, EventArgs i_EventArgs)
+        private async Task FooterBarEvents_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
-            Task.Factory.StartNew(() =>
+            await Task.Factory.StartNew(() =>
             mainPageVM.updateContentView(
                 EAppTab.EventsPage,
                 mainPageVM.PagesCollection[EAppTab.EventsPage].Item1.ContentPage,
@@ -96,9 +97,9 @@ namespace AgentVI.Views
             );
         }
 
-        private void FooterBarCameras_Clicked(object i_Sender, EventArgs i_EventArgs)
+        private async void FooterBarCameras_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
-            Task.Factory.StartNew(() => 
+            await Task.Factory.StartNew(() => 
             mainPageVM.updateContentView(
                 EAppTab.SensorsPage,
                 mainPageVM.PagesCollection[EAppTab.SensorsPage].Item1.ContentPage,
@@ -107,9 +108,9 @@ namespace AgentVI.Views
                 );
         }
 
-        private void FooterBarHealth_Clicked(object i_Sender, EventArgs i_EventArgs)
+        private async void FooterBarHealth_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
-            Task.Factory.StartNew(() =>
+            await Task.Factory.StartNew(() =>
             mainPageVM.updateContentView
             (
                 EAppTab.HealthPage,
@@ -119,9 +120,9 @@ namespace AgentVI.Views
                 );
         }
 
-        private void FooterBarSettings_Clicked(object i_Sender, EventArgs i_EventArgs)
+        private async void FooterBarSettings_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
-            Task.Factory.StartNew(() =>
+            await Task.Factory.StartNew(() =>
             mainPageVM.updateContentView
             (
                 EAppTab.SettingsPage,
