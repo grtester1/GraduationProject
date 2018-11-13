@@ -44,7 +44,7 @@ namespace AgentVI.Views
         {
             base.OnAppearing();
             mainPageVM.FiltrationPath = null;
-            await FooterBarEvents_Clicked(null, null);
+            await Task.Factory.StartNew(() => FooterBarEvents_Clicked(null, null));
         }
 
         private void OnMainNavigationPushPopRequest(object sender, UpdatedContentEventArgs e)
@@ -86,7 +86,7 @@ namespace AgentVI.Views
             }
         }
 
-        private async Task FooterBarEvents_Clicked(object i_Sender, EventArgs i_EventArgs)
+        private async void FooterBarEvents_Clicked(object i_Sender, EventArgs i_EventArgs)
         {
             await Task.Factory.StartNew(() =>
             mainPageVM.updateContentView(
