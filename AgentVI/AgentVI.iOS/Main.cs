@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 using Foundation;
 using UIKit;
@@ -14,6 +15,7 @@ namespace AgentVI.iOS
         {
             // if you want to use a different Application Delegate class from "AppDelegate"
             // you can specify it here.
+            ServicePointManager.ServerCertificateValidationCallback += (sender, certification, chain, sslPolicyErrors) => true;
             UIApplication.Main(args, null, "AppDelegate");
         }
     }

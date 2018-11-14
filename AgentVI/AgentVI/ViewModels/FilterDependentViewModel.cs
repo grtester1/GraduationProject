@@ -14,7 +14,7 @@ namespace AgentVI.ViewModels
     public abstract class FilterDependentViewModel<T> : IBindableVM
     {
         protected IEnumerable<T> enumerableCollection;
-        private const int pageSize = 10;
+        private const int pageSize = 4;
         private IEnumerator<T> collectionEnumerator;
         protected bool canLoadMore = false;
         protected bool IsFilterStateChanged { get; set; }
@@ -107,6 +107,7 @@ namespace AgentVI.ViewModels
         {
             bool hasNext = true;
             int fetchedItems = 0;
+            object refObj = new object();
 
             IsBusy = true;
             if (collectionEnumerator == null || IsFilterStateChanged)
@@ -117,15 +118,19 @@ namespace AgentVI.ViewModels
 
             try
             {
+                Console.WriteLine("####Logger####   -   in FetchCollection() @before MoveNext" + ">>> " + typeof(T).Name + "| " + refObj);
                 var task = Task.Run(() => collectionEnumerator.MoveNext());
                 if (task.Wait(TimeSpan.FromMilliseconds(5000)))
                     hasNext = task.Result;
                 else
                     hasNext = false;
+                Console.WriteLine("####Logger####   -   in FetchCollection() @after MoveNext" + ">>> " + typeof(T).Name + "| " + refObj);
 
                 while (hasNext && canLoadMore)
                 {
+                    Console.WriteLine("####Logger####   -   in FetchCollection() getting collectionEnumerator.Current @before" + ">>> " + typeof(T).Name + "| " + refObj);
                     ObservableCollection.Add(collectionEnumerator.Current);
+                    Console.WriteLine("####Logger####   -   in FetchCollection() getting collectionEnumerator.Current @after" + ">>> " + typeof(T).Name + "| " + refObj);
                     if (IsEmptyFolder)
                         IsEmptyFolder = !IsEmptyFolder;
                     if (fetchedItems++ == pageSize)
@@ -138,11 +143,13 @@ namespace AgentVI.ViewModels
             catch (ArgumentOutOfRangeException)
             {
                 hasNext = false;
+                collectionEnumerator.Reset();
             }
 
             if (hasNext == false)
             {
                 canLoadMore = false;
+                collectionEnumerator.Reset();
             }
 
             updateFolderState();

@@ -130,10 +130,12 @@ namespace AgentVI.Services
             {
                 if (IsAtRootLevel)
                 {
+                    Console.WriteLine("####Logger####   -   FilteredEvents by DefaultAccountEvents");
                     FilteredEvents = ServiceManager.Instance.LoginService.LoggedInUser.GetDefaultAccountEvents().Clone();
                 }
                 else
                 {
+                    Console.WriteLine("####Logger####   -   FilteredEvents by FolderEvents");
                     FilteredEvents = CurrentPath[CurrentPath.Count - 1].FolderEvents.Clone();
                 }
             }
